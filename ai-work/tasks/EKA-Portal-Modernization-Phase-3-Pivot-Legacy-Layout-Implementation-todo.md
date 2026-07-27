@@ -37,6 +37,6 @@
 - [x] **Checkpoint 4**: Verification of standard and archival pages.
 
 ## Phase 5: Phase 5 Scaffolding
-- [ ] **Task 5.1**: Scaffold Tachydrómos and Board of Directors templates.
+- [x] **Task 5.1**: Scaffold Tachydrómos and Board of Directors templates.
   - *Acceptance Criteria*: Blank or basic templates assigned and ready for Phase 5 custom work.
-- [ ] **Checkpoint 5**: Final review of all implemented templates.
+- [x] **Checkpoint 5**: Final review of all implemented templates.
