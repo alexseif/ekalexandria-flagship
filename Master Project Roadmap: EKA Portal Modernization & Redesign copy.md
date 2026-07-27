@@ -26,17 +26,17 @@ This document outlines the step-by-step master plan to modernize the digital inf
 *   [x] **Task 2.3: Core Feature Extraction Mapping**
     *   Document the unique, essential behaviors of the plugins marked for removal (e.g., custom data fields or multilingual logic) to prepare for clean reimplementation.
 
-## Phase 3: Legacy Layout Extraction & Replication (Pivot)
-*Objective: As design approvals for modernization have been pending since June 28, we are proceeding with a strict 1:1 visual replication of the existing website's layout. This unblocks the critical technical upgrades while maintaining the familiar aesthetic.*
+## Phase 3: Visual Design Modernization & Approvals
+*Objective: Create and finalize the complete look and feel of the new portal before writing a single line of interface code.*
 
-*   [ ] **Task 3.1: Style Extraction & Variable Mapping**
-    *   Extract typography, colors, and layout widths from the live ekalexandria.org site to establish the foundation for `theme.json` and block settings.
-*   [ ] **Task 3.2: Legacy Structural Replication**
-    *   Map existing Homepage, Internal Pages, and News/Category layouts to native block patterns without altering the original visual aesthetic.
-*   [ ] **Task 3.3: Specialty Page Development**
-    *   Implement structural layouts for the Tachydrómos Newsletter archive and Board of Directors pages within the legacy visual constraints.
-*   [ ] **Task 3.4: Third-Party Plugin Mitigation**
-    *   Replace legacy embedded elements (like LayerSlider) with modern, lightweight equivalents (e.g., Carousel Block) that visually match the original design.
+*   [ ] **Task 3.1: Structural Layout Wireframing**
+    *   Draft clean structural options for the homepage, the core News section, and the specialized Tachydrómos Newsletter archive layouts.
+*   [ ] **Task 3.2: High-Fidelity Design Mockups**
+    *   Generate polished, modern visual designs across desktop and mobile screens, integrating enhanced media delivery guidelines (images/videos).
+*   [ ] **Task 3.3: Multilingual Layout Adapters**
+    *   Design the user experience pathways to fluidly handle shifting interfaces across Greek, English, and Arabic text rules.
+*   [ ] **Task 3.4: Client Visual Sign-off**
+    *   Present design deliverables to the EKA administration for structural approval.
 
 ## Phase 4: Greenfield Theme Development (The Flagship Block Core)
 *Objective: Build a custom, high-purity, modern WordPress theme from absolute scratch using strict engineering standards.*
