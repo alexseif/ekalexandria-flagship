@@ -35,15 +35,7 @@
         }
     }
 
-    &.is-scrolled {
-        background-color: var(--wp--preset--color--background);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 
-        .flagship-header-nav {
-            padding-top: var(--wp--preset--spacing--small);
-            padding-bottom: var(--wp--preset--spacing--small);
-        }
-    }
 }
 
 // Adjust first section to account for fixed header overlay
@@ -172,9 +164,9 @@ body {
 // Footer Navigation Grid & Spacing
 .wp-block-footer .wp-block-navigation .wp-block-navigation__container,
 footer .wp-block-navigation .wp-block-navigation__container {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, auto)) !important;
-    gap: 0.5rem 1.5rem !important; /* Closes the vertical and horizontal gap slightly */
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem !important;
 }
 
 // Footer Typography & Opaque States
