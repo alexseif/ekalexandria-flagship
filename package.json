@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Ekalexandria flagship theme",
   "scripts": {
-    "build:css": "sass assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --no-source-map",
-    "watch:css": "sass --watch assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --no-source-map"
+    "build:css:dev": "sass assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --source-map",
+    "build:css:prod": "sass assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --style=compressed --no-source-map",
+    "watch:css": "sass --watch assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --source-map"
   },
   "devDependencies": {
     "sass": "^1.69.0"

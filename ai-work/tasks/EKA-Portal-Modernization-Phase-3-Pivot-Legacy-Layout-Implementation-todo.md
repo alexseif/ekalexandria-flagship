@@ -5,7 +5,7 @@
 - [x] Initialize commit checkpoints for the tasks.
 
 ## Phase 1: Foundation (SCSS & FSE Core)
-- [ ] **Task 1.1**: Set up SCSS architecture and build process (e.g., node-sass or Vite).
+- [x] **Task 1.1**: Set up SCSS architecture and build process (e.g., node-sass or Vite).
   - *Acceptance Criteria*: SCSS files compile successfully to the theme's CSS directory.
 - [x] **Task 1.2**: Extract legacy styles (colors, typography, spacing).
   - *Acceptance Criteria*: Documentation or SCSS variables file containing all legacy styling tokens.
