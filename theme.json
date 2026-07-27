@@ -6,6 +6,11 @@
       "name": "page-board",
       "postTypes": ["page"],
       "title": "Board of Directors"
+    },
+    {
+      "name": "page-contact",
+      "postTypes": ["page"],
+      "title": "Contact Page"
     }
   ],
   "settings": {

@@ -28,13 +28,13 @@
 - [x] **Checkpoint 3**: Visual and functional verification of the Homepage.
 
 ## Phase 4: Standard & Archival Pages
-- [ ] **Task 4.1**: Build standard internal page template (Sidebar layout).
+- [x] **Task 4.1**: Build standard internal page template (Sidebar layout).
   - *Acceptance Criteria*: Internal pages display correctly with the sidebar as per legacy design.
-- [ ] **Task 4.2**: Build News and Categories archival templates.
+- [x] **Task 4.2**: Build News and Categories archival templates.
   - *Acceptance Criteria*: Archives display posts correctly with the legacy category sidebar layout.
-- [ ] **Task 4.3**: Implement Contact Page.
+- [x] **Task 4.3**: Implement Contact Page.
   - *Acceptance Criteria*: Contact form and layout are cleanly integrated without legacy builder shortcodes.
-- [ ] **Checkpoint 4**: Verification of standard and archival pages.
+- [x] **Checkpoint 4**: Verification of standard and archival pages.
 
 ## Phase 5: Phase 5 Scaffolding
 - [ ] **Task 5.1**: Scaffold Tachydrómos and Board of Directors templates.
