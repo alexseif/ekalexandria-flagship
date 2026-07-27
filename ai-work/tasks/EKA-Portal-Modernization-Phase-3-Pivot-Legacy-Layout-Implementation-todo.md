@@ -1,8 +1,8 @@
 # Todo: EKA Portal Modernization - Phase 3 Pivot - Legacy Layout Implementation
 
 ## Phase 0: Setup Git Workflow
-- [ ] Create branch `feature/eka-portal-legacy-layout`
-- [ ] Initialize commit checkpoints for the tasks.
+- [x] Create branch `feature/eka-portal-legacy-layout`
+- [x] Initialize commit checkpoints for the tasks.
 
 ## Phase 1: Foundation (SCSS & FSE Core)
 - [ ] **Task 1.1**: Set up SCSS architecture and build process (e.g., node-sass or Vite).
