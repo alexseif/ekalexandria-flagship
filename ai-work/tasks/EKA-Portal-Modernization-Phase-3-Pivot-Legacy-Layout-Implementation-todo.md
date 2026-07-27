@@ -21,11 +21,11 @@
 - [x] **Checkpoint 2**: Verification of Header and Footer integration across site.
 
 ## Phase 3: Homepage Replication
-- [ ] **Task 3.1**: Replicate homepage layout (blocks, columns, spacing).
+- [x] **Task 3.1**: Replicate homepage layout (blocks, columns, spacing).
   - *Acceptance Criteria*: Homepage structure is a 1:1 match with legacy site.
-- [ ] **Task 3.2**: Implement Carousel Block replacement.
+- [x] **Task 3.2**: Implement Carousel Block replacement.
   - *Acceptance Criteria*: Slideshow functionality works natively or via approved lightweight block plugin, matching legacy visual intent.
-- [ ] **Checkpoint 3**: Visual and functional verification of the Homepage.
+- [x] **Checkpoint 3**: Visual and functional verification of the Homepage.
 
 ## Phase 4: Standard & Archival Pages
 - [ ] **Task 4.1**: Build standard internal page template (Sidebar layout).
