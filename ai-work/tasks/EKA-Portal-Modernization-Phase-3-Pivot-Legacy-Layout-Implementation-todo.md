@@ -9,9 +9,9 @@
   - *Acceptance Criteria*: SCSS files compile successfully to the theme's CSS directory.
 - [x] **Task 1.2**: Extract legacy styles (colors, typography, spacing).
   - *Acceptance Criteria*: Documentation or SCSS variables file containing all legacy styling tokens.
-- [ ] **Task 1.3**: Configure `theme.json` and base SCSS.
+- [x] **Task 1.3**: Configure `theme.json` and base SCSS.
   - *Acceptance Criteria*: `theme.json` correctly applies legacy colors, fonts, and spacing to core blocks without excessive CSS overrides.
-- [ ] **Checkpoint 1**: Verification of global styles in the Site Editor.
+- [x] **Checkpoint 1**: Verification of global styles in the Site Editor.
 
 ## Phase 2: Global Structure
 - [ ] **Task 2.1**: Implement Header block pattern/template part.
