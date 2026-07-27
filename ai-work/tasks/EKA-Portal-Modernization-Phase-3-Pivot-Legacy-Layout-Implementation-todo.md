@@ -16,9 +16,9 @@
 ## Phase 2: Global Structure
 - [x] **Task 2.1**: Implement Header block pattern/template part.
   - *Acceptance Criteria*: Header perfectly matches legacy site (desktop & mobile).
-- [ ] **Task 2.2**: Implement Footer block pattern/template part.
+- [x] **Task 2.2**: Implement Footer block pattern/template part.
   - *Acceptance Criteria*: Footer perfectly matches legacy site layout.
-- [ ] **Checkpoint 2**: Verification of Header and Footer integration across site.
+- [x] **Checkpoint 2**: Verification of Header and Footer integration across site.
 
 ## Phase 3: Homepage Replication
 - [ ] **Task 3.1**: Replicate homepage layout (blocks, columns, spacing).
