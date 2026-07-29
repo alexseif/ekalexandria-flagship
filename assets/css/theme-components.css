@@ -1,11 +1,4 @@
 .flagship-site-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: background-color 0.3s ease, padding 0.3s ease;
-    background-color: transparent;
 }
 .flagship-site-header .flagship-header-nav {
     padding-top: var(--wp--preset--spacing--medium);
@@ -21,9 +14,7 @@
     padding-bottom: var(--wp--preset--spacing--small);
 }
 main > .wp-block-group:first-child,
-.flagship-site-header + .wp-block-group {
-    padding-top: calc(var(--wp--preset--spacing--xx-large) + 80px) !important;
-}
+
 .map-container {
     position: relative;
     width: 100%;
