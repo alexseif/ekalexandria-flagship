@@ -7,10 +7,10 @@
     - [x] Modify `header*.html` templates.
     - [x] Verify scrolling behavior.
     - [x] Commit: `fix(theme): remove sticky positioning from header`
-  - [ ] Task 2: Fix Footer Navigation (Single horizontal line)
-    - [ ] Modify `footer*.html` templates or `style.scss`.
-    - [ ] Verify desktop (one line) and mobile (responsive wrap/scroll).
-    - [ ] Commit: `fix(footer): force footer navigation menu to single horizontal line`
+  - [x] Task 2: Fix Footer Navigation (Single horizontal line)
+    - [x] Modify `footer*.html` templates or `style.scss`.
+    - [x] Verify desktop (one line) and mobile (responsive wrap/scroll).
+    - [x] Commit: `fix(footer): force footer navigation menu to single horizontal line`
 
 - [ ] **Checkpoint 1: Global layouts matched**
 
@@ -22,14 +22,14 @@
     - [ ] Edit `front-page.html` to add the Carousel Block (content-width, 5 posts).
     - [ ] Verify slider visuals and constraints on frontend.
     - [ ] Commit: `feat(home): install carousel block and configure 5-post query`
-  - [ ] Task 5: Add Community Introduction
-    - [ ] Add `core/post-content` block in `front-page.html`.
-    - [ ] Verify editable text appears on frontend.
-    - [ ] Commit: `feat(home): integrate editable post-content for intro paragraph`
-  - [ ] Task 6: Build Featured Pages Grid
-    - [ ] Add 4-column responsive grid to `front-page.html`.
-    - [ ] Map boxes to specific pages (Title, Image, Excerpt).
-    - [ ] Verify mobile stacking and desktop 4-column layout.
-    - [ ] Commit: `feat(home): build 4-column grid for featured internal pages`
+  - [x] Task 5: Add Community Introduction
+    - [x] Add `core/post-content` block in `front-page.html`.
+    - [x] Verify editable text appears on frontend.
+    - [x] Commit: `feat(home): integrate editable post-content for intro paragraph`
+  - [x] Task 6: Build Featured Pages Grid
+    - [x] Add 4-column responsive grid to `front-page.html`.
+    - [x] Map boxes to specific pages (Title, Image, Excerpt).
+    - [x] Verify mobile stacking and desktop 4-column layout.
+    - [x] Commit: `feat(home): build 4-column grid for featured internal pages`
 
 - [ ] **Checkpoint 2: Homepage structure complete**
