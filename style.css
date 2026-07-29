@@ -46,16 +46,6 @@
   border: 0;
 }
 
-.flagship-footer-nav {
-  column-count: 2;
-  column-gap: var(--wp--preset--spacing--medium);
-}
-@media (max-width: 600px) {
-  .flagship-footer-nav {
-    column-count: 2;
-  }
-}
-
 .wp-block-group[tagName=footer] a,
 .flagship-attribution a {
   opacity: 0.65;

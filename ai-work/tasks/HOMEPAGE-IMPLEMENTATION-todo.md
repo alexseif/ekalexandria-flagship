@@ -3,10 +3,10 @@
 ## Issue: IMPLEMENTATION
 
 - [ ] **Phase 1: Global Layout Alignment**
-  - [ ] Task 1: Fix Header Behavior (Remove sticky)
-    - [ ] Modify `header*.html` templates.
-    - [ ] Verify scrolling behavior.
-    - [ ] Commit: `fix(theme): remove sticky positioning from header`
+  - [x] Task 1: Fix Header Behavior (Remove sticky)
+    - [x] Modify `header*.html` templates.
+    - [x] Verify scrolling behavior.
+    - [x] Commit: `fix(theme): remove sticky positioning from header`
   - [ ] Task 2: Fix Footer Navigation (Single horizontal line)
     - [ ] Modify `footer*.html` templates or `style.scss`.
     - [ ] Verify desktop (one line) and mobile (responsive wrap/scroll).

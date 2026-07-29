@@ -31,15 +31,7 @@ main > .wp-block-group:first-child,
     height: 100%;
     border: 0;
 }
-.flagship-footer-nav {
-    column-count: 2;
-    column-gap: var(--wp--preset--spacing--medium);
-}
-@media (max-width: 600px) {
-    .flagship-footer-nav {
-        column-count: 2;
-    }
-}
+
 .wp-block-group[tagName="footer"] a,
 .flagship-attribution a {
     opacity: 0.65;
@@ -132,9 +124,9 @@ body {
 /* Footer Navigation Grid & Spacing */
 .wp-block-footer .wp-block-navigation .wp-block-navigation__container,
 footer .wp-block-navigation .wp-block-navigation__container {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, auto)) !important;
-    gap: 0.5rem 1.5rem !important; /* Closes the vertical and horizontal gap slightly */
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem !important;
 }
 
 /* Footer Typography & Opaque States */

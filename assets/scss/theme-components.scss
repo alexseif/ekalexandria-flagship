@@ -50,15 +50,6 @@
     }
 }
 
-// Footer Typography and Layout
-.flagship-footer-nav {
-    column-count: 2;
-    column-gap: var(--wp--preset--spacing--medium);
-    
-    @media (max-width: 600px) {
-        column-count: 2; // Keeps 2 columns on mobile too
-    }
-}
 
 .wp-block-group[tagName="footer"] a,
 .flagship-attribution a {
