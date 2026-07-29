@@ -4,24 +4,88 @@
   "customTemplates": [
     {
       "name": "page-board",
-      "postTypes": ["page"],
+      "postTypes": [
+        "page"
+      ],
       "title": "Board of Directors"
     },
     {
       "name": "page-contact",
-      "postTypes": ["page"],
+      "postTypes": [
+        "page"
+      ],
       "title": "Contact Page"
     },
-    { "name": "front-page-el", "postTypes": ["page"], "title": "Front Page (Greek)" },
-    { "name": "page-establishment-el", "postTypes": ["page"], "title": "Establishment (Greek)" },
-    { "name": "page-establishment-en", "postTypes": ["page"], "title": "Establishment (English)" },
-    { "name": "page-establishment-ar", "postTypes": ["page"], "title": "Establishment (Arabic)" },
-    { "name": "page-activities-el", "postTypes": ["page"], "title": "Activities (Greek)" },
-    { "name": "page-activities-en", "postTypes": ["page"], "title": "Activities (English)" },
-    { "name": "page-activities-ar", "postTypes": ["page"], "title": "Activities (Arabic)" },
-    { "name": "page-services-el", "postTypes": ["page"], "title": "Services (Greek)" },
-    { "name": "page-services-en", "postTypes": ["page"], "title": "Services (English)" },
-    { "name": "page-services-ar", "postTypes": ["page"], "title": "Services (Arabic)" }
+    {
+      "name": "front-page-el",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Front Page (Greek)"
+    },
+    {
+      "name": "page-establishment-el",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Establishment (Greek)"
+    },
+    {
+      "name": "page-establishment-en",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Establishment (English)"
+    },
+    {
+      "name": "page-establishment-ar",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Establishment (Arabic)"
+    },
+    {
+      "name": "page-activities-el",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Activities (Greek)"
+    },
+    {
+      "name": "page-activities-en",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Activities (English)"
+    },
+    {
+      "name": "page-activities-ar",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Activities (Arabic)"
+    },
+    {
+      "name": "page-services-el",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Services (Greek)"
+    },
+    {
+      "name": "page-services-en",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Services (English)"
+    },
+    {
+      "name": "page-services-ar",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Services (Arabic)"
+    }
   ],
   "settings": {
     "appearanceTools": true,
@@ -31,13 +95,41 @@
     },
     "color": {
       "palette": [
-        { "slug": "primary", "color": "#293e7a", "name": "Primary (Deep Blue)" },
-        { "slug": "secondary", "color": "#2275ac", "name": "Secondary (Hover Blue)" },
-        { "slug": "foreground", "color": "#626262", "name": "Global Text" },
-        { "slug": "headings", "color": "#444444", "name": "Headings" },
-        { "slug": "background", "color": "#FFFFFF", "name": "Background" },
-        { "slug": "surface", "color": "#fafafa", "name": "Surface" },
-        { "slug": "contrast", "color": "#000000", "name": "Contrast" }
+        {
+          "slug": "primary",
+          "color": "#293e7a",
+          "name": "Primary (Deep Blue)"
+        },
+        {
+          "slug": "secondary",
+          "color": "#2275ac",
+          "name": "Secondary (Hover Blue)"
+        },
+        {
+          "slug": "foreground",
+          "color": "#626262",
+          "name": "Global Text"
+        },
+        {
+          "slug": "headings",
+          "color": "#444444",
+          "name": "Headings"
+        },
+        {
+          "slug": "background",
+          "color": "#FFFFFF",
+          "name": "Background"
+        },
+        {
+          "slug": "surface",
+          "color": "#fafafa",
+          "name": "Surface"
+        },
+        {
+          "slug": "contrast",
+          "color": "#000000",
+          "name": "Contrast"
+        }
       ]
     },
     "typography": {
@@ -50,14 +142,46 @@
         }
       ],
       "fontSizes": [
-        { "slug": "base", "size": "1rem", "name": "Content Base" },
-        { "slug": "menu", "size": "14px", "name": "Menu" },
-        { "slug": "h1", "size": "25px", "name": "Heading 1" },
-        { "slug": "h2", "size": "30px", "name": "Heading 2" },
-        { "slug": "h3", "size": "25px", "name": "Heading 3" },
-        { "slug": "h4", "size": "21px", "name": "Heading 4" },
-        { "slug": "h5", "size": "15px", "name": "Heading 5" },
-        { "slug": "h6", "size": "13px", "name": "Heading 6" }
+        {
+          "slug": "base",
+          "size": "1rem",
+          "name": "Content Base"
+        },
+        {
+          "slug": "menu",
+          "size": "14px",
+          "name": "Menu"
+        },
+        {
+          "slug": "h1",
+          "size": "25px",
+          "name": "Heading 1"
+        },
+        {
+          "slug": "h2",
+          "size": "30px",
+          "name": "Heading 2"
+        },
+        {
+          "slug": "h3",
+          "size": "25px",
+          "name": "Heading 3"
+        },
+        {
+          "slug": "h4",
+          "size": "21px",
+          "name": "Heading 4"
+        },
+        {
+          "slug": "h5",
+          "size": "15px",
+          "name": "Heading 5"
+        },
+        {
+          "slug": "h6",
+          "size": "13px",
+          "name": "Heading 6"
+        }
       ]
     },
     "spacing": {
@@ -65,10 +189,26 @@
         "steps": 0
       },
       "spacingSizes": [
-        { "size": "10px", "slug": "small", "name": "Small" },
-        { "size": "20px", "slug": "medium", "name": "Medium" },
-        { "size": "30px", "slug": "large", "name": "Large" },
-        { "size": "40px", "slug": "x-large", "name": "Extra Large" }
+        {
+          "size": "10px",
+          "slug": "small",
+          "name": "Small"
+        },
+        {
+          "size": "20px",
+          "slug": "medium",
+          "name": "Medium"
+        },
+        {
+          "size": "30px",
+          "slug": "large",
+          "name": "Large"
+        },
+        {
+          "size": "40px",
+          "slug": "x-large",
+          "name": "Extra Large"
+        }
       ]
     }
   },
@@ -84,33 +224,67 @@
     },
     "elements": {
       "h1": {
-        "color": { "text": "var(--wp--preset--color--headings)" },
-        "typography": { "fontSize": "var(--wp--preset--font-size--h1)", "fontWeight": "normal" }
+        "color": {
+          "text": "var(--wp--preset--color--headings)"
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h1)",
+          "fontWeight": "normal"
+        }
       },
       "h2": {
-        "color": { "text": "var(--wp--preset--color--headings)" },
-        "typography": { "fontSize": "var(--wp--preset--font-size--h2)", "fontWeight": "normal" }
+        "color": {
+          "text": "var(--wp--preset--color--headings)"
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h2)",
+          "fontWeight": "normal"
+        }
       },
       "h3": {
-        "color": { "text": "var(--wp--preset--color--headings)" },
-        "typography": { "fontSize": "var(--wp--preset--font-size--h3)", "fontWeight": "normal" }
+        "color": {
+          "text": "var(--wp--preset--color--headings)"
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h3)",
+          "fontWeight": "normal"
+        }
       },
       "h4": {
-        "color": { "text": "var(--wp--preset--color--headings)" },
-        "typography": { "fontSize": "var(--wp--preset--font-size--h4)", "fontWeight": "normal" }
+        "color": {
+          "text": "var(--wp--preset--color--headings)"
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h4)",
+          "fontWeight": "normal"
+        }
       },
       "h5": {
-        "color": { "text": "var(--wp--preset--color--headings)" },
-        "typography": { "fontSize": "var(--wp--preset--font-size--h5)", "fontWeight": "normal" }
+        "color": {
+          "text": "var(--wp--preset--color--headings)"
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h5)",
+          "fontWeight": "normal"
+        }
       },
       "h6": {
-        "color": { "text": "var(--wp--preset--color--headings)" },
-        "typography": { "fontSize": "var(--wp--preset--font-size--h6)", "fontWeight": "normal" }
+        "color": {
+          "text": "var(--wp--preset--color--headings)"
+        },
+        "typography": {
+          "fontSize": "var(--wp--preset--font-size--h6)",
+          "fontWeight": "normal"
+        }
       },
       "link": {
-        "color": { "text": "var(--wp--preset--color--primary)" },
+        "color": {
+          "text": "var(--wp--preset--color--primary)"
+        },
         ":hover": {
-          "color": { "text": "var(--wp--preset--color--secondary)" }
+          "color": {
+            "text": "var(--wp--preset--color--secondary)"
+          }
         }
       },
       "button": {
@@ -125,10 +299,24 @@
     },
     "blocks": {
       "core/cover": {
-        "spacing": { "margin": { "top": "0" }, "padding": { "top": "0" } }
+        "spacing": {
+          "margin": {
+            "top": "0"
+          },
+          "padding": {
+            "top": "0"
+          }
+        }
       },
       "core/group": {
-        "spacing": { "margin": { "top": "0" }, "padding": { "top": "0" } }
+        "spacing": {
+          "margin": {
+            "top": "0"
+          },
+          "padding": {
+            "top": "0"
+          }
+        }
       }
     }
   }

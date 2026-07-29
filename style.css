@@ -11,22 +11,25 @@
   padding-bottom: var(--wp--preset--spacing--medium);
   transition: padding 0.3s ease;
 }
+
 .flagship-site-header .flagship-header-nav .wp-block-navigation-item__content {
-  color: var(--wp--preset--color--primary) !important;
+  color: #626262 !important;
+  background-color: #ffffff;
   font-weight: bold;
-  padding: 5px 15px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 12px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .flagship-site-header .flagship-header-nav .wp-block-navigation-item__content:hover {
-  color: var(--wp--preset--color--secondary) !important;
+  background-color: var(--wp--preset--color--primary) !important;
+  color: #ffffff !important;
 }
-.flagship-site-header .flagship-header-nav .current-menu-item > .wp-block-navigation-item__content {
-  background-color: var(--wp--preset--color--primary);
-  color: var(--wp--preset--color--background) !important;
-}
-.flagship-site-header .flagship-header-nav .current-menu-item > .wp-block-navigation-item__content:hover {
-  background-color: var(--wp--preset--color--secondary);
+
+.flagship-site-header .flagship-header-nav .current-menu-item>.wp-block-navigation-item__content,
+.flagship-site-header .flagship-header-nav .current-menu-item>.wp-block-navigation-item__content:hover {
+  background-color: var(--wp--preset--color--primary) !important;
+  color: #ffffff !important;
 }
 
 .map-container {
@@ -37,6 +40,7 @@
   overflow: hidden;
   border-radius: 8px;
 }
+
 .map-container iframe {
   position: absolute;
   top: 0;
@@ -51,7 +55,9 @@
   opacity: 0.65;
   transition: opacity 0.25s ease;
 }
-.wp-block-group[tagName=footer] a:hover, .wp-block-group[tagName=footer] a:focus,
+
+.wp-block-group[tagName=footer] a:hover,
+.wp-block-group[tagName=footer] a:focus,
 .flagship-attribution a:hover,
 .flagship-attribution a:focus {
   opacity: 1;
@@ -119,7 +125,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-.wp-site-blocks > :first-child,
+.wp-site-blocks> :first-child,
 .wp-block-cover.alignfull:first-of-type {
   margin-block-start: 0 !important;
   margin-top: 0 !important;
@@ -137,20 +143,27 @@ footer .wp-block-navigation .wp-block-navigation__container {
   gap: 0.5rem 1.5rem !important;
 }
 
-.flagship-site-footer p, .flagship-site-footer a, .flagship-site-footer .wp-block-navigation-item__content {
+.flagship-site-footer p,
+.flagship-site-footer a,
+.flagship-site-footer .wp-block-navigation-item__content {
   opacity: 0.7;
   transition: opacity 0.3s ease;
 }
 
-.flagship-site-footer p:hover, .flagship-site-footer a:hover, .flagship-site-footer .wp-block-navigation-item__content:hover {
+.flagship-site-footer p:hover,
+.flagship-site-footer a:hover,
+.flagship-site-footer .wp-block-navigation-item__content:hover {
   opacity: 1;
 }
 
-.flagship-footer-credits p, .flagship-footer-credits a {
+.flagship-footer-credits p,
+.flagship-footer-credits a {
   opacity: 0.4;
   transition: opacity 0.3s ease;
 }
-.flagship-footer-credits p:hover, .flagship-footer-credits a:hover {
+
+.flagship-footer-credits p:hover,
+.flagship-footer-credits a:hover {
   opacity: 0.8;
 }
 
@@ -159,6 +172,7 @@ a:not(.wp-block-button__link) {
   text-decoration: none;
   transition: opacity 0.3s ease;
 }
+
 a:not(.wp-block-button__link):hover {
   opacity: 0.8;
 }
@@ -167,12 +181,20 @@ a:not(.wp-block-button__link):hover {
   background-color: #cccccc;
   color: #a8a8a8;
 }
-.flagship-sliding-top h1, .flagship-sliding-top h2, .flagship-sliding-top h3, .flagship-sliding-top h4, .flagship-sliding-top h5, .flagship-sliding-top h6 {
+
+.flagship-sliding-top h1,
+.flagship-sliding-top h2,
+.flagship-sliding-top h3,
+.flagship-sliding-top h4,
+.flagship-sliding-top h5,
+.flagship-sliding-top h6 {
   color: #ffffff;
 }
+
 .flagship-sliding-top a {
   color: #293e7a;
 }
+
 .flagship-sliding-top a:hover {
   color: var(--wp--preset--color--secondary);
 }
@@ -180,8 +202,15 @@ a:not(.wp-block-button__link):hover {
 .flagship-header-nav .sub-menu a {
   color: #5f5f5f !important;
 }
+
 .flagship-header-nav .sub-menu a:hover {
   color: #2e2e2e !important;
 }
 
-/*# sourceMappingURL=style.css.map */
+.flagship-featured-cards .wp-block-column {
+  padding-bottom: 20px;
+}
+.flagship-card-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}

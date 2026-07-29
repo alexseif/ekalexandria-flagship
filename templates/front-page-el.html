@@ -2,16 +2,16 @@
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:group {"className":"flagship-hero-slider-wrapper","layout":{"type":"constrained"},"style":{"spacing":{"margin":{"bottom":"0"}}}} -->
-	<div class="wp-block-group flagship-hero-slider-wrapper" style="margin-bottom:0">
+	<!-- wp:group {"className":"flagship-hero-slider-wrapper","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group flagship-hero-slider-wrapper">
 		<!-- wp:query {"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"category":[]}},"displayLayout":{"type":"flex","columns":1}} -->
 		<div class="wp-block-query">
 			<!-- wp:post-template {"className":"flagship-hero-slider"} -->
-				<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"0"},"padding":{"top":"0","right":"0","bottom":"0","left":"0"}}},"layout":{"type":"default"}} -->
-				<div class="wp-block-group flagship-slide-inner" style="margin-bottom:0;padding:0;position:relative;">
-					<!-- wp:post-featured-image {"isLink":true,"sizeSlug":"full","style":{"spacing":{"margin":{"bottom":"0"}}}} /-->
-					<!-- wp:group {"style":{"color":{"background":"#000000cc"}},"layout":{"type":"constrained"}} -->
-					<div class="wp-block-group has-background flagship-carousel-caption" style="background-color:#000000cc;position:absolute;bottom:3em;left:0;width:75%;padding:10px 20px;">
+				<!-- wp:group {"className":"flagship-slide-inner","layout":{"type":"default"}} -->
+				<div class="wp-block-group flagship-slide-inner">
+					<!-- wp:post-featured-image {"isLink":true,"sizeSlug":"full"} /-->
+					<!-- wp:group {"className":"flagship-carousel-caption","layout":{"type":"constrained"}} -->
+					<div class="wp-block-group flagship-carousel-caption">
 						<!-- wp:post-title {"isLink":true} /-->
 					</div>
 					<!-- /wp:group -->
@@ -29,6 +29,8 @@
 		<style>
 		.flagship-hero-slider-wrapper {
 			position: relative;
+			border-radius: 0 !important;
+			overflow: hidden;
 		}
 		.flagship-hero-slider-wrapper .wp-block-post-template {
 			display: flex !important;
@@ -47,14 +49,28 @@
 			scroll-snap-align: center;
 			position: relative;
 		}
+		.flagship-hero-slider-wrapper .flagship-slide-inner {
+			margin-bottom: 0 !important;
+			padding: 0 !important;
+			position: relative;
+		}
 		.flagship-hero-slider-wrapper .wp-block-post-featured-image {
 			margin-bottom: 0 !important;
 		}
 		.flagship-hero-slider-wrapper .wp-block-post-featured-image img {
 			width: 100%;
-			height: auto;
+			height: 518px !important;
+			object-fit: cover;
 			display: block;
 			border-radius: 0 !important;
+		}
+		.flagship-carousel-caption {
+			background-color: rgba(0,0,0,0.8);
+			position: absolute;
+			bottom: 3em;
+			right: 0;
+			width: 75%;
+			padding: 10px 20px;
 		}
 		.flagship-carousel-caption .wp-block-post-title {
 			margin: 0;
@@ -67,7 +83,7 @@
 		}
 		.carousel-nav button {
 			position: absolute;
-			top: 50%;
+			top: 259px; /* Exactly middle of 518px */
 			transform: translateY(-50%);
 			background: transparent;
 			color: white;
@@ -151,13 +167,13 @@
 	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:var(--wp--preset--spacing--large)">
 		<!-- wp:columns {"className":"flagship-featured-cards"} -->
 		<div class="wp-block-columns flagship-featured-cards">
-			<!-- wp:column {"style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"20px","left":"0"}}}} -->
-			<div class="wp-block-column" style="padding-top:0;padding-right:0;padding-bottom:20px;padding-left:0">
+			<!-- wp:column -->
+			<div class="wp-block-column">
 				<!-- wp:image -->
 				<figure class="wp-block-image"></figure>
 				<!-- /wp:image -->
-				<!-- wp:group {"style":{"spacing":{"padding":{"right":"15px","left":"15px"}}},"layout":{"type":"constrained"}} -->
-				<div class="wp-block-group" style="padding-right:15px;padding-left:15px">
+				<!-- wp:group {"className":"flagship-card-content","layout":{"type":"constrained"}} -->
+				<div class="wp-block-group flagship-card-content">
 					<!-- wp:heading {"level":3,"textAlign":"center"} -->
 					<h3 class="has-text-align-center">Κοιμητήρια</h3>
 					<!-- /wp:heading -->
@@ -171,13 +187,13 @@
 				<!-- /wp:group -->
 			</div>
 			<!-- /wp:column -->
-			<!-- wp:column {"style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"20px","left":"0"}}}} -->
-			<div class="wp-block-column" style="padding-top:0;padding-right:0;padding-bottom:20px;padding-left:0">
+			<!-- wp:column -->
+			<div class="wp-block-column">
 				<!-- wp:image -->
 				<figure class="wp-block-image"></figure>
 				<!-- /wp:image -->
-				<!-- wp:group {"style":{"spacing":{"padding":{"right":"15px","left":"15px"}}},"layout":{"type":"constrained"}} -->
-				<div class="wp-block-group" style="padding-right:15px;padding-left:15px">
+				<!-- wp:group {"className":"flagship-card-content","layout":{"type":"constrained"}} -->
+				<div class="wp-block-group flagship-card-content">
 					<!-- wp:heading {"level":3,"textAlign":"center"} -->
 					<h3 class="has-text-align-center">ΜΑΝΝΑ</h3>
 					<!-- /wp:heading -->
@@ -191,13 +207,13 @@
 				<!-- /wp:group -->
 			</div>
 			<!-- /wp:column -->
-			<!-- wp:column {"style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"20px","left":"0"}}}} -->
-			<div class="wp-block-column" style="padding-top:0;padding-right:0;padding-bottom:20px;padding-left:0">
+			<!-- wp:column -->
+			<div class="wp-block-column">
 				<!-- wp:image -->
 				<figure class="wp-block-image"></figure>
 				<!-- /wp:image -->
-				<!-- wp:group {"style":{"spacing":{"padding":{"right":"15px","left":"15px"}}},"layout":{"type":"constrained"}} -->
-				<div class="wp-block-group" style="padding-right:15px;padding-left:15px">
+				<!-- wp:group {"className":"flagship-card-content","layout":{"type":"constrained"}} -->
+				<div class="wp-block-group flagship-card-content">
 					<!-- wp:heading {"level":3,"textAlign":"center"} -->
 					<h3 class="has-text-align-center">Ιστορία</h3>
 					<!-- /wp:heading -->
@@ -211,13 +227,13 @@
 				<!-- /wp:group -->
 			</div>
 			<!-- /wp:column -->
-			<!-- wp:column {"style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"20px","left":"0"}}}} -->
-			<div class="wp-block-column" style="padding-top:0;padding-right:0;padding-bottom:20px;padding-left:0">
+			<!-- wp:column -->
+			<div class="wp-block-column">
 				<!-- wp:image -->
 				<figure class="wp-block-image"></figure>
 				<!-- /wp:image -->
-				<!-- wp:group {"style":{"spacing":{"padding":{"right":"15px","left":"15px"}}},"layout":{"type":"constrained"}} -->
-				<div class="wp-block-group" style="padding-right:15px;padding-left:15px">
+				<!-- wp:group {"className":"flagship-card-content","layout":{"type":"constrained"}} -->
+				<div class="wp-block-group flagship-card-content">
 					<!-- wp:heading {"level":3,"textAlign":"center"} -->
 					<h3 class="has-text-align-center">Ι.Ν. Ευαγγελισμού</h3>
 					<!-- /wp:heading -->

@@ -212,7 +212,7 @@ a:not(.wp-block-button__link) {
 // Featured Cards (4 columns)
 .flagship-featured-cards {
     align-items: stretch;
-    .wp-block-column {
+        .wp-block-column {
         display: flex;
         flex-direction: column;
         background: var(--wp--preset--color--surface);
@@ -220,16 +220,19 @@ a:not(.wp-block-button__link) {
         border-radius: 4px;
         overflow: hidden;
         transition: transform 0.3s ease;
+        padding-bottom: 20px;
         &:hover { transform: translateY(-5px); }
         figure {
             margin: 0;
             width: 100%;
             img { width: 100%; height: 200px; object-fit: cover; border-radius: 0; }
         }
-        .wp-block-group {
+        .flagship-card-content {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            padding-left: 15px;
+            padding-right: 15px;
             .wp-block-heading { margin-top: 15px; }
             p:last-of-type { margin-top: auto; padding-top: 15px; font-weight: bold; }
         }
