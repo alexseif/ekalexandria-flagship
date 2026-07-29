@@ -14,14 +14,14 @@
 
 - [x] **Checkpoint 1: Global layouts matched**
 
-- [ ] **Phase 2: Homepage Dynamic Content**
-  - [ ] Task 3: Install Carousel Dependency
-    - [ ] Run `wp plugin install carousel-block --activate`.
-    - [ ] Verify block availability.
-  - [ ] Task 4: Implement Hero Slider
-    - [ ] Edit `front-page.html` to add the Carousel Block (content-width, 5 posts).
-    - [ ] Verify slider visuals and constraints on frontend.
-    - [ ] Commit: `feat(home): install carousel block and configure 5-post query`
+- [x] **Phase 2: Homepage Dynamic Content**
+  - [x] Task 3: Install Carousel Dependency
+    - [x] Run `wp plugin install carousel-block --activate`.
+    - [x] Verify block availability.
+  - [x] Task 4: Implement Hero Slider
+    - [x] Edit `front-page.html` to add the Carousel Block (content-width, 5 posts).
+    - [x] Verify slider visuals and constraints on frontend.
+    - [x] Commit: `feat(home): install carousel block and configure 5-post query`
   - [x] Task 5: Add Community Introduction
     - [x] Add `core/post-content` block in `front-page.html`.
     - [x] Verify editable text appears on frontend.
@@ -32,4 +32,4 @@
     - [x] Verify mobile stacking and desktop 4-column layout.
     - [x] Commit: `feat(home): build 4-column grid for featured internal pages`
 
-- [ ] **Checkpoint 2: Homepage structure complete**
+- [x] **Checkpoint 2: Homepage structure complete**
