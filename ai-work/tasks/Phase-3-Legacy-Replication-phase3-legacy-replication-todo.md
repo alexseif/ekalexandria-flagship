@@ -14,11 +14,11 @@
 - [x] Verify visual parity of the new block homepage against the legacy site.
 
 ## Phase 3.3: Internal Templates & Legacy Menu Routing
-- [ ] Create/update `page.html`, `single.html`, and `archive.html` FSE templates.
-- [ ] Create layout structure with main content area and sidebar area.
-- [ ] Configure sidebar blocks to utilize native Navigation blocks.
-- [ ] Hardcode/assign legacy Menu IDs for Establishment (70, 3377, 3378), Activities (71, 3944, 3945), and Services (117, 3707, 3716) pages based on `legacy_data.md`.
-- [ ] Verify internal pages render with proper spacing and correct sidebars.
+- [x] Create/update `page.html`, `single.html`, and `archive.html` FSE templates.
+- [x] Create layout structure with main content area and sidebar area.
+- [x] Configure sidebar blocks to utilize native Navigation blocks.
+- [x] Hardcode/assign legacy Menu IDs for Establishment (70, 3377, 3378), Activities (71, 3944, 3945), and Services (117, 3707, 3716) pages based on `legacy_data.md`.
+- [x] Verify internal pages render with proper spacing and correct sidebars.
 
 ## Phase 3.4: Specialty Templates (Board & Tachydrómos)
 - [ ] Create `page-board.html` template.

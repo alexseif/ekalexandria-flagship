@@ -11,7 +11,16 @@
       "name": "page-contact",
       "postTypes": ["page"],
       "title": "Contact Page"
-    }
+    },
+    { "name": "page-establishment-el", "postTypes": ["page"], "title": "Establishment (Greek)" },
+    { "name": "page-establishment-en", "postTypes": ["page"], "title": "Establishment (English)" },
+    { "name": "page-establishment-ar", "postTypes": ["page"], "title": "Establishment (Arabic)" },
+    { "name": "page-activities-el", "postTypes": ["page"], "title": "Activities (Greek)" },
+    { "name": "page-activities-en", "postTypes": ["page"], "title": "Activities (English)" },
+    { "name": "page-activities-ar", "postTypes": ["page"], "title": "Activities (Arabic)" },
+    { "name": "page-services-el", "postTypes": ["page"], "title": "Services (Greek)" },
+    { "name": "page-services-en", "postTypes": ["page"], "title": "Services (English)" },
+    { "name": "page-services-ar", "postTypes": ["page"], "title": "Services (Arabic)" }
   ],
   "settings": {
     "appearanceTools": true,
