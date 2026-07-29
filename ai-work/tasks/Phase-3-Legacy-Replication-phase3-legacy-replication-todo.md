@@ -8,10 +8,10 @@
 - [x] Verify global styling applies correctly in the FSE Site Editor.
 
 ## Phase 3.2: Homepage FSE Replication
-- [ ] Scaffold `front-page.html` (or `home.html`) template in the block theme.
-- [ ] Recreate legacy homepage structure using native `core/group`, `core/columns`, etc.
-- [ ] Implement `core/query` block for the "News / Ανακοινώσεις" section (Category: News, limit: 5).
-- [ ] Verify visual parity of the new block homepage against the legacy site.
+- [x] Scaffold `front-page.html` (or `home.html`) template in the block theme.
+- [x] Recreate legacy homepage structure using native `core/group`, `core/columns`, etc.
+- [x] Implement `core/query` block for the "News / Ανακοινώσεις" section (Category: News, limit: 5).
+- [x] Verify visual parity of the new block homepage against the legacy site.
 
 ## Phase 3.3: Internal Templates & Legacy Menu Routing
 - [ ] Create/update `page.html`, `single.html`, and `archive.html` FSE templates.
