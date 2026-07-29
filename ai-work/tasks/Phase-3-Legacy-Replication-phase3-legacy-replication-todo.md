@@ -21,11 +21,11 @@
 - [x] Verify internal pages render with proper spacing and correct sidebars.
 
 ## Phase 3.4: Specialty Templates (Board & Tachydrómos)
-- [ ] Create `page-board.html` template.
-- [ ] Implement query loop in board template querying the `board_member` (or equivalent) CPT, ordered by `menu_order`.
-- [ ] Create `archive-alx_tachydromos.html` matching legacy layout.
-- [ ] Create `single-alx_tachydromos.html` including the featured image (PDF thumbnail) and download link.
-- [ ] Verify specialized layouts map 1:1 to legacy designs.
+- [x] Create `page-board.html` template.
+- [x] Implement query loop in board template querying the `board_member` (or equivalent) CPT, ordered by `menu_order`.
+- [x] Create `archive-alx_tachydromos.html` matching legacy layout.
+- [x] Create `single-alx_tachydromos.html` including the featured image (PDF thumbnail) and download link.
+- [x] Verify specialized layouts map 1:1 to legacy designs.
 
 ## Phase 3.5: Third-Party Plugin Mitigation (Galleries)
 - [ ] Update 'Staff' page with a native `core/gallery` block placeholder.
