@@ -12,6 +12,7 @@
       "postTypes": ["page"],
       "title": "Contact Page"
     },
+    { "name": "front-page-el", "postTypes": ["page"], "title": "Front Page (Greek)" },
     { "name": "page-establishment-el", "postTypes": ["page"], "title": "Establishment (Greek)" },
     { "name": "page-establishment-en", "postTypes": ["page"], "title": "Establishment (English)" },
     { "name": "page-establishment-ar", "postTypes": ["page"], "title": "Establishment (Arabic)" },
