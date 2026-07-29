@@ -2,32 +2,26 @@
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:group {"align":"full","className":"flagship-hero-slider","layout":{"type":"default"}} -->
-	<div class="wp-block-group alignfull flagship-hero-slider">
-		<!-- wp:cover {"url":"/wp-content/themes/ekalexandria-flagship/assets/images/placeholder.jpg","dimRatio":50,"overlayColor":"primary","align":"full","className":"slider-slide is-active","style":{"spacing":{"padding":{"top":"100px","right":"20px","bottom":"100px","left":"20px"}}}} -->
-		<div class="wp-block-cover alignfull slider-slide is-active has-primary-background-color has-background-dim" style="padding-top:100px;padding-right:20px;padding-bottom:100px;padding-left:20px"><span aria-hidden="true" class="wp-block-cover__background has-primary-background-color has-background-dim"></span><div class="wp-block-cover__inner-container">
-			<!-- wp:heading {"textAlign":"center","level":1} -->
-			<h1 class="wp-block-heading has-text-align-center">Ελληνική Κοινότητα Αλεξανδρείας</h1>
-			<!-- /wp:heading -->
-		</div></div>
-		<!-- /wp:cover -->
-		<!-- wp:html -->
-		<style>
-		.flagship-hero-slider { position: relative; overflow: hidden; }
-		.flagship-hero-slider .slider-slide { transition: opacity 1s ease-in-out; }
-		</style>
-		<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			// Basic slider functionality
-			const slider = document.querySelector('.flagship-hero-slider');
-			if (slider) {
-				// (Placeholder for interactive JS, visual impact achieved via CSS/HTML structure)
-			}
-		});
-		</script>
-		<!-- /wp:html -->
+	<!-- wp:cb/carousel-v2 {"slides":5,"slidesPerView":1,"navigation":true,"pagination":true,"autoplay":true,"align":"wide"} -->
+	<div class="wp-block-cb-carousel-v2 alignwide">
+		<!-- wp:query {"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"category":[]}}} -->
+		<div class="wp-block-query">
+			<!-- wp:post-template -->
+				<!-- wp:cb/slide-v2 -->
+				<div class="wp-block-cb-slide-v2">
+					<!-- wp:post-featured-image {"isLink":true} /-->
+					<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|medium","right":"var:preset|spacing|medium","bottom":"var:preset|spacing|medium","left":"var:preset|spacing|medium"}}},"backgroundColor":"primary","layout":{"type":"constrained"}} -->
+					<div class="wp-block-group has-primary-background-color has-background" style="padding-top:var(--wp--preset--spacing--medium);padding-right:var(--wp--preset--spacing--medium);padding-bottom:var(--wp--preset--spacing--medium);padding-left:var(--wp--preset--spacing--medium)">
+						<!-- wp:post-title {"isLink":true,"style":{"elements":{"link":{"color":{"text":"var:preset|color|base"}}}},"textColor":"base"} /-->
+					</div>
+					<!-- /wp:group -->
+				</div>
+				<!-- /wp:cb/slide-v2 -->
+			<!-- /wp:post-template -->
+		</div>
+		<!-- /wp:query -->
 	</div>
-	<!-- /wp:group -->
+	<!-- /wp:cb/carousel-v2 -->
 
 	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
 

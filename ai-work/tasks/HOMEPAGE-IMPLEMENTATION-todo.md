@@ -2,7 +2,7 @@
 ## Topic: HOMEPAGE
 ## Issue: IMPLEMENTATION
 
-- [ ] **Phase 1: Global Layout Alignment**
+- [x] **Phase 1: Global Layout Alignment**
   - [x] Task 1: Fix Header Behavior (Remove sticky)
     - [x] Modify `header*.html` templates.
     - [x] Verify scrolling behavior.
@@ -12,7 +12,7 @@
     - [x] Verify desktop (one line) and mobile (responsive wrap/scroll).
     - [x] Commit: `fix(footer): force footer navigation menu to single horizontal line`
 
-- [ ] **Checkpoint 1: Global layouts matched**
+- [x] **Checkpoint 1: Global layouts matched**
 
 - [ ] **Phase 2: Homepage Dynamic Content**
   - [ ] Task 3: Install Carousel Dependency
