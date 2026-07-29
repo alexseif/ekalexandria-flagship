@@ -28,8 +28,8 @@
 - [x] Verify specialized layouts map 1:1 to legacy designs.
 
 ## Phase 3.5: Third-Party Plugin Mitigation (Galleries)
-- [ ] Update 'Staff' page with a native `core/gallery` block placeholder.
-- [ ] Update 'Community Lounge' page with a `core/gallery` block using Image IDs `10328`.
-- [ ] Update 'Cemeteries' and 'Conservation' pages using respective Image IDs (`10329, 7667...` and `7935, 7936...`).
-- [ ] Update 'Music Museum' and 'Science Museum' pages using respective Image IDs (`7821...` and `7813...`).
-- [ ] Verify gallery blocks render the correct legacy media assets cleanly.
+- [x] Update 'Staff' page with a native `core/gallery` block placeholder.
+- [x] Update 'Community Lounge' page with a `core/gallery` block using Image IDs `10328`.
+- [x] Update 'Cemeteries' and 'Conservation' pages using respective Image IDs (`10329, 7667...` and `7935, 7936...`).
+- [x] Update 'Music Museum' and 'Science Museum' pages using respective Image IDs (`7821...` and `7813...`).
+- [x] Verify gallery blocks render the correct legacy media assets cleanly.
