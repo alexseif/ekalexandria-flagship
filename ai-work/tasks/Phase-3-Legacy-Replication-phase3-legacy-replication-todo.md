@@ -1,11 +1,11 @@
 # Todo: Phase 3 Legacy Layout Extraction & Replication (phase3-legacy-replication)
 
 ## Phase 3.1: Global Foundation & Style Mapping
-- [ ] Inspect live legacy site for typography (font families, sizes, weights), color hex codes, and structural breakpoints.
-- [ ] Update `theme.json` with extracted color palette and typography settings.
-- [ ] Configure FSE layout widths in `theme.json` to match legacy container constraints.
-- [ ] Initialize/update base SCSS files for non-standard UI overrides.
-- [ ] Verify global styling applies correctly in the FSE Site Editor.
+- [x] Inspect live legacy site for typography (font families, sizes, weights), color hex codes, and structural breakpoints.
+- [x] Update `theme.json` with extracted color palette and typography settings.
+- [x] Configure FSE layout widths in `theme.json` to match legacy container constraints.
+- [x] Initialize/update base SCSS files for non-standard UI overrides.
+- [x] Verify global styling applies correctly in the FSE Site Editor.
 
 ## Phase 3.2: Homepage FSE Replication
 - [ ] Scaffold `front-page.html` (or `home.html`) template in the block theme.
