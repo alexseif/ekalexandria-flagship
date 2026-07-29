@@ -43,13 +43,13 @@
       "fluid": false,
       "fontFamilies": [
         {
-          "fontFamily": "Arial, Helvetica, sans-serif",
+          "fontFamily": "Roboto, Arial, Tahoma, sans-serif",
           "slug": "system-sans",
-          "name": "Arial (Legacy Base)"
+          "name": "Roboto (Base)"
         }
       ],
       "fontSizes": [
-        { "slug": "base", "size": "13px", "name": "Content Base" },
+        { "slug": "base", "size": "1rem", "name": "Content Base" },
         { "slug": "menu", "size": "14px", "name": "Menu" },
         { "slug": "h1", "size": "25px", "name": "Heading 1" },
         { "slug": "h2", "size": "30px", "name": "Heading 2" },

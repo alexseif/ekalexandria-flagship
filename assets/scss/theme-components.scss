@@ -8,8 +8,8 @@
         .wp-block-navigation-item__content {
             color: var(--wp--preset--color--primary) !important;
             font-weight: bold;
-            padding: 5px 15px;
-            border-radius: 3px;
+            padding: 8px 20px;
+            border-radius: 50px;
             transition: background-color 0.3s ease, color 0.3s ease;
             
             &:hover {
@@ -27,7 +27,46 @@
         }
     }
 
+    .wp-block-search {
+        display: flex;
+        align-items: center;
+        .wp-block-search__inside-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        .wp-block-search__input {
+            width: 0;
+            padding: 0;
+            opacity: 0;
+            border: none;
+            transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        }
+        &:hover .wp-block-search__input,
+        .wp-block-search__input:focus {
+            width: 200px;
+            padding: 8px 15px;
+            opacity: 1;
+            border: 1px solid #ccc;
+        }
+        .wp-block-search__button {
+            background: transparent;
+            color: var(--wp--preset--color--primary);
+            padding: 5px;
+            &:hover {
+                background: transparent;
+                color: var(--wp--preset--color--secondary);
+            }
+        }
+    }
+}
 
+.flagship-sliding-top {
+    a, p, span, div, .wp-block-navigation-item__content {
+        color: #ffffff !important;
+    }
+    svg {
+        fill: #ffffff !important;
+    }
 }
 
 
@@ -168,4 +207,31 @@ a:not(.wp-block-button__link) {
     text-decoration: none;
     transition: opacity 0.3s ease;
     &:hover { opacity: 0.8; }
+}
+
+// Featured Cards (4 columns)
+.flagship-featured-cards {
+    align-items: stretch;
+    .wp-block-column {
+        display: flex;
+        flex-direction: column;
+        background: var(--wp--preset--color--surface);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        &:hover { transform: translateY(-5px); }
+        figure {
+            margin: 0;
+            width: 100%;
+            img { width: 100%; height: 200px; object-fit: cover; border-radius: 0; }
+        }
+        .wp-block-group {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            .wp-block-heading { margin-top: 15px; }
+            p:last-of-type { margin-top: auto; padding-top: 15px; font-weight: bold; }
+        }
+    }
 }
