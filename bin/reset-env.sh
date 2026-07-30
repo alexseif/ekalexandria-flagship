@@ -32,8 +32,8 @@ echo "Performing DB domain mapping..."
 php7.4 $(which wp) search-replace --skip-plugins 'ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --allow-root
 php7.4 $(which wp) search-replace --skip-plugins 'www.ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --allow-root
 
-echo "Activating flagship theme..."
-php7.4 $(which wp) theme activate --skip-plugins ekalexandria-flagship --allow-root
+# echo "Activating flagship theme..."
+# php7.4 $(which wp) theme activate --skip-plugins ekalexandria-flagship --allow-root
 
 echo "Environment reset complete!"
 exit 0
