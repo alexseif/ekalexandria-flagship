@@ -31,17 +31,17 @@ graph TD
 ## 3. Detailed Phase Breakdown & Verification Protocol
 
 ### Phase 1: Environment & Orchestration Setup
-- **Task 1.1: Update & Execute `bin/reset-env.sh` (Manual Pause Checkpoint)**
+- **Task 1.1: Update & Execute `bin/reset-env.sh` (Mandatory Human Pause Checkpoint)**
   - *Action:* Update `bin/reset-env.sh` to purge failed migration attempt artifacts from the theme directory while strictly preserving `ai-work/` (spec, scopings, `legacy_data.md`) and project roadmaps (`Master Project Roadmap...`). Resolve Mailchimp plugin composer autoload errors by deactivating or bypassing broken vendor files. Execute `bin/reset-env.sh` to restore clean staging state. Verify PHP 7.4 CLI routing (`php7.4 $(which wp)`), ImageMagick, Ghostscript, and ImageMagick policy rights.
-  - *Manual Approval Checkpoint:* **PAUSE & ASK USER.** Present environment reset status to user for explicit manual approval before proceeding.
+  - *Mandatory Human Pause Checkpoint:* **PAUSE & ASK USER.** Present environment reset status to user for explicit manual approval before proceeding.
   - *Verification:* `reset-env.sh` cleans environment while preserving `ai-work/`; WP-CLI runs under PHP 7.4 without errors.
 - **Task 1.2: Verify Development Orchestration (Reuse Existing)**
   - *Action:* Check if orchestration dependencies (`node_modules`, `package.json`, `@wordpress/scripts`, `playwright` with `ignoreHTTPSErrors: true`) are already installed. Skip redundant re-installation if `node_modules` exists; only install missing packages if needed.
   - *Verification:* `node_modules` verified; Playwright HTTPS bypass confirmed.
-- **Task 1.3: Baseline Screenshot Scrape (Manual Pause Checkpoint)**
-  - *Action:* Run Playwright script (`bin/scrape-baselines.js`) to capture baseline screenshots of Greek (`/el/`), English (`/en/`), and Arabic (`/ar/`) live pages into `ai-work/baselines/`.
-  - *Manual Approval Checkpoint:* **PAUSE & ASK USER.** Present baseline screenshot status to user with options: **[Option 1: Proceed to Phase 2]** or **[Option 2: Rerun Screenshot Scrape]**.
-  - *Verification:* Baseline images present in `ai-work/baselines/`; zero 404s on live page URLs.
+- **Task 1.3: Baseline Screenshot Scrape (Mandatory Human Pause Checkpoint)**
+  - *Action:* Run Playwright script (`bin/scrape-baselines.js`) with explicit full-page rendering (`fullPage: true`), network idle / scroll delays for element loading, and exact language URLs: Greek (`/el/`), English (`/en/welcome`), and Arabic (`/ar/%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B`) into `ai-work/baselines/`.
+  - *Mandatory Human Pause Checkpoint:* **PAUSE & ASK USER.** Immediately after screenshot scraping finishes, halt execution and present screenshots status to the user to visually verify baseline completeness with options: **[Option 1: Proceed to Task 1.4 / Phase 2]** or **[Option 2: Rerun Screenshot Scrape]**.
+  - *Verification:* Baseline full-page PNGs (`el_homepage.png`, `en_homepage.png`, `ar_homepage.png`) present in `ai-work/baselines/`; zero 404s; full scroll height captured.
 - **Task 1.4: Scaffolding Custom CLI & Theme Hooks**
   - *Action:* Verify or scaffold `inc/cli-commands.php` and `inc/custom-features.php` in the theme directory.
   - *Verification:* `wp eka` CLI command namespace is registered without PHP errors.
