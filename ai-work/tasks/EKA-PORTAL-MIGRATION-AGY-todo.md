@@ -4,7 +4,7 @@
 
 ## Phase 1: Environment & Orchestration Setup
 - [x] Task 1.1: Update & execute `bin/reset-env.sh` (preserve `ai-work/`, `tasks/`, and project roadmap) <!-- id: 1.1 -->
-- [ ] Task 1.2: Verify development orchestration layer (reuse existing `node_modules`, `@wordpress/scripts`, `playwright` with `ignoreHTTPSErrors: true`) <!-- id: 1.2 -->
+- [x] Task 1.2: Verify development orchestration layer (reuse existing `node_modules`, `@wordpress/scripts`, `playwright` with `ignoreHTTPSErrors: true`) <!-- id: 1.2 -->
 - [ ] Task 1.3: Baseline screenshot scrape across Greek, English, and Arabic live pages into `ai-work/baselines/` <!-- id: 1.3 -->
 - [ ] Task 1.4: Verify or scaffold `inc/cli-commands.php` and `inc/custom-features.php` <!-- id: 1.4 -->
 
