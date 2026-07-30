@@ -9,9 +9,7 @@ if (!fs.existsSync(BASELINES_DIR)) {
 }
 
 const PAGES = [
-  { name: 'el_homepage', url: 'https://ekalexandria.org/el/' },
-  { name: 'en_homepage', url: 'https://ekalexandria.org/en/welcome' },
-  { name: 'ar_homepage', url: 'https://ekalexandria.org/ar/%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B' }
+  { name: 'el_homepage', url: 'https://ekalexandria.org/el/' }
 ];
 
 (async () => {
