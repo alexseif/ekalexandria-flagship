@@ -21,76 +21,119 @@ class EKA_CLI {
             WP_CLI::error('Legacy page not found.');
         }
 
+        // Greek Months Mapping
+        $months = [
+            'Ιανουάριος' => '01', 'Φεβρουάριος' => '02', 'Μάρτιος' => '03',
+            'Απρίλιος' => '04', 'Μάιος' => '05', 'Ιούνιος' => '06',
+            'Ιούλιος' => '07', 'Αύγουστος' => '08', 'Σεπτέμβριος' => '09',
+            'Οκτώβριος' => '10', 'Νοέμβριος' => '11', 'Δεκέμβριος' => '12',
+        ];
+
         preg_match_all('/<a[^>]+href=["\']([^"\']+\.pdf)["\'][^>]*>(.*?)<\/a>/is', $page->post_content, $matches, PREG_SET_ORDER);
         
-        $items = [];
-        foreach ($matches as $match) {
-            $pdf_url = $match[1];
-            $inner = $match[2];
-            $title = trim(strip_tags($inner));
-            
-            if (!isset($items[$pdf_url])) {
-                $items[$pdf_url] = ['title' => '', 'img_url' => ''];
-            }
-            if ($title) {
-                $items[$pdf_url]['title'] = $title;
-            }
-            if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/is', $inner, $img_match)) {
-                $items[$pdf_url]['img_url'] = $img_match[1];
-            }
-        }
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
 
         global $wpdb;
 
-        foreach ($items as $pdf_url => $data) {
-            // Find PDF in local db
-            $pdf_basename = wp_basename($pdf_url);
-            $pdf_attachment = $wpdb->get_row($wpdb->prepare("SELECT ID, post_date FROM {$wpdb->posts} WHERE post_type='attachment' AND guid LIKE %s", '%' . $wpdb->esc_like($pdf_basename)));
-            
-            if (!$pdf_attachment) {
-                WP_CLI::warning("PDF not found in current DB: $pdf_basename");
-                continue;
+        foreach ($matches as $match) {
+            $pdf_url = $match[1];
+            if (strpos($pdf_url, 'http') !== 0) {
+                $pdf_url = 'https://ekalexandria.org' . $pdf_url;
             }
-
-            $pdf_id = $pdf_attachment->ID;
-            $post_date = $pdf_attachment->post_date;
-            $title = $data['title'] ? $data['title'] : wp_basename($pdf_url, '.pdf');
-
-            // Find image attachment if any
-            $thumbnail_id = 0;
-            if ($data['img_url']) {
-                $img_basename = wp_basename($data['img_url']);
-                // Strip dimension suffix e.g. -724x1024
-                $img_clean = preg_replace('/-\d+x\d+(\.[a-zA-Z]+)$/', '$1', $img_basename);
-                $img_attachment = $wpdb->get_row($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type='attachment' AND guid LIKE %s", '%' . $wpdb->esc_like($img_clean)));
-                if ($img_attachment) {
-                    $thumbnail_id = $img_attachment->ID;
-                }
+            
+            $inner = $match[2];
+            $title = trim(strip_tags($inner));
+            if (!$title) {
+                $title = wp_basename($pdf_url, '.pdf');
             }
 
             // Check idempotency
-            $existing = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='pdf_file' AND meta_value=%d", $pdf_id));
+            $pdf_filename = wp_basename($pdf_url);
+            $existing = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_eka_pdf_filename' AND meta_value=%s", $pdf_filename));
             if ($existing) {
-                WP_CLI::line("Skipping existing: $title");
+                WP_CLI::line("Skipping existing: $pdf_filename");
                 continue;
             }
 
-            // Insert post
+            // Map Date
+            $year = date('Y');
+            if (preg_match('/(20\d{2})/', $title, $m)) {
+                $year = $m[1];
+            }
+            $month_num = '01';
+            foreach ($months as $m_name => $m_num) {
+                if (mb_stripos($title, $m_name) !== false) {
+                    $month_num = $m_num;
+                    break;
+                }
+            }
+            $post_date = sprintf('%04d-%02d-01 00:00:00', $year, $month_num);
+
+            WP_CLI::line("Downloading PDF: $pdf_url");
+            $tmp_pdf = download_url($pdf_url);
+            if (is_wp_error($tmp_pdf)) {
+                WP_CLI::warning("Failed to download PDF: $pdf_url");
+                continue;
+            }
+
+            $pdf_file_array = [ 'name' => $pdf_filename, 'tmp_name' => $tmp_pdf ];
+            $pdf_attachment_id = media_handle_sideload($pdf_file_array, 0);
+            if (is_wp_error($pdf_attachment_id)) {
+                WP_CLI::warning("Failed to sideload PDF: " . $pdf_attachment_id->get_error_message());
+                @unlink($tmp_pdf);
+                continue;
+            }
+
+            // Generate thumbnail
+            $pdf_path = get_attached_file($pdf_attachment_id);
+            $thumb_filename = wp_basename($pdf_path, '.pdf') . '-thumb.jpg';
+            $tmp_thumb = '/tmp/' . $thumb_filename;
+
+            exec("convert -density 150 " . escapeshellarg($pdf_path . "[0]") . " -quality 90 " . escapeshellarg($tmp_thumb), $output, $return_var);
+
+            $thumbnail_id = 0;
+            if ($return_var === 0 && file_exists($tmp_thumb)) {
+                $thumb_file_array = [ 'name' => $thumb_filename, 'tmp_name' => $tmp_thumb ];
+                $thumbnail_id = media_handle_sideload($thumb_file_array, 0);
+            } else {
+                WP_CLI::warning("Failed to generate thumbnail for $pdf_filename");
+            }
+
+            // AST Block
+            $pdf_attachment_url = wp_get_attachment_url($pdf_attachment_id);
+            $block_content = sprintf(
+                '<!-- wp:file {"id":%d,"href":"%s","displayPreview":true} -->
+<div class="wp-block-file"><object class="wp-block-file__embed" data="%s" type="application/pdf" style="width:100%%;height:600px" aria-label="Embed of %s"></object><a href="%s">%s</a><a href="%s" class="wp-block-file__button wp-element-button" download aria-label="Λήψη %s">Λήψη</a></div>
+<!-- /wp:file -->',
+                $pdf_attachment_id, esc_url($pdf_attachment_url), esc_url($pdf_attachment_url),
+                esc_attr($title), esc_url($pdf_attachment_url), esc_html($title),
+                esc_url($pdf_attachment_url), esc_attr($title)
+            );
+
+            $parsed_blocks = parse_blocks($block_content);
+            if (empty($parsed_blocks) || $parsed_blocks[0]['blockName'] !== 'core/file') {
+                WP_CLI::warning("AST serialization failed for $title");
+            }
+
             $post_id = wp_insert_post([
                 'post_title' => $title,
+                'post_content' => $block_content,
                 'post_status' => 'publish',
                 'post_type' => 'alx_tachydromos',
                 'post_date' => $post_date,
             ]);
 
             if (is_wp_error($post_id)) {
-                WP_CLI::warning("Failed to insert: $title");
+                WP_CLI::warning("Failed to insert post: $title");
                 continue;
             }
 
-            update_field('pdf_file', $pdf_id, $post_id);
+            update_post_meta($post_id, '_eka_pdf_filename', $pdf_filename);
+            update_post_meta($post_id, '_eka_pdf_attachment_id', $pdf_attachment_id);
 
-            if ($thumbnail_id) {
+            if ($thumbnail_id && !is_wp_error($thumbnail_id)) {
                 set_post_thumbnail($post_id, $thumbnail_id);
             }
 

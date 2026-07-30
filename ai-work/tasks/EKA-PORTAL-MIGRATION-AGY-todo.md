@@ -8,7 +8,7 @@
 
 ## Phase 2: Vertical Migrations
 - [x] **Task 2.1**: Register `alx_tachydromos` CPT and Gutenberg meta fields.
-- [ ] **Task 2.2**: Write WP-CLI migration script for Tachydromos (PDF generation, dates, AST testing).
+- [x] **Task 2.2**: Write WP-CLI migration script for Tachydromos (PDF generation, dates, AST testing).
 - [x] **Task 2.3**: Register `board_member` CPT (non-public).
 - [ ] **Task 2.4**: Write WP-CLI migration script for Board of Directors (Polylang translations, WPBakery extraction).
 - [ ] **Task 2.5**: Register `core/gallery` block variation for static legacy sliders.
