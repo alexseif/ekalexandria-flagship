@@ -1,7 +1,7 @@
 # Task List: EKA-PORTAL - MIGRATION-AGY
 
 ## Phase 1: Environment & Extraction
-- [ ] **Task 1.1**: Write `reset-env.sh` and pre-flight validation script (ImageMagick, PHP 7.4).
+- [x] **Task 1.1**: Write `reset-env.sh` and pre-flight validation script (ImageMagick, PHP 7.4).
 - [ ] **Task 1.2**: Write `setup-orchestration.sh` (`npm init`, Playwright, AST parser).
 - [ ] **Task 1.3**: Configure Playwright for baseline layout token extraction to JSON.
 - [ ] **Task 1.4**: Run scoping scripts to dump legacy IDs/mappings to `ai-work/scopings/`.
