@@ -45,6 +45,10 @@ graph TD
 - **Action**: Register a custom `core/gallery` block variation for static sliders. Write conversion script for dynamic sliders into Query Loop blocks.
 - **Verification**: Static sliders maintain original image IDs. Dynamic sliders output clean native block HTML with title overlays.
 
+**Task 2.7: Legacy Plugin Cleanup**
+- **Action**: Identify and uninstall legacy plugins that are no longer needed (such as caching plugins or old page builders) and resolve any resulting deprecation notices or missing files (like object-cache.php).
+- **Verification**: `wp plugin list` runs without errors and unnecessary plugins are removed safely.
+
 ### Phase 3: Checkpoint
 **Task 3.1: PHP Upgrade Checkpoint**
 - **Action**: Halt AI execution and instruct the human operator to upgrade PHP from 7.4 to 8.2 on the server.

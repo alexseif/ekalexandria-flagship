@@ -24,6 +24,20 @@
       "title": "Front Page (Greek)"
     },
     {
+      "name": "front-page-en",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Front Page (English)"
+    },
+    {
+      "name": "front-page-ar",
+      "postTypes": [
+        "page"
+      ],
+      "title": "Front Page (Arabic)"
+    },
+    {
       "name": "page-establishment-el",
       "postTypes": [
         "page"

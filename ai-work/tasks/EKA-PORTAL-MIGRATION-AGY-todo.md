@@ -19,11 +19,11 @@
 - [x] **Task 3.1**: PAUSE execution. Wait for human operator to upgrade server to PHP 8.2.
 
 ## Phase 4: Theme FSE Implementation
-- [ ] **Task 4.1**: Build FSE block templates (`front-page-el`, `header-ar`, etc.) based on scoping JSON.
-- [ ] **Task 4.2**: Implement SCSS-driven styling and RTL CSS support for Arabic.
-- [ ] **Task 4.3**: Integrate native Search functionality.
-- [ ] **Task 4.4**: Re-engineer Mailchimp registration block.
-- [ ] **Task 4.5**: Replace BeTheme sidebars with native Navigation/Query blocks.
+- [x] **Task 4.1**: Build FSE block templates (`front-page-el`, `header-ar`, etc.) based on scoping JSON.
+- [x] **Task 4.2**: Implement SCSS-driven styling and RTL CSS support for Arabic.
+- [x] **Task 4.3**: Integrate native Search functionality.
+- [x] **Task 4.4**: Re-engineer Mailchimp registration block.
+- [x] **Task 4.5**: Replace BeTheme sidebars with native Navigation/Query blocks.
 
 ## Phase 5: Verification & Deployment
 - [ ] **Task 5.1**: Execute Playwright visual regression tests against live site.
