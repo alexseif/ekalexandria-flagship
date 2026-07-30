@@ -13,6 +13,7 @@
 - [x] **Task 2.4**: Write WP-CLI migration script for Board of Directors (Polylang translations, WPBakery extraction).
 - [x] **Task 2.5**: Register `core/gallery` block variation for static legacy sliders.
 - [x] **Task 2.6**: Write script to convert dynamic sliders to Query Loop blocks.
+- [x] **Task 2.7**: Identify and uninstall unnecessary legacy plugins (e.g. W3 Total Cache, page builders when done) to ensure a clean environment.
 
 ## Phase 3: PHP Upgrade Checkpoint
 - [x] **Task 3.1**: PAUSE execution. Wait for human operator to upgrade server to PHP 8.2.
