@@ -11,11 +11,11 @@
 - [x] **Task 2.2**: Write WP-CLI migration script for Tachydromos (PDF generation, dates, AST testing).
 - [x] **Task 2.3**: Register `board_member` CPT (non-public).
 - [x] **Task 2.4**: Write WP-CLI migration script for Board of Directors (Polylang translations, WPBakery extraction).
-- [ ] **Task 2.5**: Register `core/gallery` block variation for static legacy sliders.
-- [ ] **Task 2.6**: Write script to convert dynamic sliders to Query Loop blocks.
+- [x] **Task 2.5**: Register `core/gallery` block variation for static legacy sliders.
+- [x] **Task 2.6**: Write script to convert dynamic sliders to Query Loop blocks.
 
 ## Phase 3: PHP Upgrade Checkpoint
-- [ ] **Task 3.1**: PAUSE execution. Wait for human operator to upgrade server to PHP 8.2.
+- [x] **Task 3.1**: PAUSE execution. Wait for human operator to upgrade server to PHP 8.2.
 
 ## Phase 4: Theme FSE Implementation
 - [ ] **Task 4.1**: Build FSE block templates (`front-page-el`, `header-ar`, etc.) based on scoping JSON.

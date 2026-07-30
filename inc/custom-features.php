@@ -118,3 +118,12 @@ add_action('save_post_alx_tachydromos', function($post_id) {
         // If image generation is needed here, it would use ImageMagick on the PDF
     }
 }, 20);
+
+// Register Block Style for Gallery (Legacy Slider)
+add_action('init', function() {
+    register_block_style('core/gallery', [
+        'name'         => 'legacy-slider',
+        'label'        => __('Legacy Slider', 'ekalexandria-flagship'),
+        'is_default'   => false,
+    ]);
+});
