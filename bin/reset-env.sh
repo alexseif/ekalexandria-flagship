@@ -17,7 +17,7 @@ else
 fi
 
 echo "Syncing plugins from production..."
-rsync -a --delete "$PROD_DIR/public/wp-content/plugins/" "$STAGING_DIR/public/wp-content/plugins/"
+rsync -a --delete --exclude='mailchimp-for-wp/vendor' "$PROD_DIR/public/wp-content/plugins/" "$STAGING_DIR/public/wp-content/plugins/"
 
 echo "Exporting production database..."
 cd "$PROD_DIR/public" || exit 1
