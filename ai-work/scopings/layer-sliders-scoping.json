@@ -1,0 +1,88 @@
+[
+    {
+        "page_id": "8934",
+        "page_title": "Νέα",
+        "slider_id": "6",
+        "slider_name": "Homepage slider",
+        "slides_summary": [
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            }
+        ]
+    },
+    {
+        "page_id": "13236",
+        "page_title": "Αρχική",
+        "slider_id": "6",
+        "slider_name": "Homepage slider",
+        "slides_summary": [
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            },
+            {
+                "bg_image_id": null,
+                "bg_image_url": null,
+                "layers_text": [
+                    "[title]"
+                ]
+            }
+        ]
+    }
+]
