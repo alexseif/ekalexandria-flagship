@@ -14,7 +14,7 @@ To execute a full programmatic technical modernization and migration of the Gree
     3. **PDF Link:** Use the `pdf_url` property from the JSON. Handle edge cases where the link might be a `.jpg` or a 404 gracefully without breaking the loop.
   - **Issue Date Mapping:** Programmatically parse the extracted title (e.g., "Μάρτιος 2026") and assign the exact corresponding date (e.g., `2026-03-01 00:00:00`) to the `post_date` so the chronological timeline remains authentic.
   - **Single Post View:** Each newsletter gets its own page. The PDF will be displayed using the native `core/file` block (which supports inline embedding).
-  - Feature: Gutenberg meta field for future PDF uploads with automatic featured image generation (via ImageMagick).
+  - **Automated Thumbnail Generation Feature:** For all new newsletter PDF uploads in the modern theme, implement a save hook (`wp_insert_post` / `save_post_alx_tachydromos`) that automatically renders the first page of the uploaded PDF into a PNG featured image via ImageMagick/Ghostscript.
   - **Idempotency:** Tag migrated posts with `_eka_pdf_filename` (derived from the PDF url). Scripts must check this meta to skip duplicates.
 - **Board of Directors Migration:** 
   - Create a `board_member` CPT. **Architecture Decision:** `publicly_queryable` must be `false`. Board members will NOT have individual pages. They will only be displayed collectively on a single page, ordered by a custom `menu_order`. Visibility must default to `publish`.
