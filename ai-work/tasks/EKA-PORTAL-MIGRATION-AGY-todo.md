@@ -26,5 +26,5 @@
 - [x] **Task 4.5**: Replace BeTheme sidebars with native Navigation/Query blocks.
 
 ## Phase 5: Verification & Deployment
-- [ ] **Task 5.1**: Execute Playwright visual regression tests against live site.
-- [ ] **Task 5.2**: Prepare WP-CLI atomic cutover deployment script for live server.
+- [x] **Task 5.1**: Execute Playwright visual regression tests against live site.
+- [x] **Task 5.2**: Prepare WP-CLI atomic cutover deployment script for live server.
