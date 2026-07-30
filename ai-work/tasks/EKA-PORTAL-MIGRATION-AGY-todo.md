@@ -6,7 +6,7 @@
 - [x] Task 1.1: Update & execute `bin/reset-env.sh` (preserve `ai-work/`, `tasks/`, and project roadmap) <!-- id: 1.1 -->
 - [x] Task 1.2: Verify development orchestration layer (reuse existing `node_modules`, `@wordpress/scripts`, `playwright` with `ignoreHTTPSErrors: true`) <!-- id: 1.2 -->
 - [x] Task 1.3: Full-page baseline screenshot scrape across Greek (/el/), English (/en/welcome), and Arabic (/ar/مرحبا) live pages with scroll load delay into `ai-work/baselines/` (Mandatory Human Pause Checkpoint) <!-- id: 1.3 -->
-- [ ] Task 1.4: Verify or scaffold `inc/cli-commands.php` and `inc/custom-features.php` <!-- id: 1.4 -->
+- [x] Task 1.4: Verify or scaffold `inc/cli-commands.php` and `inc/custom-features.php` <!-- id: 1.4 -->
 
 ## Phase 2: Programmatic Data Migration (PHP 7.4 CLI)
 - [ ] Task 2.1: Register `alx_tachydromos` CPT (`show_in_rest`, Greek slug `αλεξανδρινός-ταχυδρόμος`), `_eka_pdf_filename` meta, and PDF thumbnail generation hook via ImageMagick <!-- id: 2.1 -->
