@@ -201,14 +201,14 @@ class EKA_CLI {
         global $wpdb;
 
         $migrated_map = []; // legacy ID => new ID
+        $thumbnail_map = []; // filename => new attachment ID
 
-        // Process Greek (el) first as canonical
         foreach (['el', 'en', 'ar'] as $lang) {
             foreach ($testimonials as $t) {
                 $post_lang = isset($post_languages[$t->ID]) ? $post_languages[$t->ID] : 'el'; // fallback to el
                 if ($post_lang !== $lang) continue;
 
-                // Check idempotency (assuming post_title is unique enough, or using meta)
+                // Check idempotency
                 $existing = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_legacy_testimonial_id' AND meta_value=%d", $t->ID));
                 if ($existing) {
                     $migrated_map[$t->ID] = $existing;
@@ -216,26 +216,15 @@ class EKA_CLI {
                     continue;
                 }
 
-                // Find thumbnail in current DB by filename
-                $thumbnail_id = 0;
-                if (isset($legacy_thumbs[$t->ID])) {
-                    $legacy_thumb_id = $legacy_thumbs[$t->ID];
-                    // Get legacy attachment file
-                    $legacy_attachment = $legacy_db->get_row($legacy_db->prepare("SELECT meta_value FROM wp_postmeta WHERE post_id=%d AND meta_key='_wp_attached_file'", $legacy_thumb_id));
-                    if ($legacy_attachment) {
-                        $filename = wp_basename($legacy_attachment->meta_value);
-                        // Find in current db
-                        $current_attachment = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $wpdb->esc_like($filename)));
-                        if ($current_attachment) {
-                            $thumbnail_id = $current_attachment->post_id;
-                        }
-                    }
-                }
+                // Strip WPBakery shortcodes
+                $clean_content = preg_replace('/\[\/?vc_[^\]]+\]/', '', $t->post_content);
+                // Also parse standard Gutenberg blocks for raw text if we want, but legacy was WPBakery
+                $clean_content = trim($clean_content);
 
                 // Insert post
                 $post_id = wp_insert_post([
                     'post_title' => $t->post_title,
-                    'post_content' => $t->post_content,
+                    'post_content' => $clean_content, // Keeping raw text + basic HTML
                     'post_status' => 'publish',
                     'post_type' => 'board_member',
                     'menu_order' => $t->menu_order,
@@ -248,6 +237,63 @@ class EKA_CLI {
 
                 $migrated_map[$t->ID] = $post_id;
                 update_post_meta($post_id, '_legacy_testimonial_id', $t->ID);
+
+                // Handle thumbnail
+                $thumbnail_id = 0;
+                if (isset($legacy_thumbs[$t->ID])) {
+                    $legacy_thumb_id = $legacy_thumbs[$t->ID];
+                    $legacy_attachment = $legacy_db->get_row($legacy_db->prepare("SELECT meta_value FROM wp_postmeta WHERE post_id=%d AND meta_key='_wp_attached_file'", $legacy_thumb_id));
+                    
+                    if ($legacy_attachment) {
+                        $filename = wp_basename($legacy_attachment->meta_value);
+                        
+                        if (isset($thumbnail_map[$filename])) {
+                            $thumbnail_id = $thumbnail_map[$filename];
+                        } else {
+                            $existing_attachment = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_eka_original_filename' AND meta_value=%s", $filename));
+                            
+                            if ($existing_attachment) {
+                                $thumbnail_id = $existing_attachment;
+                                $thumbnail_map[$filename] = $thumbnail_id;
+                            } else {
+                                // Download and process
+                                $legacy_url = "https://ekalexandria.org/wp-content/uploads/" . $legacy_attachment->meta_value;
+                                $upload_dir = wp_upload_dir();
+                                $local_filename = 'board-' . md5($legacy_url) . '-' . $filename;
+                                $local_path = $upload_dir['path'] . '/' . $local_filename;
+                                
+                                WP_CLI::line("Downloading board image: $legacy_url");
+                                $img_content = @file_get_contents($legacy_url);
+                                
+                                if ($img_content) {
+                                    file_put_contents($local_path, $img_content);
+                                    
+                                    // ImageMagick resize to 800x800 square
+                                    $command = sprintf("convert %s -resize 800x800^ -gravity center -extent 800x800 %s", escapeshellarg($local_path), escapeshellarg($local_path));
+                                    exec($command);
+                                    
+                                    $filetype = wp_check_filetype($local_filename, null);
+                                    $attachment = array(
+                                        'post_mime_type' => $filetype['type'],
+                                        'post_title'     => sanitize_file_name($filename),
+                                        'post_content'   => '',
+                                        'post_status'    => 'inherit'
+                                    );
+                                    
+                                    $thumbnail_id = wp_insert_attachment($attachment, $local_path, $post_id);
+                                    require_once(ABSPATH . 'wp-admin/includes/image.php');
+                                    $attach_data = wp_generate_attachment_metadata($thumbnail_id, $local_path);
+                                    wp_update_attachment_metadata($thumbnail_id, $attach_data);
+                                    update_post_meta($thumbnail_id, '_eka_original_filename', $filename);
+                                    
+                                    $thumbnail_map[$filename] = $thumbnail_id;
+                                } else {
+                                    WP_CLI::warning("Failed to download: $legacy_url");
+                                }
+                            }
+                        }
+                    }
+                }
                 
                 if ($thumbnail_id) {
                     set_post_thumbnail($post_id, $thumbnail_id);
