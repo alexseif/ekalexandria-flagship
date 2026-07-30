@@ -109,13 +109,37 @@ add_filter('pll_get_post_types', function($post_types, $is_settings) {
     return $post_types;
 }, 10, 2);
 
-// Auto-set featured image from PDF on save
+// Auto-set featured image from PDF on save via ImageMagick
 add_action('save_post_alx_tachydromos', function($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (wp_is_post_revision($post_id)) return;
+
     $pdf_id = get_post_meta($post_id, '_eka_pdf_attachment_id', true);
     if ($pdf_id && !has_post_thumbnail($post_id)) {
-        // Migration script or future editor will generate thumbnail and set it
-        // If image generation is needed here, it would use ImageMagick on the PDF
+        $pdf_path = get_attached_file($pdf_id);
+        if ($pdf_path && file_exists($pdf_path)) {
+            $upload_dir = wp_upload_dir();
+            $thumb_filename = 'tachydromos-thumb-' . $post_id . '-' . time() . '.jpg';
+            $thumb_path = $upload_dir['path'] . '/' . $thumb_filename;
+
+            $cmd = sprintf("convert -density 150 %s[0] -quality 90 %s", escapeshellarg($pdf_path), escapeshellarg($thumb_path));
+            exec($cmd, $output, $return_var);
+
+            if ($return_var === 0 && file_exists($thumb_path)) {
+                $filetype = wp_check_filetype($thumb_filename, null);
+                $attachment = [
+                    'post_mime_type' => $filetype['type'],
+                    'post_title'     => sanitize_file_name($thumb_filename),
+                    'post_content'   => '',
+                    'post_status'    => 'inherit'
+                ];
+                $attach_id = wp_insert_attachment($attachment, $thumb_path, $post_id);
+                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                $attach_data = wp_generate_attachment_metadata($attach_id, $thumb_path);
+                wp_update_attachment_metadata($attach_id, $attach_data);
+                set_post_thumbnail($post_id, $attach_id);
+            }
+        }
     }
 }, 20);
 
