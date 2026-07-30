@@ -8,6 +8,9 @@
     "watch:css": "sass --watch assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --source-map"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.0",
+    "@wordpress/block-serialization-default-parser": "^5.52.0",
+    "@wordpress/scripts": "^34.0.0",
     "sass": "^1.69.0"
   }
 }
