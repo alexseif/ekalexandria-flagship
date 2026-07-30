@@ -98,6 +98,13 @@ add_action('init', function() {
         'supports' => ['title', 'editor', 'thumbnail', 'page-attributes'],
         'menu_icon' => 'dashicons-groups',
     ]);
+
+    register_post_meta('board_member', '_eka_legacy_id', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'integer',
+        'auth_callback' => function() { return current_user_can('edit_posts'); }
+    ]);
 });
 
 // Exclude Tachydromos and include Board Member for Polylang
