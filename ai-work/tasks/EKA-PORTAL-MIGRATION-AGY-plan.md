@@ -58,52 +58,58 @@ graph TD
   - *Action:* Build `wp eka migrate-board` reading testimonials data. Save title, image, menu order, and link trilingual translations using `pll_save_post_translations`.
   - *Verification:* `wp eka migrate-board` runs cleanly; Polylang relationships verified via `pll_get_post`.
 - **Task 2.5: Slider Mitigation Script (Layer & Revolution Sliders)**
-  - *Action:* Build `wp eka replace-sliders` reading `ai-work/scopings/layer-sliders-scoping.json` and `tasks/legacy_data.md` / `legacy-ids.json`. Replace dynamic sliders with Query Loops and static sliders with native `core/gallery` blocks containing pre-extracted Media IDs.
+  - *Action:* Build `wp eka replace-sliders` reading `ai-work/scopings/layer-sliders-scoping.json` and `ai-work/scopings/legacy_data.md` / `legacy-ids.json`. Replace dynamic sliders with Query Loops and static sliders with native `core/gallery` blocks containing pre-extracted Media IDs.
   - *Verification:* Targeted post contents updated; shortcodes replaced with block HTML; AST parser validates clean serialization.
 - **Task 2.6: Sub-Navigation & Shortcode Remediation**
   - *Action:* Replace legacy BeTheme shortcodes and sidebar CPT references with native core Query Loops and Navigation blocks.
-  - *Verification:* Zero legacy WPBakery or BeTheme shortcodes remain in targeted posts.
-- **Task 2.7: AST Validation & Migration Integrity Check**
-  - *Action:* Pass all migrated content through `@wordpress/block-serialization-default-parser` to ensure block validity.
-  - *Verification:* AST parser returns zero syntax or serialization errors.
-- **Task 2.8: Legacy Plugin Deactivation**
-  - *Action:* Deactivate legacy plugins (WPBakery, LayerSlider, Slider Revolution, BeTheme extensions) via WP-CLI.
-  - *Verification:* `wp plugin list --status=active` lists only core and required migration plugins.
+  - *Verification:* Shortcodes stripped cleanly; template parts handle sub-navigation cleanly.
+- **Task 2.7: Legacy Plugin Deactivation & Environment Cleanliness**
+  - *Action:* Execute `bin/cleanup-plugins.sh` to remove LayerSlider, JS Composer, and unneeded legacy plugins safely.
+  - *Verification:* `wp plugin list --status=active` displays clean minimal plugin set.
 
-### Phase 3: System Architecture Switch & Environment Upgrade
-- **Task 3.1: Execution Checkpoint — PHP 8.2 Upgrade**
-  - *Action:* **HALT & Notify User.** Request server environment upgrade from PHP 7.4 to PHP 8.2.
-  - *Verification:* User confirms PHP 8.2 CLI and Nginx execution (`php -v` returns 8.2.x).
-- **Task 3.2: WP-CLI Plugin Update & Routing Audit**
-  - *Action:* Run `wp plugin update --all` under PHP 8.2. Validate static front-page configuration and permalink structure to prevent 404s.
-  - *Verification:* `wp plugin list` shows all active plugins updated; site homepage loads without 404s.
+---
+
+### Phase 3: PHP Upgrade Checkpoint & Plugin Updates
+- **Task 3.1: Developer Checkpoint (PHP 7.4 -> PHP 8.2)**
+  - *Action:* Pause execution and present status report to USER for system PHP switch (`sudo update-alternatives --config php`). Wait for explicit user confirmation.
+  - *Verification:* `php -v` outputs PHP 8.2.x.
+- **Task 3.2: WP-CLI Plugin Updates (Post-PHP 8.2)**
+  - *Action:* Run `wp plugin update --all` under PHP 8.2.
+  - *Verification:* All active plugins updated without compatibility notices.
+- **Task 3.3: Routing & Permalink Integrity Verification**
+  - *Action:* Flush rewrite rules (`wp rewrite flush`) and verify all primary URLs resolve to 200 OK (no 404s).
+  - *Verification:* `wp option get permalink_structure` returns legacy structure (`/%postname%/`); zero 404s.
+
+---
 
 ### Phase 4: Modern FSE Theme & Multi-language Development
-- **Task 4.1: SCSS Architecture & Design System Integration**
-  - *Action:* Set up SCSS structure in `src/scss/` mapping typography, colors, and design tokens from `ai-work/scopings/styles.json` and `betheme-options.json`. Compile via `@wordpress/scripts`.
-  - *Verification:* `npm run build` compiles `build/index.css` without errors; zero inline `style=""` attributes.
-- **Task 4.2: Polylang FSE Block Templates Scaffolding**
-  - *Action:* Create language-specific block templates and template parts in `templates/` and `parts/` (`front-page-el`, `front-page-en`, `front-page-ar`, `header-el`, `header-ar`, `footer-el`, `footer-en`, `footer-ar`, `page-el`).
-  - *Verification:* `theme.json` registers template variations; layout matches baseline structure.
-- **Task 4.3: Right-to-Left (RTL) CSS Integration**
-  - *Action:* Implement RTL stylesheet rules for Arabic template variations (`header-ar`, `front-page-ar`).
-  - *Verification:* Playwright visual check confirms correct text direction and layout flipping for Arabic pages.
-- **Task 4.4: Mailchimp Newsletter Integration**
-  - *Action:* Re-engineer newsletter registration block securely without legacy composer cache dependencies.
-  - *Verification:* Form renders cleanly; submission endpoint validated.
-- **Task 4.5: Search System Restoration**
-  - *Action:* Build functional `search.html` FSE block template and connect main header search modal trigger.
-  - *Verification:* Searching from header returns correctly formatted result cards in active language.
+- **Task 4.1: Modern Design System & Token Configuration (`theme.json` + SCSS)**
+  - *Action:* Configure `theme.json` color palette, typography (Inter/Roboto), and layout constraints based on `ai-work/scopings/styles.json`. Scaffold modular SCSS under `assets/scss/`.
+  - *Verification:* `npm run build:css:prod` compiles cleanly without CSS warnings.
+- **Task 4.2: Scaffolding Language-Specific FSE Templates & Parts**
+  - *Action:* Scaffold language variations in `templates/` and `parts/` (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`, `header-ar.html`, etc.) integrating native block Query Loops.
+  - *Verification:* Templates render correctly in Block Editor & frontend per language.
+- **Task 4.3: Right-to-Left (RTL) SCSS Framework**
+  - *Action:* Implement `assets/scss/rtl.scss` and verify logical property overrides (`margin-inline-start`, `padding-inline-end`).
+  - *Verification:* Arabic version displays correct RTL alignment and layout parity.
+- **Task 4.4: Mailchimp Newsletter Block Re-engineering**
+  - *Action:* Replace legacy Mailchimp shortcode with native form block or clean REST API endpoint integration, eliminating composer cache errors.
+  - *Verification:* Test submission validates payload; form renders cleanly.
+- **Task 4.5: Search System & Results Page Restoration**
+  - *Action:* Build functional `search.html` template and connect header search modal trigger.
+  - *Verification:* Submitting a search query returns formatted block results.
 
-### Phase 5: Verification, Testing & Deployment Manifest
-- **Task 5.1: Visual Parity & Regression Audit**
+---
+
+### Phase 5: Verification & Deployment Manifest
+- **Task 5.1: Automated Playwright Visual Parity Audit**
   - *Action:* Run Playwright visual regression test comparing active FSE renders against `ai-work/baselines/`.
   - *Verification:* Visual diff report shows 1:1 layout match.
 - **Task 5.2: Production Asset Bundle Optimization**
   - *Action:* Run `npm run build` to generate minified CSS/JS production assets.
   - *Verification:* Build succeeds; `build/` assets ready; `node_modules` excluded from theme distribution.
 - **Task 5.3: Deployment Manifest & Cutover Script Generation**
-  - *Action:* Write `deployment_manifest.md` and `wp eka production-cutover` CLI command for live execution.
+  - *Action:* Write `ai-work/deployment_manifest.md` and `wp eka production-cutover` CLI command for live execution.
   - *Verification:* Manifest verified; cutover script tested on staging clone.
 
 ---
@@ -117,17 +123,17 @@ Every single task follows the strict `/build` loop: **Implement → Verify → C
 
 ## 5. Token Cost & Optimization Analysis
 
-### Estimated AI Token Usage & Cost Model (Industry Standards - 2026 AI Coding Models)
-*Pricing Baseline: $2.50 per 1M Input Tokens / $10.00 per 1M Output Tokens (Standard Frontier Coding Models)*
+### Estimated AI Token Usage & Cost Model (Script-First Execution)
+*Pricing Baseline: $2.50 per 1M Input Tokens / $10.00 per 1M Output Tokens*
 
 | Phase | Input Tokens (Est.) | Output Tokens (Est.) | Est. Cost ($) | Optimization / Cost Reduction Notes |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: Environment & Scaffolding** | 120,000 | 15,000 | $0.45 | Use pre-written `reset-env.sh` and shell scripts instead of AI terminal loops. |
-| **Phase 2: Programmatic Data Migration** | 250,000 | 35,000 | $0.98 | Read pre-parsed JSON scopings directly; avoid DB dump ingestion into prompt. |
-| **Phase 3: PHP Upgrade Checkpoint** | 50,000 | 5,000 | $0.18 | Single prompt pause/resume checkpoint; minimal context overhead. |
-| **Phase 4: FSE Theme & Multi-language** | 300,000 | 45,000 | $1.20 | Modular SCSS rules and block template generation using concise block markup. |
-| **Phase 5: Verification & Deployment** | 100,000 | 15,000 | $0.40 | Automated Playwright diff reporting; direct CLI production bundle verification. |
-| **TOTAL ESTIMATE** | **820,000** | **115,000** | **$3.21** | **Script-first design saves ~75% vs manual AI content processing (~$13.00+).** |
+| **Phase 1: Environment & Scaffolding** | 30,000 | 4,000 | $0.115 | Reuse existing orchestration & update `reset-env.sh`. |
+| **Phase 2: Programmatic Data Migration** | 60,000 | 8,000 | $0.230 | Read pre-scoped JSON files (`scopings/`) via PHP WP-CLI scripts; zero raw DB ingestion. |
+| **Phase 3: PHP Upgrade Checkpoint** | 15,000 | 1,500 | $0.052 | Single prompt pause/resume checkpoint; minimal context overhead. |
+| **Phase 4: FSE Theme & Multi-language** | 80,000 | 10,000 | $0.300 | Direct template block scaffolding & modular SCSS compilation. |
+| **Phase 5: Verification & Deployment** | 25,000 | 3,000 | $0.092 | Automated Playwright CLI audit & direct bundle verification. |
+| **TOTAL ESTIMATE** | **210,000** | **26,500** | **~$0.79** | **Script-first design saves ~95% token overhead vs manual AI context processing.** |
 
 ---
 
