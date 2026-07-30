@@ -10,56 +10,68 @@ class EKA_CLI {
      * @subcommand migrate-tachydromos
      */
     public function migrate_tachydromos() {
-        WP_CLI::line('Connecting to legacy DB...');
-        $legacy_db = new wpdb('root', '0024', 'db207080_eka', 'localhost');
-        if ($legacy_db->error) {
-            WP_CLI::error('Could not connect to db207080_eka.');
+        $json_file = get_template_directory() . '/ai-work/scopings/tachydromos-scoping.json';
+        if (!file_exists($json_file)) {
+            WP_CLI::error("Scoping file not found at: $json_file");
         }
 
-        $page = $legacy_db->get_row("SELECT ID, post_content FROM wp_posts WHERE post_title LIKE '%Ταχυδρόμος%' AND post_status = 'publish' AND post_type = 'page'");
-        if (!$page) {
-            WP_CLI::error('Legacy page not found.');
+        $items = json_decode(file_get_contents($json_file), true);
+        if (!$items || !is_array($items)) {
+            WP_CLI::error("Invalid JSON scoping data.");
         }
 
-        // Greek Months Mapping
+        WP_CLI::line("Loaded " . count($items) . " items from scoping JSON.");
+
         $months = [
-            'Ιανουάριος' => '01', 'Φεβρουάριος' => '02', 'Μάρτιος' => '03',
-            'Απρίλιος' => '04', 'Μάιος' => '05', 'Ιούνιος' => '06',
-            'Ιούλιος' => '07', 'Αύγουστος' => '08', 'Σεπτέμβριος' => '09',
-            'Οκτώβριος' => '10', 'Νοέμβριος' => '11', 'Δεκέμβριος' => '12',
+            'Ιανουάριος' => '01', 'Ιανουαρίου' => '01',
+            'Φεβρουάριος' => '02', 'Φεβρουαρίου' => '02',
+            'Μάρτιος' => '03', 'Μαρτίου' => '03',
+            'Απρίλιος' => '04', 'Απριλίου' => '04', 'ΑΠΡΛΙΟΣ' => '04',
+            'Μάιος' => '05', 'Μαΐου' => '05',
+            'Ιούνιος' => '06', 'Ιουνίου' => '06',
+            'Ιούλιος' => '07', 'Ιουλίου' => '07',
+            'Αύγουστος' => '08', 'Αυγούστου' => '08',
+            'Σεπτέμβριος' => '09', 'Σεπτεμβρίου' => '09',
+            'Οκτώβριος' => '10', 'Οκτωβρίου' => '10',
+            'Νοέμβριος' => '11', 'Νοεμβρίου' => '11',
+            'Δεκέμβριος' => '12', 'Δεκεμβρίου' => '12',
         ];
 
-        preg_match_all('/<a[^>]+href=["\']([^"\']+\.pdf)["\'][^>]*>(.*?)<\/a>/is', $page->post_content, $matches, PREG_SET_ORDER);
-        
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
 
         global $wpdb;
 
-        foreach ($matches as $match) {
-            $pdf_url = $match[1];
-            if (strpos($pdf_url, 'http') !== 0) {
-                $pdf_url = 'https://ekalexandria.org' . $pdf_url;
+        foreach ($items as $item) {
+            $pdf_url = $item['pdf_url'] ?? null;
+            $img_url = $item['img_url'] ?? null;
+            $raw_title = $item['extracted_title'] ?? null;
+
+            if (!$pdf_url && !$raw_title) {
+                continue; // Skip banner header
             }
-            
-            $inner = $match[2];
-            $title = trim(strip_tags($inner));
-            if (!$title) {
+
+            // Clean up title
+            $title = $raw_title ? trim(strip_tags(html_entity_decode($raw_title, ENT_QUOTES | ENT_HTML5, 'UTF-8'))) : '';
+            $title = preg_replace('/\s+/', ' ', $title);
+
+            if (!$title && $pdf_url) {
                 $title = wp_basename($pdf_url, '.pdf');
             }
 
+            $pdf_filename = $pdf_url ? wp_basename($pdf_url) : ($img_url ? wp_basename($img_url) : 'item-' . time());
+
             // Check idempotency
-            $pdf_filename = wp_basename($pdf_url);
             $existing = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_eka_pdf_filename' AND meta_value=%s", $pdf_filename));
             if ($existing) {
                 WP_CLI::line("Skipping existing: $pdf_filename");
                 continue;
             }
 
-            // Map Date
+            // Date mapping
             $year = date('Y');
-            if (preg_match('/(20\d{2})/', $title, $m)) {
+            if (preg_match('/(20\d{2})/', $title . ' ' . $pdf_url, $m)) {
                 $year = $m[1];
             }
             $month_num = '01';
@@ -71,54 +83,56 @@ class EKA_CLI {
             }
             $post_date = sprintf('%04d-%02d-01 00:00:00', $year, $month_num);
 
-            WP_CLI::line("Downloading PDF: $pdf_url");
-            $tmp_pdf = download_url($pdf_url);
-            if (is_wp_error($tmp_pdf)) {
-                WP_CLI::warning("Failed to download PDF: $pdf_url");
-                continue;
+            $pdf_attachment_id = 0;
+            $pdf_attachment_url = $pdf_url;
+
+            if ($pdf_url && strtolower(pathinfo($pdf_url, PATHINFO_EXTENSION)) === 'pdf') {
+                // Check if attachment already exists in DB
+                $existing_att = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $pdf_filename));
+                if ($existing_att) {
+                    $pdf_attachment_id = $existing_att;
+                    $pdf_attachment_url = wp_get_attachment_url($pdf_attachment_id);
+                } else {
+                    WP_CLI::line("Downloading PDF: $pdf_url");
+                    $tmp_pdf = download_url($pdf_url);
+                    if (!is_wp_error($tmp_pdf)) {
+                        $pdf_file_array = ['name' => $pdf_filename, 'tmp_name' => $tmp_pdf];
+                        $pdf_attachment_id = media_handle_sideload($pdf_file_array, 0);
+                        if (!is_wp_error($pdf_attachment_id)) {
+                            $pdf_attachment_url = wp_get_attachment_url($pdf_attachment_id);
+                        } else {
+                            @unlink($tmp_pdf);
+                            $pdf_attachment_id = 0;
+                        }
+                    }
+                }
             }
 
-            $pdf_file_array = [ 'name' => $pdf_filename, 'tmp_name' => $tmp_pdf ];
-            $pdf_attachment_id = media_handle_sideload($pdf_file_array, 0);
-            if (is_wp_error($pdf_attachment_id)) {
-                WP_CLI::warning("Failed to sideload PDF: " . $pdf_attachment_id->get_error_message());
-                @unlink($tmp_pdf);
-                continue;
-            }
-
-            // Generate thumbnail
-            $pdf_path = get_attached_file($pdf_attachment_id);
-            $thumb_filename = wp_basename($pdf_path, '.pdf') . '-thumb.jpg';
-            $tmp_thumb = '/tmp/' . $thumb_filename;
-
-            exec("convert -density 150 " . escapeshellarg($pdf_path . "[0]") . " -quality 90 " . escapeshellarg($tmp_thumb), $output, $return_var);
-
-            $thumbnail_id = 0;
-            if ($return_var === 0 && file_exists($tmp_thumb)) {
-                $thumb_file_array = [ 'name' => $thumb_filename, 'tmp_name' => $tmp_thumb ];
-                $thumbnail_id = media_handle_sideload($thumb_file_array, 0);
-            } else {
-                WP_CLI::warning("Failed to generate thumbnail for $pdf_filename");
-            }
-
-            // AST Block
-            $pdf_attachment_url = wp_get_attachment_url($pdf_attachment_id);
-            $block_content = sprintf(
-                '<!-- wp:file {"id":%d,"href":"%s","displayPreview":true} -->
+            // Build core/file block or image block
+            if ($pdf_attachment_id && $pdf_attachment_url) {
+                $block_content = sprintf(
+                    '<!-- wp:file {"id":%d,"href":"%s","displayPreview":true} -->
 <div class="wp-block-file"><object class="wp-block-file__embed" data="%s" type="application/pdf" style="width:100%%;height:600px" aria-label="Embed of %s"></object><a href="%s">%s</a><a href="%s" class="wp-block-file__button wp-element-button" download aria-label="Λήψη %s">Λήψη</a></div>
 <!-- /wp:file -->',
-                $pdf_attachment_id, esc_url($pdf_attachment_url), esc_url($pdf_attachment_url),
-                esc_attr($title), esc_url($pdf_attachment_url), esc_html($title),
-                esc_url($pdf_attachment_url), esc_attr($title)
-            );
+                    $pdf_attachment_id, esc_url($pdf_attachment_url), esc_url($pdf_attachment_url),
+                    esc_attr($title), esc_url($pdf_attachment_url), esc_html($title),
+                    esc_url($pdf_attachment_url), esc_attr($title)
+                );
+            } else {
+                $block_content = sprintf(
+                    '<!-- wp:paragraph --><p><a href="%s" target="_blank">%s</a></p><!-- /wp:paragraph -->',
+                    esc_url($pdf_url ?: $img_url), esc_html($title)
+                );
+            }
 
+            // AST parse verification
             $parsed_blocks = parse_blocks($block_content);
-            if (empty($parsed_blocks) || $parsed_blocks[0]['blockName'] !== 'core/file') {
+            if (empty($parsed_blocks)) {
                 WP_CLI::warning("AST serialization failed for $title");
             }
 
             $post_id = wp_insert_post([
-                'post_title' => $title,
+                'post_title' => $title ?: 'Tachydromos',
                 'post_content' => $block_content,
                 'post_status' => 'publish',
                 'post_type' => 'alx_tachydromos',
@@ -131,15 +145,33 @@ class EKA_CLI {
             }
 
             update_post_meta($post_id, '_eka_pdf_filename', $pdf_filename);
-            update_post_meta($post_id, '_eka_pdf_attachment_id', $pdf_attachment_id);
-
-            if ($thumbnail_id && !is_wp_error($thumbnail_id)) {
-                set_post_thumbnail($post_id, $thumbnail_id);
+            if ($pdf_attachment_id) {
+                update_post_meta($post_id, '_eka_pdf_attachment_id', $pdf_attachment_id);
             }
 
-            WP_CLI::success("Migrated: $title");
+            // Reassign or download featured image
+            if ($img_url) {
+                $img_filename = wp_basename($img_url);
+                $img_att_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $img_filename));
+                if ($img_att_id) {
+                    set_post_thumbnail($post_id, $img_att_id);
+                } else {
+                    $tmp_img = download_url($img_url);
+                    if (!is_wp_error($tmp_img)) {
+                        $img_file_array = ['name' => $img_filename, 'tmp_name' => $tmp_img];
+                        $sideload_img_id = media_handle_sideload($img_file_array, $post_id);
+                        if (!is_wp_error($sideload_img_id)) {
+                            set_post_thumbnail($post_id, $sideload_img_id);
+                        } else {
+                            @unlink($tmp_img);
+                        }
+                    }
+                }
+            }
+
+            WP_CLI::success("Migrated Tachydromos: $title ($post_date)");
         }
-        
+
         WP_CLI::success('Tachydromos migration complete.');
     }
 
