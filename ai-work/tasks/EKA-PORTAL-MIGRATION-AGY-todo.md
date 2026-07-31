@@ -11,7 +11,7 @@
 ## Phase 2: Programmatic Execution & Verification Phase
 - [x] Task 2.1: Execute clean DB staging reset via `bin/reset-env.sh` <!-- id: 2.1 -->
 - [x] Task 2.2: Verify custom post type registrations (`alx_tachydromos`, `board_member`) in `inc/custom-features.php` <!-- id: 2.2 -->
-- [ ] Task 2.3: Execute `wp eka migrate-tachydromos` and verify `ai-work/logs/tachydromos-migration.log` <!-- id: 2.3 -->
+- [x] Task 2.3: Execute `wp eka migrate-tachydromos` and verify `ai-work/logs/tachydromos-migration.log` <!-- id: 2.3 -->
 - [ ] Task 2.4: Execute `wp eka migrate-board` and verify `ai-work/logs/board-migration.log` <!-- id: 2.4 -->
 - [ ] Task 2.5: Execute `wp eka replace-sliders` and verify `ai-work/logs/sliders-migration.log` <!-- id: 2.5 -->
 - [ ] Task 2.6: Execute `wp eka remediate-shortcodes` (replace BeTheme shortcodes and sub-navigation sidebars) <!-- id: 2.6 -->
