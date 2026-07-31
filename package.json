@@ -5,7 +5,9 @@
   "scripts": {
     "build:css:dev": "sass assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --source-map",
     "build:css:prod": "sass assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --style=compressed --no-source-map",
-    "watch:css": "sass --watch assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --source-map"
+    "watch:css": "sass --watch assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --source-map",
+    "build": "npm run build:css:prod",
+    "test": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

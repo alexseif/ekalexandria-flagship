@@ -576,6 +576,47 @@ class EKA_CLI {
         
         $log("Shortcode & sub-navigation remediation finished successfully.", "INFO");
     }
+
+    /**
+     * Standalone Production Cutover Execution
+     *
+     * @subcommand production-cutover
+     */
+    public function production_cutover() {
+        $log = $this->get_logger('cutover.log');
+        $log("Starting Production Cutover...", "INFO", "Initializing autonomous cutover workflow.");
+
+        // 1. Activate Flagship Theme
+        $log("Activating ekalexandria-flagship theme...", "INFO");
+        switch_theme('ekalexandria-flagship');
+
+        // 2. Run Cleanup Plugins Script if available
+        $cleanup_script = get_template_directory() . '/bin/cleanup-plugins.sh';
+        if (file_exists($cleanup_script)) {
+            $log("Executing legacy plugin cleanup script...", "INFO");
+            exec("bash " . escapeshellarg($cleanup_script) . " >> " . escapeshellarg(get_template_directory() . '/ai-work/logs/cutover.log') . " 2>&1");
+        }
+
+        // 3. Execute Migration Workflows
+        $log("Running Alexandrinos Tachydromos migration...", "INFO");
+        $this->migrate_tachydromos();
+
+        $log("Running Board Members migration...", "INFO");
+        $this->migrate_board();
+
+        $log("Running Slider replacements...", "INFO");
+        $this->replace_sliders();
+
+        $log("Running Shortcode remediation...", "INFO");
+        $this->remediate_shortcodes();
+
+        // 4. Flush Rewrite Rules
+        $log("Flushing permalinks and rewrite rules...", "INFO");
+        flush_rewrite_rules();
+
+        $log("Production cutover completed successfully!", "INFO", "All data, templates, and plugins finalized.");
+    }
 }
 
 WP_CLI::add_command( 'eka', 'EKA_CLI' );
+

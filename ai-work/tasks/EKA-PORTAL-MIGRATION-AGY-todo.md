@@ -31,6 +31,6 @@
 - [x] Task 4.5: Search system & results page restoration (`search.html` template and header search trigger integration) <!-- id: 4.5 -->
 
 ## Phase 5: Verification & Deployment Manifest
-- [ ] Task 5.1: Automated Playwright visual parity audit against `ai-work/baselines/` <!-- id: 5.1 -->
-- [ ] Task 5.2: Production asset bundle optimization (`npm run build`) omitting `node_modules` and raw SCSS <!-- id: 5.2 -->
-- [ ] Task 5.3: Deployment manifest generation (`ai-work/deployment_manifest.md`) and production cutover script (`wp eka production-cutover`) logging to `ai-work/logs/cutover.log` <!-- id: 5.3 -->
+- [x] Task 5.1: Automated Playwright visual parity audit against `ai-work/baselines/` <!-- id: 5.1 -->
+- [x] Task 5.2: Production asset bundle optimization (`npm run build`) omitting `node_modules` and raw SCSS <!-- id: 5.2 -->
+- [x] Task 5.3: Deployment manifest generation (`ai-work/deployment_manifest.md`) and production cutover script (`wp eka production-cutover`) logging to `ai-work/logs/cutover.log` <!-- id: 5.3 -->
