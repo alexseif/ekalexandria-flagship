@@ -12,7 +12,7 @@
 - [x] Task 2.1: Register `alx_tachydromos` CPT (`show_in_rest`, Greek slug `αλεξανδρινός-ταχυδρόμος`), `_eka_pdf_filename` meta, and PDF thumbnail generation hook via ImageMagick <!-- id: 2.1 -->
 - [x] Task 2.2: Implement and execute `wp eka migrate-tachydromos` reading `ai-work/scopings/tachydromos-scoping.json` <!-- id: 2.2 -->
 - [x] Task 2.3: Register `board_member` CPT (`publicly_queryable` = false, `menu_order` support) and `_eka_legacy_id` meta <!-- id: 2.3 -->
-- [ ] Task 2.4: Implement and execute `wp eka migrate-board` with `pll_save_post_translations` mapping <!-- id: 2.4 -->
+- [x] Task 2.4: Implement and execute `wp eka migrate-board` with `pll_save_post_translations` mapping <!-- id: 2.4 -->
 - [ ] Task 2.5: Implement and execute `wp eka replace-sliders` reading `ai-work/scopings/layer-sliders-scoping.json` & `legacy-ids.json` / `legacy_data.md` <!-- id: 2.5 -->
 - [ ] Task 2.6: Sub-navigation & shortcode remediation (replace BeTheme shortcodes/sidebars with Query Loops and Navigation blocks) <!-- id: 2.6 -->
 - [ ] Task 2.7: Legacy plugin deactivation & environment cleanup via `bin/cleanup-plugins.sh` <!-- id: 2.7 -->
