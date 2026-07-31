@@ -1,0 +1,256 @@
+{
+    "members": [
+        {
+            "id": 209,
+            "title": "Δημήτριος Κάβουρας",
+            "lang": "el",
+            "menu_order": 5
+        },
+        {
+            "id": 8142,
+            "title": "Ανδρέας Βαφειάδης",
+            "lang": "el",
+            "menu_order": 6
+        },
+        {
+            "id": 8144,
+            "title": "Ιωάννης Σιόκας",
+            "lang": "el",
+            "menu_order": 1
+        },
+        {
+            "id": 8153,
+            "title": "Εμμανουήλ Τατάκης",
+            "lang": "el",
+            "menu_order": 2
+        },
+        {
+            "id": 8155,
+            "title": "Νικόλαος Κόπελος",
+            "lang": "el",
+            "menu_order": 7
+        },
+        {
+            "id": 16939,
+            "title": "Nicolaos Kopelos",
+            "lang": "en",
+            "menu_order": 1
+        },
+        {
+            "id": 16940,
+            "title": "نيكولاوس قوبيلوس",
+            "lang": "ar",
+            "menu_order": 1
+        },
+        {
+            "id": 16944,
+            "title": "Christiana Trechantzaki",
+            "lang": "en",
+            "menu_order": 5
+        },
+        {
+            "id": 16952,
+            "title": "خريستيانا تريخانتزاكي",
+            "lang": "ar",
+            "menu_order": 5
+        },
+        {
+            "id": 16955,
+            "title": "Michael Carydias",
+            "lang": "en",
+            "menu_order": 7
+        },
+        {
+            "id": 16958,
+            "title": "ميخائيل كاريدياس",
+            "lang": "ar",
+            "menu_order": 7
+        },
+        {
+            "id": 16959,
+            "title": "Paris Macris",
+            "lang": "en",
+            "menu_order": 4
+        },
+        {
+            "id": 16960,
+            "title": "باريس ماكريس",
+            "lang": "ar",
+            "menu_order": 4
+        },
+        {
+            "id": 16961,
+            "title": "Artemis Gerondaki",
+            "lang": "en",
+            "menu_order": 3
+        },
+        {
+            "id": 16962,
+            "title": "أرتميس غيرونداكي",
+            "lang": "ar",
+            "menu_order": 3
+        },
+        {
+            "id": 16964,
+            "title": "Andreas Vafiadis",
+            "lang": "en",
+            "menu_order": 2
+        },
+        {
+            "id": 16967,
+            "title": "أندرياس فافياديس",
+            "lang": "ar",
+            "menu_order": 2
+        },
+        {
+            "id": 16969,
+            "title": "Nicolaos Katsibris",
+            "lang": "en",
+            "menu_order": 8
+        },
+        {
+            "id": 16971,
+            "title": "نيكولاوس كاتسيبريس",
+            "lang": "ar",
+            "menu_order": 8
+        },
+        {
+            "id": 16977,
+            "title": "Dimitris Cavouras",
+            "lang": "en",
+            "menu_order": 6
+        },
+        {
+            "id": 16981,
+            "title": "ديميتريوس كافوراس",
+            "lang": "ar",
+            "menu_order": 6
+        },
+        {
+            "id": 38909,
+            "title": "Zoues Vasilios",
+            "lang": "en",
+            "menu_order": 0
+        },
+        {
+            "id": 38910,
+            "title": "زوئيس فاسيليوس",
+            "lang": "ar",
+            "menu_order": 0
+        },
+        {
+            "id": 38908,
+            "title": "Ζουές Βασίλειος",
+            "lang": "el",
+            "menu_order": 0
+        },
+        {
+            "id": 38922,
+            "title": "Νικόλαος Κατσιμπρής",
+            "lang": "el",
+            "menu_order": 0
+        },
+        {
+            "id": 38923,
+            "title": "Ευάγγελος Νεαμονίτης",
+            "lang": "el",
+            "menu_order": 0
+        },
+        {
+            "id": 38925,
+            "title": "Nikolaos Katsimpris",
+            "lang": "en",
+            "menu_order": 0
+        },
+        {
+            "id": 38927,
+            "title": "Ioannis Siokas",
+            "lang": "en",
+            "menu_order": 1
+        },
+        {
+            "id": 38928,
+            "title": "Emanouil Tatakis",
+            "lang": "en",
+            "menu_order": 2
+        },
+        {
+            "id": 38929,
+            "title": "Emmanouil Tatakis",
+            "lang": "en",
+            "menu_order": 2
+        },
+        {
+            "id": 38934,
+            "title": "Evaggelos Neamonitis",
+            "lang": "en",
+            "menu_order": 0
+        },
+        {
+            "id": 38936,
+            "title": "Ιωάννης Παπαδόπουλος",
+            "lang": "el",
+            "menu_order": 0
+        },
+        {
+            "id": 38937,
+            "title": "Ioannis Papadopoulos",
+            "lang": "en",
+            "menu_order": 0
+        }
+    ],
+    "translation_groups": [
+        {
+            "en": 16939,
+            "el": 8155,
+            "ar": 16940
+        },
+        {
+            "el": 8153,
+            "en": 38929
+        },
+        {
+            "en": 16955,
+            "ar": 16958
+        },
+        {
+            "en": 16959,
+            "ar": 16960
+        },
+        {
+            "el": 8144,
+            "en": 38927
+        },
+        {
+            "en": 16964,
+            "el": 8142,
+            "ar": 16967
+        },
+        {
+            "ar": 16971,
+            "en": 16969
+        },
+        {
+            "en": 16977,
+            "el": 209,
+            "ar": 16981
+        },
+        {
+            "en": 38909,
+            "el": 38908,
+            "ar": 38910
+        },
+        {
+            "en": 38925,
+            "el": 38922
+        },
+        {
+            "en": 38934,
+            "el": 38923
+        },
+        {
+            "en": 38937,
+            "el": 38936
+        }
+    ]
+}
