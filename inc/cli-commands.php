@@ -447,6 +447,108 @@ class EKA_CLI {
         
         WP_CLI::success('Slider replacement complete.');
     }
+
+    /**
+     * Remediate Shortcodes and Sub-navigation
+     *
+     * @subcommand remediate-shortcodes
+     */
+    public function remediate_shortcodes() {
+        global $wpdb;
+        WP_CLI::line('Remediating shortcodes and injecting sub-navigation...');
+
+        $posts = get_posts(['post_type' => 'page', 'posts_per_page' => -1]);
+        
+        foreach ($posts as $post) {
+            $content = $post->post_content;
+            $updated = false;
+
+            // 1. Replace [testimonials] with board_member Query Loop
+            if (strpos($content, '[testimonials') !== false) {
+                $board_query = '<!-- wp:query {"queryId":2,"query":{"perPage":50,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":false} /-->
+<!-- wp:post-title {"level":3} /-->
+<!-- wp:post-content /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->';
+                $content = preg_replace('/<!-- wp:shortcode -->\s*\[testimonials[^\]]*\]\s*<!-- \/wp:shortcode -->/is', $board_query, $content);
+                $content = preg_replace('/\[testimonials[^\]]*\]/is', $board_query, $content);
+                $updated = true;
+            }
+
+            // 2. Replace [vc_posts_grid] with Query Loop including specific IDs
+            if (strpos($content, '[vc_posts_grid') !== false) {
+                if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
+                    $ids = array_map('intval', explode(',', $matches[1]));
+                    $include_json = json_encode($ids);
+                    
+                    $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":true} /-->
+<!-- wp:post-title {"isLink":true,"level":3} /-->
+<!-- wp:post-excerpt /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->';
+                    
+                    $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
+                    $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
+                    $updated = true;
+                }
+            }
+            
+            // 3. Strip remaining WPBakery / BeTheme shortcodes
+            $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
+            $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
+
+            if ($content !== $post->post_content) {
+                wp_update_post(['ID' => $post->ID, 'post_content' => trim($content)]);
+                WP_CLI::success("Remediated shortcodes on page ID {$post->ID}");
+            }
+        }
+
+        // Sub-navigation via Sidebars (Establishment, Activities, Services)
+        $sidebar_menus = [
+            70 => [12],
+            3377 => [16912],
+            3378 => [16909],
+            71 => [16],
+            3944 => [17102],
+            3945 => [17105],
+            117 => [14],
+            3707 => [16936],
+            3716 => [16933],
+        ];
+
+        foreach ($sidebar_menus as $menu_id => $page_ids) {
+            foreach ($page_ids as $page_id) {
+                $post = get_post($page_id);
+                if ($post && strpos($post->post_content, 'wp:navigation') === false) {
+                    $nav_block = '<!-- wp:navigation {"ref":' . $menu_id . ',"layout":{"type":"flex","orientation":"vertical"}} /-->';
+                    
+                    $new_content = '<!-- wp:columns -->
+<div class="wp-block-columns">
+<!-- wp:column {"width":"33%"} -->
+<div class="wp-block-column" style="flex-basis:33%">' . $nav_block . '</div>
+<!-- /wp:column -->
+<!-- wp:column {"width":"66%"} -->
+<div class="wp-block-column" style="flex-basis:66%">' . $post->post_content . '</div>
+<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->';
+                    
+                    wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
+                    WP_CLI::success("Injected Navigation Sidebar for page ID $page_id with menu $menu_id");
+                }
+            }
+        }
+        
+        WP_CLI::success('Shortcode remediation complete.');
+    }
 }
 
 WP_CLI::add_command( 'eka', 'EKA_CLI' );
