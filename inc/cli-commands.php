@@ -359,6 +359,94 @@ class EKA_CLI {
 
         WP_CLI::success('Board Members migration complete.');
     }
+    /**
+     * Replace Legacy Sliders with Native Blocks
+     *
+     * @subcommand replace-sliders
+     */
+    public function replace_sliders() {
+        global $wpdb;
+        WP_CLI::line('Replacing sliders with native blocks...');
+
+        $dynamic_pages = [13236, 17194, 17215, 17219, 8934, 16920, 16923];
+        $query_loop_block = '<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-title {"isLink":true} /-->
+<!-- wp:post-excerpt {"moreText":"Read more"} /-->
+<!-- wp:post-date /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->';
+        
+        foreach ($dynamic_pages as $page_id) {
+            $post = get_post($page_id);
+            if ($post) {
+                if (strpos($post->post_content, 'wp:query') === false) {
+                    $new_content = preg_replace('/\[rev_slider[^\]]*\]/i', $query_loop_block, $post->post_content);
+                    $new_content = preg_replace('/\[layerslider[^\]]*\]/i', $query_loop_block, $new_content);
+                    if ($new_content !== $post->post_content) {
+                        wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
+                        WP_CLI::success("Replaced dynamic slider in page ID $page_id");
+                    }
+                }
+            }
+        }
+
+        $static_galleries = [
+            7820 => [7821, 7822, 7823],
+            17129 => [7821, 7822, 7823],
+            17133 => [7821, 7822, 7823],
+            7811 => [7813, 7814, 7815],
+            17137 => [7813, 7814, 7815],
+            17139 => [7813, 7814, 7815],
+            3442 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
+            17023 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
+            17155 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
+            7756 => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
+            17150 => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
+            7390 => [10328],
+            17018 => [10328],
+            17020 => [10328]
+        ];
+
+        foreach ($static_galleries as $page_id => $media_ids) {
+            $post = get_post($page_id);
+            if ($post) {
+                if (strpos($post->post_content, 'wp:gallery') === false) {
+                    $gallery_block = '<!-- wp:gallery {"linkTo":"none"} -->
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped">';
+                    foreach ($media_ids as $media_id) {
+                        $img_url = wp_get_attachment_url($media_id) ?: '';
+                        if ($img_url) {
+                            $gallery_block .= sprintf(
+                                '<!-- wp:image {"id":%d,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="%s" alt="" class="wp-image-%d"/></figure>
+<!-- /wp:image -->',
+                                $media_id, esc_url($img_url), $media_id
+                            );
+                        }
+                    }
+                    $gallery_block .= '</figure>
+<!-- /wp:gallery -->';
+
+                    $new_content = preg_replace('/\[rev_slider[^\]]*\]/i', $gallery_block, $post->post_content);
+                    $new_content = preg_replace('/\[layerslider[^\]]*\]/i', $gallery_block, $new_content);
+                    
+                    if ($new_content === $post->post_content) {
+                        $new_content .= "\n\n" . $gallery_block;
+                    }
+
+                    if ($new_content !== $post->post_content) {
+                        wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
+                        WP_CLI::success("Replaced static gallery in page ID $page_id");
+                    }
+                }
+            }
+        }
+        
+        WP_CLI::success('Slider replacement complete.');
+    }
 }
 
 WP_CLI::add_command( 'eka', 'EKA_CLI' );
