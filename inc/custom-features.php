@@ -158,3 +158,20 @@ add_action('init', function() {
         'is_default'   => false,
     ]);
 });
+
+// Re-engineered Mailchimp Newsletter Shortcode
+add_shortcode('eka_mailchimp_form', function($atts) {
+    ob_start(); ?>
+    <div class="eka-mailchimp-block">
+        <h3><?php _e('Subscribe to Our Newsletter', 'ekalexandria-flagship'); ?></h3>
+        <p><?php _e('Get the latest updates and announcements from the Greek Community of Alexandria.', 'ekalexandria-flagship'); ?></p>
+        <form class="eka-mailchimp-form" action="" method="post">
+            <?php wp_nonce_field('eka_mailchimp_subscribe', 'eka_mc_nonce'); ?>
+            <input type="email" name="eka_subscriber_email" placeholder="<?php esc_attr_e('Your email address...', 'ekalexandria-flagship'); ?>" required />
+            <button type="submit" name="eka_mc_submit"><?php _e('Subscribe', 'ekalexandria-flagship'); ?></button>
+        </form>
+    </div>
+    <?php
+    return ob_get_clean();
+});
+

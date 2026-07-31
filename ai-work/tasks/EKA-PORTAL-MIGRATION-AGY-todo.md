@@ -24,11 +24,11 @@
 - [x] Task 3.3: Routing & permalink integrity verification (`wp rewrite flush`) <!-- id: 3.3 -->
 
 ## Phase 4: Modern FSE Theme & Multi-language Development
-- [ ] Task 4.1: Modern design system & token configuration (`theme.json` + `assets/scss/`) compiled via `@wordpress/scripts` <!-- id: 4.1 -->
-- [ ] Task 4.2: Scaffolding language-specific FSE templates & parts (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`, `header-ar.html`, etc.) <!-- id: 4.2 -->
-- [ ] Task 4.3: Right-to-Left (RTL) SCSS framework (`assets/scss/rtl.scss`) <!-- id: 4.3 -->
-- [ ] Task 4.4: Mailchimp newsletter block re-engineering <!-- id: 4.4 -->
-- [ ] Task 4.5: Search system & results page restoration (`search.html` template and header search trigger integration) <!-- id: 4.5 -->
+- [x] Task 4.1: Modern design system & token configuration (`theme.json` + `assets/scss/`) compiled via `@wordpress/scripts` <!-- id: 4.1 -->
+- [x] Task 4.2: Scaffolding language-specific FSE templates & parts (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`, `header-ar.html`, etc.) <!-- id: 4.2 -->
+- [x] Task 4.3: Right-to-Left (RTL) SCSS framework (`assets/scss/rtl.scss`) <!-- id: 4.3 -->
+- [x] Task 4.4: Mailchimp newsletter block re-engineering <!-- id: 4.4 -->
+- [x] Task 4.5: Search system & results page restoration (`search.html` template and header search trigger integration) <!-- id: 4.5 -->
 
 ## Phase 5: Verification & Deployment Manifest
 - [ ] Task 5.1: Automated Playwright visual parity audit against `ai-work/baselines/` <!-- id: 5.1 -->
