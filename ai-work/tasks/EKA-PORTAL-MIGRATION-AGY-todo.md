@@ -16,12 +16,12 @@
 - [x] Task 2.5: Execute `wp eka replace-sliders` and verify `ai-work/logs/sliders-migration.log` <!-- id: 2.5 -->
 - [x] Task 2.6: Execute `wp eka remediate-shortcodes` (replace BeTheme shortcodes and sub-navigation sidebars) <!-- id: 2.6 -->
 - [x] Task 2.7: Execute `bin/cleanup-plugins.sh` and verify `ai-work/logs/cleanup-plugins.log` <!-- id: 2.7 -->
-- [ ] Task 2.8: User Output Validation Checkpoint (Mandatory Human Pause for WP Admin inspection of posts, images, and translations) <!-- id: 2.8 -->
+- [x] Task 2.8: User Output Validation Checkpoint (Mandatory Human Pause for WP Admin inspection of posts, images, and translations) <!-- id: 2.8 -->
 
 ## Phase 3: System PHP Upgrade & Plugin Updates
-- [ ] Task 3.1: Developer Checkpoint — HALT & notify user for system PHP 7.4 -> 8.2 upgrade (`sudo update-alternatives --config php`) <!-- id: 3.1 -->
-- [ ] Task 3.2: WP-CLI plugin updates under PHP 8.2 (`wp plugin update --all`) <!-- id: 3.2 -->
-- [ ] Task 3.3: Routing & permalink integrity verification (`wp rewrite flush`) <!-- id: 3.3 -->
+- [x] Task 3.1: Developer Checkpoint — HALT & notify user for system PHP 7.4 -> 8.2 upgrade (`sudo update-alternatives --config php`) <!-- id: 3.1 -->
+- [x] Task 3.2: WP-CLI plugin updates under PHP 8.2 (`wp plugin update --all`) <!-- id: 3.2 -->
+- [x] Task 3.3: Routing & permalink integrity verification (`wp rewrite flush`) <!-- id: 3.3 -->
 
 ## Phase 4: Modern FSE Theme & Multi-language Development
 - [ ] Task 4.1: Modern design system & token configuration (`theme.json` + `assets/scss/`) compiled via `@wordpress/scripts` <!-- id: 4.1 -->
