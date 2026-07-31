@@ -38,13 +38,14 @@ for plugin in "${LEGACY_PLUGINS[@]}"; do
     php7.4 $(which wp) --path="$STAGING_DIR/public/" plugin deactivate "$plugin" --skip-plugins --allow-root 2>/dev/null
     
     # 2. Attempt WP-CLI deletion
-    if php7.4 $(which wp) --path="$STAGING_DIR/public/" plugin delete "$plugin" --skip-plugins --allow-root 2>/dev/null; then
+    if php7.4 $(which wp) --path="$STAGING_DIR/public/" plugin delete "$plugin" --force --skip-plugins --allow-root 2>/dev/null; then
         echo "[SUCCESS] Uninstalled $plugin via WP-CLI."
     else
         echo "[FALLBACK] WP-CLI uninstall failed for $plugin. Executing rm -rf fallback..."
         if [ -d "$STAGING_DIR/public/wp-content/plugins/$plugin" ]; then
+            chmod -R 775 "$STAGING_DIR/public/wp-content/plugins/$plugin" 2>/dev/null
             rm -rf "$STAGING_DIR/public/wp-content/plugins/$plugin"
-            echo "Reasoning: Physical directory $plugin removed via rm -rf because WP-CLI uninstallation encountered missing files or class load errors."
+            echo "Reasoning: Physical directory $plugin removed via rm -rf after chmod because WP-CLI uninstallation encountered missing files or class load errors."
         else
             echo "Reasoning: Plugin directory $plugin does not exist."
         fi

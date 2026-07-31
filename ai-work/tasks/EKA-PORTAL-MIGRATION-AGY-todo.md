@@ -15,7 +15,7 @@
 - [x] Task 2.4: Execute `wp eka migrate-board` and verify `ai-work/logs/board-migration.log` <!-- id: 2.4 -->
 - [x] Task 2.5: Execute `wp eka replace-sliders` and verify `ai-work/logs/sliders-migration.log` <!-- id: 2.5 -->
 - [x] Task 2.6: Execute `wp eka remediate-shortcodes` (replace BeTheme shortcodes and sub-navigation sidebars) <!-- id: 2.6 -->
-- [ ] Task 2.7: Execute `bin/cleanup-plugins.sh` and verify `ai-work/logs/cleanup-plugins.log` <!-- id: 2.7 -->
+- [x] Task 2.7: Execute `bin/cleanup-plugins.sh` and verify `ai-work/logs/cleanup-plugins.log` <!-- id: 2.7 -->
 - [ ] Task 2.8: User Output Validation Checkpoint (Mandatory Human Pause for WP Admin inspection of posts, images, and translations) <!-- id: 2.8 -->
 
 ## Phase 3: System PHP Upgrade & Plugin Updates
