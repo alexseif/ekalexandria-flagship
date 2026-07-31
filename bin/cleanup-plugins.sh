@@ -1,11 +1,58 @@
 #!/bin/bash
 # bin/cleanup-plugins.sh
 
-echo "Deactivating legacy plugins..."
-php7.4 $(which wp) --path=/var/www/backstage.ekalexandria.org/public/ plugin deactivate LayerSlider js_composer display-posts-shortcode force-regenerate-thumbnails
+STAGING_DIR="/var/www/backstage.ekalexandria.org"
+THEME_DIR="$STAGING_DIR/public/wp-content/themes/ekalexandria-flagship"
+LOG_DIR="$THEME_DIR/ai-work/logs"
+LOG_FILE="$LOG_DIR/cleanup-plugins.log"
 
-echo "Uninstalling legacy plugins..."
-php7.4 $(which wp) --path=/var/www/backstage.ekalexandria.org/public/ plugin delete LayerSlider js_composer display-posts-shortcode force-regenerate-thumbnails
+mkdir -p "$LOG_DIR"
 
-echo "Legacy plugin cleanup complete!"
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo "=========================================="
+echo "Executing Legacy Plugin Cleanup: $(date)"
+echo "=========================================="
+
+LEGACY_PLUGINS=(
+    "LayerSlider"
+    "js_composer"
+    "display-posts-shortcode"
+    "force-regenerate-thumbnails"
+    "ewww-image-optimizer"
+    "wordpress-seo"
+    "w3-total-cache"
+)
+
+echo "Cleaning up legacy drop-ins and cache directories..."
+rm -f "$STAGING_DIR/public/wp-content/advanced-cache.php"
+rm -f "$STAGING_DIR/public/wp-content/object-cache.php"
+rm -rf "$STAGING_DIR/public/wp-content/cache"
+rm -rf "$STAGING_DIR/public/wp-content/w3tc-config"
+echo "Reasoning: Removed cached drop-ins to prevent autoloader and cache header conflicts."
+
+for plugin in "${LEGACY_PLUGINS[@]}"; do
+    echo "Processing plugin: $plugin"
+    
+    # 1. Attempt WP-CLI deactivation
+    php7.4 $(which wp) --path="$STAGING_DIR/public/" plugin deactivate "$plugin" --skip-plugins --allow-root 2>/dev/null
+    
+    # 2. Attempt WP-CLI deletion
+    if php7.4 $(which wp) --path="$STAGING_DIR/public/" plugin delete "$plugin" --skip-plugins --allow-root 2>/dev/null; then
+        echo "[SUCCESS] Uninstalled $plugin via WP-CLI."
+    else
+        echo "[FALLBACK] WP-CLI uninstall failed for $plugin. Executing rm -rf fallback..."
+        if [ -d "$STAGING_DIR/public/wp-content/plugins/$plugin" ]; then
+            rm -rf "$STAGING_DIR/public/wp-content/plugins/$plugin"
+            echo "Reasoning: Physical directory $plugin removed via rm -rf because WP-CLI uninstallation encountered missing files or class load errors."
+        else
+            echo "Reasoning: Plugin directory $plugin does not exist."
+        fi
+    fi
+done
+
+echo "Verifying active plugin status:"
+php7.4 $(which wp) --path="$STAGING_DIR/public/" plugin list --skip-plugins --allow-root
+
+echo "Plugin cleanup completed successfully at $(date)!"
 exit 0
