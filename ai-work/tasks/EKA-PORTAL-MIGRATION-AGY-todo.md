@@ -5,7 +5,7 @@
 ## Phase 1: Scoping Data & Script Refinement (Mastery & Codification Phase)
 - [x] Task 1.1: Scaffold `board-scoping.json` (EL/EN/AR translation mappings) and update `tachydromos-scoping.json` (normalize unscaled image URLs) <!-- id: 1.1 -->
 - [x] Task 1.2: Refine `bin/reset-env.sh` (codify DB sync check to prevent ID collisions, fix Mailchimp autoloader vendor errors) <!-- id: 1.2 -->
-- [ ] Task 1.3: Refine CLI migration commands in `inc/cli-commands.php` (Tachydromos Greek month title casing, unscaled media ID reassignment; Board Polylang `pll_save_post_translations` linking, strip body `<img>` tags; log outputs, errors, issues, fallbacks, and technical reasoning into `ai-work/logs/`) <!-- id: 1.3 -->
+- [x] Task 1.3: Refine CLI migration commands in `inc/cli-commands.php` (Tachydromos Greek month title casing, unscaled media ID reassignment; Board Polylang `pll_save_post_translations` linking, strip body `<img>` tags; log outputs, errors, issues, fallbacks, and technical reasoning into `ai-work/logs/`) <!-- id: 1.3 -->
 - [ ] Task 1.4: Refine `bin/cleanup-plugins.sh` (codify WP-CLI deactivation/uninstall with `rm -rf` fallback logic and reasoned logging to `ai-work/logs/cleanup-plugins.log`) <!-- id: 1.4 -->
 
 ## Phase 2: Programmatic Execution & Verification Phase

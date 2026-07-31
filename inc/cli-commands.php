@@ -4,23 +4,47 @@ if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
 }
 
 class EKA_CLI {
+
+    private function get_logger($log_filename) {
+        $log_dir = get_template_directory() . '/ai-work/logs';
+        if (!file_exists($log_dir)) {
+            mkdir($log_dir, 0755, true);
+        }
+        $log_file = $log_dir . '/' . $log_filename;
+        return function($message, $type = 'INFO', $reasoning = '') use ($log_file) {
+            $timestamp = date('Y-m-d H:i:s');
+            $log_entry = sprintf("[%s] [%s] %s %s\n", $timestamp, $type, $message, $reasoning ? "Reasoning: $reasoning" : '');
+            file_put_contents($log_file, $log_entry, FILE_APPEND);
+            if ($type === 'ERROR') {
+                WP_CLI::error($message);
+            } elseif ($type === 'WARNING') {
+                WP_CLI::warning($message);
+            } else {
+                WP_CLI::line($message);
+            }
+        };
+    }
+
     /**
      * Migrate Alexandrinos Tachydromos from legacy DB
      *
      * @subcommand migrate-tachydromos
      */
     public function migrate_tachydromos() {
+        $log = $this->get_logger('tachydromos-migration.log');
+        $log("Starting Alexandrinos Tachydromos migration...", "INFO", "Initializing scoping data and database connectivity.");
+
         $json_file = get_template_directory() . '/ai-work/scopings/tachydromos-scoping.json';
         if (!file_exists($json_file)) {
-            WP_CLI::error("Scoping file not found at: $json_file");
+            $log("Scoping file not found at: $json_file", "ERROR", "Migration cannot proceed without valid scoping dataset.");
         }
 
         $items = json_decode(file_get_contents($json_file), true);
         if (!$items || !is_array($items)) {
-            WP_CLI::error("Invalid JSON scoping data.");
+            $log("Invalid JSON scoping data.", "ERROR", "JSON parsing failed for tachydromos-scoping.json.");
         }
 
-        WP_CLI::line("Loaded " . count($items) . " items from scoping JSON.");
+        $log("Loaded " . count($items) . " items from scoping JSON.");
 
         $months = [
             'Ιανουάριος' => '01', 'Ιανουαρίου' => '01',
@@ -37,6 +61,21 @@ class EKA_CLI {
             'Δεκέμβριος' => '12', 'Δεκεμβρίου' => '12',
         ];
 
+        $month_title_casing = [
+            '01' => 'Ιανουάριος',
+            '02' => 'Φεβρουάριος',
+            '03' => 'Μάρτιος',
+            '04' => 'Απρίλιος',
+            '05' => 'Μάιος',
+            '06' => 'Ιούνιος',
+            '07' => 'Ιούλιος',
+            '08' => 'Αύγουστος',
+            '09' => 'Σεπτέμβριος',
+            '10' => 'Οκτώβριος',
+            '11' => 'Νοέμβριος',
+            '12' => 'Δεκέμβριος',
+        ];
+
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -46,6 +85,7 @@ class EKA_CLI {
         foreach ($items as $item) {
             $pdf_url = $item['pdf_url'] ?? null;
             $img_url = $item['img_url'] ?? null;
+            $unscaled_img_url = $item['unscaled_img_url'] ?? null;
             $raw_title = $item['extracted_title'] ?? null;
 
             if (!$pdf_url && !$raw_title) {
@@ -65,11 +105,11 @@ class EKA_CLI {
             // Check idempotency
             $existing = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_eka_pdf_filename' AND meta_value=%s", $pdf_filename));
             if ($existing) {
-                WP_CLI::line("Skipping existing: $pdf_filename");
+                $log("Skipping existing item: $pdf_filename", "INFO", "Idempotency check confirmed post_id $existing already exists.");
                 continue;
             }
 
-            // Date mapping
+            // Date mapping & normalized Greek Month title casing
             $year = date('Y');
             if (preg_match('/(20\d{2})/', $title . ' ' . $pdf_url, $m)) {
                 $year = $m[1];
@@ -82,18 +122,23 @@ class EKA_CLI {
                 }
             }
             $post_date = sprintf('%04d-%02d-01 00:00:00', $year, $month_num);
+            
+            // Normalize title casing if it matches a month
+            if (isset($month_title_casing[$month_num]) && preg_match('/^[A-Z\x{0370}-\x{03FF}\s\d]+$/u', $title)) {
+                $title = $month_title_casing[$month_num] . ' ' . $year;
+            }
 
             $pdf_attachment_id = 0;
             $pdf_attachment_url = $pdf_url;
 
             if ($pdf_url && strtolower(pathinfo($pdf_url, PATHINFO_EXTENSION)) === 'pdf') {
-                // Check if attachment already exists in DB
                 $existing_att = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $pdf_filename));
                 if ($existing_att) {
                     $pdf_attachment_id = $existing_att;
                     $pdf_attachment_url = wp_get_attachment_url($pdf_attachment_id);
+                    $log("Reassigned existing PDF attachment ID $pdf_attachment_id for $pdf_filename", "INFO", "Reusing media library asset without re-downloading.");
                 } else {
-                    WP_CLI::line("Downloading PDF: $pdf_url");
+                    $log("Downloading PDF: $pdf_url", "INFO", "File not found in local media library.");
                     $tmp_pdf = download_url($pdf_url);
                     if (!is_wp_error($tmp_pdf)) {
                         $pdf_file_array = ['name' => $pdf_filename, 'tmp_name' => $tmp_pdf];
@@ -108,7 +153,7 @@ class EKA_CLI {
                 }
             }
 
-            // Build core/file block or image block
+            // Build core/file block or fallback link
             if ($pdf_attachment_id && $pdf_attachment_url) {
                 $block_content = sprintf(
                     '<!-- wp:file {"id":%d,"href":"%s","displayPreview":true} -->
@@ -125,10 +170,9 @@ class EKA_CLI {
                 );
             }
 
-            // AST parse verification
             $parsed_blocks = parse_blocks($block_content);
             if (empty($parsed_blocks)) {
-                WP_CLI::warning("AST serialization failed for $title");
+                $log("AST serialization warning for $title", "WARNING", "Block structure failed default parser validation.");
             }
 
             $post_id = wp_insert_post([
@@ -140,7 +184,7 @@ class EKA_CLI {
             ]);
 
             if (is_wp_error($post_id)) {
-                WP_CLI::warning("Failed to insert post: $title");
+                $log("Failed to insert post: $title", "WARNING", $post_id->get_error_message());
                 continue;
             }
 
@@ -149,14 +193,17 @@ class EKA_CLI {
                 update_post_meta($post_id, '_eka_pdf_attachment_id', $pdf_attachment_id);
             }
 
-            // Reassign or download featured image
-            if ($img_url) {
-                $img_filename = wp_basename($img_url);
-                $img_att_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $img_filename));
+            // Reassign unscaled featured image without re-uploading or scaling
+            $target_img = $unscaled_img_url ?: $img_url;
+            if ($target_img) {
+                $img_filename = wp_basename($target_img);
+                $clean_filename = preg_replace('/-\d+x\d+(\.[a-zA-Z0-9]+)$/', '$1', $img_filename);
+                $img_att_id = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $clean_filename));
                 if ($img_att_id) {
                     set_post_thumbnail($post_id, $img_att_id);
+                    $log("Assigned existing unscaled attachment ID $img_att_id to post $post_id", "INFO", "Matched unscaled filename $clean_filename.");
                 } else {
-                    $tmp_img = download_url($img_url);
+                    $tmp_img = download_url($target_img);
                     if (!is_wp_error($tmp_img)) {
                         $img_file_array = ['name' => $img_filename, 'tmp_name' => $tmp_img];
                         $sideload_img_id = media_handle_sideload($img_file_array, $post_id);
@@ -169,10 +216,10 @@ class EKA_CLI {
                 }
             }
 
-            WP_CLI::success("Migrated Tachydromos: $title ($post_date)");
+            $log("Successfully migrated Tachydromos: $title ($post_date)", "INFO", "Post ID: $post_id");
         }
 
-        WP_CLI::success('Tachydromos migration complete.');
+        $log("Alexandrinos Tachydromos migration finished successfully.", "INFO");
     }
 
     /**
@@ -181,16 +228,20 @@ class EKA_CLI {
      * @subcommand migrate-board
      */
     public function migrate_board() {
+        $log = $this->get_logger('board-migration.log');
+        $log("Starting Board Members migration...", "INFO", "Connecting to legacy DB and scoping translation maps.");
+
+        $scoping_file = get_template_directory() . '/ai-work/scopings/board-scoping.json';
+        $scoping_data = file_exists($scoping_file) ? json_decode(file_get_contents($scoping_file), true) : null;
+
         WP_CLI::line('Connecting to legacy DB...');
         $legacy_db = new wpdb('root', '0024', 'db207080_eka', 'localhost');
         if ($legacy_db->error) {
-            WP_CLI::error('Could not connect to db207080_eka.');
+            $log("Could not connect to legacy DB db207080_eka.", "ERROR", "Database credentials or MySQL service unavailable.");
         }
 
-        // Fetch testimonials
         $testimonials = $legacy_db->get_results("SELECT ID, post_title, post_content, menu_order FROM wp_posts WHERE post_type='testimonial' AND post_status='publish'");
 
-        // Fetch post languages
         $languages = $legacy_db->get_results("
             SELECT tr.object_id, t.slug as language
             FROM wp_term_relationships tr
@@ -203,23 +254,22 @@ class EKA_CLI {
             $post_languages[$l->object_id] = $l->language;
         }
 
-        // Fetch translation groups
-        $translations = $legacy_db->get_results("
-            SELECT t.description as serialized_group
-            FROM wp_term_taxonomy tt
-            JOIN wp_terms t ON tt.term_id = t.term_id
-            WHERE tt.taxonomy = 'post_translations'
-        ");
-        
-        $groups = [];
-        foreach ($translations as $t) {
-            $group = unserialize($t->serialized_group);
-            if (is_array($group)) {
-                $groups[] = $group;
+        $groups = $scoping_data['translation_groups'] ?? [];
+        if (empty($groups)) {
+            $translations = $legacy_db->get_results("
+                SELECT t.description as serialized_group
+                FROM wp_term_taxonomy tt
+                JOIN wp_terms t ON tt.term_id = t.term_id
+                WHERE tt.taxonomy = 'post_translations'
+            ");
+            foreach ($translations as $t) {
+                $group = unserialize($t->serialized_group);
+                if (is_array($group)) {
+                    $groups[] = $group;
+                }
             }
         }
 
-        // Fetch legacy thumbnails
         $thumbnails = $legacy_db->get_results("
             SELECT post_id, meta_value as thumbnail_id
             FROM wp_postmeta
@@ -231,46 +281,44 @@ class EKA_CLI {
         }
 
         global $wpdb;
-
-        $migrated_map = []; // legacy ID => new ID
-        $thumbnail_map = []; // filename => new attachment ID
+        $migrated_map = [];
+        $thumbnail_map = [];
 
         foreach (['el', 'en', 'ar'] as $lang) {
             foreach ($testimonials as $t) {
-                $post_lang = isset($post_languages[$t->ID]) ? $post_languages[$t->ID] : 'el'; // fallback to el
+                $post_lang = isset($post_languages[$t->ID]) ? $post_languages[$t->ID] : 'el';
                 if ($post_lang !== $lang) continue;
 
                 // Check idempotency
                 $existing = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_legacy_testimonial_id' AND meta_value=%d", $t->ID));
                 if ($existing) {
                     $migrated_map[$t->ID] = $existing;
-                    WP_CLI::line("Skipping existing: {$t->post_title} ($lang)");
+                    $log("Skipping existing Board Member: {$t->post_title} ($lang)", "INFO", "Found legacy testimonial ID {$t->ID} mapped to post_id $existing.");
                     continue;
                 }
 
-                // Strip WPBakery shortcodes
-                $clean_content = preg_replace('/\[\/?vc_[^\]]+\]/', '', $t->post_content);
-                // Also parse standard Gutenberg blocks for raw text if we want, but legacy was WPBakery
+                // Strip <img> tags and WPBakery shortcodes completely from post_content
+                $clean_content = preg_replace('/<img[^>]*>/i', '', $t->post_content);
+                $clean_content = preg_replace('/\[\/?vc_[^\]]+\]/', '', $clean_content);
                 $clean_content = trim($clean_content);
 
-                // Insert post
                 $post_id = wp_insert_post([
                     'post_title' => $t->post_title,
-                    'post_content' => $clean_content, // Keeping raw text + basic HTML
+                    'post_content' => $clean_content,
                     'post_status' => 'publish',
                     'post_type' => 'board_member',
                     'menu_order' => $t->menu_order,
                 ]);
 
                 if (is_wp_error($post_id)) {
-                    WP_CLI::warning("Failed to insert: {$t->post_title}");
+                    $log("Failed to insert board member: {$t->post_title}", "WARNING", $post_id->get_error_message());
                     continue;
                 }
 
                 $migrated_map[$t->ID] = $post_id;
                 update_post_meta($post_id, '_legacy_testimonial_id', $t->ID);
 
-                // Handle thumbnail
+                // Handle thumbnail: reassign unscaled existing attachment ID without re-uploading/cropping
                 $thumbnail_id = 0;
                 if (isset($legacy_thumbs[$t->ID])) {
                     $legacy_thumb_id = $legacy_thumbs[$t->ID];
@@ -278,50 +326,33 @@ class EKA_CLI {
                     
                     if ($legacy_attachment) {
                         $filename = wp_basename($legacy_attachment->meta_value);
+                        $unscaled_filename = preg_replace('/-\d+x\d+(\.[a-zA-Z0-9]+)$/', '$1', $filename);
                         
-                        if (isset($thumbnail_map[$filename])) {
-                            $thumbnail_id = $thumbnail_map[$filename];
+                        $existing_attachment = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_wp_attached_file' AND meta_value LIKE %s", '%' . $unscaled_filename));
+                        
+                        if ($existing_attachment) {
+                            $thumbnail_id = $existing_attachment;
+                            $log("Reassigned unscaled attachment ID $thumbnail_id for board member {$t->post_title}", "INFO", "Matched attachment filename $unscaled_filename.");
                         } else {
-                            $existing_attachment = $wpdb->get_var($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key='_eka_original_filename' AND meta_value=%s", $filename));
+                            $legacy_url = "https://ekalexandria.org/wp-content/uploads/" . $legacy_attachment->meta_value;
+                            $upload_dir = wp_upload_dir();
+                            $local_filename = 'board-' . md5($legacy_url) . '-' . $filename;
+                            $local_path = $upload_dir['path'] . '/' . $local_filename;
                             
-                            if ($existing_attachment) {
-                                $thumbnail_id = $existing_attachment;
-                                $thumbnail_map[$filename] = $thumbnail_id;
-                            } else {
-                                // Download and process
-                                $legacy_url = "https://ekalexandria.org/wp-content/uploads/" . $legacy_attachment->meta_value;
-                                $upload_dir = wp_upload_dir();
-                                $local_filename = 'board-' . md5($legacy_url) . '-' . $filename;
-                                $local_path = $upload_dir['path'] . '/' . $local_filename;
-                                
-                                WP_CLI::line("Downloading board image: $legacy_url");
-                                $img_content = @file_get_contents($legacy_url);
-                                
-                                if ($img_content) {
-                                    file_put_contents($local_path, $img_content);
-                                    
-                                    // ImageMagick resize to 800x800 square
-                                    $command = sprintf("convert %s -resize 800x800^ -gravity center -extent 800x800 %s", escapeshellarg($local_path), escapeshellarg($local_path));
-                                    exec($command);
-                                    
-                                    $filetype = wp_check_filetype($local_filename, null);
-                                    $attachment = array(
-                                        'post_mime_type' => $filetype['type'],
-                                        'post_title'     => sanitize_file_name($filename),
-                                        'post_content'   => '',
-                                        'post_status'    => 'inherit'
-                                    );
-                                    
-                                    $thumbnail_id = wp_insert_attachment($attachment, $local_path, $post_id);
-                                    require_once(ABSPATH . 'wp-admin/includes/image.php');
-                                    $attach_data = wp_generate_attachment_metadata($thumbnail_id, $local_path);
-                                    wp_update_attachment_metadata($thumbnail_id, $attach_data);
-                                    update_post_meta($thumbnail_id, '_eka_original_filename', $filename);
-                                    
-                                    $thumbnail_map[$filename] = $thumbnail_id;
-                                } else {
-                                    WP_CLI::warning("Failed to download: $legacy_url");
-                                }
+                            $img_content = @file_get_contents($legacy_url);
+                            if ($img_content) {
+                                file_put_contents($local_path, $img_content);
+                                $filetype = wp_check_filetype($local_filename, null);
+                                $attachment = array(
+                                    'post_mime_type' => $filetype['type'],
+                                    'post_title'     => sanitize_file_name($filename),
+                                    'post_content'   => '',
+                                    'post_status'    => 'inherit'
+                                );
+                                $thumbnail_id = wp_insert_attachment($attachment, $local_path, $post_id);
+                                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                                $attach_data = wp_generate_attachment_metadata($thumbnail_id, $local_path);
+                                wp_update_attachment_metadata($thumbnail_id, $attach_data);
                             }
                         }
                     }
@@ -331,19 +362,17 @@ class EKA_CLI {
                     set_post_thumbnail($post_id, $thumbnail_id);
                 }
 
-                // Set Polylang language
                 if (function_exists('pll_set_post_language')) {
                     pll_set_post_language($post_id, $lang);
                 }
 
-                WP_CLI::success("Migrated ($lang): {$t->post_title}");
+                $log("Migrated Board Member ($lang): {$t->post_title}", "INFO", "Post ID: $post_id");
             }
         }
 
-        // Link translations
+        // Link translations via Polylang pll_save_post_translations
         if (function_exists('pll_save_post_translations')) {
             foreach ($groups as $group) {
-                // $group is ['el' => legacy_id, 'en' => legacy_id, 'ar' => legacy_id]
                 $new_group = [];
                 foreach ($group as $lang => $legacy_id) {
                     if (isset($migrated_map[$legacy_id])) {
@@ -352,21 +381,24 @@ class EKA_CLI {
                 }
                 if (count($new_group) > 1) {
                     pll_save_post_translations($new_group);
-                    WP_CLI::line("Linked translations: " . implode(', ', $new_group));
+                    $log("Linked Polylang post translations: " . json_encode($new_group), "INFO", "Linked " . count($new_group) . " translations.");
                 }
             }
         }
 
-        WP_CLI::success('Board Members migration complete.');
+        $log("Board Members migration finished successfully.", "INFO");
     }
+
     /**
      * Replace Legacy Sliders with Native Blocks
      *
      * @subcommand replace-sliders
      */
     public function replace_sliders() {
+        $log = $this->get_logger('sliders-migration.log');
+        $log("Starting Slider Replacement...", "INFO", "Scanning pages for [rev_slider] and [layerslider] shortcodes.");
+
         global $wpdb;
-        WP_CLI::line('Replacing sliders with native blocks...');
 
         $dynamic_pages = [13236, 17194, 17215, 17219, 8934, 16920, 16923];
         $query_loop_block = '<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
@@ -387,7 +419,7 @@ class EKA_CLI {
                     $new_content = preg_replace('/\[layerslider[^\]]*\]/i', $query_loop_block, $new_content);
                     if ($new_content !== $post->post_content) {
                         wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
-                        WP_CLI::success("Replaced dynamic slider in page ID $page_id");
+                        $log("Replaced dynamic slider in page ID $page_id with core Query Loop.", "INFO");
                     }
                 }
             }
@@ -439,13 +471,13 @@ class EKA_CLI {
 
                     if ($new_content !== $post->post_content) {
                         wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
-                        WP_CLI::success("Replaced static gallery in page ID $page_id");
+                        $log("Replaced static slider in page ID $page_id with core Gallery block.", "INFO");
                     }
                 }
             }
         }
         
-        WP_CLI::success('Slider replacement complete.');
+        $log("Slider replacement finished successfully.", "INFO");
     }
 
     /**
@@ -454,16 +486,16 @@ class EKA_CLI {
      * @subcommand remediate-shortcodes
      */
     public function remediate_shortcodes() {
+        $log = $this->get_logger('remediate-shortcodes.log');
+        $log("Starting Shortcode & Sub-navigation Remediation...", "INFO");
+
         global $wpdb;
-        WP_CLI::line('Remediating shortcodes and injecting sub-navigation...');
 
         $posts = get_posts(['post_type' => 'page', 'posts_per_page' => -1]);
         
         foreach ($posts as $post) {
             $content = $post->post_content;
-            $updated = false;
 
-            // 1. Replace [testimonials] with board_member Query Loop
             if (strpos($content, '[testimonials') !== false) {
                 $board_query = '<!-- wp:query {"queryId":2,"query":{"perPage":50,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
 <div class="wp-block-query">
@@ -476,10 +508,8 @@ class EKA_CLI {
 <!-- /wp:query -->';
                 $content = preg_replace('/<!-- wp:shortcode -->\s*\[testimonials[^\]]*\]\s*<!-- \/wp:shortcode -->/is', $board_query, $content);
                 $content = preg_replace('/\[testimonials[^\]]*\]/is', $board_query, $content);
-                $updated = true;
             }
 
-            // 2. Replace [vc_posts_grid] with Query Loop including specific IDs
             if (strpos($content, '[vc_posts_grid') !== false) {
                 if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
                     $ids = array_map('intval', explode(',', $matches[1]));
@@ -497,21 +527,18 @@ class EKA_CLI {
                     
                     $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
                     $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
-                    $updated = true;
                 }
             }
             
-            // 3. Strip remaining WPBakery / BeTheme shortcodes
             $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
             $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
             if ($content !== $post->post_content) {
                 wp_update_post(['ID' => $post->ID, 'post_content' => trim($content)]);
-                WP_CLI::success("Remediated shortcodes on page ID {$post->ID}");
+                $log("Remediated shortcodes on page ID {$post->ID}", "INFO");
             }
         }
 
-        // Sub-navigation via Sidebars (Establishment, Activities, Services)
         $sidebar_menus = [
             70 => [12],
             3377 => [16912],
@@ -542,12 +569,12 @@ class EKA_CLI {
 <!-- /wp:columns -->';
                     
                     wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
-                    WP_CLI::success("Injected Navigation Sidebar for page ID $page_id with menu $menu_id");
+                    $log("Injected Navigation Sidebar for page ID $page_id with menu $menu_id", "INFO");
                 }
             }
         }
         
-        WP_CLI::success('Shortcode remediation complete.');
+        $log("Shortcode & sub-navigation remediation finished successfully.", "INFO");
     }
 }
 
