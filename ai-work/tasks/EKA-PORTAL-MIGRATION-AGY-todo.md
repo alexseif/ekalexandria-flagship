@@ -9,7 +9,7 @@
 - [x] Task 1.4: Refine `bin/cleanup-plugins.sh` (codify WP-CLI deactivation/uninstall with `rm -rf` fallback logic and reasoned logging to `ai-work/logs/cleanup-plugins.log`) <!-- id: 1.4 -->
 
 ## Phase 2: Programmatic Execution & Verification Phase
-- [ ] Task 2.1: Execute clean DB staging reset via `bin/reset-env.sh` <!-- id: 2.1 -->
+- [x] Task 2.1: Execute clean DB staging reset via `bin/reset-env.sh` <!-- id: 2.1 -->
 - [ ] Task 2.2: Verify custom post type registrations (`alx_tachydromos`, `board_member`) in `inc/custom-features.php` <!-- id: 2.2 -->
 - [ ] Task 2.3: Execute `wp eka migrate-tachydromos` and verify `ai-work/logs/tachydromos-migration.log` <!-- id: 2.3 -->
 - [ ] Task 2.4: Execute `wp eka migrate-board` and verify `ai-work/logs/board-migration.log` <!-- id: 2.4 -->
