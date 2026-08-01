@@ -1,6 +1,6 @@
 # Todo List: Phase 2 - Programmatic CPT Content, Shortcode & Menu Migration
 
-- [ ] Task 2.1: Scaffold `bin/run-phase2-migration.sh` runner script with log purging at the start of execution
+- [x] Task 2.1: Scaffold `bin/run-phase2-migration.sh` runner script with log purging at the start of execution
 - [x] Task 2.2: Execute `alx_tachydromos` CPT migration (Implemented in `inc/cli-commands.php` `wp eka migrate-tachydromos`)
 - [x] Task 2.3: Execute `board_member` CPT migration (Implemented in `inc/cli-commands.php` `wp eka migrate-board`)
 - [x] Task 2.4: Execute slider replacement (Implemented in `inc/cli-commands.php` `wp eka replace-sliders`)
