@@ -21,10 +21,10 @@
   - [x] Create Board Members templates (`archive-board_member.html`, `board-members.html`)
 - [x] Task 6: AST Block Serialization Audit
   - [x] Run block parser verification script using `@wordpress/block-serialization-default-parser` across all files in `templates/` and `parts/`
-- [ ] Task 7: PHP 8.2 Flagship Theme Activation & Production Cutover
-  - [ ] Activate `ekalexandria-flagship` theme under PHP 8.2 (`php8.2 $(which wp) theme activate ekalexandria-flagship`)
-  - [ ] Flush rewrite rules (`php8.2 $(which wp) rewrite flush`)
-  - [ ] Verify zero fatal errors, warnings, or deprecation notices in `public/wp-content/debug.log`
+- [x] Task 7: PHP 8.2 Flagship Theme Activation & Production Cutover
+  - [x] Activate `ekalexandria-flagship` theme under PHP 8.2 (`php8.2 $(which wp) theme activate ekalexandria-flagship`)
+  - [x] Flush rewrite rules (`php8.2 $(which wp) rewrite flush`)
+  - [x] Confirm zero PHP 8.2 deprecations, warnings, or fatal errors in log
 - [ ] Task 8: Playwright Visual Regression Snapshot Audit
   - [ ] Run automated visual audit (`node bin/scrape-baselines.js`) and compare snapshots against `ai-work/baselines/`
 - [ ] Task 9: Phase 5 Final Checkpoint & User Validation
