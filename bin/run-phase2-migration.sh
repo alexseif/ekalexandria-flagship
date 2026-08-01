@@ -4,8 +4,8 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 THEME_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-STAGING_DIR="$(cd "$THEME_DIR/../../.." && pwd)"
-WP_DIR="$STAGING_DIR/public"
+WP_DIR="$(cd "$THEME_DIR/../../.." && pwd)"
+STAGING_DIR="$(cd "$WP_DIR/.." && pwd)"
 LOG_DIR="$THEME_DIR/ai-work/logs"
 MASTER_LOG="$LOG_DIR/phase2-unified-migration.log"
 
@@ -26,9 +26,15 @@ echo "Starting Phase 2 Migration: $(date)"
 echo "Target WordPress Dir: $WP_DIR"
 echo "=========================================="
 
+cd "$WP_DIR" || exit 1
+
 WP_CLI="php7.4 $(which wp)"
 
-# 2. Alexandrinos Tachydromos CPT Migration
+# 2. Ensure Flagship Theme is Active so WP-CLI Loads EKA Commands
+echo "Activating ekalexandria-flagship theme..."
+$WP_CLI theme activate ekalexandria-flagship --path="$WP_DIR" --allow-root > /dev/null 2>&1
+
+# 3. Alexandrinos Tachydromos CPT Migration
 echo "[1/5] Executing Alexandrinos Tachydromos migration..."
 $WP_CLI eka migrate-tachydromos --path="$WP_DIR" --allow-root >> "$LOG_DIR/tachydromos-migration.log" 2>&1
 if [ $? -eq 0 ]; then
@@ -37,7 +43,7 @@ else
     echo "  -> ERROR: Alexandrinos Tachydromos migration encountered issues. Check $LOG_DIR/tachydromos-migration.log"
 fi
 
-# 3. Board Members CPT Migration & Polylang Linking
+# 4. Board Members CPT Migration & Polylang Linking
 echo "[2/5] Executing Board Members migration..."
 $WP_CLI eka migrate-board --path="$WP_DIR" --allow-root >> "$LOG_DIR/board-migration.log" 2>&1
 if [ $? -eq 0 ]; then
@@ -46,7 +52,7 @@ else
     echo "  -> ERROR: Board Members migration encountered issues. Check $LOG_DIR/board-migration.log"
 fi
 
-# 4. Slider Replacement with Native Gutenberg Blocks
+# 5. Slider Replacement with Native Gutenberg Blocks
 echo "[3/5] Executing Slider Replacement..."
 $WP_CLI eka replace-sliders --path="$WP_DIR" --allow-root >> "$LOG_DIR/sliders-migration.log" 2>&1
 if [ $? -eq 0 ]; then
@@ -55,7 +61,7 @@ else
     echo "  -> ERROR: Slider Replacement encountered issues. Check $LOG_DIR/sliders-migration.log"
 fi
 
-# 5. Shortcode Remediation & Sub-navigation
+# 6. Shortcode Remediation & Sub-navigation
 echo "[4/5] Executing Shortcode Remediation & Sub-navigation Injections..."
 $WP_CLI eka remediate-shortcodes --path="$WP_DIR" --allow-root >> "$LOG_DIR/remediate-shortcodes.log" 2>&1
 if [ $? -eq 0 ]; then
@@ -64,7 +70,7 @@ else
     echo "  -> ERROR: Shortcode Remediation encountered issues. Check $LOG_DIR/remediate-shortcodes.log"
 fi
 
-# 6. Navigation Menu Location Assignments
+# 7. Navigation Menu Location Assignments
 echo "[5/5] Executing Navigation Menu Location Assignments..."
 {
     echo "Assigning Greek Main Menu (13 -> main-menu)..."
