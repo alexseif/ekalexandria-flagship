@@ -10,8 +10,8 @@
   - [x] Create placeholder template parts (`parts/header.html`, `parts/footer.html`)
 - [x] Task 3: Theme Activation
   - [x] Activate `ekalexandria-flagship` theme via `php7.4 $(which wp) theme activate ekalexandria-flagship`
-- [ ] Task 4: Legacy Plugin & Caching Cleanup
-  - [ ] Execute `bin/cleanup-plugins.sh` to purge stalling plugins (`LayerSlider`, `js_composer`, `revslider`, etc.) and caching drop-ins
+- [x] Task 4: Legacy Plugin & Caching Cleanup
+  - [x] Execute `bin/cleanup-plugins.sh` to purge stalling plugins (`LayerSlider`, `js_composer`, `revslider`, etc.) and caching drop-ins
 - [ ] Task 5: Dynamic & Static Slider Replacement
   - [ ] Execute `php7.4 $(which wp) eka replace-sliders` to replace homepage/news sliders with `core/query` loops and inner page sliders with `core/gallery` blocks
 - [ ] Task 6: Gutenberg Shortcode & MFN Remediation
