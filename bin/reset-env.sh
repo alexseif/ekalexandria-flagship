@@ -10,6 +10,7 @@ LOG_DIR="$THEME_DIR/ai-work/logs"
 LOG_FILE="$LOG_DIR/reset-env.log"
 
 mkdir -p "$LOG_DIR"
+> "$LOG_FILE"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "=========================================="
@@ -54,6 +55,8 @@ if [ -d "$PROD_DIR/public" ]; then
     echo "Synchronizing staging files from production baseline ($PROD_DIR/public)..."
     rsync -av --delete \
         --exclude='wp-config.php' \
+        --exclude='wp-content/plugins/mailchimp/vendor' \
+        --exclude='wp-content/plugins/mailchimp-for-woocommerce/vendor' \
         --exclude='wp-content/themes/ekalexandria-flagship/ai-work' \
         --exclude='wp-content/themes/ekalexandria-flagship/bin' \
         --exclude='wp-content/themes/ekalexandria-flagship/AGY_INSTRUCTIONS.md' \
@@ -63,28 +66,39 @@ if [ -d "$PROD_DIR/public" ]; then
         "$PROD_DIR/public/" "$STAGING_DIR/public/"
 fi
 
-# 5. Search-Replace Domain Mapping
+
+# 5. Fix Staging File Permissions
+echo "Setting file permissions ownership to alexseif:www-data..."
+chown -R alexseif:www-data "$STAGING_DIR"
+chmod -R u+w "$STAGING_DIR/public/wp-content"
+
+# 6. Search-Replace Domain Mapping
 echo "Performing DB domain mapping (ekalexandria.org -> backstage.ekalexandria.org)..."
 cd "$STAGING_DIR/public" || exit 1
 php7.4 $(which wp) search-replace 'ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --skip-plugins --allow-root
 php7.4 $(which wp) search-replace 'www.ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --skip-plugins --allow-root
 
-# 6. Patch Known PHP 7.4/8.0+ Fatal Errors
+# 7. Patch Known PHP 7.4/8.0+ Fatal Errors
 VC_FILE="$STAGING_DIR/public/wp-content/plugins/js_composer/include/classes/editors/class-vc-frontend-editor.php"
 if [ -f "$VC_FILE" ]; then
     echo "Patching WPBakery line 339 nested ternary operator error..."
     sed -i 's/\$mode === \$key \? '\'' vc_active'\'' : \$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'' \? '\'\'': '\'' vc_st_hidden'\''/((\$mode === \$key) ? '\'' vc_active'\'' : ((\$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'') ? '\'\'': '\'' vc_st_hidden'\''))/g' "$VC_FILE"
 fi
 
-# 7. Purge Vendor Autoload Caches
+# 8. Purge Vendor Autoload Caches & Fix Autoloaders
 echo "Resolving Mailchimp vendor autoloader errors..."
+if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor" ]; then
+    rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor"
+fi
 if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor" ]; then
     rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor"
 fi
 
-# 8. Fix Staging File Permissions
-echo "Setting file permissions ownership to alexseif:www-data..."
-chown -R alexseif:www-data "$STAGING_DIR"
+POLYLANG_STATIC="$STAGING_DIR/public/wp-content/plugins/polylang/vendor/composer/autoload_static.php"
+if [ -f "$POLYLANG_STATIC" ]; then
+    echo "Patching Polylang static autoloader class hash..."
+    sed -i 's/ComposerStaticInited5bec60c42d525a1c1222212c9f9cff/ComposerStaticInit8f862f0d8b75b7170c1f5eb4256b99b4/g' "$POLYLANG_STATIC"
+fi
 
 # 9. Verify WP-CLI Connection
 echo "Verifying WP-CLI connection post-reset..."
