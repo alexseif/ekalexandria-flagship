@@ -37,9 +37,15 @@ else
     exit 1
 fi
 
-# 3. Import Fresh Snapshot into backstage_eka
-echo "Importing clean database snapshot into backstage_eka..."
+# 3. Drop, Recreate & Import Fresh Snapshot into backstage_eka
+echo "Dropping residual database backstage_eka..."
 cd "$STAGING_DIR/public" || exit 1
+php7.4 $(which wp) db drop --yes --skip-plugins --allow-root || echo "Notice: Database drop returned warning/non-zero."
+
+echo "Recreating clean database backstage_eka..."
+php7.4 $(which wp) db create --skip-plugins --allow-root || { echo "ERROR: DB creation failed."; exit 1; }
+
+echo "Importing clean database snapshot into backstage_eka..."
 php7.4 $(which wp) db import "$DUMP_FILE" --skip-plugins --allow-root || { echo "ERROR: DB import failed."; exit 1; }
 rm -f "$DUMP_FILE"
 
@@ -76,10 +82,11 @@ if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor
     rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor"
 fi
 
-# 8. Activate Theme & Verify WP-CLI
-echo "Activating ekalexandria-flagship theme..."
-php7.4 $(which wp) theme activate ekalexandria-flagship --skip-plugins --allow-root || echo "WARNING: Theme activation warning."
+# 8. Fix Staging File Permissions
+echo "Setting file permissions ownership to alexseif:www-data..."
+chown -R alexseif:www-data "$STAGING_DIR"
 
+# 9. Verify WP-CLI Connection
 echo "Verifying WP-CLI connection post-reset..."
 php7.4 $(which wp) core version --skip-plugins --allow-root || { echo "ERROR: WP-CLI verification failed."; exit 1; }
 
