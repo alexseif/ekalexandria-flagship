@@ -18,8 +18,8 @@
   - [x] Execute `php7.4 $(which wp) eka remediate-shortcodes` to convert MFN items & shortcodes to block markup and inject sub-nav sidebars
 - [x] Task 7: Alexandrinos Tachydromos CPT Migration
   - [x] Execute `php7.4 $(which wp) eka migrate-tachydromos` to import 32 newsletters with PDF embeddings and normalized titles
-- [ ] Task 8: Board Members CPT Migration & Polylang Linkage
-  - [ ] Execute `php7.4 $(which wp) eka migrate-board` to import 15 testimonials and link Polylang translations
+- [x] Task 8: Board Members CPT Migration & Polylang Linkage
+  - [x] Execute `php7.4 $(which wp) eka migrate-board` to import 15 testimonials and link Polylang translations
 - [ ] Task 9: Navigation Menu Location Assignments
   - [ ] Assign Greek Main (13), English Main (3315), Arabic Main (3316), and Greek Footer (21) menu locations
 - [ ] Task 10: Unified Pass Orchestration & PHP 8.2 Runtime Verification
