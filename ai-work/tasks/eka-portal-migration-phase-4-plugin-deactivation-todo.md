@@ -3,11 +3,11 @@
 - [x] Task 1: Script Gap Closing & Standardization
   - [x] Add explicit `wp eka replace-sliders` and `wp eka remediate-shortcodes` invocations to `bin/run-phase4-migration.sh`
   - [x] Remove `rm -rf` automated fallback logic from `bin/cleanup-plugins.sh` to enforce failure logging for manual developer remediation
-- [ ] Task 2: Barebones Block Theme Infrastructure Scaffolding
-  - [ ] Create `style.css` with valid FSE theme header declaration
-  - [ ] Create `theme.json` with block settings (version 2) and content layout dimensions
-  - [ ] Create boilerplate block templates (`templates/index.html`, `templates/page.html`, `templates/single.html`) with `core/post-content`
-  - [ ] Create placeholder template parts (`parts/header.html`, `parts/footer.html`)
+- [x] Task 2: Barebones Block Theme Infrastructure Scaffolding
+  - [x] Create `style.css` with valid FSE theme header declaration
+  - [x] Create `theme.json` with block settings (version 2) and content layout dimensions
+  - [x] Create boilerplate block templates (`templates/index.html`, `templates/page.html`, `templates/single.html`) with `core/post-content`
+  - [x] Create placeholder template parts (`parts/header.html`, `parts/footer.html`)
 - [ ] Task 3: Theme Activation
   - [ ] Activate `ekalexandria-flagship` theme via `php7.4 $(which wp) theme activate ekalexandria-flagship`
 - [ ] Task 4: Legacy Plugin & Caching Cleanup

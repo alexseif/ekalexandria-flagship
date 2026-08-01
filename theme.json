@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.4/theme.json",
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "1200px",
+      "wideSize": "1400px"
+    },
+    "typography": {
+      "fontSizes": [
+        {
+          "name": "Small",
+          "slug": "small",
+          "size": "0.875rem"
+        },
+        {
+          "name": "Medium",
+          "slug": "medium",
+          "size": "1rem"
+        },
+        {
+          "name": "Large",
+          "slug": "large",
+          "size": "1.5rem"
+        },
+        {
+          "name": "Extra Large",
+          "slug": "x-large",
+          "size": "2.25rem"
+        }
+      ]
+    }
+  }
+}
