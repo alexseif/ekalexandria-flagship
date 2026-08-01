@@ -1,0 +1,31 @@
+# TODO List: Phase 5 - PHP 8.2 Upgrade, Theme Deployment & Visual Audit
+
+- [ ] Task 1: `theme.json` Token Mapping, Scoped CSS Integration & SCSS Asset Compilation
+  - [ ] Map typography (`Roboto`, `Patua One`), colors (`#000119`, `#293e7a`, `#545454`, `#626262`), and dimensions from `ai-work/scopings/styles.json` and `ai-work/scopings/betheme-config-scoping.json` into `theme.json` v2 schema
+  - [ ] Import `ai-work/scopings/betheme-active-styles.css` & `ai-work/scopings/betheme-custom-css.css` into `assets/scss/style.scss` & `assets/scss/rtl.scss`
+  - [ ] Run `npm install` and `npm run build` to compile minified production CSS in `build/`
+- [ ] Task 2: Multi-Language FSE Header & Footer Template Parts Scaffolding
+  - [ ] Build `parts/header-el.html`, `parts/header-en.html`, `parts/header-ar.html` with logo (`eka-logo-wide-small.png`), Top Bar (Polylang switcher, social links), dynamic navigation, and modal search trigger
+  - [ ] Build `parts/footer-el.html`, `parts/footer-en.html`, `parts/footer-ar.html` matching scoped footer layout and widgets
+- [ ] Task 3: Dynamic Menu Location Re-Assignment & Header/Footer Navigation Wiring
+  - [ ] Re-assign WP menu locations: Greek Main (13 -> `main-menu`), English Main (3315 -> `main-menu___en`), Arabic Main (3316 -> `main-menu___ar`), Greek Footer (21 -> `social-menu-bottom`)
+  - [ ] Verify template part navigation blocks reference active navigation menu IDs
+- [ ] Task 4: Static Homepage & News (Posts Page) Configuration
+  - [ ] Programmatically set WordPress reading options (`show_on_front` = `page`, `page_on_front` = Homepage ID, `page_for_posts` = News Page ID)
+  - [ ] Verify homepage and news page routes dynamically resolve FSE templates across languages
+- [ ] Task 5: Multi-Language FSE Block Templates Construction
+  - [ ] Create Front-Page templates (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
+  - [ ] Create Page & Single templates (`page.html`, `single.html`)
+  - [ ] Create Archive & Category templates (`archive.html`, `category.html`)
+  - [ ] Create Alexandrinos Tachydromos templates (`archive-alx_tachydromos.html`, `tachydromos.html`)
+  - [ ] Create Board Members templates (`archive-board_member.html`, `board-members.html`)
+- [ ] Task 6: AST Block Serialization Audit
+  - [ ] Run block parser verification script using `@wordpress/block-serialization-default-parser` across all files in `templates/` and `parts/`
+- [ ] Task 7: PHP 8.2 Flagship Theme Activation & Production Cutover
+  - [ ] Activate `ekalexandria-flagship` theme under PHP 8.2 (`php8.2 $(which wp) theme activate ekalexandria-flagship`)
+  - [ ] Flush rewrite rules (`php8.2 $(which wp) rewrite flush`)
+  - [ ] Verify zero fatal errors, warnings, or deprecation notices in `public/wp-content/debug.log`
+- [ ] Task 8: Playwright Visual Regression Snapshot Audit
+  - [ ] Run automated visual audit (`node bin/scrape-baselines.js`) and compare snapshots against `ai-work/baselines/`
+- [ ] Task 9: Phase 5 Final Checkpoint & User Validation
+  - [ ] Summarize execution logs (`ai-work/logs/phase5-deployment.log`) and halt for final human user approval
