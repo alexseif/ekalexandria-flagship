@@ -1,0 +1,30 @@
+/**
+ * EKA Flagship RTL Stylesheet (SCSS)
+ */
+
+@import "style.scss";
+
+body.rtl {
+    direction: rtl;
+    unicode-bidi: embed;
+    text-align: right;
+}
+
+.rtl {
+    .eka-header-topbar {
+        flex-direction: row-reverse;
+    }
+
+    .eka-header-main {
+        flex-direction: row-reverse;
+    }
+
+    .eka-mailchimp-block {
+        border-left: none;
+        border-right: 4px solid #293e7a;
+    }
+
+    .widget_polylang li {
+        text-align: left;
+    }
+}

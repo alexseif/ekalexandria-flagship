@@ -1,0 +1,15 @@
+{
+  "name": "ekalexandria-flagship",
+  "version": "1.0.0",
+  "description": "EKA Alexandria Flagship FSE Theme",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build assets/scss/style.scss assets/scss/rtl.scss --output-path=build",
+    "test:parser": "node bin/validate-ast.js"
+  },
+  "devDependencies": {
+    "@wordpress/block-serialization-default-parser": "^5.0.0",
+    "@wordpress/scripts": "^30.0.0",
+    "sass": "^1.70.0"
+  }
+}

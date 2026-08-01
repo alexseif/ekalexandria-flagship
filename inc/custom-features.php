@@ -15,6 +15,20 @@ add_action( 'after_setup_theme', function() {
     ] );
 } );
 
+// Enqueue Flagship Scoped Styles
+add_action( 'wp_enqueue_scripts', function() {
+    $theme_dir = get_stylesheet_directory();
+    $theme_uri = get_stylesheet_directory_uri();
+
+    if ( file_exists( $theme_dir . '/build/style-style.scss.css' ) ) {
+        wp_enqueue_style( 'ekalexandria-flagship-style', $theme_uri . '/build/style-style.scss.css', [], filemtime( $theme_dir . '/build/style-style.scss.css' ) );
+    }
+    if ( is_rtl() && file_exists( $theme_dir . '/build/rtl.scss.css' ) ) {
+        wp_enqueue_style( 'ekalexandria-flagship-rtl', $theme_uri . '/build/rtl.scss.css', ['ekalexandria-flagship-style'], filemtime( $theme_dir . '/build/rtl.scss.css' ) );
+    }
+} );
+
+
 // Admin login panel branded
 function ekalexandria_login_logo() { ?>
     <style type="text/css">

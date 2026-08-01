@@ -1,0 +1,114 @@
+/**
+ * EKA Flagship Main Stylesheet (SCSS)
+ */
+
+@import "../../ai-work/scopings/betheme-active-styles.css";
+@import "../../ai-work/scopings/betheme-custom-css.css";
+
+/* --- FSE Flagship Specific Enhancements --- */
+.eka-header-topbar {
+    background-color: #293e7a;
+    color: #ffffff;
+    padding: 6px 20px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+        color: #ffffff;
+        text-decoration: none;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+.eka-header-main {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+
+    .eka-logo img {
+        height: 65px;
+        width: auto;
+    }
+}
+
+.eka-mailchimp-block {
+    background: #f7f7f7;
+    border-left: 4px solid #293e7a;
+    padding: 20px;
+    margin: 20px 0;
+
+    h3 {
+        margin-top: 0;
+        color: #293e7a;
+    }
+
+    form {
+        display: flex;
+        gap: 10px;
+
+        input[type="email"] {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #293e7a;
+            color: #ffffff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            &:hover {
+                background-color: #1e2e5c;
+            }
+        }
+    }
+}
+
+/* Polylang Switcher styling */
+.polylang-switcher {
+    display: flex;
+    list-style: none;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+
+    li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 13px;
+    }
+}
+
+/* Board Members Layout */
+.wp-block-post-template.is-layout-flow.board-members-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Alexandrinos Tachydromos Layout */
+.tachydromos-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 15px;
+    background: #ffffff;
+    margin-bottom: 20px;
+
+    .tachydromos-title {
+        font-size: 18px;
+        color: #293e7a;
+        margin-bottom: 10px;
+    }
+}
