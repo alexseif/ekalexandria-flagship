@@ -20,8 +20,8 @@
   - [x] Execute `php7.4 $(which wp) eka migrate-tachydromos` to import 32 newsletters with PDF embeddings and normalized titles
 - [x] Task 8: Board Members CPT Migration & Polylang Linkage
   - [x] Execute `php7.4 $(which wp) eka migrate-board` to import 15 testimonials and link Polylang translations
-- [ ] Task 9: Navigation Menu Location Assignments
-  - [ ] Assign Greek Main (13), English Main (3315), Arabic Main (3316), and Greek Footer (21) menu locations
+- [x] Task 9: Navigation Menu Location Assignments
+  - [x] Assign Greek Main (13), English Main (3315), Arabic Main (3316), and Greek Footer (21) menu locations
 - [ ] Task 10: Unified Pass Orchestration & PHP 8.2 Runtime Verification
   - [ ] Execute `bin/run-phase4-migration.sh` under PHP 7.4
   - [ ] Perform dual-pass idempotency check
