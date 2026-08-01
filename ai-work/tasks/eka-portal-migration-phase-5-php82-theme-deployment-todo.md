@@ -4,9 +4,9 @@
   - [x] Map typography (`Roboto`, `Patua One`), colors (`#000119`, `#293e7a`, `#545454`, `#626262`), and dimensions from `ai-work/scopings/styles.json` and `ai-work/scopings/betheme-config-scoping.json` into `theme.json` v2 schema
   - [x] Import `ai-work/scopings/betheme-active-styles.css` & `ai-work/scopings/betheme-custom-css.css` into `assets/scss/style.scss` & `assets/scss/rtl.scss`
   - [x] Run `npm install` and `npm run build` to compile minified production CSS in `build/`
-- [ ] Task 2: Multi-Language FSE Header & Footer Template Parts Scaffolding
-  - [ ] Build `parts/header-el.html`, `parts/header-en.html`, `parts/header-ar.html` with logo (`eka-logo-wide-small.png`), Top Bar (Polylang switcher, social links), dynamic navigation, and modal search trigger
-  - [ ] Build `parts/footer-el.html`, `parts/footer-en.html`, `parts/footer-ar.html` matching scoped footer layout and widgets
+- [x] Task 2: Multi-Language FSE Header & Footer Template Parts Scaffolding
+  - [x] Build `parts/header-el.html`, `parts/header-en.html`, `parts/header-ar.html` with logo (`eka-logo-wide-small.png`), Top Bar (Polylang switcher, social links), dynamic navigation, and modal search trigger
+  - [x] Build `parts/footer-el.html`, `parts/footer-en.html`, `parts/footer-ar.html` matching scoped footer layout and widgets
 - [ ] Task 3: Dynamic Menu Location Re-Assignment & Header/Footer Navigation Wiring
   - [ ] Re-assign WP menu locations: Greek Main (13 -> `main-menu`), English Main (3315 -> `main-menu___en`), Arabic Main (3316 -> `main-menu___ar`), Greek Footer (21 -> `social-menu-bottom`)
   - [ ] Verify template part navigation blocks reference active navigation menu IDs
