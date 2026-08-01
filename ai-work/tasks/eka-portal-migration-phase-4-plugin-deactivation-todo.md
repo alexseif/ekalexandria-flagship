@@ -12,8 +12,8 @@
   - [x] Activate `ekalexandria-flagship` theme via `php7.4 $(which wp) theme activate ekalexandria-flagship`
 - [x] Task 4: Legacy Plugin & Caching Cleanup
   - [x] Execute `bin/cleanup-plugins.sh` to purge stalling plugins (`LayerSlider`, `js_composer`, `revslider`, etc.) and caching drop-ins
-- [ ] Task 5: Dynamic & Static Slider Replacement
-  - [ ] Execute `php7.4 $(which wp) eka replace-sliders` to replace homepage/news sliders with `core/query` loops and inner page sliders with `core/gallery` blocks
+- [x] Task 5: Dynamic & Static Slider Replacement
+  - [x] Execute `php7.4 $(which wp) eka replace-sliders` to replace homepage/news sliders with `core/query` loops and inner page sliders with `core/gallery` blocks
 - [ ] Task 6: Gutenberg Shortcode & MFN Remediation
   - [ ] Execute `php7.4 $(which wp) eka remediate-shortcodes` to convert MFN items & shortcodes to block markup and inject sub-nav sidebars
 - [ ] Task 7: Alexandrinos Tachydromos CPT Migration
