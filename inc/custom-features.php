@@ -3,6 +3,18 @@
  * Custom Post Types and Admin Features
  */
 
+// Theme setup and nav menu registrations
+add_action( 'after_setup_theme', function() {
+    register_nav_menus( [
+        'main-menu'          => 'Main Menu (Greek)',
+        'main-menu___en'     => 'Main Menu (English)',
+        'main-menu___ar'     => 'Main Menu (Arabic)',
+        'secondary-menu'     => 'Secondary Menu',
+        'footer-menu'        => 'Footer Menu',
+        'social-menu-bottom' => 'Social Menu Bottom',
+    ] );
+} );
+
 // Admin login panel branded
 function ekalexandria_login_logo() { ?>
     <style type="text/css">
