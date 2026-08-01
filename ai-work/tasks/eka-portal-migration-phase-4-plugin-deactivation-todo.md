@@ -1,8 +1,8 @@
 # TODO List: Phase 4 - Theme Cutover, Content Migration, Gutenberg Remediation & Plugin Cleanup
 
-- [ ] Task 1: Script Gap Closing & Standardization
-  - [ ] Add explicit `wp eka replace-sliders` and `wp eka remediate-shortcodes` invocations to `bin/run-phase4-migration.sh`
-  - [ ] Remove `rm -rf` automated fallback logic from `bin/cleanup-plugins.sh` to enforce failure logging for manual developer remediation
+- [x] Task 1: Script Gap Closing & Standardization
+  - [x] Add explicit `wp eka replace-sliders` and `wp eka remediate-shortcodes` invocations to `bin/run-phase4-migration.sh`
+  - [x] Remove `rm -rf` automated fallback logic from `bin/cleanup-plugins.sh` to enforce failure logging for manual developer remediation
 - [ ] Task 2: Barebones Block Theme Infrastructure Scaffolding
   - [ ] Create `style.css` with valid FSE theme header declaration
   - [ ] Create `theme.json` with block settings (version 2) and content layout dimensions
