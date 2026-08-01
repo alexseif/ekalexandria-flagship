@@ -7,14 +7,14 @@
 ---
 
 ## 1. Objective & Target Users
-* **Objective**: Activate the bespoke `ekalexandria-flagship` Full Site Editing (FSE) block theme under PHP 8.2, compile SCSS design system assets (`npm run dev` / `npm run build`), construct multi-language layout templates (EL, EN, AR) for Front-Page, Pages, Single Posts, Listing Archives, Categories, Board Members, and Tachydromos, build header (with search) and footer components strictly matching scoped BeTheme features (no un-scoped assumptions), assign menus, and perform Playwright visual regression snapshots.
+* **Objective**: Activate the bespoke `ekalexandria-flagship` Full Site Editing (FSE) block theme under PHP 8.2, compile SCSS design system assets (`npm run dev` / `npm run build`), construct multi-language layout templates (EL, EN, AR) for Front-Page, Pages, Single Posts, Listing Archives, Categories, Board Members, and Tachydromos, build header (with search) and footer components strictly matching scoped BeTheme features (no un-scoped assumptions), assign menus, validate block AST serialization against WordPress standards, and perform Playwright visual regression snapshots.
 * **Target Users**: Portal visitors, mobile & desktop users, site administrators.
 
 ---
 
-## 2. Detailed Layout & Template Implementation Requirements `[AI ACTIVE]`
+## 2. Core Features, Acceptance Criteria & Layout Implementation Requirements
 
-### 1. Template Construction Across 3 Languages (EL, EN, AR)
+### 1. Multi-Language Template Construction (EL, EN, AR)
 * **Homepage Templates**:
   - `front-page-el.html` (mapped to `header-el.html` and `footer-el.html`)
   - `front-page-en.html` (mapped to `header-en.html` and `footer-en.html`)
@@ -39,9 +39,9 @@
 
 ### 2. Top Bar & Header Feature Implementation (Scoped)
 * Construct Header template parts (`header-el`, `header-en`, `header-ar`) strictly adhering to Phase 3 BeTheme scoping:
-  - Top Bar: Polylang Language Selector / Switcher and social media links (only elements present on existing site; no un-scoped quick info links).
-  - Main Navigation: Responsive Site Logo, dynamic navigation block mapped to legacy menus (`Main Greek Menu` ID 13, `Main English Menu` ID 3315, `Main Arabic Menu` ID 3316).
-  - Restored Search Feature Trigger: Native modal search trigger button / block replacing legacy broken search.
+  - **Top Bar**: Polylang Language Selector / Switcher and social media links (only elements present on existing site; no un-scoped quick info links).
+  - **Main Navigation**: Responsive Site Logo, dynamic navigation block mapped to legacy menus (`Main Greek Menu` ID 13, `Main English Menu` ID 3315, `Main Arabic Menu` ID 3316).
+  - **Restored Search Feature Trigger**: Native modal search trigger button / block replacing legacy broken search.
 
 ### 3. Footer Implementation (Scoped)
 * Construct Footer template parts (`footer-el`, `footer-en`, `footer-ar`) strictly adhering to Phase 3 BeTheme scoping:
@@ -49,13 +49,32 @@
   - Footer Navigation Menu wired to legacy ID (`Footer Greek Menu` ID 21).
   - Copyright statement and site credits.
 
-### 4. Visual Regression Snapshot Audit
-* Execute Playwright snapshot script (`node bin/scrape-baselines.js`).
-* Perform visual diff comparison of active FSE templates against baseline images in `ai-work/baselines/`.
+### 4. Custom Features & Core Component Re-engineering
+* **Mailchimp Newsletter Registration**: Re-engineer newsletter registration block securely without legacy plugin autoload dependencies.
+* **Search System Restoration**: Functional search template (`search.html`) integrated with main header search trigger.
 
 ---
 
-## 3. Tech Stack Preferences, Build Instructions & Constraints
+## 3. WordPress Design Patterns & Coding Standards
+
+* **WordPress Coding Standards (WPCS) & PHP 8.2 Compatibility**:
+  - All theme functions, custom features (`inc/custom-features.php`), and CLI commands (`inc/cli-commands.php`) must strictly adhere to WordPress Coding Standards (WPCS) for code formatting, sanitization, and escaping.
+  - Theme execution must run 100% clean under PHP 8.2 with zero deprecation warnings, notices, or fatal errors in `wp-content/debug.log`.
+* **Gutenberg FSE Architecture & AST Validation**:
+  - Native `theme.json` v2 schema defining global design tokens, typography, and color palettes.
+  - HTML templates and template parts must use valid Gutenberg core block markup, verified via `@wordpress/block-serialization-default-parser`.
+  - Pure semantic HTML structure with ZERO inline `style="..."` attributes within block templates.
+* **SCSS Architecture & Compilation**:
+  - Modular SCSS compiled via `@wordpress/scripts` (`npm run dev` for dev, `npm run build` for production bundle).
+  - Primary design system stylesheet located at `assets/scss/style.scss` and RTL framework at `assets/scss/rtl.scss`.
+* **Feature Encapsulation**:
+  - CPT registrations, custom meta fields, and save hooks encapsulated in `inc/custom-features.php`.
+* **WP-CLI Custom Commands**:
+  - Production deployment and programmatic migration operations executed via custom WP-CLI commands in `inc/cli-commands.php`.
+
+---
+
+## 4. Tech Stack Preferences, Build Instructions & Constraints
 
 ### Tech Stack
 * **PHP Target**: PHP 8.2 (`php8.2 $(which wp)`).
@@ -69,7 +88,7 @@
   ```bash
   npm run dev
   ```
-  *Compiles SCSS into css files with source maps and live watching for local theme development.*
+  *Compiles SCSS into CSS files with source maps and live watching for local theme development.*
 * **Production Asset Build Command**:
   ```bash
   npm run build
@@ -78,40 +97,44 @@
 
 ---
 
-## 4. Commands
+## 5. Deployment & Spec Test Commands
+
 ```bash
-# Verify PHP 8.2 runtime
+# 1. Verify PHP 8.2 runtime
 php8.2 -v
 
-# Install dependencies & compile SCSS production bundle
+# 2. Install dependencies & compile SCSS production bundle via @wordpress/scripts
 npm install
 npm run build > ai-work/logs/phase5-deployment.log 2>&1
 
-# Activate Flagship theme under PHP 8.2
+# 3. Activate Flagship theme under PHP 8.2
 php8.2 $(which wp) theme activate ekalexandria-flagship --path=public >> ai-work/logs/phase5-deployment.log 2>&1
 
-# Flush permalinks
+# 4. Flush rewrite rules
 php8.2 $(which wp) rewrite flush --path=public >> ai-work/logs/phase5-deployment.log 2>&1
 
-# Execute Playwright visual baseline snapshotting
+# 5. Execute Playwright visual baseline snapshotting
 node bin/scrape-baselines.js >> ai-work/logs/phase5-deployment.log 2>&1
 
-# Inspect log output
+# 6. Inspect log output & debug log for PHP 8.2 cleanliness
 cat ai-work/logs/phase5-deployment.log
+cat public/wp-content/debug.log
 ```
 
 ---
 
-## 5. Project Structure
+## 6. Project Structure & Observability
+
 ```text
 public/wp-content/themes/ekalexandria-flagship/
 ├── style.css
-├── theme.json                    # FSE design system tokens & colors
+├── theme.json                    # FSE design system tokens & colors (v2 schema)
 ├── package.json                  # @wordpress/scripts & SCSS build scripts
 ├── assets/
 │   └── scss/
 │       ├── style.scss            # Main SCSS design system
-        └── rtl.scss              # RTL SCSS framework
+│       └── rtl.scss              # RTL SCSS framework
+├── build/                        # Compiled production CSS assets (npm run build)
 ├── templates/
 │   ├── front-page-el.html
 │   ├── front-page-en.html
@@ -134,25 +157,42 @@ public/wp-content/themes/ekalexandria-flagship/
 ├── bin/
 │   └── scrape-baselines.js       # Playwright screenshot capture script
 └── ai-work/
-    ├── baselines/                # Reference screenshots
+    ├── baselines/                # Reference baseline screenshots
     ├── logs/
-    │   └── phase5-deployment.log # Phase 5 execution audit log
+    │   └── phase5-deployment.log # Phase 5 execution & auditing log
     └── specs/
         └── PHASE-5-PHP82-THEME-DEPLOYMENT-SPEC.md
 ```
 
 ---
 
-## 6. Code Style & Testing Strategy
-* **Testing Strategy**:
-  1. SCSS compilation verification (`npm run build`).
-  2. Playwright automated visual snapshotting and diff audit.
-  3. Gutenberg block editor compatibility check across templates.
-  4. `debug.log` inspection during site crawl confirming 100% clean PHP 8.2 execution.
-* **Boundaries**:
-  - **ALWAYS**: Use `theme.json` design system tokens and compiled SCSS.
-  - **ALWAYS**: Dump all command outputs into `ai-work/logs/phase5-deployment.log`.
+## 7. Spec Test Strategy & Verification Criteria
+
+1. **SCSS Build Verification**:
+   - `npm run build` exits zero without compilation errors and generates minified production bundles in `build/`.
+2. **Block AST Serialization Audit**:
+   - All FSE template files pass AST block parser validation via `@wordpress/block-serialization-default-parser`.
+3. **PHP 8.2 Runtime Cleanliness**:
+   - Theme activation and rewrite flushing execute without PHP warnings, deprecations, or fatal errors in `public/wp-content/debug.log`.
+4. **Playwright Visual Regression Audit**:
+   - Automated visual snapshot comparison (`node bin/scrape-baselines.js`) matches baseline screenshots in `ai-work/baselines/`.
+5. **Standalone Production Cutover Script Verification**:
+   - Deployment script (`wp eka production-cutover`) executes autonomously without AI intervention, logging all execution outputs, encountered issues, fallbacks, and technical reasoning into `ai-work/logs/cutover.log`.
+
+---
+
+## 8. Boundaries & Operational Governance
+
+> [!IMPORTANT]
+> **Production Cutover Constraint & Reasoning Mandate**: The final production deployment and cutover will be executed via standalone scripts and WP-CLI commands WITHOUT an AI assistant present. All manual workarounds or fallback logic MUST be codified into script files. All scripts MUST log execution outputs, errors, specific issues encountered, fallback actions taken, and technical reasoning into `ai-work/logs/` for post-run audits.
+
+* **ALWAYS**:
+  - **ALWAYS**: Use `theme.json` design system tokens and compiled SCSS (`assets/scss/`).
+  - **ALWAYS**: Compile production assets using `@wordpress/scripts` (`npm run build`).
+  - **ALWAYS**: Output all command execution outputs, errors, and reasoning to `ai-work/logs/phase5-deployment.log`.
   - **ALWAYS**: Require manual spec verification before generating Git commits.
-  - **ALWAYS**: Halt at end of Phase 5 for **Final User Manual Validation & Cutover Approval**.
-  - **NEVER**: Hardcode inline styles inside HTML template files.
-  - **NEVER**: Add un-scoped header or footer widget assumptions.
+  - **ALWAYS**: Halt at the end of Phase 5 for **Final User Manual Validation & Cutover Approval**.
+* **NEVER**:
+  - **NEVER**: Hardcode inline `style="..."` attributes inside HTML template files.
+  - **NEVER**: Add un-scoped header or footer widget assumptions not present in Phase 3 scoping.
+  - **NEVER**: Rely on interactive AI workarounds for production cutover tasks without codifying them into standalone scripts.
