@@ -8,12 +8,13 @@
 
 ## 1. Executive Summary & Objective
 
-The objective of Phase 3 is to deeply analyze, extract, and document all legacy BeTheme configuration options, theme options arrays (`betheme` / `mfn_theme_options`), dynamic sidebar configurations, custom MFN builder layouts (`_mfn-builder-items`), color palettes, typography tokens, header configurations, and custom CSS into structured JSON/CSS artifacts under the **PHP 7.4** runtime.
+The objective of Phase 3 is to deeply analyze, extract, and document all legacy BeTheme configuration options, theme options arrays (`betheme` / `mfn_theme_options`), dynamic sidebar configurations, custom MFN builder layouts (`_mfn-builder-items`), color palettes, typography tokens, header configurations, and active custom CSS into structured JSON/CSS artifacts under the **PHP 7.4** runtime.
 
 Target Output Artifacts:
 - **BeTheme Options Array**: `ai-work/scopings/betheme-config-scoping.json`
 - **MFN Builder Pages Catalog**: `ai-work/scopings/mfn-pages.json`
-- **Extracted Custom CSS & Dynamic Sidebars**: `ai-work/scopings/betheme-custom-css.css`
+- **Extracted Custom CSS**: `ai-work/scopings/betheme-custom-css.css`
+- **UnCSS Active Styles**: `ai-work/scopings/betheme-active-styles.css`
 - **Execution Log**: `ai-work/logs/phase3-scoping.log`
 
 ---
@@ -23,7 +24,7 @@ Target Output Artifacts:
 ```mermaid
 graph TD
     A[Task 1: Environment & Directory Audit] --> B[Task 2: Implement bin/scope-betheme-config.php]
-    B --> C[Task 3: Execute Scoping & Validate JSON/CSS Outputs]
+    B --> C[Task 3: Execute Scoping & UnCSS Processing]
     C --> D[Checkpoint: Manual User Validation Pause]
 ```
 
@@ -33,7 +34,8 @@ graph TD
   1. Complete serialized `betheme` / `mfn_theme_options` settings array.
   2. Database scan for all pages containing `_mfn-builder-items` postmeta.
   3. Custom CSS blocks from theme options or customizer options.
-- **Task 3 (Execution & Verification)**: Run the script via `php7.4 $(which wp) eval-file`, route logs cleanly to `ai-work/logs/phase3-scoping.log`, validate JSON syntax via `jq`, verify CSS output, and confirm zero database mutations.
+  4. Local file path to BeTheme static stylesheet (`style-static.css` / `style.css`).
+- **Task 3 (Execution & Verification)**: Run the script via `php7.4 $(which wp) eval-file`, execute `npx uncss` to extract used CSS rules into `ai-work/scopings/betheme-active-styles.css`, route logs cleanly to `ai-work/logs/phase3-scoping.log`, validate JSON syntax via `jq`, and confirm zero database mutations.
 
 ---
 
@@ -52,7 +54,7 @@ graph TD
 * **Verification Step**: Run `php7.4 --version` and check folder existence.
 
 ### Task 2: Implement BeTheme Scoping Script (`bin/scope-betheme-config.php`)
-* **Goal**: Build a robust, read-only PHP 7.4 scoping script for BeTheme configurations.
+* **Goal**: Build a robust, read-only PHP 7.4 scoping script for BeTheme configurations and CSS stylesheet extraction.
 * **Dependencies**: Task 1
 * **Action Steps**:
   1. Query `get_option('betheme')` and `get_option('mfn_theme_options')`.
@@ -60,34 +62,37 @@ graph TD
   3. Query `wp_postmeta` for all posts/pages containing `_mfn-builder-items`.
   4. Extract custom CSS strings (`custom-css` / `mfn_custom_css` meta or options).
   5. Save JSON outputs to `ai-work/scopings/betheme-config-scoping.json` and `ai-work/scopings/mfn-pages.json`.
-  6. Save CSS output to `ai-work/scopings/betheme-custom-css.css`.
+  6. Save raw custom CSS output to `ai-work/scopings/betheme-custom-css.css`.
 * **Acceptance Criteria**:
   - Full theme options serialized without data loss.
   - Read-only execution with zero `$wpdb` or `update_option` write calls.
 * **Verification Step**: Code inspection of `bin/scope-betheme-config.php`.
 
 ### Task 3: Execute Scoping & Validate Output Integrity
-* **Goal**: Execute the Phase 3 scoping process, validate JSON syntax, check execution log clean output, and verify read-only database state.
+* **Goal**: Execute the Phase 3 scoping process, run `npx uncss` on active stylesheets, validate JSON syntax, check execution log clean output, and verify read-only database state.
 * **Dependencies**: Task 2
 * **Action Steps**:
   1. Execute command:
      `php7.4 $(which wp) eval-file bin/scope-betheme-config.php --path=public > ai-work/logs/phase3-scoping.log 2>&1`
-  2. Validate JSON with `jq . ai-work/scopings/betheme-config-scoping.json > /dev/null`.
-  3. Validate JSON with `jq . ai-work/scopings/mfn-pages.json > /dev/null`.
-  4. Audit `ai-work/logs/phase3-scoping.log` for error-free completion.
+  2. Run UnCSS extraction:
+     `npx uncss public/wp-content/uploads/mfn-css/style-static.css > ai-work/scopings/betheme-active-styles.css 2>> ai-work/logs/phase3-scoping.log || true`
+  3. Validate JSON with `jq . ai-work/scopings/betheme-config-scoping.json > /dev/null`.
+  4. Validate JSON with `jq . ai-work/scopings/mfn-pages.json > /dev/null`.
+  5. Verify CSS files exist: `ai-work/scopings/betheme-custom-css.css` and `ai-work/scopings/betheme-active-styles.css`.
+  6. Audit `ai-work/logs/phase3-scoping.log` for error-free completion.
 * **Acceptance Criteria**:
   - All output files exist and pass validation.
   - `phase3-scoping.log` cleanly captures execution.
   - No database records modified.
-* **Verification Step**: `jq .` execution and `git status` check.
+* **Verification Step**: `jq .` execution, CSS file check, and `git status` check.
 
 ---
 
 ## 4. Git Workflow & Safety Protocol
 
 - **Commit Plan**:
-  - `feat(scoping): create bin/scope-betheme-config.php script`
-  - `docs(scoping): generate Phase 3 BeTheme JSON/CSS scopings and log`
+  - `feat(scoping): create bin/scope-betheme-config.php script with UnCSS extraction`
+  - `docs(scoping): generate Phase 3 BeTheme JSON, active CSS scopings, and execution log`
 - **Safety Protocol**:
   - All WP-CLI invocations routed strictly through `php7.4`.
   - Strictly read-only operations.
