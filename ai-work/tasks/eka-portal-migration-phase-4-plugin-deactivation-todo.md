@@ -22,8 +22,8 @@
   - [x] Execute `php7.4 $(which wp) eka migrate-board` to import 15 testimonials and link Polylang translations
 - [x] Task 9: Navigation Menu Location Assignments
   - [x] Assign Greek Main (13), English Main (3315), Arabic Main (3316), and Greek Footer (21) menu locations
-- [ ] Task 10: Unified Pass Orchestration & PHP 8.2 Runtime Verification
-  - [ ] Execute `bin/run-phase4-migration.sh` under PHP 7.4
-  - [ ] Perform dual-pass idempotency check
-  - [ ] Switch CLI runtime to PHP 8.2 (`php8.2 $(which wp)`) and verify zero fatal errors in `public/wp-content/debug.log`
-  - [ ] Pause for Manual User Validation before Phase 5
+- [x] Task 10: Unified Pass Orchestration & PHP 8.2 Runtime Verification
+  - [x] Execute `bin/run-phase4-migration.sh` under PHP 7.4
+  - [x] Perform dual-pass idempotency check
+  - [x] Switch CLI runtime to PHP 8.2 (`php8.2 $(which wp)`) and verify zero fatal errors in `public/wp-content/debug.log`
+  - [x] Pause for Manual User Validation before Phase 5
