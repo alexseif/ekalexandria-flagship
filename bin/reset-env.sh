@@ -55,9 +55,6 @@ if [ -d "$PROD_DIR/public" ]; then
     echo "Synchronizing staging files from production baseline ($PROD_DIR/public)..."
     rsync -av --delete \
         --exclude='wp-config.php' \
-        --exclude='wp-content/plugins/mailchimp/vendor' \
-        --exclude='wp-content/plugins/mailchimp-for-woocommerce/vendor' \
-        --exclude='wp-content/plugins/seo-by-rank-math/vendor' \
         --exclude='wp-content/themes/ekalexandria-flagship/ai-work' \
         --exclude='wp-content/themes/ekalexandria-flagship/bin' \
         --exclude='wp-content/themes/ekalexandria-flagship/AGY_INSTRUCTIONS.md' \
@@ -86,16 +83,18 @@ if [ -f "$VC_FILE" ]; then
     sed -i 's/\$mode === \$key \? '\'' vc_active'\'' : \$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'' \? '\'\'': '\'' vc_st_hidden'\''/((\$mode === \$key) ? '\'' vc_active'\'' : ((\$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'') ? '\'\'': '\'' vc_st_hidden'\''))/g' "$VC_FILE"
 fi
 
-# 8. Purge Vendor Autoload Caches & Fix Autoloaders
-echo "Resolving plugin vendor autoloader errors..."
-if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor" ]; then
-    rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor"
+# 8. Patch Plugin Vendor Autoloader Hash Mismatches
+echo "Resolving plugin vendor autoloader class hash mismatches..."
+MAILCHIMP_STATIC="$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor/composer/autoload_static.php"
+if [ -f "$MAILCHIMP_STATIC" ]; then
+    echo "Patching Mailchimp static autoloader class hash..."
+    sed -i 's/ComposerStaticInit5b8fa284bf852263974f1227edb89665/ComposerStaticInitb4631e7ae4a2f6a3795a92a813440087/g' "$MAILCHIMP_STATIC"
 fi
-if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor" ]; then
-    rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor"
-fi
-if [ -d "$STAGING_DIR/public/wp-content/plugins/seo-by-rank-math/vendor" ]; then
-    rm -rf "$STAGING_DIR/public/wp-content/plugins/seo-by-rank-math/vendor"
+
+RANKMATH_STATIC="$STAGING_DIR/public/wp-content/plugins/seo-by-rank-math/vendor/composer/autoload_static.php"
+if [ -f "$RANKMATH_STATIC" ]; then
+    echo "Patching Rank Math static autoloader class hash..."
+    sed -i 's/ComposerStaticInitc44c881a49042a2b69184cda4e913269/ComposerStaticInitfb8c499ed3b75d2fff76f9fff9e92982/g' "$RANKMATH_STATIC"
 fi
 
 POLYLANG_STATIC="$STAGING_DIR/public/wp-content/plugins/polylang/vendor/composer/autoload_static.php"
