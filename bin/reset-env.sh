@@ -24,31 +24,24 @@ else
     echo "Notice: pre-flight.sh not executable or missing, skipping."
 fi
 
-# 2. Database Export / Dump Resolution
+# 2. Database Export via WP-CLI / MySQL from Live Production
 PROD_DIR="/var/www/ekalexandria.org"
-PROD_SQL="$STAGING_DIR/2026-06-21-224516-db207080_eka.sql"
+DUMP_FILE="/tmp/prod_db.sql"
 
 if [ -d "$PROD_DIR/public" ]; then
-    echo "Exporting live production database snapshot from $PROD_DIR..."
+    echo "Exporting live production database snapshot from $PROD_DIR/public..."
     cd "$PROD_DIR/public" || exit 1
-    php7.4 $(which wp) db export /tmp/prod_db.sql --allow-root || exit 1
-    DUMP_FILE="/tmp/prod_db.sql"
-elif [ -f "$PROD_SQL" ]; then
-    echo "Using local production SQL dump at $PROD_SQL..."
-    DUMP_FILE="$PROD_SQL"
+    php7.4 $(which wp) db export "$DUMP_FILE" --skip-plugins --allow-root || { echo "ERROR: Live DB export failed."; exit 1; }
 else
-    echo "ERROR: Neither live production site nor SQL dump found."
+    echo "ERROR: Production directory $PROD_DIR/public not found. Live DB export aborted."
     exit 1
 fi
 
 # 3. Import Fresh Snapshot into backstage_eka
 echo "Importing clean database snapshot into backstage_eka..."
 cd "$STAGING_DIR/public" || exit 1
-php7.4 $(which wp) db import "$DUMP_FILE" --allow-root || { echo "ERROR: DB import failed."; exit 1; }
-
-if [ "$DUMP_FILE" = "/tmp/prod_db.sql" ]; then
-    rm -f /tmp/prod_db.sql
-fi
+php7.4 $(which wp) db import "$DUMP_FILE" --skip-plugins --allow-root || { echo "ERROR: DB import failed."; exit 1; }
+rm -f "$DUMP_FILE"
 
 # 4. Synchronize Staging Files with Preservation Rules
 if [ -d "$PROD_DIR/public" ]; then
