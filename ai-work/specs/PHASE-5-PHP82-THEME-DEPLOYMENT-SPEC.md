@@ -35,26 +35,30 @@
   - `tachydromos.html` (supporting newsletter PDF viewer layout)
 
 > [!NOTE]
-> Structure templates cleanly and natively using Gutenberg core blocks (Query Loop, Post Title, Post Content, Featured Image, Columns). Do NOT over-complicate block structures.
-
 ### 2. Top Bar & Header Feature Implementation (Scoped)
-* Construct Header template parts (`header-el`, `header-en`, `header-ar`) strictly adhering to Phase 3 BeTheme scoping and user design refinements:
-  - **Full-Width Stretch & Inner Content Constrained**: Header containers span edge-to-edge (100% background width), with inner content centered and constrained to maximum theme width (`max-width: 1200px`).
+* Construct Header template parts (`header-el`, `header-en`, `header-ar`, `header`) strictly adhering to Gutenberg FSE core block structure (passing block parser tests without invalid block errors):
+  - **Vertical Flow Layout**: Topbar and main header are stacked vertically (`eka-header-topbar-wrapper` followed by `eka-header-main-wrapper`), spanning 100% full screen width.
   - **Top Bar**: Polylang Language Selector / Switcher and social media links (Facebook, Twitter, YouTube, Flickr, LinkedIn, Instagram).
-  - **Logo & Typography**: Site Logo (`eka-logo-wide-small.png` / `wp-block-site-logo`). Google Font `Roboto` properly enqueued and loaded, with menu typography font size slightly increased for legibility.
-  - **Main Navigation**: Dynamic navigation block mapped to legacy menus (`Main Greek Menu` ID 13, `Main English Menu` ID 3315, `Main Arabic Menu` ID 3316).
-  - **Compact Icon Search Trigger**: Header search feature converted to a search icon trigger button opening a modal/input overlay.
+  - **Main Header Structure**: Site Logo (`wp:site-logo` / `wp:image`) aligned on the left, Main Navigation menu on the right, followed by a interactive Search Icon button.
+  - **Interactive Search Icon Trigger**: Search icon button toggles the search input box on click via lightweight vanilla JS / CSS overlay.
+  - **Navigation Typography**: Clean, legible font weight (`font-weight: 500` or `400`, `Roboto` font family) without heavy artificial bolding.
 
 ### 3. Frontpage Layout & Core Component Re-engineering
-* **Page Scrollability**: Ensure `html`, `body`, and `.wp-site-blocks` containers have standard scrolling enabled (`overflow-y: auto`, no fixed height traps).
-* **News Query Loop Carousel / Block**: Query Loop properly setup to fetch and display the latest 5 posts on the frontpage.
-* **Selected Pages 4-Column Grid**: Remediation of frontpage page grid to present exactly 4 columns of selected portal pages (excluding unwanted extra page posts).
+* **Page Scrollability**: Ensure `html`, `body`, and `.wp-site-blocks` containers have standard scrolling enabled (`overflow-y: auto`, no scroll lock traps).
+* **News Query Loop Carousel Component**: Re-engineered 5 latest post carousel utilizing native Gutenberg Query Loop data paired with bespoke SCSS and JS slider controls (`eka-carousel`) replacing legacy LayerSlider.
+* **Greek Homepage Content & 3/4-Column Selected Pages Grid**:
+  - Displays the 5 latest post carousel.
+  - Renders native post content of the Greek homepage (`<!-- wp:post-content /-->`).
+  - Displays the selected pages grid (3 to 4 columns, each containing Title, Featured Image, Excerpt on separate lines, all linked to target page).
 
 ### 4. Edge-to-Edge Footer Implementation (Scoped)
 * Construct Footer template parts (`footer-el`, `footer-en`, `footer-ar`) strictly adhering to user layout specifications:
   - **Edge-to-Edge Gray Background**: Footer background spans full screen width with scoped gray background (`#545454` / `#2b2b2b`).
-  - **Inner Content Width Wrapper**: Content constrained to theme width.
-  - **Footer Content Alignment**: Left side contains copyright icon, year range `1843-2026`, and site title (`Ελληνική Κοινότητα Αλεξανδρείας`). Right side displays the Greek footer menu (`social-menu-bottom`).
+  - **Inner Content Width Wrapper**: Content constrained to maximum theme width (`max-width: 1200px`).
+  - **Footer Content Alignment**: Left side contains copyright icon, year range `1843-2026`, and site title (`© 1843-2026 Ελληνική Κοινότητα Αλεξανδρείας`). Right side displays the Greek footer menu (`social-menu-bottom`).
+
+### 5. Playwright Visual Baseline Audit
+* Automated visual baseline capture (`node bin/scrape-baselines.js`) captures screenshots from the **Live Production Website** (`https://ekalexandria.org/`) to establish reference baselines, comparing them against the **Staging Portal** (`https://backstage.ekalexandria.org/`) to achieve visual parity.
 
 ### 4. Custom Features & Core Component Re-engineering
 * **Mailchimp Newsletter Registration**: Re-engineer newsletter registration block securely without legacy plugin autoload dependencies.

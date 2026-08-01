@@ -58,27 +58,37 @@ html, body, .wp-site-blocks {
     }
 }
 
-/* Navigation Menu Font Legibility */
+/* Navigation Menu Font Legibility (Regular/Medium Weight) */
 .wp-block-navigation {
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 400;
 
-    .wp-block-navigation-item__label {
+    .wp-block-navigation-item__label,
+    a.wp-block-navigation-item__content {
         font-size: 15px;
-        font-weight: 500;
+        font-weight: 500 !important;
+        color: #333333;
+        text-decoration: none;
+        &:hover {
+            color: #293e7a;
+        }
     }
 }
 
-/* Compact Search Icon Button Trigger */
-.wp-block-search {
+/* Compact Search Icon & Interactive Toggle Input */
+.eka-header-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+
     .wp-block-search__button {
         background: transparent;
         color: #293e7a;
         border: none;
         padding: 6px 10px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 18px;
         &:hover {
             opacity: 0.8;
         }
@@ -88,6 +98,10 @@ html, body, .wp-site-blocks {
         border: 1px solid #ccc;
         padding: 6px 10px;
         font-size: 14px;
+        transition: all 0.3s ease;
+        &.is-hidden {
+            display: none !important;
+        }
     }
 }
 
@@ -135,21 +149,101 @@ html, body, .wp-site-blocks {
     }
 }
 
-/* 4-Column Page Grid */
+/* --- News Carousel Slider Styling --- */
+.eka-news-carousel {
+    position: relative;
+    margin: 25px 0 40px 0;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 20px;
+
+    .wp-block-post-template, .eka-news-list {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .wp-block-post, .eka-news-card {
+        transition: opacity 0.4s ease-in-out;
+        
+        .wp-block-post-featured-image, img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        h3, .wp-block-post-title {
+            font-size: 22px;
+            margin: 10px 0;
+            color: #293e7a;
+            a {
+                color: #293e7a;
+                text-decoration: none;
+                &:hover { text-decoration: underline; }
+            }
+        }
+
+        .wp-block-post-date {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+    }
+
+    .eka-carousel-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .eka-carousel-btn {
+        background: #293e7a;
+        color: #ffffff;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover { background: #1e2e5c; }
+    }
+
+    .eka-carousel-dots {
+        display: flex;
+        gap: 8px;
+        
+        .eka-carousel-dot {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+            &.active {
+                background: #293e7a;
+                width: 24px;
+                border-radius: 10px;
+            }
+        }
+    }
+}
+
+/* --- Selected Pages 4-Column Grid --- */
 .eka-page-grid-4col-list {
     display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
     gap: 20px !important;
     list-style: none !important;
     padding: 0 !important;
     margin: 25px 0 !important;
-
-    @media (max-width: 992px) {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    @media (max-width: 576px) {
-        grid-template-columns: 1fr !important;
-    }
 }
 
 .eka-page-card {
@@ -165,17 +259,26 @@ html, body, .wp-site-blocks {
         object-fit: cover;
         border-radius: 4px;
         margin-bottom: 12px;
+        display: block;
     }
 
     h3 {
         font-size: 16px;
         margin: 0 0 10px 0;
         color: #293e7a;
+        display: block;
         a {
             color: #293e7a;
             text-decoration: none;
             &:hover { text-decoration: underline; }
         }
+    }
+
+    .wp-block-post-excerpt {
+        display: block;
+        font-size: 14px;
+        color: #555;
+        margin-top: 8px;
     }
 }
 

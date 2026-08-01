@@ -32,5 +32,12 @@
   - [x] Update Header & Footer template parts: edge-to-edge background stretch with inner content-width alignment, logo display, Google font `Roboto` loading & increased menu font size, compact icon search button trigger
   - [x] Fix Frontpage Query Loop (latest 5 posts) and 4-column selected pages grid (remediate unwanted extra pages)
   - [x] Re-run `npm run test:parser` AST validation and Playwright snapshot audit (`node bin/scrape-baselines.js`)
+- [x] Task 11: Header Block Validity & Layout Fix, Footer Text Update, Interactive Search Toggle, News Carousel SCSS/JS
+  - [x] Fix Header block structure for Block Editor compatibility (stack topbar and main header vertically, eliminate invalid block errors)
+  - [x] Fix Header main layout: site logo left, main menu right (font weight 400/500, no heavy bolding), click-to-open search input
+  - [x] Update Footer text: remove `| Με την επιφύλαξη παντός δικαιώματος`
+  - [x] Implement News 5-post Carousel SCSS and Vanilla JS (`assets/js/theme-script.js`)
+  - [x] Update Frontpage Greek template: 1. News carousel, 2. Homepage post-content, 3. 4-col page grid (title, featured image, excerpt on separate lines, all linked)
+  - [x] Run `npm run build`, `npm run test:parser`, and Playwright live vs backstage baseline audit (`node bin/scrape-baselines.js`)
 - [ ] Task 9: Phase 5 Final Checkpoint & User Validation
   - [ ] Summarize execution logs (`ai-work/logs/phase5-deployment.log`) and halt for final human user approval
