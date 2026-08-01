@@ -1,0 +1,26 @@
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"site-content eka-tachydromos-page","layout":{"type":"constrained"}} -->
+<main class="wp-block-group site-content eka-tachydromos-page">
+	<!-- wp:post-title {"level":1} /-->
+	<!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"alx_tachydromos","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template {"className":"tachydromos-grid"} -->
+			<!-- wp:group {"className":"tachydromos-card"} -->
+			<div class="wp-block-group tachydromos-card">
+				<!-- wp:post-featured-image {"isLink":true} /-->
+				<!-- wp:post-title {"isLink":true,"level":3,"className":"tachydromos-title"} /-->
+				<!-- wp:post-content /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+		<!-- wp:query-pagination -->
+			<!-- wp:query-pagination-previous /-->
+			<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"footer"} /-->

@@ -13,12 +13,12 @@
 - [x] Task 4: Static Homepage & News (Posts Page) Configuration
   - [x] Programmatically set WordPress reading options (`show_on_front` = `page`, `page_on_front` = Homepage ID, `page_for_posts` = News Page ID)
   - [x] Verify homepage and news page routes dynamically resolve FSE templates across languages
-- [ ] Task 5: Multi-Language FSE Block Templates Construction
-  - [ ] Create Front-Page templates (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
-  - [ ] Create Page & Single templates (`page.html`, `single.html`)
-  - [ ] Create Archive & Category templates (`archive.html`, `category.html`)
-  - [ ] Create Alexandrinos Tachydromos templates (`archive-alx_tachydromos.html`, `tachydromos.html`)
-  - [ ] Create Board Members templates (`archive-board_member.html`, `board-members.html`)
+- [x] Task 5: Multi-Language FSE Block Templates Construction
+  - [x] Create Front-Page templates (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
+  - [x] Create Page & Single templates (`page.html`, `single.html`)
+  - [x] Create Archive & Category templates (`archive.html`, `category.html`)
+  - [x] Create Alexandrinos Tachydromos templates (`archive-alx_tachydromos.html`, `tachydromos.html`)
+  - [x] Create Board Members templates (`archive-board_member.html`, `board-members.html`)
 - [ ] Task 6: AST Block Serialization Audit
   - [ ] Run block parser verification script using `@wordpress/block-serialization-default-parser` across all files in `templates/` and `parts/`
 - [ ] Task 7: PHP 8.2 Flagship Theme Activation & Production Cutover
