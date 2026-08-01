@@ -400,7 +400,7 @@ class EKA_CLI {
 
         global $wpdb;
 
-        $dynamic_pages = [13236, 17194, 17215, 17219, 8934, 16920, 16923];
+        $dynamic_pages = [13236, 8934, 16894, 16892, 17194, 17215, 17219, 16920, 16923];
         $query_loop_block = '<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
 <div class="wp-block-query">
 <!-- wp:post-template -->
@@ -415,7 +415,7 @@ class EKA_CLI {
             $post = get_post($page_id);
             if ($post) {
                 if (strpos($post->post_content, 'wp:query') === false) {
-                    $new_content = preg_replace('/\[rev_slider[^\]]*\]/i', $query_loop_block, $post->post_content);
+                    $new_content = preg_replace('/\[(rev_slider|rev_slider_vc)[^\]]*\]/i', $query_loop_block, $post->post_content);
                     $new_content = preg_replace('/\[layerslider[^\]]*\]/i', $query_loop_block, $new_content);
                     if ($new_content !== $post->post_content) {
                         wp_update_post(['ID' => $page_id, 'post_content' => $new_content]);
@@ -434,6 +434,7 @@ class EKA_CLI {
             17139 => [7813, 7814, 7815],
             3442 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
             17023 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
+            17027 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
             17155 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
             7756 => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
             17150 => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
@@ -462,7 +463,7 @@ class EKA_CLI {
                     $gallery_block .= '</figure>
 <!-- /wp:gallery -->';
 
-                    $new_content = preg_replace('/\[rev_slider[^\]]*\]/i', $gallery_block, $post->post_content);
+                    $new_content = preg_replace('/\[(rev_slider|rev_slider_vc)[^\]]*\]/i', $gallery_block, $post->post_content);
                     $new_content = preg_replace('/\[layerslider[^\]]*\]/i', $gallery_block, $new_content);
                     
                     if ($new_content === $post->post_content) {

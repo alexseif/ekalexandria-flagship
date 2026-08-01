@@ -1,0 +1,532 @@
+[
+    {
+        "page_id": 17155,
+        "page_title": "المقابر",
+        "page_url": "https://backstage.ekalexandria.org/ar/%d8%a7%d9%84%d8%a8%d8%b1%d8%a7%d9%85%d8%ac/%d8%a7%d9%84%d9%85%d9%82%d8%a7%d8%a8%d8%b1/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider cemeteries-maintenance]",
+                "alias": "cemeteries-maintenance"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17150,
+        "page_title": "Conservation of the Cemeteries",
+        "page_url": "https://backstage.ekalexandria.org/en/programs/conservation-of-the-cemeteries/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider cemeteries-maintenance]",
+                "alias": "cemeteries-maintenance"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17139,
+        "page_title": "متحف ومختبر",
+        "page_url": "https://backstage.ekalexandria.org/ar/%d8%a7%d9%84%d8%a8%d8%b1%d8%a7%d9%85%d8%ac/%d9%85%d8%aa%d8%ad%d9%81-%d9%88%d9%85%d8%ae%d8%aa%d8%a8%d8%b1/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider science-museum]",
+                "alias": "science-museum"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17137,
+        "page_title": "Museum and Laboratory",
+        "page_url": "https://backstage.ekalexandria.org/en/programs/museum-and-laboratory/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider science-museum]",
+                "alias": "science-museum"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17133,
+        "page_title": "متحف موسيقي",
+        "page_url": "https://backstage.ekalexandria.org/ar/%d8%a7%d9%84%d8%a8%d8%b1%d8%a7%d9%85%d8%ac/%d9%85%d8%aa%d8%ad%d9%81-%d9%85%d9%88%d8%b3%d9%8a%d9%82%d9%8a/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider music-museum]",
+                "alias": "music-museum"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17129,
+        "page_title": "Music Museum",
+        "page_url": "https://backstage.ekalexandria.org/en/programs/music-museum/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider music-museum]",
+                "alias": "music-museum"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17027,
+        "page_title": "المقابر",
+        "page_url": "https://backstage.ekalexandria.org/ar/%d8%a7%d9%84%d8%ae%d8%af%d9%85%d8%a7%d8%aa/%d8%a7%d9%84%d9%85%d9%82%d8%a7%d8%a8%d8%b1/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider Κοιμητήρια]",
+                "alias": "unknown"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17023,
+        "page_title": "Cemeteries",
+        "page_url": "https://backstage.ekalexandria.org/en/services/cemeteries/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider Κοιμητήρια]",
+                "alias": "unknown"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17020,
+        "page_title": "استراحة الجمعية",
+        "page_url": "https://backstage.ekalexandria.org/ar/%d8%a7%d9%84%d8%ae%d8%af%d9%85%d8%a7%d8%aa/%d8%a7%d8%b3%d8%aa%d8%b1%d8%a7%d8%ad%d8%a9-%d8%a7%d9%84%d8%ac%d9%85%d8%b9%d9%8a%d8%a9/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider GREEK-CLUB]",
+                "alias": "GREEK-CLUB"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 17018,
+        "page_title": "Community Lounge",
+        "page_url": "https://backstage.ekalexandria.org/en/services/community-lounge/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider GREEK-CLUB]",
+                "alias": "GREEK-CLUB"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 16984,
+        "page_title": "العاملين",
+        "page_url": "https://backstage.ekalexandria.org/ar/%d8%aa%d8%a3%d8%b3%d9%8a%d8%b3/%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d9%84%d9%8a%d9%86/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider staff]",
+                "alias": "staff"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": [
+            {
+                "src_url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/05/HR.png",
+                "filename": "HR.png",
+                "unscaled": "HR.png",
+                "db_attachment_id": 13369
+            }
+        ]
+    },
+    {
+        "page_id": 16982,
+        "page_title": "Staff",
+        "page_url": "https://backstage.ekalexandria.org/en/establishment/staff/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider staff]",
+                "alias": "staff"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": [
+            {
+                "src_url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/05/HR.png",
+                "filename": "HR.png",
+                "unscaled": "HR.png",
+                "db_attachment_id": 13369
+            }
+        ]
+    },
+    {
+        "page_id": 16894,
+        "page_title": "Welcome",
+        "page_url": "https://backstage.ekalexandria.org/en/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider_vc alias=\"newhome_en\"]",
+                "alias": "newhome_en"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 16892,
+        "page_title": "مرحباً",
+        "page_url": "https://backstage.ekalexandria.org/ar/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider_vc alias=\"newhome_ar\"]",
+                "alias": "newhome_ar"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 13236,
+        "page_title": "Αρχική",
+        "page_url": "https://backstage.ekalexandria.org/el/",
+        "post_type": "page",
+        "rev_sliders": [],
+        "layer_sliders": [
+            {
+                "raw_shortcode": "[layerslider id=\"6\"]",
+                "slider_id": "6"
+            }
+        ],
+        "attached_media": [],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 8934,
+        "page_title": "Νέα",
+        "page_url": "https://backstage.ekalexandria.org/el/%ce%bd%ce%ad%ce%b1/",
+        "post_type": "page",
+        "rev_sliders": [],
+        "layer_sliders": [
+            {
+                "raw_shortcode": "[layerslider id=\"6\"]",
+                "slider_id": "6"
+            }
+        ],
+        "attached_media": [
+            {
+                "attachment_id": 16907,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/08/eka-logo-wide-small.png",
+                "title": "eka-logo-wide-small",
+                "filename": "eka-logo-wide-small.png"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 7820,
+        "page_title": "Μουσείο Μουσικής",
+        "page_url": "https://backstage.ekalexandria.org/el/%cf%83%cf%85%ce%bd%ce%ad%ce%b4%cf%81%ce%b9%ce%b1-%ce%b7%ce%bc%ce%b5%cf%81%ce%af%ce%b4%ce%b5%cf%82/%cf%80%cf%81%ce%bf%ce%b3%cf%81%ce%ac%ce%bc%ce%bc%ce%b1%cf%84%ce%b1/%ce%bc%ce%bf%cf%85%cf%83%ce%b5%ce%af%ce%bf-%ce%bc%ce%bf%cf%85%cf%83%ce%b9%ce%ba%ce%ae%cf%82/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider music-museum]",
+                "alias": "music-museum"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [
+            {
+                "attachment_id": 7821,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/15516118410_f6a9614b85_z.jpg",
+                "title": "Αίθουσα Μουσικής",
+                "filename": "15516118410_f6a9614b85_z.jpg"
+            },
+            {
+                "attachment_id": 7822,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/15701922425_5035e38ca6_z.jpg",
+                "title": "Αίθουσα Μουσικής",
+                "filename": "15701922425_5035e38ca6_z.jpg"
+            },
+            {
+                "attachment_id": 7823,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/15702480662_91232bea7c_z.jpg",
+                "title": "Αίθουσα Μουσικής",
+                "filename": "15702480662_91232bea7c_z.jpg"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 7811,
+        "page_title": "Μουσείο και Εργαστήριο Θετικών Επιστημών",
+        "page_url": "https://backstage.ekalexandria.org/el/%cf%83%cf%85%ce%bd%ce%ad%ce%b4%cf%81%ce%b9%ce%b1-%ce%b7%ce%bc%ce%b5%cf%81%ce%af%ce%b4%ce%b5%cf%82/%cf%80%cf%81%ce%bf%ce%b3%cf%81%ce%ac%ce%bc%ce%bc%ce%b1%cf%84%ce%b1/%ce%bc%ce%bf%cf%85%cf%83%ce%b5%ce%af%ce%bf-%ce%ba%ce%b1%ce%b9-%ce%b5%cf%81%ce%b3%ce%b1%cf%83%cf%84%ce%ae%cf%81%ce%b9%ce%bf-%ce%b8%ce%b5%cf%84%ce%b9%ce%ba%cf%8e%ce%bd-%ce%b5%cf%80%ce%b9%cf%83%cf%84/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider science-museum]",
+                "alias": "science-museum"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [
+            {
+                "attachment_id": 7814,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/ΜΟΥΣΕΙΟ1.jpg",
+                "title": "Αίθουσα Φυσικής",
+                "filename": "ΜΟΥΣΕΙΟ1.jpg"
+            },
+            {
+                "attachment_id": 7815,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/ΜΟΥΣΕΙΟ3.jpg",
+                "title": "Αίθουσα Φυσικής",
+                "filename": "ΜΟΥΣΕΙΟ3.jpg"
+            },
+            {
+                "attachment_id": 7813,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/DSCF2554.jpg",
+                "title": "Αίθουσα Φυσικής",
+                "filename": "DSCF2554.jpg"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 7756,
+        "page_title": "Συντήρηση Κοιμητηρίων",
+        "page_url": "https://backstage.ekalexandria.org/el/%cf%83%cf%85%ce%bd%ce%ad%ce%b4%cf%81%ce%b9%ce%b1-%ce%b7%ce%bc%ce%b5%cf%81%ce%af%ce%b4%ce%b5%cf%82/%cf%80%cf%81%ce%bf%ce%b3%cf%81%ce%ac%ce%bc%ce%bc%ce%b1%cf%84%ce%b1/%cf%83%cf%85%ce%bd%cf%84%ce%b7%cf%81%ce%b7%cf%83%ce%b7-%ce%ba%ce%bf%ce%b9%ce%bc%ce%b7%cf%84%ce%b7%cf%81%ce%b9%cf%89%ce%bd/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider cemeteries-maintenance]",
+                "alias": "cemeteries-maintenance"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [
+            {
+                "attachment_id": 7936,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4503.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4503.jpg"
+            },
+            {
+                "attachment_id": 7939,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4568.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4568.jpg"
+            },
+            {
+                "attachment_id": 7940,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4622.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4622.jpg"
+            },
+            {
+                "attachment_id": 7942,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4782.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4782.jpg"
+            },
+            {
+                "attachment_id": 7935,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4457.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4457.jpg"
+            },
+            {
+                "attachment_id": 7941,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4734.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4734.jpg"
+            },
+            {
+                "attachment_id": 7938,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4549.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4549.jpg"
+            },
+            {
+                "attachment_id": 7937,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/IMG_4548.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "IMG_4548.jpg"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 7390,
+        "page_title": "Κοινοτικό Εντευκτήριο",
+        "page_url": "https://backstage.ekalexandria.org/el/%ce%ba%ce%bf%ce%b9%ce%bc%ce%b7%cf%84%ce%ae%cf%81%ce%b9%ce%b1/%ce%ba%ce%bf%ce%b9%ce%bd%ce%bf%cf%84%ce%b9%ce%ba%cf%8c-%ce%b5%ce%bd%cf%84%ce%b5%cf%85%ce%ba%cf%84%ce%ae%cf%81%ce%b9%ce%bf/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider GREEK-CLUB]",
+                "alias": "GREEK-CLUB"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [
+            {
+                "attachment_id": 10328,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/ΚΟΙΝΟΤΙΚΟ-ΕΝΤΕΥΚΤΗΡΙΟ.png",
+                "title": "ΚΟΙΝΟΤΙΚΟ ΕΝΤΕΥΚΤΗΡΙΟ",
+                "filename": "ΚΟΙΝΟΤΙΚΟ-ΕΝΤΕΥΚΤΗΡΙΟ.png"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 3442,
+        "page_title": "Κοιμητήρια",
+        "page_url": "https://backstage.ekalexandria.org/el/%ce%ba%ce%bf%ce%b9%ce%bc%ce%b7%cf%84%ce%ae%cf%81%ce%b9%ce%b1/%ce%ba%ce%bf%ce%b9%ce%bc%ce%b7%cf%84%ce%ae%cf%81%ce%b9%ce%b1/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider Κοιμητήρια]",
+                "alias": "unknown"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [
+            {
+                "attachment_id": 10329,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/ΚΟΙΜΗΤΗΡΙΑ.jpg",
+                "title": "ΚΟΙΜΗΤΗΡΙΑ",
+                "filename": "ΚΟΙΜΗΤΗΡΙΑ.jpg"
+            },
+            {
+                "attachment_id": 7667,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/DSC_0003-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0003-300x200.jpg"
+            },
+            {
+                "attachment_id": 7668,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/DSC_0005-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0005-300x200.jpg"
+            },
+            {
+                "attachment_id": 7669,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/DSC_0006-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0006-300x200.jpg"
+            },
+            {
+                "attachment_id": 7670,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/DSC_0008-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0008-300x200.jpg"
+            },
+            {
+                "attachment_id": 7671,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/DSC_0009-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0009-300x200.jpg"
+            },
+            {
+                "attachment_id": 7672,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/06/DSC_0010-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0010-300x200.jpg"
+            },
+            {
+                "attachment_id": 7673,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/07/DSC_0010-300x200-300x200.jpg",
+                "title": "Κοιμητήρια",
+                "filename": "DSC_0010-300x200-300x200.jpg"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": []
+    },
+    {
+        "page_id": 32,
+        "page_title": "Στελέχωση",
+        "page_url": "https://backstage.ekalexandria.org/el/%ce%af%ce%b4%cf%81%cf%85%cf%83%ce%b7/%cf%83%cf%84%ce%b5%ce%bb%ce%ad%cf%87%cf%89%cf%83%ce%b7/",
+        "post_type": "page",
+        "rev_sliders": [
+            {
+                "raw_shortcode": "[rev_slider staff]",
+                "alias": "staff"
+            }
+        ],
+        "layer_sliders": [],
+        "attached_media": [
+            {
+                "attachment_id": 13369,
+                "url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/05/HR.png",
+                "title": "Λογότυπο Κύπρος",
+                "filename": "HR.png"
+            }
+        ],
+        "gallery_image_ids": [],
+        "embedded_images": [
+            {
+                "src_url": "https://backstage.ekalexandria.org/wp-content/uploads/2015/05/HR.png",
+                "filename": "HR.png",
+                "unscaled": "HR.png",
+                "db_attachment_id": 13369
+            }
+        ]
+    }
+]
