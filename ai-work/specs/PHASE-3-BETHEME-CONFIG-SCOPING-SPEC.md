@@ -18,23 +18,26 @@
 * **Criteria 3**: Scrape dynamic sidebar assignments and custom CSS rules into `ai-work/scopings/betheme-custom-css.css`.
 * **Criteria 4**: Map header options, logo dimensions, color palettes, and typography tokens.
 * **Criteria 5**: All WP-CLI scoping commands routed through `php7.4`.
-* **Criteria 6**: **Manual User Validation Pause** required upon completion of Phase 3 scoping.
+* **Criteria 6**: All command outputs dumped to clean log file `ai-work/logs/phase3-scoping.log`.
+* **Criteria 7**: **Manual Spec Verification Before Commit**: Spec changes require manual user approval before Git commit.
+* **Criteria 8**: **Manual User Validation Pause** required upon completion of Phase 3 scoping.
 
 ---
 
 ## 3. Tech Stack Preferences & Constraints
 * **PHP Routing**: Strictly `php7.4` (`php7.4 $(which wp) ...`).
 * **Output Format**: Structured JSON (`jq` compatible).
+* **Logging Path**: `ai-work/logs/phase3-scoping.log`.
 
 ---
 
 ## 4. Commands
 ```bash
-# Export theme options array
-php7.4 $(which wp) option get betheme --format=json --path=public > ai-work/scopings/betheme-config-scoping.json
+# Export theme options array with clean output logging
+php7.4 $(which wp) option get betheme --format=json --path=public > ai-work/scopings/betheme-config-scoping.json 2> ai-work/logs/phase3-scoping.log
 
 # Audit pages using MFN builder
-php7.4 $(which wp) db query "SELECT post_id, meta_key FROM wp_postmeta WHERE meta_key = '_mfn-builder-items'" --path=public > ai-work/scopings/mfn-pages.json
+php7.4 $(which wp) db query "SELECT post_id, meta_key FROM wp_postmeta WHERE meta_key = '_mfn-builder-items'" --path=public >> ai-work/scopings/mfn-pages.json 2>> ai-work/logs/phase3-scoping.log
 
 # Validate exported JSON
 jq . ai-work/scopings/betheme-config-scoping.json > /dev/null
@@ -49,6 +52,8 @@ ai-work/
 │   ├── betheme-config-scoping.json     # Complete serialized theme options
 │   ├── mfn-pages.json                  # MFN builder page list
 │   └── betheme-custom-css.css          # Extracted styling rules
+├── logs/
+│   └── phase3-scoping.log              # Phase 3 execution log
 └── specs/
     └── PHASE-3-BETHEME-CONFIG-SCOPING-SPEC.md
 ```
@@ -61,5 +66,7 @@ ai-work/
   2. Completeness audit verifying all active color tokens and sidebar mappings exist in output JSON.
 * **Boundaries**:
   - **ALWAYS**: Route CLI calls through `php7.4`.
+  - **ALWAYS**: Dump execution outputs cleanly to `ai-work/logs/phase3-scoping.log`.
+  - **ALWAYS**: Require manual spec verification before generating Git commits.
   - **ALWAYS**: Require user manual validation pause before advancing to Phase 4.
   - **NEVER**: Delete legacy `wp_options` records during the scoping phase.
