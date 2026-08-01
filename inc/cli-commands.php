@@ -606,6 +606,24 @@ class EKA_CLI {
     }
 
     /**
+     * Configure WordPress Reading Settings for Static Homepage and News Page
+     *
+     * @subcommand configure-reading-settings
+     */
+    public function configure_reading_settings() {
+        $log = $this->get_logger('phase5-deployment.log');
+        $log("Configuring WordPress Reading Settings...", "INFO");
+
+        update_option( 'show_on_front', 'page' );
+        update_option( 'page_on_front', 13236 );
+        update_option( 'page_for_posts', 18 );
+
+        $log("Set 'show_on_front' = 'page'", "INFO");
+        $log("Set 'page_on_front' = 13236 (Homepage)", "INFO");
+        $log("Set 'page_for_posts' = 18 (News Page)", "INFO");
+    }
+
+    /**
      * Standalone Production Cutover Execution
      *
      * @subcommand production-cutover

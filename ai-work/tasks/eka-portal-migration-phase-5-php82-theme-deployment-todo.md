@@ -10,9 +10,9 @@
 - [x] Task 3: Dynamic Menu Location Re-Assignment & Header/Footer Navigation Wiring
   - [x] Re-assign WP menu locations: Greek Main (13 -> `main-menu`), English Main (3315 -> `main-menu___en`), Arabic Main (3316 -> `main-menu___ar`), Greek Footer (21 -> `social-menu-bottom`)
   - [x] Verify template part navigation blocks reference active navigation menu IDs
-- [ ] Task 4: Static Homepage & News (Posts Page) Configuration
-  - [ ] Programmatically set WordPress reading options (`show_on_front` = `page`, `page_on_front` = Homepage ID, `page_for_posts` = News Page ID)
-  - [ ] Verify homepage and news page routes dynamically resolve FSE templates across languages
+- [x] Task 4: Static Homepage & News (Posts Page) Configuration
+  - [x] Programmatically set WordPress reading options (`show_on_front` = `page`, `page_on_front` = Homepage ID, `page_for_posts` = News Page ID)
+  - [x] Verify homepage and news page routes dynamically resolve FSE templates across languages
 - [ ] Task 5: Multi-Language FSE Block Templates Construction
   - [ ] Create Front-Page templates (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
   - [ ] Create Page & Single templates (`page.html`, `single.html`)
