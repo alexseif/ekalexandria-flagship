@@ -11,5 +11,5 @@
 - [x] Task 2.2: Audit execution logs (`ai-work/logs/reset-env.log`), verify WP-CLI connection under PHP 7.4, confirm preservation of `wp-config.php`/`ai-work/`/`bin/`, verify WPBakery patch, and verify `alexseif:www-data` ownership <!-- id: 2.2 -->
 
 ## Phase 3: Manual User Validation Checkpoint
-- [x] Task 3.1: Developer Checkpoint — HALT execution and request explicit manual user validation pause before advancing to Phase 2 content migration <!-- id: 3.1 -->
+- [ ] Task 3.1: Developer Checkpoint — HALT execution and request explicit manual user validation pause before advancing to Phase 2 content migration <!-- id: 3.1 -->
 

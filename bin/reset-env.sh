@@ -57,6 +57,7 @@ if [ -d "$PROD_DIR/public" ]; then
         --exclude='wp-config.php' \
         --exclude='wp-content/themes/ekalexandria-flagship/ai-work' \
         --exclude='wp-content/themes/ekalexandria-flagship/bin' \
+        --exclude='wp-content/themes/ekalexandria-flagship/inc' \
         --exclude='wp-content/themes/ekalexandria-flagship/AGY_INSTRUCTIONS.md' \
         --exclude='wp-content/themes/ekalexandria-flagship/Master Project Roadmap*' \
         --exclude='wp-content/themes/ekalexandria-flagship/.git' \
