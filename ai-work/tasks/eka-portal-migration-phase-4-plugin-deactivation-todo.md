@@ -8,8 +8,8 @@
   - [x] Create `theme.json` with block settings (version 2) and content layout dimensions
   - [x] Create boilerplate block templates (`templates/index.html`, `templates/page.html`, `templates/single.html`) with `core/post-content`
   - [x] Create placeholder template parts (`parts/header.html`, `parts/footer.html`)
-- [ ] Task 3: Theme Activation
-  - [ ] Activate `ekalexandria-flagship` theme via `php7.4 $(which wp) theme activate ekalexandria-flagship`
+- [x] Task 3: Theme Activation
+  - [x] Activate `ekalexandria-flagship` theme via `php7.4 $(which wp) theme activate ekalexandria-flagship`
 - [ ] Task 4: Legacy Plugin & Caching Cleanup
   - [ ] Execute `bin/cleanup-plugins.sh` to purge stalling plugins (`LayerSlider`, `js_composer`, `revslider`, etc.) and caching drop-ins
 - [ ] Task 5: Dynamic & Static Slider Replacement
