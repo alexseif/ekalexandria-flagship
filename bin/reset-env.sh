@@ -57,6 +57,7 @@ if [ -d "$PROD_DIR/public" ]; then
         --exclude='wp-config.php' \
         --exclude='wp-content/plugins/mailchimp/vendor' \
         --exclude='wp-content/plugins/mailchimp-for-woocommerce/vendor' \
+        --exclude='wp-content/plugins/seo-by-rank-math/vendor' \
         --exclude='wp-content/themes/ekalexandria-flagship/ai-work' \
         --exclude='wp-content/themes/ekalexandria-flagship/bin' \
         --exclude='wp-content/themes/ekalexandria-flagship/AGY_INSTRUCTIONS.md' \
@@ -86,12 +87,15 @@ if [ -f "$VC_FILE" ]; then
 fi
 
 # 8. Purge Vendor Autoload Caches & Fix Autoloaders
-echo "Resolving Mailchimp vendor autoloader errors..."
+echo "Resolving plugin vendor autoloader errors..."
 if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor" ]; then
     rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp/vendor"
 fi
 if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor" ]; then
     rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor"
+fi
+if [ -d "$STAGING_DIR/public/wp-content/plugins/seo-by-rank-math/vendor" ]; then
+    rm -rf "$STAGING_DIR/public/wp-content/plugins/seo-by-rank-math/vendor"
 fi
 
 POLYLANG_STATIC="$STAGING_DIR/public/wp-content/plugins/polylang/vendor/composer/autoload_static.php"
