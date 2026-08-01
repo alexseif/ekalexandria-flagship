@@ -19,8 +19,8 @@
   - [x] Create Archive & Category templates (`archive.html`, `category.html`)
   - [x] Create Alexandrinos Tachydromos templates (`archive-alx_tachydromos.html`, `tachydromos.html`)
   - [x] Create Board Members templates (`archive-board_member.html`, `board-members.html`)
-- [ ] Task 6: AST Block Serialization Audit
-  - [ ] Run block parser verification script using `@wordpress/block-serialization-default-parser` across all files in `templates/` and `parts/`
+- [x] Task 6: AST Block Serialization Audit
+  - [x] Run block parser verification script using `@wordpress/block-serialization-default-parser` across all files in `templates/` and `parts/`
 - [ ] Task 7: PHP 8.2 Flagship Theme Activation & Production Cutover
   - [ ] Activate `ekalexandria-flagship` theme under PHP 8.2 (`php8.2 $(which wp) theme activate ekalexandria-flagship`)
   - [ ] Flush rewrite rules (`php8.2 $(which wp) rewrite flush`)
