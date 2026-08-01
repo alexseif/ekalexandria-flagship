@@ -1,5 +1,8 @@
 #!/bin/bash
 # bin/reset-env.sh
+# Staging Environment Reset & Resynchronization Script
+# Preserves: ai-work/, bin/, AGY_INSTRUCTIONS.md, Master Project Roadmap...
+# Targets: /var/www/backstage.ekalexandria.org (DB: backstage_eka)
 
 STAGING_DIR="/var/www/backstage.ekalexandria.org"
 THEME_DIR="$STAGING_DIR/public/wp-content/themes/ekalexandria-flagship"
@@ -7,24 +10,23 @@ LOG_DIR="$THEME_DIR/ai-work/logs"
 LOG_FILE="$LOG_DIR/reset-env.log"
 
 mkdir -p "$LOG_DIR"
-
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "=========================================="
 echo "Resetting Staging Environment: $(date)"
+echo "Target DB: backstage_eka"
 echo "=========================================="
 
-cd "$THEME_DIR" || { echo "ERROR: Theme directory not found."; exit 1; }
-
-if [ -x "bin/pre-flight.sh" ]; then
-    ./bin/pre-flight.sh || { echo "ERROR: Pre-flight checks failed."; exit 1; }
+# 1. Run Pre-flight Checks
+if [ -x "$THEME_DIR/bin/pre-flight.sh" ]; then
+    "$THEME_DIR/bin/pre-flight.sh" || { echo "ERROR: Pre-flight checks failed."; exit 1; }
 else
-    echo "ERROR: pre-flight.sh not found or not executable."
-    exit 1
+    echo "Notice: pre-flight.sh not executable or missing, skipping."
 fi
 
+# 2. Database Export / Dump Resolution
 PROD_DIR="/var/www/ekalexandria.org"
-PROD_SQL="/var/www/backstage.ekalexandria.org/2026-06-21-224516-db207080_eka.sql"
+PROD_SQL="$STAGING_DIR/2026-06-21-224516-db207080_eka.sql"
 
 if [ -d "$PROD_DIR/public" ]; then
     echo "Exporting live production database snapshot from $PROD_DIR..."
@@ -39,7 +41,8 @@ else
     exit 1
 fi
 
-echo "Importing clean database snapshot to staging..."
+# 3. Import Fresh Snapshot into backstage_eka
+echo "Importing clean database snapshot into backstage_eka..."
 cd "$STAGING_DIR/public" || exit 1
 php7.4 $(which wp) db import "$DUMP_FILE" --allow-root || { echo "ERROR: DB import failed."; exit 1; }
 
@@ -47,18 +50,27 @@ if [ "$DUMP_FILE" = "/tmp/prod_db.sql" ]; then
     rm -f /tmp/prod_db.sql
 fi
 
-echo "Performing DB domain mapping and search-replace..."
+# 4. Search-Replace Domain Mapping
+echo "Performing DB domain mapping (ekalexandria.org -> backstage.ekalexandria.org)..."
 php7.4 $(which wp) search-replace 'ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --skip-plugins --allow-root
 php7.4 $(which wp) search-replace 'www.ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --skip-plugins --allow-root
 
-echo "Activating ekalexandria-flagship theme..."
-php7.4 $(which wp) theme activate ekalexandria-flagship --skip-plugins --allow-root || echo "WARNING: Theme activation warning."
+# 5. Patch Known PHP 7.4/8.0+ Fatal Errors
+VC_FILE="$STAGING_DIR/public/wp-content/plugins/js_composer/include/classes/editors/class-vc-frontend-editor.php"
+if [ -f "$VC_FILE" ]; then
+    echo "Patching WPBakery line 339 nested ternary operator error..."
+    sed -i 's/\$mode === \$key \? '\'' vc_active'\'' : \$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'' \? '\'\'': '\'' vc_st_hidden'\''/((\$mode === \$key) ? '\'' vc_active'\'' : ((\$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'') ? '\'\'': '\'' vc_st_hidden'\''))/g' "$VC_FILE"
+fi
 
+# 6. Purge Vendor Autoload Caches
 echo "Resolving Mailchimp vendor autoloader errors..."
 if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor" ]; then
-    echo "Fixing Mailchimp WooCommerce autoloader cache..."
     rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor"
 fi
+
+# 7. Activate Theme & Verify WP-CLI
+echo "Activating ekalexandria-flagship theme..."
+php7.4 $(which wp) theme activate ekalexandria-flagship --skip-plugins --allow-root || echo "WARNING: Theme activation warning."
 
 echo "Verifying WP-CLI connection post-reset..."
 php7.4 $(which wp) core version --skip-plugins --allow-root || { echo "ERROR: WP-CLI verification failed."; exit 1; }
