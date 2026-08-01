@@ -38,16 +38,23 @@
 > Structure templates cleanly and natively using Gutenberg core blocks (Query Loop, Post Title, Post Content, Featured Image, Columns). Do NOT over-complicate block structures.
 
 ### 2. Top Bar & Header Feature Implementation (Scoped)
-* Construct Header template parts (`header-el`, `header-en`, `header-ar`) strictly adhering to Phase 3 BeTheme scoping:
-  - **Top Bar**: Polylang Language Selector / Switcher and social media links (only elements present on existing site; no un-scoped quick info links).
-  - **Main Navigation**: Responsive Site Logo, dynamic navigation block mapped to legacy menus (`Main Greek Menu` ID 13, `Main English Menu` ID 3315, `Main Arabic Menu` ID 3316).
-  - **Restored Search Feature Trigger**: Native modal search trigger button / block replacing legacy broken search.
+* Construct Header template parts (`header-el`, `header-en`, `header-ar`) strictly adhering to Phase 3 BeTheme scoping and user design refinements:
+  - **Full-Width Stretch & Inner Content Constrained**: Header containers span edge-to-edge (100% background width), with inner content centered and constrained to maximum theme width (`max-width: 1200px`).
+  - **Top Bar**: Polylang Language Selector / Switcher and social media links (Facebook, Twitter, YouTube, Flickr, LinkedIn, Instagram).
+  - **Logo & Typography**: Site Logo (`eka-logo-wide-small.png` / `wp-block-site-logo`). Google Font `Roboto` properly enqueued and loaded, with menu typography font size slightly increased for legibility.
+  - **Main Navigation**: Dynamic navigation block mapped to legacy menus (`Main Greek Menu` ID 13, `Main English Menu` ID 3315, `Main Arabic Menu` ID 3316).
+  - **Compact Icon Search Trigger**: Header search feature converted to a search icon trigger button opening a modal/input overlay.
 
-### 3. Footer Implementation (Scoped)
-* Construct Footer template parts (`footer-el`, `footer-en`, `footer-ar`) strictly adhering to Phase 3 BeTheme scoping:
-  - Layout matching actual legacy footer widgets and structure extracted in Phase 3 (no arbitrary 4-column widget assumptions).
-  - Footer Navigation Menu wired to legacy ID (`Footer Greek Menu` ID 21).
-  - Copyright statement and site credits.
+### 3. Frontpage Layout & Core Component Re-engineering
+* **Page Scrollability**: Ensure `html`, `body`, and `.wp-site-blocks` containers have standard scrolling enabled (`overflow-y: auto`, no fixed height traps).
+* **News Query Loop Carousel / Block**: Query Loop properly setup to fetch and display the latest 5 posts on the frontpage.
+* **Selected Pages 4-Column Grid**: Remediation of frontpage page grid to present exactly 4 columns of selected portal pages (excluding unwanted extra page posts).
+
+### 4. Edge-to-Edge Footer Implementation (Scoped)
+* Construct Footer template parts (`footer-el`, `footer-en`, `footer-ar`) strictly adhering to user layout specifications:
+  - **Edge-to-Edge Gray Background**: Footer background spans full screen width with scoped gray background (`#545454` / `#2b2b2b`).
+  - **Inner Content Width Wrapper**: Content constrained to theme width.
+  - **Footer Content Alignment**: Left side contains copyright icon, year range `1843-2026`, and site title (`Ελληνική Κοινότητα Αλεξανδρείας`). Right side displays the Greek footer menu (`social-menu-bottom`).
 
 ### 4. Custom Features & Core Component Re-engineering
 * **Mailchimp Newsletter Registration**: Re-engineer newsletter registration block securely without legacy plugin autoload dependencies.

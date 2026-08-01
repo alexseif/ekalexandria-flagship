@@ -9,7 +9,11 @@ if (!fs.existsSync(BASELINES_DIR)) {
 }
 
 const PAGES = [
-  { name: 'el_homepage', url: 'https://ekalexandria.org/el/' }
+  { name: 'phase5_el_homepage', url: 'https://backstage.ekalexandria.org/' },
+  { name: 'phase5_en_homepage', url: 'https://backstage.ekalexandria.org/en/' },
+  { name: 'phase5_ar_homepage', url: 'https://backstage.ekalexandria.org/ar/' },
+  { name: 'phase5_tachydromos', url: 'https://backstage.ekalexandria.org/alx_tachydromos/' },
+  { name: 'phase5_board_members', url: 'https://backstage.ekalexandria.org/board-members/' }
 ];
 
 (async () => {

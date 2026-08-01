@@ -2,35 +2,55 @@
  * EKA Flagship Main Stylesheet (SCSS)
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Roboto:wght@400;500;700&display=swap');
 @import "../../ai-work/scopings/betheme-active-styles.css";
 @import "../../ai-work/scopings/betheme-custom-css.css";
 
-/* --- FSE Flagship Specific Enhancements --- */
-.eka-header-topbar {
+/* --- Page Scrollability & Typography Fix --- */
+html, body, .wp-site-blocks {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* --- Edge-to-Edge Layout & Content Width System --- */
+.eka-header-topbar-wrapper {
     background-color: #293e7a;
     color: #ffffff;
+    width: 100%;
+}
+.eka-header-topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 6px 20px;
-    font-size: 13px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 13px;
 
     a {
         color: #ffffff;
         text-decoration: none;
         &:hover {
-            opacity: 0.8;
+            opacity: 0.85;
         }
     }
 }
 
-.eka-header-main {
+.eka-header-main-wrapper {
     background-color: #ffffff;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+}
+.eka-header-main-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #e5e5e5;
 
     .eka-logo img {
         height: 65px;
@@ -38,6 +58,128 @@
     }
 }
 
+/* Navigation Menu Font Legibility */
+.wp-block-navigation {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+
+    .wp-block-navigation-item__label {
+        font-size: 15px;
+        font-weight: 500;
+    }
+}
+
+/* Compact Search Icon Button Trigger */
+.wp-block-search {
+    .wp-block-search__button {
+        background: transparent;
+        color: #293e7a;
+        border: none;
+        padding: 6px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    input.wp-block-search__input {
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Main Site Content Layout */
+.site-content, main.wp-block-group {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    width: 100%;
+}
+
+/* Edge-to-Edge Gray Footer Layout */
+.site-footer-wrapper {
+    background-color: #545454;
+    color: #ffffff;
+    width: 100%;
+    margin-top: 40px;
+}
+.site-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 25px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 14px;
+
+    a {
+        color: #ffffff;
+        text-decoration: none;
+        &:hover { text-decoration: underline; }
+    }
+
+    .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .footer-right {
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* 4-Column Page Grid */
+.eka-page-grid-4col-list {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 20px !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 25px 0 !important;
+
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    @media (max-width: 576px) {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.eka-page-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+    img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 12px;
+    }
+
+    h3 {
+        font-size: 16px;
+        margin: 0 0 10px 0;
+        color: #293e7a;
+        a {
+            color: #293e7a;
+            text-decoration: none;
+            &:hover { text-decoration: underline; }
+        }
+    }
+}
+
+/* Mailchimp Newsletter Block */
 .eka-mailchimp-block {
     background: #f7f7f7;
     border-left: 4px solid #293e7a;

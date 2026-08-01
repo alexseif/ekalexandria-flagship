@@ -1,9 +1,47 @@
 <!-- wp:template-part {"slug":"header-en","area":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"site-content eka-front-page","layout":{"type":"constrained"}} -->
-<main class="wp-block-group site-content eka-front-page">
-	<!-- wp:post-title {"level":1,"className":"screen-reader-text"} /-->
+<!-- wp:group {"tagName":"main","className":"site-content eka-frontpage","layout":{"type":"constrained"}} -->
+<main class="wp-block-group site-content eka-frontpage">
+
+	<!-- wp:heading {"level":2,"className":"eka-section-title"} -->
+	<h2 class="wp-block-heading eka-section-title">Latest News</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+	<div class="wp-block-query eka-news-query">
+		<!-- wp:post-template {"className":"eka-news-list"} -->
+			<!-- wp:group {"className":"eka-news-card"} -->
+			<div class="wp-block-group eka-news-card">
+				<!-- wp:post-featured-image {"isLink":true} /-->
+				<!-- wp:post-title {"isLink":true,"level":3} /-->
+				<!-- wp:post-date /-->
+				<!-- wp:post-excerpt {"moreText":"Read more"} /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+	</div>
+	<!-- /wp:query -->
+
 	<!-- wp:post-content /-->
+
+	<!-- wp:heading {"level":2,"className":"eka-section-title"} -->
+	<h2 class="wp-block-heading eka-section-title">Services & Initiatives</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:query {"queryId":3,"query":{"perPage":4,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":[7837,8088,28,14]}} -->
+	<div class="wp-block-query eka-page-grid-4col">
+		<!-- wp:post-template {"className":"eka-page-grid-4col-list"} -->
+			<!-- wp:group {"className":"eka-page-card"} -->
+			<div class="wp-block-group eka-page-card">
+				<!-- wp:post-featured-image {"isLink":true} /-->
+				<!-- wp:post-title {"isLink":true,"level":3} /-->
+				<!-- wp:post-excerpt /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+	</div>
+	<!-- /wp:query -->
+
 </main>
 <!-- /wp:group -->
 

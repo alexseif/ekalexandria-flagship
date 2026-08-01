@@ -25,7 +25,12 @@
   - [x] Activate `ekalexandria-flagship` theme under PHP 8.2 (`php8.2 $(which wp) theme activate ekalexandria-flagship`)
   - [x] Flush rewrite rules (`php8.2 $(which wp) rewrite flush`)
   - [x] Confirm zero PHP 8.2 deprecations, warnings, or fatal errors in log
-- [ ] Task 8: Playwright Visual Regression Snapshot Audit
-  - [ ] Run automated visual audit (`node bin/scrape-baselines.js`) and compare snapshots against `ai-work/baselines/`
+- [x] Task 8: Playwright Visual Regression Snapshot Audit
+  - [x] Run automated visual audit (`node bin/scrape-baselines.js`) and compare snapshots against `ai-work/baselines/`
+- [x] Task 10: User Layout Refinements, Page Scrolling Fix, Frontpage Grid & Visual Snapshot Audit
+  - [x] Fix page scrolling & SCSS layout rules (ensure `overflow-y: auto`, remove scroll lock traps)
+  - [x] Update Header & Footer template parts: edge-to-edge background stretch with inner content-width alignment, logo display, Google font `Roboto` loading & increased menu font size, compact icon search button trigger
+  - [x] Fix Frontpage Query Loop (latest 5 posts) and 4-column selected pages grid (remediate unwanted extra pages)
+  - [x] Re-run `npm run test:parser` AST validation and Playwright snapshot audit (`node bin/scrape-baselines.js`)
 - [ ] Task 9: Phase 5 Final Checkpoint & User Validation
   - [ ] Summarize execution logs (`ai-work/logs/phase5-deployment.log`) and halt for final human user approval

@@ -1,39 +1,44 @@
-<!-- wp:group {"tagName":"header","className":"site-header eka-header rtl"} -->
-<header class="wp-block-group site-header eka-header rtl">
-	<!-- wp:group {"className":"eka-header-topbar","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
-	<div class="wp-block-group eka-header-topbar">
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group">
-			<!-- wp:shortcode -->[polylang_langswitcher]<!-- /wp:shortcode -->
+<!-- wp:group {"tagName":"header","className":"site-header eka-header","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<header class="wp-block-group site-header eka-header">
+	<!-- wp:group {"className":"eka-header-topbar-wrapper"} -->
+	<div class="wp-block-group eka-header-topbar-wrapper">
+		<div class="eka-header-topbar-inner">
+			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group">
+				<!-- wp:shortcode -->[polylang_langswitcher]<!-- /wp:shortcode -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:social-links {"iconColor":"white","iconColorValue":"#ffffff","openInNewTab":true,"className":"is-style-logos-only"} -->
+			<ul class="wp-block-social-links has-icon-color is-style-logos-only">
+				<!-- wp:social-link {"url":"https://www.facebook.com/Ekalexandria","service":"facebook"} /-->
+				<!-- wp:social-link {"url":"https://twitter.com/EKAlexandria","service":"twitter"} /-->
+				<!-- wp:social-link {"url":"https://www.youtube.com/user/EKAlexandria","service":"youtube"} /-->
+				<!-- wp:social-link {"url":"https://www.flickr.com/photos/ekalexandria/","service":"flickr"} /-->
+				<!-- wp:social-link {"url":"https://www.linkedin.com/company/greek-community-of-alexandria","service":"linkedin"} /-->
+				<!-- wp:social-link {"url":"https://www.instagram.com/greeksofalexandria/","service":"instagram"} /-->
+			</ul>
+			<!-- /wp:social-links -->
 		</div>
-		<!-- /wp:group -->
-		<!-- wp:social-links {"iconColor":"white","iconColorValue":"#ffffff","openInNewTab":true,"className":"is-style-logos-only"} -->
-		<ul class="wp-block-social-links has-icon-color is-style-logos-only">
-			<!-- wp:social-link {"url":"https://www.facebook.com/Ekalexandria","service":"facebook"} /-->
-			<!-- wp:social-link {"url":"https://twitter.com/EKAlexandria","service":"twitter"} /-->
-			<!-- wp:social-link {"url":"https://www.youtube.com/user/EKAlexandria","service":"youtube"} /-->
-			<!-- wp:social-link {"url":"https://www.flickr.com/photos/ekalexandria/","service":"flickr"} /-->
-			<!-- wp:social-link {"url":"https://www.linkedin.com/company/greek-community-of-alexandria","service":"linkedin"} /-->
-			<!-- wp:social-link {"url":"https://www.instagram.com/greeksofalexandria/","service":"instagram"} /-->
-		</ul>
-		<!-- /wp:social-links -->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"eka-header-main","layout":{"type":"flex","justifyContent":"space-between","alignItems":"center","flexWrap":"wrap"}} -->
-	<div class="wp-block-group eka-header-main">
-		<!-- wp:group {"className":"eka-logo","layout":{"type":"flex","alignItems":"center"}} -->
-		<div class="wp-block-group eka-logo">
-			<!-- wp:site-logo {"width":240} /-->
-		</div>
-		<!-- /wp:group -->
+	<!-- wp:group {"className":"eka-header-main-wrapper"} -->
+	<div class="wp-block-group eka-header-main-wrapper">
+		<div class="eka-header-main-inner">
+			<!-- wp:group {"className":"eka-logo","layout":{"type":"flex","alignItems":"center"}} -->
+			<div class="wp-block-group eka-logo">
+				<!-- wp:site-logo {"width":240} /-->
+			</div>
+			<!-- /wp:group -->
 
-		<!-- wp:group {"layout":{"type":"flex","alignItems":"center","flexWrap":"wrap"}} -->
-		<div class="wp-block-group">
-			<!-- wp:navigation {"slug":"main-menu___ar","layout":{"type":"flex","justifyContent":"right"}} /-->
-			<!-- wp:search {"showLabel":false,"placeholder":"بحث...","width":200,"widthUnit":"px","buttonText":"بحث"} /-->
+			<!-- wp:group {"layout":{"type":"flex","alignItems":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group">
+				<!-- wp:navigation {"slug":"main-menu___ar","layout":{"type":"flex","justifyContent":"right"}} /-->
+				<!-- wp:search {"showLabel":false,"buttonText":"","buttonUseIcon":true,"placeholder":"بحث..."} /-->
+			</div>
+			<!-- /wp:group -->
 		</div>
-		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
 </header>
