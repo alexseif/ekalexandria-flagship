@@ -115,10 +115,10 @@ echo "Cataloging MFN Builder Pages...\n";
 
 global $wpdb;
 $mfn_posts_query = "
-    SELECT p.ID as post_id, p.post_title, p.post_type, p.post_status, m.meta_value 
+    SELECT p.ID as post_id, p.post_title, p.post_type, p.post_status, m.meta_key, m.meta_value 
     FROM {$wpdb->posts} p 
     INNER JOIN {$wpdb->postmeta} m ON p.ID = m.post_id 
-    WHERE m.meta_key = '_mfn-builder-items' AND p.post_status != 'trash'
+    WHERE m.meta_key IN ('mfn-page-items', '_mfn-builder-items', 'mfn_builder_items') AND p.post_status != 'trash'
     ORDER BY p.ID ASC
 ";
 

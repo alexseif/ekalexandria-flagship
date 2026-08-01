@@ -12,11 +12,11 @@
   - [x] Scan postmeta for MFN builder pages (`_mfn-builder-items`) <!-- id: 6 -->
   - [x] Extract custom CSS rules, customizer CSS, and dynamic sidebar assignments <!-- id: 7 -->
   - [x] Export JSON and CSS outputs to `ai-work/scopings/` <!-- id: 8 -->
-- [ ] Task 3: Execute Scoping & Validate Output Integrity <!-- id: 9 -->
-  - [ ] Execute script via `php7.4 $(which wp) eval-file bin/scope-betheme-config.php --path=public > ai-work/logs/phase3-scoping.log 2>&1` <!-- id: 10 -->
-  - [ ] Execute UnCSS active style extraction (`npx uncss public/wp-content/uploads/mfn-css/style-static.css > ai-work/scopings/betheme-active-styles.css`) <!-- id: 11 -->
-  - [ ] Validate JSON syntax with `jq . ai-work/scopings/betheme-config-scoping.json` and `jq . ai-work/scopings/mfn-pages.json` <!-- id: 12 -->
-  - [ ] Verify CSS artifacts `ai-work/scopings/betheme-custom-css.css` and `ai-work/scopings/betheme-active-styles.css` <!-- id: 13 -->
-  - [ ] Verify execution log `ai-work/logs/phase3-scoping.log` <!-- id: 14 -->
-  - [ ] Confirm zero database mutations <!-- id: 15 -->
-- [ ] Checkpoint: Manual User Review Pause <!-- id: 16 -->
+- [x] Task 3: Execute Scoping & Validate Output Integrity <!-- id: 9 -->
+  - [x] Execute script via `php7.4 $(which wp) eval-file bin/scope-betheme-config.php --path=public > ai-work/logs/phase3-scoping.log 2>&1` <!-- id: 10 -->
+  - [x] Execute UnCSS active style extraction (`npx uncss public/wp-content/uploads/mfn-css/style-static.css > ai-work/scopings/betheme-active-styles.css`) <!-- id: 11 -->
+  - [x] Validate JSON syntax with `jq . ai-work/scopings/betheme-config-scoping.json` and `jq . ai-work/scopings/mfn-pages.json` <!-- id: 12 -->
+  - [x] Verify CSS artifacts `ai-work/scopings/betheme-custom-css.css` and `ai-work/scopings/betheme-active-styles.css` <!-- id: 13 -->
+  - [x] Verify execution log `ai-work/logs/phase3-scoping.log` <!-- id: 14 -->
+  - [x] Confirm zero database mutations <!-- id: 15 -->
+- [x] Checkpoint: Manual User Review Pause <!-- id: 16 -->
