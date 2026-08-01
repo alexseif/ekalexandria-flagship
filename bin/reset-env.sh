@@ -1,7 +1,7 @@
 #!/bin/bash
 # bin/reset-env.sh
 # Staging Environment Reset & Resynchronization Script
-# Preserves: ai-work/, bin/, AGY_INSTRUCTIONS.md, Master Project Roadmap...
+# Preserves: wp-config.php, ai-work/, bin/, AGY_INSTRUCTIONS.md, Master Project Roadmap...
 # Targets: /var/www/backstage.ekalexandria.org (DB: backstage_eka)
 
 STAGING_DIR="/var/www/backstage.ekalexandria.org"
@@ -50,25 +50,40 @@ if [ "$DUMP_FILE" = "/tmp/prod_db.sql" ]; then
     rm -f /tmp/prod_db.sql
 fi
 
-# 4. Search-Replace Domain Mapping
+# 4. Synchronize Staging Files with Preservation Rules
+if [ -d "$PROD_DIR/public" ]; then
+    echo "Synchronizing staging files from production baseline ($PROD_DIR/public)..."
+    rsync -av --delete \
+        --exclude='wp-config.php' \
+        --exclude='wp-content/themes/ekalexandria-flagship/ai-work' \
+        --exclude='wp-content/themes/ekalexandria-flagship/bin' \
+        --exclude='wp-content/themes/ekalexandria-flagship/AGY_INSTRUCTIONS.md' \
+        --exclude='wp-content/themes/ekalexandria-flagship/Master Project Roadmap*' \
+        --exclude='wp-content/themes/ekalexandria-flagship/.git' \
+        --exclude='wp-content/themes/ekalexandria-flagship/.gitignore' \
+        "$PROD_DIR/public/" "$STAGING_DIR/public/"
+fi
+
+# 5. Search-Replace Domain Mapping
 echo "Performing DB domain mapping (ekalexandria.org -> backstage.ekalexandria.org)..."
+cd "$STAGING_DIR/public" || exit 1
 php7.4 $(which wp) search-replace 'ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --skip-plugins --allow-root
 php7.4 $(which wp) search-replace 'www.ekalexandria.org' 'backstage.ekalexandria.org' --all-tables --skip-plugins --allow-root
 
-# 5. Patch Known PHP 7.4/8.0+ Fatal Errors
+# 6. Patch Known PHP 7.4/8.0+ Fatal Errors
 VC_FILE="$STAGING_DIR/public/wp-content/plugins/js_composer/include/classes/editors/class-vc-frontend-editor.php"
 if [ -f "$VC_FILE" ]; then
     echo "Patching WPBakery line 339 nested ternary operator error..."
     sed -i 's/\$mode === \$key \? '\'' vc_active'\'' : \$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'' \? '\'\'': '\'' vc_st_hidden'\''/((\$mode === \$key) ? '\'' vc_active'\'' : ((\$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'') ? '\'\'': '\'' vc_st_hidden'\''))/g' "$VC_FILE"
 fi
 
-# 6. Purge Vendor Autoload Caches
+# 7. Purge Vendor Autoload Caches
 echo "Resolving Mailchimp vendor autoloader errors..."
 if [ -d "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor" ]; then
     rm -rf "$STAGING_DIR/public/wp-content/plugins/mailchimp-for-woocommerce/vendor"
 fi
 
-# 7. Activate Theme & Verify WP-CLI
+# 8. Activate Theme & Verify WP-CLI
 echo "Activating ekalexandria-flagship theme..."
 php7.4 $(which wp) theme activate ekalexandria-flagship --skip-plugins --allow-root || echo "WARNING: Theme activation warning."
 
