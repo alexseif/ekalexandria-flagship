@@ -7,9 +7,9 @@
 - [x] Task 2: Multi-Language FSE Header & Footer Template Parts Scaffolding
   - [x] Build `parts/header-el.html`, `parts/header-en.html`, `parts/header-ar.html` with logo (`eka-logo-wide-small.png`), Top Bar (Polylang switcher, social links), dynamic navigation, and modal search trigger
   - [x] Build `parts/footer-el.html`, `parts/footer-en.html`, `parts/footer-ar.html` matching scoped footer layout and widgets
-- [ ] Task 3: Dynamic Menu Location Re-Assignment & Header/Footer Navigation Wiring
-  - [ ] Re-assign WP menu locations: Greek Main (13 -> `main-menu`), English Main (3315 -> `main-menu___en`), Arabic Main (3316 -> `main-menu___ar`), Greek Footer (21 -> `social-menu-bottom`)
-  - [ ] Verify template part navigation blocks reference active navigation menu IDs
+- [x] Task 3: Dynamic Menu Location Re-Assignment & Header/Footer Navigation Wiring
+  - [x] Re-assign WP menu locations: Greek Main (13 -> `main-menu`), English Main (3315 -> `main-menu___en`), Arabic Main (3316 -> `main-menu___ar`), Greek Footer (21 -> `social-menu-bottom`)
+  - [x] Verify template part navigation blocks reference active navigation menu IDs
 - [ ] Task 4: Static Homepage & News (Posts Page) Configuration
   - [ ] Programmatically set WordPress reading options (`show_on_front` = `page`, `page_on_front` = Homepage ID, `page_for_posts` = News Page ID)
   - [ ] Verify homepage and news page routes dynamically resolve FSE templates across languages

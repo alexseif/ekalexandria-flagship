@@ -579,6 +579,33 @@ class EKA_CLI {
     }
 
     /**
+     * Re-assign WordPress Navigation Menu Locations
+     *
+     * @subcommand assign-menus
+     */
+    public function assign_menus() {
+        $log = $this->get_logger('phase5-deployment.log');
+        $log("Assigning WP Navigation Menu Locations...", "INFO");
+
+        $locations = get_theme_mod( 'nav_menu_locations', [] );
+
+        $menu_map = [
+            'main-menu'          => 13,   // Greek Main Menu
+            'main-menu___en'     => 3315, // English Main Menu
+            'main-menu___ar'     => 3316, // Arabic Main Menu
+            'social-menu-bottom' => 21,   // Greek Footer Menu
+        ];
+
+        foreach ($menu_map as $location => $term_id) {
+            $locations[$location] = $term_id;
+            $log("Assigned menu ID $term_id to location '$location'", "INFO");
+        }
+
+        set_theme_mod( 'nav_menu_locations', $locations );
+        $log("Menu locations successfully updated and verified.", "INFO");
+    }
+
+    /**
      * Standalone Production Cutover Execution
      *
      * @subcommand production-cutover
