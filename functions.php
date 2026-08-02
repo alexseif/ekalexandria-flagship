@@ -11,6 +11,10 @@ if ( file_exists( __DIR__ . '/inc/blocks.php' ) ) {
 	require_once __DIR__ . '/inc/blocks.php';
 }
 
+if ( file_exists( __DIR__ . '/inc/cpt-rules.php' ) ) {
+	require_once __DIR__ . '/inc/cpt-rules.php';
+}
+
 if ( defined( 'WP_CLI' ) && WP_CLI && file_exists( __DIR__ . '/inc/cli-commands.php' ) ) {
 	require_once __DIR__ . '/inc/cli-commands.php';
 }
