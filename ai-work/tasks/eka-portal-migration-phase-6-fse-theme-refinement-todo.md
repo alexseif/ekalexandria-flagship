@@ -17,9 +17,9 @@
 - [x] Task 3: Front Page & Header/Footer Refinement (Parallel Fan-Out Worker 3)
   - [x] 3.1 Branch: `feat/task-3-front-page` | Allowed: `parts/header*.html`, `parts/footer*.html`, `templates/front-page*.html` | Purge inline styles & duplicate tag wrappers
   - [x] 3.2 Refine Front Page templates (`templates/front-page*.html`) with News Carousel & `eka/homepage-services-grid`
-- [ ] Task 4: News Page (`index.html`) Query Loop & Carousel Recreation (Parallel Fan-Out Worker 4)
-  - [ ] 4.1 Branch: `feat/task-4-news-query-loop` | Allowed: `parts/sidebar-news.html`, `templates/index.html` | Create `parts/sidebar-news.html`
-  - [ ] 4.2 Recreate `templates/index.html` using `core/query` (Query Loop block) with toggleable `is-style-news-carousel` design option
+- [x] Task 4: News Page (`index.html`) Query Loop & Carousel Recreation (Parallel Fan-Out Worker 4)
+  - [x] 4.1 Branch: `feat/task-4-news-query-loop` | Allowed: `parts/sidebar-news.html`, `templates/index.html` | Create `parts/sidebar-news.html`
+  - [x] 4.2 Recreate `templates/index.html` using `core/query` (Query Loop block) with toggleable `is-style-news-carousel` design option
 - [ ] Task 5: Custom Post Type Rules & Bespoke Templates (Parallel Fan-Out Worker 5)
   - [ ] 5.1 Branch: `feat/task-5-cpt-views` | Allowed: `inc/cpt-rules.php`, `templates/archive-board_member.html`, `templates/board-members.html`, `templates/archive-alx_tachydromos.html`, `templates/single-alx_tachydromos.html` | Create `inc/cpt-rules.php` board_member redirect
   - [ ] 5.2 Refine `templates/archive-board_member.html` and `templates/board-members.html` list view
