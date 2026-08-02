@@ -31,6 +31,6 @@
   - [x] 7.1 Branch: `feat/task-7-ast-audit` | Run `npm run test:parser` AST validation on all templates & parts
   - [x] 7.2 Run `npm run test:render` WP runtime block render test
   - [x] 7.3 Run `node bin/compare-dom.js` comparative DOM audit
-- [ ] Task 8: Production Build & Phase Final Quality Gate
-  - [ ] 8.1 Branch: `feat/task-8-prod-build` | Execute `npm run build` for optimized asset production
-  - [ ] 8.2 Verify git clean status & tagged commit history
+- [x] Task 8: Production Build & Phase Final Quality Gate
+  - [x] 8.1 Branch: `feat/task-8-prod-build` | Execute `npm run build` for optimized asset production
+  - [x] 8.2 Verify git clean status & tagged commit history
