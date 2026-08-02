@@ -27,10 +27,10 @@
 - [x] Task 6: Parent Page, Child Grid & Sidebar Templates (Parallel Fan-Out Worker 6)
   - [x] 6.1 Branch: `feat/task-6-parent-sidebar` | Allowed: `parts/sidebar-child-pages.html`, `templates/page-parent-sidebar.html` | Create `parts/sidebar-child-pages.html`
   - [x] 6.2 Create/Refine `templates/page-parent-sidebar.html` using `eka/child-pages-grid`
-- [ ] Task 7: AST Serialization & WP Runtime Audit Validation (Fan-In Quality Gate)
-  - [ ] 7.1 Branch: `feat/task-7-ast-audit` | Run `npm run test:parser` AST validation on all templates & parts
-  - [ ] 7.2 Run `npm run test:render` WP runtime block render test
-  - [ ] 7.3 Run `node bin/compare-dom.js` comparative DOM audit
+- [x] Task 7: AST Serialization & WP Runtime Audit Validation (Fan-In Quality Gate)
+  - [x] 7.1 Branch: `feat/task-7-ast-audit` | Run `npm run test:parser` AST validation on all templates & parts
+  - [x] 7.2 Run `npm run test:render` WP runtime block render test
+  - [x] 7.3 Run `node bin/compare-dom.js` comparative DOM audit
 - [ ] Task 8: Production Build & Phase Final Quality Gate
   - [ ] 8.1 Branch: `feat/task-8-prod-build` | Execute `npm run build` for optimized asset production
   - [ ] 8.2 Verify git clean status & tagged commit history
