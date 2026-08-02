@@ -1,11 +1,11 @@
 # TODO List: Phase 6 FSE Theme Refinement & Quality Assurance
 
-- [ ] Task 0: Python CLI Master Orchestrator Architecture (`bin/orchestrate-phase-6.py`)
-  - [ ] 0.1 Build `bin/orchestrate-phase-6.py` script supporting `agy` CLI non-interactive execution
-  - [ ] 0.2 Configure Phase A Sequential execution pipeline for Tasks 1 & 2
-  - [ ] 0.3 Configure Phase B Parallel Fan-Out Git Worktree pipeline (`/tmp/worktrees/task_N`) for Tasks 3, 4, 5, 6
-  - [ ] 0.4 Configure Phase C Fan-In Branch Merge & Tagged Commit engine (`feat(task-N): #task-N-feat:description`)
-  - [ ] 0.5 Configure Phase D Quality Gate execution (`npm run test:parser`, `npm run test:render`, `node bin/compare-dom.js`)
+- [x] Task 0: Python CLI Master Orchestrator Architecture (`bin/orchestrate-phase-6.py`)
+  - [x] 0.1 Build `bin/orchestrate-phase-6.py` script supporting `agy` CLI non-interactive execution
+  - [x] 0.2 Configure Phase A Sequential execution pipeline for Tasks 1 & 2
+  - [x] 0.3 Configure Phase B Parallel Fan-Out Git Worktree pipeline (`/tmp/worktrees/task_N`) for Tasks 3, 4, 5, 6
+  - [x] 0.4 Configure Phase C Fan-In Branch Merge & Tagged Commit engine (`feat(task-N): #task-N-feat:description`)
+  - [x] 0.5 Configure Phase D Quality Gate execution (`npm run test:parser`, `npm run test:render`, `node bin/compare-dom.js`)
 - [ ] Task 1: Environment, Tooling & SCSS Build Pipeline Setup (Sequential)
   - [ ] 1.1 Branch: `feat/task-1-env-setup` | Allowed: `package.json`, `assets/scss/*` | Update `package.json` scripts
   - [ ] 1.2 Verify SCSS dev/prod build scripts (`npm run dev` and `npm run build`)
