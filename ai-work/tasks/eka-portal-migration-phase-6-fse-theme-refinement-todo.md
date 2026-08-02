@@ -14,9 +14,9 @@
   - [x] 2.2 Register `eka/child-pages-grid` and `eka/child-pages-sidebar` dynamic blocks
   - [x] 2.3 Register `core/query` block style `is-style-news-carousel` (and/or dynamic block `eka/news-carousel`)
   - [x] 2.4 Register `core/gallery` block style `legacy-slider` for photo carousels
-- [ ] Task 3: Front Page & Header/Footer Refinement (Parallel Fan-Out Worker 3)
-  - [ ] 3.1 Branch: `feat/task-3-front-page` | Allowed: `parts/header*.html`, `parts/footer*.html`, `templates/front-page*.html` | Purge inline styles & duplicate tag wrappers
-  - [ ] 3.2 Refine Front Page templates (`templates/front-page*.html`) with News Carousel & `eka/homepage-services-grid`
+- [x] Task 3: Front Page & Header/Footer Refinement (Parallel Fan-Out Worker 3)
+  - [x] 3.1 Branch: `feat/task-3-front-page` | Allowed: `parts/header*.html`, `parts/footer*.html`, `templates/front-page*.html` | Purge inline styles & duplicate tag wrappers
+  - [x] 3.2 Refine Front Page templates (`templates/front-page*.html`) with News Carousel & `eka/homepage-services-grid`
 - [ ] Task 4: News Page (`index.html`) Query Loop & Carousel Recreation (Parallel Fan-Out Worker 4)
   - [ ] 4.1 Branch: `feat/task-4-news-query-loop` | Allowed: `parts/sidebar-news.html`, `templates/index.html` | Create `parts/sidebar-news.html`
   - [ ] 4.2 Recreate `templates/index.html` using `core/query` (Query Loop block) with toggleable `is-style-news-carousel` design option
