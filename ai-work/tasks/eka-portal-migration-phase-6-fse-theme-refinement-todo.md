@@ -24,9 +24,9 @@
   - [x] 5.1 Branch: `feat/task-5-cpt-views` | Allowed: `inc/cpt-rules.php`, `templates/archive-board_member.html`, `templates/board-members.html`, `templates/archive-alx_tachydromos.html`, `templates/single-alx_tachydromos.html` | Create `inc/cpt-rules.php` board_member redirect
   - [x] 5.2 Refine `templates/archive-board_member.html` and `templates/board-members.html` list view
   - [x] 5.3 Refine `templates/archive-alx_tachydromos.html` and `templates/single-alx_tachydromos.html`
-- [ ] Task 6: Parent Page, Child Grid & Sidebar Templates (Parallel Fan-Out Worker 6)
-  - [ ] 6.1 Branch: `feat/task-6-parent-sidebar` | Allowed: `parts/sidebar-child-pages.html`, `templates/page-parent-sidebar.html` | Create `parts/sidebar-child-pages.html`
-  - [ ] 6.2 Create/Refine `templates/page-parent-sidebar.html` using `eka/child-pages-grid`
+- [x] Task 6: Parent Page, Child Grid & Sidebar Templates (Parallel Fan-Out Worker 6)
+  - [x] 6.1 Branch: `feat/task-6-parent-sidebar` | Allowed: `parts/sidebar-child-pages.html`, `templates/page-parent-sidebar.html` | Create `parts/sidebar-child-pages.html`
+  - [x] 6.2 Create/Refine `templates/page-parent-sidebar.html` using `eka/child-pages-grid`
 - [ ] Task 7: AST Serialization & WP Runtime Audit Validation (Fan-In Quality Gate)
   - [ ] 7.1 Branch: `feat/task-7-ast-audit` | Run `npm run test:parser` AST validation on all templates & parts
   - [ ] 7.2 Run `npm run test:render` WP runtime block render test
