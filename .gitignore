@@ -5,3 +5,6 @@ Thumbs.db
 node_modules/
 .sass-cache/
 *.log
+*.css.map
+__pycache__/
+*.pyc

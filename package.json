@@ -1,12 +1,17 @@
 {
   "name": "ekalexandria-flagship",
   "version": "1.0.0",
-  "description": "Ekalexandria flagship theme",
+  "description": "EKA Alexandria Flagship FSE Theme",
+  "main": "index.js",
   "scripts": {
-    "build:css": "sass assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --no-source-map",
-    "watch:css": "sass --watch assets/scss/style.scss:style.css assets/scss/rtl.scss:rtl.css --no-source-map"
+    "build": "wp-scripts build assets/scss/style.scss assets/scss/rtl.scss --output-path=build",
+    "dev": "wp-scripts start assets/scss/style.scss assets/scss/rtl.scss --output-path=build",
+    "test:parser": "node bin/validate-ast.js",
+    "test:render": "php bin/test-runtime-render.php"
   },
   "devDependencies": {
-    "sass": "^1.69.0"
+    "@wordpress/block-serialization-default-parser": "^5.0.0",
+    "@wordpress/scripts": "^30.0.0",
+    "sass": "^1.70.0"
   }
 }

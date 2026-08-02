@@ -1,11 +1,30 @@
-/*
- * Theme Name: Flagship (RTL)
- * Author: Alex Seif
- * Author URI: https://alexseif.com
- * Description: RTL stylesheet for Flagship.
- * Version: 1.0.0
- * License: GNU General Public License v2 or later
+/**
+ * EKA Flagship RTL Stylesheet (SCSS)
  */
 
-@import "theme-components";
-/* RTL overrides go below */
+@import "style.scss";
+
+body.rtl {
+    direction: rtl;
+    unicode-bidi: embed;
+    text-align: right;
+}
+
+.rtl {
+    .eka-header-topbar {
+        flex-direction: row-reverse;
+    }
+
+    .eka-header-main {
+        flex-direction: row-reverse;
+    }
+
+    .eka-mailchimp-block {
+        border-left: none;
+        border-right: 4px solid #293e7a;
+    }
+
+    .widget_polylang li {
+        text-align: left;
+    }
+}

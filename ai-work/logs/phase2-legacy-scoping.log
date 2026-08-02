@@ -1,0 +1,29 @@
+Notice: Undefined index: SERVER_NAME in /var/www/backstage.ekalexandria.org/public/wp-content/plugins/LayerSlider/classes/class.km.autoupdate.v3.php on line 74
+Notice: Function register_uninstall_hook was called <strong>incorrectly</strong>. Only a static class method or function can be used in an uninstall hook. Please see <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> for more information. (This message was added in version 3.1.0.) in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Notice: Η συνάρτηση _load_textdomain_just_in_time κλήθηκε <strong>εσφαλμένα</strong>. Η φόρτωση της μετάφρασης για τον τομέα <code>mfn-opts</code> ενεργοποιήθηκε πολύ νωρίς. Αυτό είναι συνήθως ένδειξη για κάποιο κώδικα στο πρόσθετο ή το θέμα που εκτελείται πολύ νωρίς. Οι μεταφράσεις θα πρέπει να φορτώνονται στην ενέργεια <code>init</code> ή αργότερα. Παρακαλώ δείτε τη σελίδα <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">Debugging in WordPress</a> για περισσότερες πληροφορίες. (Το μήνυμα αυτό προστέθηκε στην έκδ. 6.7.0.) in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; Mfn_Flickr_Widget has a deprecated constructor in /var/www/backstage.ekalexandria.org/public/wp-content/themes/betheme/functions/widget-flickr.php on line 10
+Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; Mfn_Login_Widget has a deprecated constructor in /var/www/backstage.ekalexandria.org/public/wp-content/themes/betheme/functions/widget-login.php on line 10
+Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; Mfn_Menu_Widget has a deprecated constructor in /var/www/backstage.ekalexandria.org/public/wp-content/themes/betheme/functions/widget-menu.php on line 10
+Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; Mfn_Recent_Comments_Widget has a deprecated constructor in /var/www/backstage.ekalexandria.org/public/wp-content/themes/betheme/functions/widget-recent-comments.php on line 10
+Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; Mfn_Recent_Posts_Widget has a deprecated constructor in /var/www/backstage.ekalexandria.org/public/wp-content/themes/betheme/functions/widget-recent-posts.php on line 10
+Deprecated: Methods with the same name as their class will not be constructors in a future version of PHP; Mfn_Tag_Cloud_Widget has a deprecated constructor in /var/www/backstage.ekalexandria.org/public/wp-content/themes/betheme/functions/widget-tag-cloud.php on line 10
+Deprecated: Η κληθείσα μέθοδος δημιουργίας για την class WP_Widget σε Mfn_Flickr_Widget έχει <strong>καταργηθεί</strong> από την έκδοση 4.3.0! Χρησιμοποιήστε την <code>__construct()</code> αντί αυτής. in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Η κληθείσα μέθοδος δημιουργίας για την class WP_Widget σε Mfn_Login_Widget έχει <strong>καταργηθεί</strong> από την έκδοση 4.3.0! Χρησιμοποιήστε την <code>__construct()</code> αντί αυτής. in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Η κληθείσα μέθοδος δημιουργίας για την class WP_Widget σε Mfn_Menu_Widget έχει <strong>καταργηθεί</strong> από την έκδοση 4.3.0! Χρησιμοποιήστε την <code>__construct()</code> αντί αυτής. in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Η κληθείσα μέθοδος δημιουργίας για την class WP_Widget σε Mfn_Recent_Comments_Widget έχει <strong>καταργηθεί</strong> από την έκδοση 4.3.0! Χρησιμοποιήστε την <code>__construct()</code> αντί αυτής. in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Η κληθείσα μέθοδος δημιουργίας για την class WP_Widget σε Mfn_Recent_Posts_Widget έχει <strong>καταργηθεί</strong> από την έκδοση 4.3.0! Χρησιμοποιήστε την <code>__construct()</code> αντί αυτής. in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Η κληθείσα μέθοδος δημιουργίας για την class WP_Widget σε Mfn_Tag_Cloud_Widget έχει <strong>καταργηθεί</strong> από την έκδοση 4.3.0! Χρησιμοποιήστε την <code>__construct()</code> αντί αυτής. in /var/www/backstage.ekalexandria.org/public/wp-includes/functions.php on line 6170
+Deprecated: Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /var/www/backstage.ekalexandria.org/public/wp-content/plugins/js_composer/include/classes/editors/class-vc-frontend-editor.php on line 339
+Deprecated: The each() function is deprecated. This message will be suppressed on further calls in /var/www/backstage.ekalexandria.org/public/wp-content/plugins/js_composer/include/classes/core/class-vc-mapper.php on line 61
+Starting Legacy Items & Page URL Scoping...
+Found 6199 total pages/posts to analyze.
+Scoping complete!
+Extracted 130 legacy items across analyzed pages.
+Breakdown by item type:
+ - rev_slider: 20
+ - wpbakery_shortcode: 84
+ - vc_posts_grid: 20
+ - mfn_header_slider: 3
+ - layerslider: 2
+ - testimonials: 1
+Saved inventory to: /var/www/backstage.ekalexandria.org/public/wp-content/themes/ekalexandria-flagship/ai-work/scopings/legacy-items-inventory.json

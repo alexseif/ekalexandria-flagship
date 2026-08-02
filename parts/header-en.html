@@ -1,21 +1,51 @@
-<!-- wp:group {"align":"full","className":"flagship-header-nav","style":{"spacing":{"padding":{"top":"var:preset|spacing|small","bottom":"var:preset|spacing|small"}}},"layout":{"type":"default"}} -->
-<div class="wp-block-group alignfull flagship-header-nav" style="padding-top:var(--wp--preset--spacing--small);padding-bottom:var(--wp--preset--spacing--small)">
-	<!-- wp:group {"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group">
-		<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
-		<div class="wp-block-group alignwide">
-			<!-- wp:site-logo {"width":120} /-->
-			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
+<!-- wp:group {"tagName":"header","className":"site-header eka-header","layout":{"type":"constrained"}} -->
+<header class="wp-block-group site-header eka-header">
+
+	<!-- wp:group {"align":"full","className":"eka-header-topbar-wrapper","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignfull eka-header-topbar-wrapper">
+		<!-- wp:group {"className":"eka-header-topbar-inner","layout":{"type":"flex","justifyContent":"space-between","alignItems":"center"}} -->
+		<div class="wp-block-group eka-header-topbar-inner">
+			<!-- wp:group {"layout":{"type":"flex","alignItems":"center"}} -->
 			<div class="wp-block-group">
-				<!-- wp:navigation {"ref":3315,"ariaLabel":"Main English Menu","layout":{"type":"flex","setCascadingProperties":true,"justifyContent":"right"}} /-->
-				<!-- wp:shortcode -->
-				<div class="wp-block-shortcode">[polylang_langswitcher]</div>
-				<!-- /wp:shortcode -->
+				<!-- wp:shortcode -->[polylang_langswitcher]<!-- /wp:shortcode -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:social-links {"iconColor":"white","iconColorValue":"#ffffff","openInNewTab":true,"className":"is-style-logos-only"} -->
+			<ul class="wp-block-social-links has-icon-color is-style-logos-only">
+				<!-- wp:social-link {"url":"https://www.facebook.com/Ekalexandria","service":"facebook"} /-->
+				<!-- wp:social-link {"url":"https://twitter.com/EKAlexandria","service":"twitter"} /-->
+				<!-- wp:social-link {"url":"https://www.youtube.com/user/EKAlexandria","service":"youtube"} /-->
+				<!-- wp:social-link {"url":"https://www.flickr.com/photos/ekalexandria/","service":"flickr"} /-->
+				<!-- wp:social-link {"url":"https://www.linkedin.com/company/greek-community-of-alexandria","service":"linkedin"} /-->
+				<!-- wp:social-link {"url":"https://www.instagram.com/greeksofalexandria/","service":"instagram"} /-->
+			</ul>
+			<!-- /wp:social-links -->
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"full","className":"eka-header-main-wrapper","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignfull eka-header-main-wrapper">
+		<!-- wp:group {"className":"eka-header-main-inner","layout":{"type":"flex","justifyContent":"space-between","alignItems":"center"}} -->
+		<div class="wp-block-group eka-header-main-inner">
+			<!-- wp:group {"className":"eka-logo","layout":{"type":"flex","alignItems":"center"}} -->
+			<div class="wp-block-group eka-logo">
+				<!-- wp:site-logo {"width":240} /-->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"eka-header-right-group","layout":{"type":"flex","alignItems":"center","flexWrap":"nowrap"}} -->
+			<div class="wp-block-group eka-header-right-group">
+				<!-- wp:navigation {"slug":"main-menu___en","layout":{"type":"flex","justifyContent":"right"}} /-->
+				<!-- wp:search {"showLabel":false,"buttonText":"","buttonUseIcon":true,"placeholder":"Search...","className":"eka-header-search"} /-->
 			</div>
 			<!-- /wp:group -->
 		</div>
 		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
-</div>
+
+</header>
 <!-- /wp:group -->

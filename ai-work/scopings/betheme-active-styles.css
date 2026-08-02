@@ -1,0 +1,209 @@
+/*** uncss> filename: ../betheme/style-static.css ***/
+/* 
+ * Static CSS Styles
+ * 
+ * Place static CSS styles here.
+ * To minify CSS code you can use http://cssminifier.com/
+ * 
+ * For more info please see: http://themes.muffingroup.com/betheme/documentation/#static-css
+ */
+
+/* style.php */
+#Wrapper,html{background-color:#FCFCFC}#menu>ul>li>a,body,input[type=submit],input[type=text]{font-family:Roboto,Arial,Tahoma,sans-serif;font-weight:400}h1,h2{font-family:Patua One,Arial,Tahoma,sans-serif;font-weight:300}body{font-size:13px;line-height:21px}#menu>ul>li>a{font-size:14px}h1{font-size:25px;line-height:25px}h2{font-size:30px;line-height:30px}
+	
+/* style-colors.php */
+
+/********************** Backgrounds **********************/
+
+	#Header_wrapper {
+		background-color: #000119;
+	}
+	.header-classic #Action_bar {
+	    background-color: #293e7a;
+	}
+	
+	#Footer {
+		background-color: #545454;
+	}
+
+/************************ Colors ************************/
+
+/* Content font */
+	body {
+		color: #626262;
+	}
+	
+/* Theme color */
+	
+/* Theme background */
+	
+/* Links color */
+	a {
+		color: #293e7a;
+	}
+	
+	a:hover {
+		color: rgba(41, 62, 122, 0.8);
+	}
+	
+/* Selections */
+	*::-moz-selection {
+		background-color: #293e7a;
+	}
+	*::selection {
+		background-color: #293e7a;		
+	}
+	
+/* Grey */
+	
+/* Headings font */
+	h1 { color: #444444; }
+	h2, h2 a, h2 a:hover { color: #444444; }		
+	
+/* Highlight */
+	
+/* Buttons */
+	a.button {
+		background-color: #f7f7f7;
+		color: #747474;
+	}
+	
+	input[type="submit"] {
+		background-color: #293e7a;
+		color: #fff;
+	}
+	
+/* Fancy Link */
+	
+/* Shop buttons */
+	
+/* Lists */
+	.the_content_wrapper ul {
+		color: #737E86;
+	}
+	
+/* Dividers */ 
+	
+/* Highlight section */	
+	
+	
+/************************ Header ************************/	
+
+	#Header .top_bar_left, .header-classic #Top_bar, #Top_bar #menu {
+		background-color: #ffffff;
+	}
+	#Top_bar .top_bar_right:before {
+		background-color: #e3e3e3;
+	}
+	#Header .top_bar_right {
+		background-color: #f5f5f5;
+	}
+	
+	#Top_bar .menu > li > a, #Top_bar .top_bar_right a { 
+		color: #444444;
+	}
+	#Top_bar .menu > li.current-menu-item > a,
+	#Top_bar .menu > li.current_page_item > a { 
+		color: #293e7a;
+	}
+	#Top_bar .menu > li a:after { 
+		background: #293e7a;
+	}
+	
+	.menu-highlight #Top_bar #menu > ul > li.current-menu-item > a,
+	.menu-highlight #Top_bar #menu > ul > li.current_page_item > a { 
+		background: #293e7a; 
+	}
+	
+	#Top_bar .menu > li ul {
+		background-color: #F2F2F2;
+	}
+	#Top_bar .menu > li ul li a {
+		color: #5f5f5f;
+	}
+	#Top_bar .menu > li ul li a:hover {
+		color: #2e2e2e;
+	}
+	#Top_bar .search_wrapper { 
+		background: #293e7a;
+	}
+	
+	
+/************************ Footer ************************/
+
+	#Footer {
+		color: #cccccc;
+	}
+	
+	#Footer a {
+		color: #293e7a;
+	}
+	
+	#Footer a:hover {
+		color: rgba(41, 62, 122, 0.8);
+	}
+	
+/* Theme color */
+	
+/* Theme background */
+	
+/* Grey */
+	
+	
+/************************ Sliding Top ************************/
+	
+/* Theme color */
+	
+/* Theme background */
+	
+/* Grey */
+	
+	
+/************************ Shortcodes ************************/
+
+/* Blockquote */
+	
+/* Image frames & Google maps & Icon bar */	
+	
+/* Sliding box */
+	
+/* Counter & Chart */
+
+/* Quick facts */
+	
+/* Progress bar */
+	
+/* Icon bar */
+	
+/* Content links */
+	
+/* Get in touch & Infobox */
+	
+/* Timeline & Post timeline */
+	
+/* How it works */
+	
+/* Trailer box */
+	
+/* Icon box */	
+	
+/* Clients */	
+	
+/* List */
+	
+/* Features list */	
+	
+/* Tabs, Accordion, Toggle, Table, Faq */
+
+/* Pricing */
+	
+
+/************************ Shop ************************/	
+
+	
+/************************ Responsive ************************/
+			@media only screen and (max-width: 767px){
+			#Top_bar, #Action_bar { background: #ffffff !important;}
+		}
+		
+

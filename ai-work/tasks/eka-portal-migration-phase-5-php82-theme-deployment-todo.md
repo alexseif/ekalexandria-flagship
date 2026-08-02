@@ -1,0 +1,43 @@
+# TODO List: Phase 5 - PHP 8.2 Upgrade, Theme Deployment & Visual Audit
+
+- [x] Task 1: `theme.json` Token Mapping, Scoped CSS Integration & SCSS Asset Compilation
+  - [x] Map typography (`Roboto`, `Patua One`), colors (`#000119`, `#293e7a`, `#545454`, `#626262`), and dimensions from `ai-work/scopings/styles.json` and `ai-work/scopings/betheme-config-scoping.json` into `theme.json` v2 schema
+  - [x] Import `ai-work/scopings/betheme-active-styles.css` & `ai-work/scopings/betheme-custom-css.css` into `assets/scss/style.scss` & `assets/scss/rtl.scss`
+  - [x] Run `npm install` and `npm run build` to compile minified production CSS in `build/`
+- [x] Task 2: Multi-Language FSE Header & Footer Template Parts Scaffolding
+  - [x] Build `parts/header-el.html`, `parts/header-en.html`, `parts/header-ar.html` with logo (`eka-logo-wide-small.png`), Top Bar (Polylang switcher, social links), dynamic navigation, and modal search trigger
+  - [x] Build `parts/footer-el.html`, `parts/footer-en.html`, `parts/footer-ar.html` matching scoped footer layout and widgets
+- [x] Task 3: Dynamic Menu Location Re-Assignment & Header/Footer Navigation Wiring
+  - [x] Re-assign WP menu locations: Greek Main (13 -> `main-menu`), English Main (3315 -> `main-menu___en`), Arabic Main (3316 -> `main-menu___ar`), Greek Footer (21 -> `social-menu-bottom`)
+  - [x] Verify template part navigation blocks reference active navigation menu IDs
+- [x] Task 4: Static Homepage & News (Posts Page) Configuration
+  - [x] Programmatically set WordPress reading options (`show_on_front` = `page`, `page_on_front` = Homepage ID, `page_for_posts` = News Page ID)
+  - [x] Verify homepage and news page routes dynamically resolve FSE templates across languages
+- [x] Task 5: Multi-Language FSE Block Templates Construction
+  - [x] Create Front-Page templates (`front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
+  - [x] Create Page & Single templates (`page.html`, `single.html`)
+  - [x] Create Archive & Category templates (`archive.html`, `category.html`)
+  - [x] Create Alexandrinos Tachydromos templates (`archive-alx_tachydromos.html`, `tachydromos.html`)
+  - [x] Create Board Members templates (`archive-board_member.html`, `board-members.html`)
+- [x] Task 6: AST Block Serialization Audit
+  - [x] Run block parser verification script using `@wordpress/block-serialization-default-parser` across all files in `templates/` and `parts/`
+- [x] Task 7: PHP 8.2 Flagship Theme Activation & Production Cutover
+  - [x] Activate `ekalexandria-flagship` theme under PHP 8.2 (`php8.2 $(which wp) theme activate ekalexandria-flagship`)
+  - [x] Flush rewrite rules (`php8.2 $(which wp) rewrite flush`)
+  - [x] Confirm zero PHP 8.2 deprecations, warnings, or fatal errors in log
+- [x] Task 8: Playwright Visual Regression Snapshot Audit
+  - [x] Run automated visual audit (`node bin/scrape-baselines.js`) and compare snapshots against `ai-work/baselines/`
+- [x] Task 10: User Layout Refinements, Page Scrolling Fix, Frontpage Grid & Visual Snapshot Audit
+  - [x] Fix page scrolling & SCSS layout rules (ensure `overflow-y: auto`, remove scroll lock traps)
+  - [x] Update Header & Footer template parts: edge-to-edge background stretch with inner content-width alignment, logo display, Google font `Roboto` loading & increased menu font size, compact icon search button trigger
+  - [x] Fix Frontpage Query Loop (latest 5 posts) and 4-column selected pages grid (remediate unwanted extra pages)
+  - [x] Re-run `npm run test:parser` AST validation and Playwright snapshot audit (`node bin/scrape-baselines.js`)
+- [x] Task 11: Header Block Validity & Layout Fix, Footer Text Update, Interactive Search Toggle, News Carousel SCSS/JS
+  - [x] Fix Header block structure for Block Editor compatibility (stack topbar and main header vertically, eliminate invalid block errors)
+  - [x] Fix Header main layout: site logo left, main menu right (font weight 400/500, no heavy bolding), click-to-open search input
+  - [x] Update Footer text: remove `| Με την επιφύλαξη παντός δικαιώματος`
+  - [x] Implement News 5-post Carousel SCSS and Vanilla JS (`assets/js/theme-script.js`)
+  - [x] Update Frontpage Greek template: 1. News carousel, 2. Homepage post-content, 3. 4-col page grid (title, featured image, excerpt on separate lines, all linked)
+  - [x] Run `npm run build`, `npm run test:parser`, and Playwright live vs backstage baseline audit (`node bin/scrape-baselines.js`)
+- [ ] Task 9: Phase 5 Final Checkpoint & User Validation
+  - [ ] Summarize execution logs (`ai-work/logs/phase5-deployment.log`) and halt for final human user approval

@@ -1,0 +1,29 @@
+# TODO List: Phase 4 - Theme Cutover, Content Migration, Gutenberg Remediation & Plugin Cleanup
+
+- [x] Task 1: Script Gap Closing & Standardization
+  - [x] Add explicit `wp eka replace-sliders` and `wp eka remediate-shortcodes` invocations to `bin/run-phase4-migration.sh`
+  - [x] Remove `rm -rf` automated fallback logic from `bin/cleanup-plugins.sh` to enforce failure logging for manual developer remediation
+- [x] Task 2: Barebones Block Theme Infrastructure Scaffolding
+  - [x] Create `style.css` with valid FSE theme header declaration
+  - [x] Create `theme.json` with block settings (version 2) and content layout dimensions
+  - [x] Create boilerplate block templates (`templates/index.html`, `templates/page.html`, `templates/single.html`) with `core/post-content`
+  - [x] Create placeholder template parts (`parts/header.html`, `parts/footer.html`)
+- [x] Task 3: Theme Activation
+  - [x] Activate `ekalexandria-flagship` theme via `php7.4 $(which wp) theme activate ekalexandria-flagship`
+- [x] Task 4: Legacy Plugin & Caching Cleanup
+  - [x] Execute `bin/cleanup-plugins.sh` to purge stalling plugins (`LayerSlider`, `js_composer`, `revslider`, etc.) and caching drop-ins
+- [x] Task 5: Dynamic & Static Slider Replacement
+  - [x] Execute `php7.4 $(which wp) eka replace-sliders` to replace homepage/news sliders with `core/query` loops and inner page sliders with `core/gallery` blocks
+- [x] Task 6: Gutenberg Shortcode & MFN Remediation
+  - [x] Execute `php7.4 $(which wp) eka remediate-shortcodes` to convert MFN items & shortcodes to block markup and inject sub-nav sidebars
+- [x] Task 7: Alexandrinos Tachydromos CPT Migration
+  - [x] Execute `php7.4 $(which wp) eka migrate-tachydromos` to import 32 newsletters with PDF embeddings and normalized titles
+- [x] Task 8: Board Members CPT Migration & Polylang Linkage
+  - [x] Execute `php7.4 $(which wp) eka migrate-board` to import 15 testimonials and link Polylang translations
+- [x] Task 9: Navigation Menu Location Assignments
+  - [x] Assign Greek Main (13), English Main (3315), Arabic Main (3316), and Greek Footer (21) menu locations
+- [x] Task 10: Unified Pass Orchestration & PHP 8.2 Runtime Verification
+  - [x] Execute `bin/run-phase4-migration.sh` under PHP 7.4
+  - [x] Perform dual-pass idempotency check
+  - [x] Switch CLI runtime to PHP 8.2 (`php8.2 $(which wp)`) and verify zero fatal errors in `public/wp-content/debug.log`
+  - [x] Pause for Manual User Validation before Phase 5

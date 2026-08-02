@@ -1,23 +1,25 @@
-<!-- wp:template-part {"slug":"header","tagName":"header","className":"flagship-site-header"} /-->
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignwide">
-		<!-- wp:post-title {"level":1,"align":"wide"} /-->
-		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+<!-- wp:group {"tagName":"main","className":"site-content eka-board-archive","layout":{"type":"constrained"}} -->
+<main class="wp-block-group site-content eka-board-archive">
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading">Διοικητικό Συμβούλιο</h1>
+	<!-- /wp:heading -->
 
-		<!-- wp:query {"queryId":3,"query":{"perPage":100,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false},"align":"wide","layout":{"type":"constrained"}} -->
-		<div class="wp-block-query alignwide">
-			<!-- wp:post-template {"layout":{"type":"grid","columnCount":4}} -->
-				<!-- wp:post-featured-image {,"aspectRatio":"3/4","scale":"cover","sizeSlug":"large"} /-->
-				<!-- wp:post-title {,"textAlign":"center","style":{"typography":{"fontSize":"var:preset|font-size|medium"},"spacing":{"margin":{"top":"var:preset|spacing|small","bottom":"0"}}}} /-->
-			<!-- /wp:post-template -->
-		</div>
-		<!-- /wp:query -->
+	<!-- wp:query {"queryId":2,"query":{"perPage":50,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template {"className":"board-members-list"} -->
+			<!-- wp:group {"className":"board-member-card"} -->
+			<div class="wp-block-group board-member-card">
+				<!-- wp:post-featured-image {"isLink":false} /-->
+				<!-- wp:post-title {"level":3} /-->
+				<!-- wp:post-content /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
 	</div>
-	<!-- /wp:group -->
+	<!-- /wp:query -->
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"footer"} /-->

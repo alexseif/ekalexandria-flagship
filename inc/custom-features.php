@@ -3,6 +3,35 @@
  * Custom Post Types and Admin Features
  */
 
+// Theme setup and nav menu registrations
+add_action( 'after_setup_theme', function() {
+    register_nav_menus( [
+        'main-menu'          => 'Main Menu (Greek)',
+        'main-menu___en'     => 'Main Menu (English)',
+        'main-menu___ar'     => 'Main Menu (Arabic)',
+        'secondary-menu'     => 'Secondary Menu',
+        'footer-menu'        => 'Footer Menu',
+        'social-menu-bottom' => 'Social Menu Bottom',
+    ] );
+} );
+
+// Enqueue Flagship Scoped Styles & Scripts
+add_action( 'wp_enqueue_scripts', function() {
+    $theme_dir = get_stylesheet_directory();
+    $theme_uri = get_stylesheet_directory_uri();
+
+    if ( file_exists( $theme_dir . '/build/style-style.scss.css' ) ) {
+        wp_enqueue_style( 'ekalexandria-flagship-style', $theme_uri . '/build/style-style.scss.css', [], filemtime( $theme_dir . '/build/style-style.scss.css' ) );
+    }
+    if ( is_rtl() && file_exists( $theme_dir . '/build/rtl.scss.css' ) ) {
+        wp_enqueue_style( 'ekalexandria-flagship-rtl', $theme_uri . '/build/rtl.scss.css', ['ekalexandria-flagship-style'], filemtime( $theme_dir . '/build/rtl.scss.css' ) );
+    }
+    if ( file_exists( $theme_dir . '/assets/js/theme-script.js' ) ) {
+        wp_enqueue_script( 'ekalexandria-flagship-script', $theme_uri . '/assets/js/theme-script.js', [], filemtime( $theme_dir . '/assets/js/theme-script.js' ), true );
+    }
+} );
+
+
 // Admin login panel branded
 function ekalexandria_login_logo() { ?>
     <style type="text/css">
@@ -67,33 +96,20 @@ add_action('init', function() {
     ]);
 });
 
-// Register ACF fields for Tachydromos PDF
-add_action('acf/init', function() {
-    if( function_exists('acf_add_local_field_group') ):
-        acf_add_local_field_group(array(
-            'key' => 'group_tachydromos_pdf',
-            'title' => 'Tachydromos PDF',
-            'fields' => array(
-                array(
-                    'key' => 'field_tachydromos_pdf_file',
-                    'label' => 'PDF File',
-                    'name' => 'pdf_file',
-                    'type' => 'file',
-                    'return_format' => 'array',
-                    'mime_types' => 'pdf',
-                ),
-            ),
-            'location' => array(
-                array(
-                    array(
-                        'param' => 'post_type',
-                        'operator' => '==',
-                        'value' => 'alx_tachydromos',
-                    ),
-                ),
-            ),
-        ));
-    endif;
+// Register Gutenberg Meta Fields for Tachydromos PDF
+add_action('init', function() {
+    register_post_meta('alx_tachydromos', '_eka_pdf_attachment_id', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'integer',
+        'auth_callback' => function() { return current_user_can('edit_posts'); }
+    ]);
+    register_post_meta('alx_tachydromos', '_eka_pdf_filename', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'auth_callback' => function() { return current_user_can('edit_posts'); }
+    ]);
 });
 
 // Register Board Member CPT
@@ -105,20 +121,19 @@ add_action('init', function() {
             'menu_name' => 'Board Members',
         ],
         'public' => true,
-        'has_archive' => true,
+        'publicly_queryable' => false,
+        'has_archive' => false,
         'show_in_rest' => true,
         'supports' => ['title', 'editor', 'thumbnail', 'page-attributes'],
-        'rewrite' => ['slug' => 'board-members', 'with_front' => false],
         'menu_icon' => 'dashicons-groups',
     ]);
-});
 
-// Redirect single board members to the archive page
-add_action('template_redirect', function() {
-    if (is_singular('board_member')) {
-        wp_redirect(get_post_type_archive_link('board_member'), 301);
-        exit;
-    }
+    register_post_meta('board_member', '_eka_legacy_id', [
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'integer',
+        'auth_callback' => function() { return current_user_can('edit_posts'); }
+    ]);
 });
 
 // Exclude Tachydromos and include Board Member for Polylang
@@ -130,21 +145,62 @@ add_filter('pll_get_post_types', function($post_types, $is_settings) {
     return $post_types;
 }, 10, 2);
 
-// Shortcode for Tachydromos PDF Button
-add_shortcode('tachydromos_pdf_button', function() {
-    $pdf = get_field('pdf_file');
-    if ($pdf && isset($pdf['url'])) {
-        return '<div class="wp-block-button"><a href="' . esc_url($pdf['url']) . '" class="wp-block-button__link wp-element-button" target="_blank" rel="noopener noreferrer">Προβολή PDF / View PDF</a></div>';
-    }
-    return '';
-});
+// Auto-set featured image from PDF on save via ImageMagick
+add_action('save_post_alx_tachydromos', function($post_id) {
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (wp_is_post_revision($post_id)) return;
 
-// Auto-set featured image from PDF
-add_action('acf/save_post', function($post_id) {
-    if (get_post_type($post_id) === 'alx_tachydromos') {
-        $pdf = get_field('pdf_file', $post_id);
-        if ($pdf && isset($pdf['ID'])) {
-            set_post_thumbnail($post_id, $pdf['ID']);
+    $pdf_id = get_post_meta($post_id, '_eka_pdf_attachment_id', true);
+    if ($pdf_id && !has_post_thumbnail($post_id)) {
+        $pdf_path = get_attached_file($pdf_id);
+        if ($pdf_path && file_exists($pdf_path)) {
+            $upload_dir = wp_upload_dir();
+            $thumb_filename = 'tachydromos-thumb-' . $post_id . '-' . time() . '.jpg';
+            $thumb_path = $upload_dir['path'] . '/' . $thumb_filename;
+
+            $cmd = sprintf("convert -density 150 %s[0] -quality 90 %s", escapeshellarg($pdf_path), escapeshellarg($thumb_path));
+            exec($cmd, $output, $return_var);
+
+            if ($return_var === 0 && file_exists($thumb_path)) {
+                $filetype = wp_check_filetype($thumb_filename, null);
+                $attachment = [
+                    'post_mime_type' => $filetype['type'],
+                    'post_title'     => sanitize_file_name($thumb_filename),
+                    'post_content'   => '',
+                    'post_status'    => 'inherit'
+                ];
+                $attach_id = wp_insert_attachment($attachment, $thumb_path, $post_id);
+                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                $attach_data = wp_generate_attachment_metadata($attach_id, $thumb_path);
+                wp_update_attachment_metadata($attach_id, $attach_data);
+                set_post_thumbnail($post_id, $attach_id);
+            }
         }
     }
 }, 20);
+
+// Register Block Style for Gallery (Legacy Slider)
+add_action('init', function() {
+    register_block_style('core/gallery', [
+        'name'         => 'legacy-slider',
+        'label'        => __('Legacy Slider', 'ekalexandria-flagship'),
+        'is_default'   => false,
+    ]);
+});
+
+// Re-engineered Mailchimp Newsletter Shortcode
+add_shortcode('eka_mailchimp_form', function($atts) {
+    ob_start(); ?>
+    <div class="eka-mailchimp-block">
+        <h3><?php _e('Subscribe to Our Newsletter', 'ekalexandria-flagship'); ?></h3>
+        <p><?php _e('Get the latest updates and announcements from the Greek Community of Alexandria.', 'ekalexandria-flagship'); ?></p>
+        <form class="eka-mailchimp-form" action="" method="post">
+            <?php wp_nonce_field('eka_mailchimp_subscribe', 'eka_mc_nonce'); ?>
+            <input type="email" name="eka_subscriber_email" placeholder="<?php esc_attr_e('Your email address...', 'ekalexandria-flagship'); ?>" required />
+            <button type="submit" name="eka_mc_submit"><?php _e('Subscribe', 'ekalexandria-flagship'); ?></button>
+        </form>
+    </div>
+    <?php
+    return ob_get_clean();
+});
+

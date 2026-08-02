@@ -1,66 +1,44 @@
-<!-- wp:template-part {"slug":"header","tagName":"header","className":"flagship-site-header"} /-->
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|large","bottom":"var:preset|spacing|large"}}}} -->
-	<div class="wp-block-group alignwide" style="margin-top:var(--wp--preset--spacing--large);margin-bottom:var(--wp--preset--spacing--large)">
-		<!-- wp:heading {"textAlign":"center"} -->
-		<h2 class="has-text-align-center">Latest News / Ανακοινώσεις</h2>
-		<!-- /wp:heading -->
-		<!-- wp:query {"queryId":99,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"align":"wide","layout":{"type":"constrained"}} -->
-		<div class="wp-block-query alignwide">
-			<!-- wp:post-template {"layout":{"type":"grid","columnCount":3}} -->
-			<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","sizeSlug":"large"} /-->
-			<!-- wp:post-title {"isLink":true,"style":{"typography":{"fontSize":"var:preset|font-size|medium"}}} /-->
-			<!-- wp:post-date {"style":{"typography":{"fontSize":"var:preset|font-size|small"}}} /-->
-			<!-- wp:post-excerpt {"moreText":"Read More"} /-->
-			<!-- /wp:post-template -->
-		</div>
-		<!-- /wp:query -->
+<!-- wp:group {"tagName":"main","className":"site-content eka-frontpage","layout":{"type":"constrained"}} -->
+<main class="wp-block-group site-content eka-frontpage">
+
+	<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"eka-news-carousel"} -->
+	<div class="wp-block-query eka-news-carousel">
+		<!-- wp:post-template {"className":"eka-news-list"} -->
+			<!-- wp:group {"className":"eka-news-card"} -->
+			<div class="wp-block-group eka-news-card">
+				<!-- wp:post-featured-image {"isLink":true} /-->
+				<!-- wp:post-title {"isLink":true,"level":3} /-->
+				<!-- wp:post-date /-->
+				<!-- wp:post-excerpt {"moreText":"Διαβάστε περισσότερα"} /-->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
 	</div>
-	<!-- /wp:group -->
+	<!-- /wp:query -->
 
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained"},"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|large"}}}} -->
-	<div class="wp-block-group alignwide" style="margin-bottom:var(--wp--preset--spacing--large)">
-		<!-- wp:columns -->
-		<div class="wp-block-columns">
-			<!-- wp:column -->
-			<div class="wp-block-column">
-				<!-- wp:heading {"level":3,"textAlign":"center"} -->
-				<h3 class="has-text-align-center">Υπηρεσίες</h3>
-				<!-- /wp:heading -->
-				<!-- wp:paragraph {"align":"center"} -->
-				<p class="has-text-align-center"><a href="/el/υπηρεσίες/">Περισσότερα</a></p>
-				<!-- /wp:paragraph -->
+	<!-- wp:post-content /-->
+
+	<!-- wp:heading {"level":2,"className":"eka-section-title"} -->
+	<h2 class="wp-block-heading eka-section-title">Υπηρεσίες & Δράσεις</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:query {"queryId":3,"query":{"perPage":4,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":[7837,8088,28,14]}} -->
+	<div class="wp-block-query eka-page-grid-4col">
+		<!-- wp:post-template {"className":"eka-page-grid-4col-list"} -->
+			<!-- wp:group {"className":"eka-page-card"} -->
+			<div class="wp-block-group eka-page-card">
+				<!-- wp:post-title {"isLink":true,"level":3} /-->
+				<!-- wp:post-featured-image {"isLink":true} /-->
+				<!-- wp:post-excerpt /-->
 			</div>
-			<!-- /wp:column -->
-			<!-- wp:column -->
-			<div class="wp-block-column">
-				<!-- wp:heading {"level":3,"textAlign":"center"} -->
-				<h3 class="has-text-align-center">Ιστορία</h3>
-				<!-- /wp:heading -->
-				<!-- wp:paragraph {"align":"center"} -->
-				<p class="has-text-align-center"><a href="/el/ίδρυση/ιστορία/">Περισσότερα</a></p>
-				<!-- /wp:paragraph -->
-			</div>
-			<!-- /wp:column -->
-			<!-- wp:column -->
-			<div class="wp-block-column">
-				<!-- wp:heading {"level":3,"textAlign":"center"} -->
-				<h3 class="has-text-align-center">Ι.Ν. Ευαγγελισμού</h3>
-				<!-- /wp:heading -->
-				<!-- wp:paragraph {"align":"center"} -->
-				<p class="has-text-align-center"><a href="/el/ίδρυση/ι-ν-ευαγγελισμού-της-θεοτόκου/">Περισσότερα</a></p>
-				<!-- /wp:paragraph -->
-			</div>
-			<!-- /wp:column -->
-		</div>
-		<!-- /wp:columns -->
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
 	</div>
-	<!-- /wp:group -->
+	<!-- /wp:query -->
 
-	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"footer"} /-->
