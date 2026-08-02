@@ -9,11 +9,11 @@
 - [x] Task 1: Environment, Tooling & SCSS Build Pipeline Setup (Sequential)
   - [x] 1.1 Branch: `feat/task-1-env-setup` | Allowed: `package.json`, `assets/scss/*` | Update `package.json` scripts
   - [x] 1.2 Verify SCSS dev/prod build scripts (`npm run dev` and `npm run build`)
-- [ ] Task 2: Dynamic Blocks & Carousel Styles Infrastructure (Sequential)
-  - [ ] 2.1 Branch: `feat/task-2-blocks-scaffold` | Allowed: `inc/blocks.php`, `inc/custom-features.php`, `functions.php` | Register `eka/homepage-services-grid`
-  - [ ] 2.2 Register `eka/child-pages-grid` and `eka/child-pages-sidebar` dynamic blocks
-  - [ ] 2.3 Register `core/query` block style `is-style-news-carousel` (and/or dynamic block `eka/news-carousel`)
-  - [ ] 2.4 Register `core/gallery` block style `legacy-slider` for photo carousels
+- [x] Task 2: Dynamic Blocks & Carousel Styles Infrastructure (Sequential)
+  - [x] 2.1 Branch: `feat/task-2-blocks-scaffold` | Allowed: `inc/blocks.php`, `inc/custom-features.php`, `functions.php` | Register `eka/homepage-services-grid`
+  - [x] 2.2 Register `eka/child-pages-grid` and `eka/child-pages-sidebar` dynamic blocks
+  - [x] 2.3 Register `core/query` block style `is-style-news-carousel` (and/or dynamic block `eka/news-carousel`)
+  - [x] 2.4 Register `core/gallery` block style `legacy-slider` for photo carousels
 - [ ] Task 3: Front Page & Header/Footer Refinement (Parallel Fan-Out Worker 3)
   - [ ] 3.1 Branch: `feat/task-3-front-page` | Allowed: `parts/header*.html`, `parts/footer*.html`, `templates/front-page*.html` | Purge inline styles & duplicate tag wrappers
   - [ ] 3.2 Refine Front Page templates (`templates/front-page*.html`) with News Carousel & `eka/homepage-services-grid`
