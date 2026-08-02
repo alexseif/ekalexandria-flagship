@@ -6,9 +6,9 @@
   - [x] 0.3 Configure Phase B Parallel Fan-Out Git Worktree pipeline (`/tmp/worktrees/task_N`) for Tasks 3, 4, 5, 6
   - [x] 0.4 Configure Phase C Fan-In Branch Merge & Tagged Commit engine (`feat(task-N): #task-N-feat:description`)
   - [x] 0.5 Configure Phase D Quality Gate execution (`npm run test:parser`, `npm run test:render`, `node bin/compare-dom.js`)
-- [ ] Task 1: Environment, Tooling & SCSS Build Pipeline Setup (Sequential)
-  - [ ] 1.1 Branch: `feat/task-1-env-setup` | Allowed: `package.json`, `assets/scss/*` | Update `package.json` scripts
-  - [ ] 1.2 Verify SCSS dev/prod build scripts (`npm run dev` and `npm run build`)
+- [x] Task 1: Environment, Tooling & SCSS Build Pipeline Setup (Sequential)
+  - [x] 1.1 Branch: `feat/task-1-env-setup` | Allowed: `package.json`, `assets/scss/*` | Update `package.json` scripts
+  - [x] 1.2 Verify SCSS dev/prod build scripts (`npm run dev` and `npm run build`)
 - [ ] Task 2: Dynamic Blocks & Carousel Styles Infrastructure (Sequential)
   - [ ] 2.1 Branch: `feat/task-2-blocks-scaffold` | Allowed: `inc/blocks.php`, `inc/custom-features.php`, `functions.php` | Register `eka/homepage-services-grid`
   - [ ] 2.2 Register `eka/child-pages-grid` and `eka/child-pages-sidebar` dynamic blocks
