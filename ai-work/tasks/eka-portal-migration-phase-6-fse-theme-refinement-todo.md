@@ -1,0 +1,36 @@
+# TODO List: Phase 6 FSE Theme Refinement & Quality Assurance
+
+- [ ] Task 0: Python CLI Master Orchestrator Architecture (`bin/orchestrate-phase-6.py`)
+  - [ ] 0.1 Build `bin/orchestrate-phase-6.py` script supporting `agy` CLI non-interactive execution
+  - [ ] 0.2 Configure Phase A Sequential execution pipeline for Tasks 1 & 2
+  - [ ] 0.3 Configure Phase B Parallel Fan-Out Git Worktree pipeline (`/tmp/worktrees/task_N`) for Tasks 3, 4, 5, 6
+  - [ ] 0.4 Configure Phase C Fan-In Branch Merge & Tagged Commit engine (`feat(task-N): #task-N-feat:description`)
+  - [ ] 0.5 Configure Phase D Quality Gate execution (`npm run test:parser`, `npm run test:render`, `node bin/compare-dom.js`)
+- [ ] Task 1: Environment, Tooling & SCSS Build Pipeline Setup (Sequential)
+  - [ ] 1.1 Branch: `feat/task-1-env-setup` | Allowed: `package.json`, `assets/scss/*` | Update `package.json` scripts
+  - [ ] 1.2 Verify SCSS dev/prod build scripts (`npm run dev` and `npm run build`)
+- [ ] Task 2: Dynamic Blocks & Carousel Styles Infrastructure (Sequential)
+  - [ ] 2.1 Branch: `feat/task-2-blocks-scaffold` | Allowed: `inc/blocks.php`, `inc/custom-features.php`, `functions.php` | Register `eka/homepage-services-grid`
+  - [ ] 2.2 Register `eka/child-pages-grid` and `eka/child-pages-sidebar` dynamic blocks
+  - [ ] 2.3 Register `core/query` block style `is-style-news-carousel` (and/or dynamic block `eka/news-carousel`)
+  - [ ] 2.4 Register `core/gallery` block style `legacy-slider` for photo carousels
+- [ ] Task 3: Front Page & Header/Footer Refinement (Parallel Fan-Out Worker 3)
+  - [ ] 3.1 Branch: `feat/task-3-front-page` | Allowed: `parts/header*.html`, `parts/footer*.html`, `templates/front-page*.html` | Purge inline styles & duplicate tag wrappers
+  - [ ] 3.2 Refine Front Page templates (`templates/front-page*.html`) with News Carousel & `eka/homepage-services-grid`
+- [ ] Task 4: News Page (`index.html`) Query Loop & Carousel Recreation (Parallel Fan-Out Worker 4)
+  - [ ] 4.1 Branch: `feat/task-4-news-query-loop` | Allowed: `parts/sidebar-news.html`, `templates/index.html` | Create `parts/sidebar-news.html`
+  - [ ] 4.2 Recreate `templates/index.html` using `core/query` (Query Loop block) with toggleable `is-style-news-carousel` design option
+- [ ] Task 5: Custom Post Type Rules & Bespoke Templates (Parallel Fan-Out Worker 5)
+  - [ ] 5.1 Branch: `feat/task-5-cpt-views` | Allowed: `inc/cpt-rules.php`, `templates/archive-board_member.html`, `templates/board-members.html`, `templates/archive-alx_tachydromos.html`, `templates/single-alx_tachydromos.html` | Create `inc/cpt-rules.php` board_member redirect
+  - [ ] 5.2 Refine `templates/archive-board_member.html` and `templates/board-members.html` list view
+  - [ ] 5.3 Refine `templates/archive-alx_tachydromos.html` and `templates/single-alx_tachydromos.html`
+- [ ] Task 6: Parent Page, Child Grid & Sidebar Templates (Parallel Fan-Out Worker 6)
+  - [ ] 6.1 Branch: `feat/task-6-parent-sidebar` | Allowed: `parts/sidebar-child-pages.html`, `templates/page-parent-sidebar.html` | Create `parts/sidebar-child-pages.html`
+  - [ ] 6.2 Create/Refine `templates/page-parent-sidebar.html` using `eka/child-pages-grid`
+- [ ] Task 7: AST Serialization & WP Runtime Audit Validation (Fan-In Quality Gate)
+  - [ ] 7.1 Branch: `feat/task-7-ast-audit` | Run `npm run test:parser` AST validation on all templates & parts
+  - [ ] 7.2 Run `npm run test:render` WP runtime block render test
+  - [ ] 7.3 Run `node bin/compare-dom.js` comparative DOM audit
+- [ ] Task 8: Production Build & Phase Final Quality Gate
+  - [ ] 8.1 Branch: `feat/task-8-prod-build` | Execute `npm run build` for optimized asset production
+  - [ ] 8.2 Verify git clean status & tagged commit history

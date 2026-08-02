@@ -7,7 +7,9 @@
 @import "../../ai-work/scopings/betheme-custom-css.css";
 
 /* --- Page Scrollability & Typography Fix --- */
-html, body, .wp-site-blocks {
+html,
+body,
+.wp-site-blocks {
     overflow-x: hidden !important;
     overflow-y: auto !important;
     height: auto !important;
@@ -21,6 +23,7 @@ html, body, .wp-site-blocks {
     color: #ffffff;
     width: 100%;
 }
+
 .eka-header-topbar-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -33,6 +36,7 @@ html, body, .wp-site-blocks {
     a {
         color: #ffffff;
         text-decoration: none;
+
         &:hover {
             opacity: 0.85;
         }
@@ -44,6 +48,7 @@ html, body, .wp-site-blocks {
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
 }
+
 .eka-header-main-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -67,9 +72,9 @@ html, body, .wp-site-blocks {
     .wp-block-navigation-item__label,
     a.wp-block-navigation-item__content {
         font-size: 15px;
-        font-weight: 500 !important;
         color: #333333;
         text-decoration: none;
+
         &:hover {
             color: #293e7a;
         }
@@ -89,16 +94,19 @@ html, body, .wp-site-blocks {
         padding: 6px 10px;
         cursor: pointer;
         font-size: 18px;
+
         &:hover {
             opacity: 0.8;
         }
     }
+
     input.wp-block-search__input {
         border-radius: 4px;
         border: 1px solid #ccc;
         padding: 6px 10px;
         font-size: 14px;
         transition: all 0.3s ease;
+
         &.is-hidden {
             display: none !important;
         }
@@ -106,7 +114,8 @@ html, body, .wp-site-blocks {
 }
 
 /* Main Site Content Layout */
-.site-content, main.wp-block-group {
+.site-content,
+main.wp-block-group {
     max-width: 1200px;
     margin: 0 auto;
     padding: 30px 20px;
@@ -120,6 +129,7 @@ html, body, .wp-site-blocks {
     width: 100%;
     margin-top: 40px;
 }
+
 .site-footer-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -134,7 +144,10 @@ html, body, .wp-site-blocks {
     a {
         color: #ffffff;
         text-decoration: none;
-        &:hover { text-decoration: underline; }
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .footer-left {
@@ -156,19 +169,22 @@ html, body, .wp-site-blocks {
     overflow: hidden;
     border-radius: 6px;
     background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     padding: 20px;
 
-    .wp-block-post-template, .eka-news-list {
+    .wp-block-post-template,
+    .eka-news-list {
         list-style: none !important;
         padding: 0 !important;
         margin: 0 !important;
     }
 
-    .wp-block-post, .eka-news-card {
+    .wp-block-post,
+    .eka-news-card {
         transition: opacity 0.4s ease-in-out;
-        
-        .wp-block-post-featured-image, img {
+
+        .wp-block-post-featured-image,
+        img {
             width: 100%;
             max-height: 380px;
             object-fit: cover;
@@ -176,14 +192,19 @@ html, body, .wp-site-blocks {
             margin-bottom: 15px;
         }
 
-        h3, .wp-block-post-title {
+        h3,
+        .wp-block-post-title {
             font-size: 22px;
             margin: 10px 0;
             color: #293e7a;
+
             a {
                 color: #293e7a;
                 text-decoration: none;
-                &:hover { text-decoration: underline; }
+
+                &:hover {
+                    text-decoration: underline;
+                }
             }
         }
 
@@ -213,13 +234,16 @@ html, body, .wp-site-blocks {
         display: flex;
         align-items: center;
         justify-content: center;
-        &:hover { background: #1e2e5c; }
+
+        &:hover {
+            background: #1e2e5c;
+        }
     }
 
     .eka-carousel-dots {
         display: flex;
         gap: 8px;
-        
+
         .eka-carousel-dot {
             width: 10px;
             height: 10px;
@@ -227,6 +251,7 @@ html, body, .wp-site-blocks {
             border-radius: 50%;
             cursor: pointer;
             transition: background 0.3s;
+
             &.active {
                 background: #293e7a;
                 width: 24px;
@@ -251,7 +276,7 @@ html, body, .wp-site-blocks {
     border-radius: 6px;
     padding: 15px;
     background: #ffffff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
     img {
         width: 100%;
@@ -267,10 +292,14 @@ html, body, .wp-site-blocks {
         margin: 0 0 10px 0;
         color: #293e7a;
         display: block;
+
         a {
             color: #293e7a;
             text-decoration: none;
-            &:hover { text-decoration: underline; }
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 
@@ -312,6 +341,7 @@ html, body, .wp-site-blocks {
             padding: 8px 20px;
             border-radius: 3px;
             cursor: pointer;
+
             &:hover {
                 background-color: #1e2e5c;
             }
