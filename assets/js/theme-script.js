@@ -30,11 +30,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         items.forEach((item, idx) => {
             const img = item.querySelector('img');
-            if (img && img.src) {
-                item.style.backgroundImage = `url("${img.src}")`;
-                item.style.backgroundSize = 'cover';
-                item.style.backgroundPosition = 'center center';
-                item.style.backgroundRepeat = 'no-repeat';
+            if (img) {
+                const imgSrc = img.currentSrc || img.src;
+                if (imgSrc) {
+                    item.style.backgroundImage = `url("${imgSrc}")`;
+                    item.style.backgroundSize = 'cover';
+                    item.style.backgroundPosition = 'center center';
+                    item.style.backgroundRepeat = 'no-repeat';
+                }
             }
 
             const dot = document.createElement('span');
