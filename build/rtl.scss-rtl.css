@@ -1,8 +1,776 @@
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/scss/rtl.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/rtl.scss ***!
   \*********************************************************************************************************************************************************************************************************************************************/
 @import url(https://fonts.googleapis.com/css2?family=Patua+One&family=Roboto:wght@400;500;700&display=swap);
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./assets/scss/rtl.scss (1) ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/rtl.scss (1) ***!
   \*************************************************************************************************************************************************************************************************************************************************/
-#Wrapper,html{background-color:#fcfcfc}#menu>ul>li>a,body,input[type=submit],input[type=text]{font-family:Roboto,Arial,Tahoma,sans-serif;font-weight:400}h1,h2{font-family:Patua One,Arial,Tahoma,sans-serif;font-weight:300}body{font-size:13px;line-height:21px}#menu>ul>li>a{font-size:14px}h1{font-size:25px;line-height:25px}h2{font-size:30px;line-height:30px}#Header_wrapper{background-color:#000119}.header-classic #Action_bar{background-color:#293e7a}#Footer{background-color:#545454}body{color:#626262}a{color:#293e7a}a:hover{color:rgba(41,62,122,.8)}::selection{background-color:#293e7a}h1,h2,h2 a,h2 a:hover{color:#444}a.button{background-color:#f7f7f7;color:#747474}input[type=submit]{background-color:#293e7a;color:#fff}.the_content_wrapper ul{color:#737e86}#Header .top_bar_left,#Top_bar #menu,.header-classic #Top_bar{background-color:#fff}#Top_bar .top_bar_right:before{background-color:#e3e3e3}#Header .top_bar_right{background-color:#f5f5f5}#Top_bar .menu>li>a,#Top_bar .top_bar_right a{color:#444}#Top_bar .menu>li.current-menu-item>a,#Top_bar .menu>li.current_page_item>a{color:#293e7a}#Top_bar .menu>li a:after,.menu-highlight #Top_bar #menu>ul>li.current-menu-item>a,.menu-highlight #Top_bar #menu>ul>li.current_page_item>a{background:#293e7a}#Top_bar .menu>li ul{background-color:#f2f2f2}#Top_bar .menu>li ul li a{color:#5f5f5f}#Top_bar .menu>li ul li a:hover{color:#2e2e2e}#Top_bar .search_wrapper{background:#293e7a}#Footer{color:#ccc}#Footer a{color:#293e7a}#Footer a:hover{color:rgba(41,62,122,.8)}@media only screen and (max-width:767px){#Action_bar,#Top_bar{background:#fff!important}}html:lang(el) .entry-content p{font-size:16px}#Action_bar .contact_details li{color:hsla(0,0%,100%,.9)}#mc_signup_submit{background-color:#036;margin:0!important;width:auto!important}.widget_polylang li{text-align:left}.mc4wp-form input{margin-bottom:5px}.post-grid .isotope-inner{text-align:justify;width:90%}.post-grid h2{height:60px}#Top_bar .menu>li.current-menu-item a{color:#fff}#Top_bar #logo{height:80px;padding:5px 0}.author-box .avatar-wrapper{display:none}.menu-highlight #Top_bar .menu>li{margin:0}.wpml-languages{display:none!important}h6{font-size:inherit;height:50px}.flickr-container{height:300px;overflow:hidden}.post-grid h2{height:80px}.post-grid img{height:auto;text-align:center;width:100%}.image_frame{display:block}blockquote:after{background:none}h5{font-size:20px}p{margin:0}.one-fifth.column{width:16%}.column_map .google-map-contact-wrapper .get_in_touch:after{border-top-color:transparent}.get_in_touch,.infobox{opacity:.8}body{overflow:hidden}div.section.dark.front-img{background-size:80% auto;-webkit-background-size:80% auto}.front-img{margin-bottom:50px}.front-lang{background:rgba(0,0,0,.4);border:1px solid #fff;border-radius:4px;padding:50px 0}.front-lang:hover{background:rgba(0,0,0,.8)}.front-lang a{color:#fff;font-size:26px;font-weight:700}.front-lang a:hover{text-decoration:none}.wp-site-blocks,body,html{font-family:var(--wp--preset--font-family--body,"Roboto",sans-serif);height:auto!important;min-height:100vh;overflow-x:hidden!important;overflow-y:auto!important}.site-content,main.wp-block-group{margin:0 auto;max-width:var(--wp--style--global--content-size,58.75rem);padding:1.875rem 1.25rem;width:100%}.eka-logo img{height:4.0625rem;width:auto}.eka-header-search{align-items:center;display:flex;position:relative}.eka-header-search .wp-block-search__button{background:transparent;border:none;color:var(--wp--preset--color--primary,#293e7a);cursor:pointer;font-size:1.125rem;padding:.375rem .625rem}.eka-header-search .wp-block-search__button:hover{opacity:.8}.eka-header-search input.wp-block-search__input{border:.0625rem solid #ccc;border-radius:.25rem;font-size:.875rem;padding:.375rem .625rem;transition:all .3s ease}.eka-header-search input.wp-block-search__input.is-hidden{display:none!important}.eka-news-carousel{margin:1.5625rem 0 2.5rem;overflow:hidden;padding:0!important;position:relative;width:100%}.eka-news-carousel .eka-news-list,.eka-news-carousel .wp-block-post-template{list-style:none!important;margin:0!important;padding:0!important}.eka-news-carousel .eka-news-card,.eka-news-carousel .wp-block-post{background-position:50%;background-repeat:no-repeat;background-size:cover;height:32.375rem;margin:0!important;overflow:hidden;position:relative;width:100%}.eka-news-carousel .eka-news-card .wp-block-post-featured-image,.eka-news-carousel .wp-block-post .wp-block-post-featured-image{display:none!important}.eka-news-carousel .eka-news-card .wp-block-post-title,.eka-news-carousel .eka-news-card h3,.eka-news-carousel .wp-block-post .wp-block-post-title,.eka-news-carousel .wp-block-post h3{background:rgba(0,0,0,.6);bottom:21%;box-sizing:border-box;color:#fff!important;font-size:1.3rem;font-weight:500;line-height:1.3;margin:0;opacity:0;padding:.4375rem .875rem;position:absolute;left:0;transform:translateX(-100%);width:70%}.eka-news-carousel .eka-news-card .wp-block-post-title a,.eka-news-carousel .eka-news-card h3 a,.eka-news-carousel .wp-block-post .wp-block-post-title a,.eka-news-carousel .wp-block-post h3 a{color:#fff!important;text-decoration:none}.eka-news-carousel .eka-news-card .wp-block-post-title a:hover,.eka-news-carousel .eka-news-card h3 a:hover,.eka-news-carousel .wp-block-post .wp-block-post-title a:hover,.eka-news-carousel .wp-block-post h3 a:hover{text-decoration:underline}.eka-news-carousel .eka-news-card.is-active-slide .wp-block-post-title,.eka-news-carousel .eka-news-card.is-active-slide h3,.eka-news-carousel .wp-block-post.is-active-slide .wp-block-post-title,.eka-news-carousel .wp-block-post.is-active-slide h3{animation:ekaSlideInRight .5s cubic-bezier(.25,1,.5,1) forwards;animation-delay:.1s}.eka-news-carousel .eka-carousel-controls{height:100%;right:0;pointer-events:none;position:absolute;top:0;width:100%;z-index:10}.eka-news-carousel .eka-carousel-btn{align-items:center;background:transparent!important;background-color:transparent!important;border:none;color:#fff;cursor:pointer;display:flex;font-size:2.25rem;height:2.75rem;justify-content:center;pointer-events:auto;position:absolute;text-shadow:0 .125rem .5rem rgba(0,0,0,.7);top:50%;transform:translateY(-50%);width:2.75rem}.eka-news-carousel .eka-carousel-btn:hover{background:transparent!important;opacity:.8}.eka-news-carousel .eka-carousel-btn.eka-carousel-prev{right:1.25rem}.eka-news-carousel .eka-carousel-btn.eka-carousel-next{left:1.25rem}.eka-news-carousel .eka-carousel-dots{background:none;bottom:3em;display:flex;gap:.625rem;right:50%;pointer-events:auto;position:absolute;transform:translateX(50%)}.eka-news-carousel .eka-carousel-dots .eka-carousel-dot{background:hsla(0,0%,100%,.8);border:.0625rem solid #000;border-radius:50%;cursor:pointer;height:.75rem;transition:all .3s ease;width:.75rem}.eka-news-carousel .eka-carousel-dots .eka-carousel-dot.active{background:#fff;border-radius:.75rem;width:1.75rem}@keyframes ekaSlideInRight{0%{opacity:0;transform:translateX(-100%)}to{opacity:1;transform:translateX(0)}}.eka-page-grid-4col-list{display:grid!important;gap:1.25rem!important;grid-template-columns:repeat(auto-fit,minmax(16.25rem,1fr))!important;list-style:none!important;margin:1.5625rem 0!important;padding:0!important}.eka-page-card{background:#fff;border:.0625rem solid #e2e8f0;border-radius:.375rem;box-shadow:0 .0625rem .1875rem rgba(0,0,0,.05);padding:.9375rem}.eka-page-card img{border-radius:.25rem;display:block;height:10rem;margin-bottom:.75rem;object-fit:cover;width:100%}.eka-page-card h3{display:block;font-size:1rem;margin:0 0 .625rem}.eka-page-card h3,.eka-page-card h3 a{color:var(--wp--preset--color--primary,#293e7a)}.eka-page-card h3 a{text-decoration:none}.eka-page-card h3 a:hover{text-decoration:underline}.eka-page-card .wp-block-post-excerpt{color:#555;display:block;font-size:.875rem;margin-top:.5rem}.eka-mailchimp-block{background:#f7f7f7;border-right:.25rem solid var(--wp--preset--color--primary,#293e7a);margin:1.25rem 0;padding:1.25rem}.eka-mailchimp-block h3{color:var(--wp--preset--color--primary,#293e7a);margin-top:0}.eka-mailchimp-block form{display:flex;gap:.625rem}.eka-mailchimp-block form input[type=email]{border:.0625rem solid #ccc;border-radius:.1875rem;flex:1;padding:.5rem .75rem}.eka-mailchimp-block form button{background-color:var(--wp--preset--color--primary,#293e7a);border:none;border-radius:.1875rem;color:#fff;cursor:pointer;padding:.5rem 1.25rem}.eka-mailchimp-block form button:hover{opacity:.9}.polylang-switcher{align-items:center;display:flex;gap:.75rem;list-style:none;margin:0;padding:0}.polylang-switcher li a{color:#fff;font-size:.8125rem;font-weight:500;text-decoration:none}.wp-block-post-template.is-layout-flow.board-members-list{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fill,minmax(17.5rem,1fr))}.tachydromos-card{background:#fff;border:.0625rem solid #e0e0e0;border-radius:.25rem;margin-bottom:1.25rem;padding:.9375rem}.tachydromos-card .tachydromos-title{color:var(--wp--preset--color--primary,#293e7a);font-size:1.125rem;margin-bottom:.625rem}body.rtl{direction:ltr;text-align:left;unicode-bidi:embed}.rtl .eka-header-main,.rtl .eka-header-topbar{flex-direction:row-reverse}.rtl .eka-mailchimp-block{border-right:none;border-left:4px solid #293e7a}.rtl .widget_polylang li{text-align:right}
+
+/**
+ * EKA Flagship RTL Stylesheet (SCSS)
+ */
+/**
+ * EKA Flagship Main Stylesheet (SCSS)
+ * Offloads layout, colors, padding, and block defaults 100% to theme.json & Gutenberg.
+ */
+/*** uncss> filename: ../betheme/style-static.css ***/
+/* 
+ * Static CSS Styles
+ * 
+ * Place static CSS styles here.
+ * To minify CSS code you can use http://cssminifier.com/
+ * 
+ * For more info please see: http://themes.muffingroup.com/betheme/documentation/#static-css
+ */
+
+/* style.php */
+#Wrapper,html{background-color:#FCFCFC}#menu>ul>li>a,body,input[type=submit],input[type=text]{font-family:Roboto,Arial,Tahoma,sans-serif;font-weight:400}h1,h2{font-family:Patua One,Arial,Tahoma,sans-serif;font-weight:300}body{font-size:13px;line-height:21px}#menu>ul>li>a{font-size:14px}h1{font-size:25px;line-height:25px}h2{font-size:30px;line-height:30px}
+	
+/* style-colors.php */
+
+/********************** Backgrounds **********************/
+
+	#Header_wrapper {
+		background-color: #000119;
+	}
+	.header-classic #Action_bar {
+	    background-color: #293e7a;
+	}
+	
+	#Footer {
+		background-color: #545454;
+	}
+
+/************************ Colors ************************/
+
+/* Content font */
+	body {
+		color: #626262;
+	}
+	
+/* Theme color */
+	
+/* Theme background */
+	
+/* Links color */
+	a {
+		color: #293e7a;
+	}
+	
+	a:hover {
+		color: rgba(41, 62, 122, 0.8);
+	}
+	
+/* Selections */
+	*::selection {
+		background-color: #293e7a;		
+	}
+	
+/* Grey */
+	
+/* Headings font */
+	h1 { color: #444444; }
+	h2, h2 a, h2 a:hover { color: #444444; }		
+	
+/* Highlight */
+	
+/* Buttons */
+	a.button {
+		background-color: #f7f7f7;
+		color: #747474;
+	}
+	
+	input[type="submit"] {
+		background-color: #293e7a;
+		color: #fff;
+	}
+	
+/* Fancy Link */
+	
+/* Shop buttons */
+	
+/* Lists */
+	.the_content_wrapper ul {
+		color: #737E86;
+	}
+	
+/* Dividers */ 
+	
+/* Highlight section */	
+	
+	
+/************************ Header ************************/	
+
+	#Header .top_bar_left, .header-classic #Top_bar, #Top_bar #menu {
+		background-color: #ffffff;
+	}
+	#Top_bar .top_bar_right:before {
+		background-color: #e3e3e3;
+	}
+	#Header .top_bar_right {
+		background-color: #f5f5f5;
+	}
+	
+	#Top_bar .menu > li > a, #Top_bar .top_bar_right a { 
+		color: #444444;
+	}
+	#Top_bar .menu > li.current-menu-item > a,
+	#Top_bar .menu > li.current_page_item > a { 
+		color: #293e7a;
+	}
+	#Top_bar .menu > li a:after { 
+		background: #293e7a;
+	}
+	
+	.menu-highlight #Top_bar #menu > ul > li.current-menu-item > a,
+	.menu-highlight #Top_bar #menu > ul > li.current_page_item > a { 
+		background: #293e7a; 
+	}
+	
+	#Top_bar .menu > li ul {
+		background-color: #F2F2F2;
+	}
+	#Top_bar .menu > li ul li a {
+		color: #5f5f5f;
+	}
+	#Top_bar .menu > li ul li a:hover {
+		color: #2e2e2e;
+	}
+	#Top_bar .search_wrapper { 
+		background: #293e7a;
+	}
+	
+	
+/************************ Footer ************************/
+
+	#Footer {
+		color: #cccccc;
+	}
+	
+	#Footer a {
+		color: #293e7a;
+	}
+	
+	#Footer a:hover {
+		color: rgba(41, 62, 122, 0.8);
+	}
+	
+/* Theme color */
+	
+/* Theme background */
+	
+/* Grey */
+	
+	
+/************************ Sliding Top ************************/
+	
+/* Theme color */
+	
+/* Theme background */
+	
+/* Grey */
+	
+	
+/************************ Shortcodes ************************/
+
+/* Blockquote */
+	
+/* Image frames & Google maps & Icon bar */	
+	
+/* Sliding box */
+	
+/* Counter & Chart */
+
+/* Quick facts */
+	
+/* Progress bar */
+	
+/* Icon bar */
+	
+/* Content links */
+	
+/* Get in touch & Infobox */
+	
+/* Timeline & Post timeline */
+	
+/* How it works */
+	
+/* Trailer box */
+	
+/* Icon box */	
+	
+/* Clients */	
+	
+/* List */
+	
+/* Features list */	
+	
+/* Tabs, Accordion, Toggle, Table, Faq */
+
+/* Pricing */
+	
+
+/************************ Shop ************************/	
+
+	
+/************************ Responsive ************************/
+			@media only screen and (max-width: 767px){
+			#Top_bar, #Action_bar { background: #ffffff !important;}
+		}
+/* ==========================================================================
+   BeTheme Custom CSS Export - Generated by Phase 3 Scoping Script
+   Date: 2026-08-01 16:10:34
+   ========================================================================== */
+
+
+/* --- BeTheme Options Custom CSS --- */
+html:lang(el) .entry-content p{font-size:16px;}
+#Action_bar .contact_details li { color: rgba(255, 255, 255, 0.90)}
+#mc_signup_submit { background-color: #003366; margin: 0px !important; width: auto !important;}
+.widget_polylang li {text-align: left;}
+.mc4wp-form input{ margin-bottom:5px;}
+.post-grid .isotope-inner{width: 90%;text-align: justify;}
+.post-grid h2{height: 60px;}
+#Top_bar .menu > li.current-menu-item a{color: #fff;}
+.post-grid img{text-align: center;}
+#Top_bar #logo {padding: 5px 0; height: 80px;}
+.author-box .avatar-wrapper{display: none;}
+.menu-highlight #Top_bar .menu>li{margin: 0px;}
+.wpml-languages {display: none !important;}
+
+
+/* --- Page Specific Custom CSS (Post #20: Επικοινωνία) --- */
+.one-fifth.column {width: 16%;}
+.column_map .google-map-contact-wrapper .get_in_touch::after {
+    border-top-color: transparent;
+}
+.get_in_touch, .infobox {
+    opacity: 0.8;
+}
+
+
+/* --- Page Specific Custom CSS (Post #7372: Φωτογραφίες) --- */
+h6 {
+    font-size: inherit;
+    height: 50px;
+}
+.flickr-container{
+height: 300px;
+overflow: hidden;
+}
+
+
+/* --- Page Specific Custom CSS (Post #8934: Νέα) --- */
+/* .image_frame{display: block;} */
+
+
+/* --- Page Specific Custom CSS (Post #8642: Διοικητικό Συμβούλιο) --- */
+blockquote::after{background: none;}
+h5{font-size: 20px;}
+p{margin:0px;}
+
+
+/* --- Page Specific Custom CSS (Post #18: Νέα) --- */
+.image_frame {display: block;}
+
+
+/* --- Page Specific Custom CSS (Post #13236: Αρχική) --- */
+.post-grid h2{height:80px;}
+
+
+/* --- Page Specific Custom CSS (Post #16892: مرحباً) --- */
+.post-grid h2{height:80px;}
+.post-grid img{
+text-align: center;
+width: 100%;
+height: auto;
+}
+
+
+/* --- Page Specific Custom CSS (Post #16894: Welcome) --- */
+.post-grid h2{height:80px;}
+.post-grid img{
+text-align: center;
+width: 100%;
+height: auto;
+}
+
+
+/* --- Page Specific Custom CSS (Post #16921: ) --- */
+.image_frame {display: block;}
+
+
+/* --- Page Specific Custom CSS (Post #16920: News) --- */
+.image_frame {display: block;}
+
+
+/* --- Page Specific Custom CSS (Post #16923: اخبار) --- */
+.image_frame {display: block;}
+
+
+/* --- Page Specific Custom CSS (Post #16924: ) --- */
+.image_frame {display: block;}
+
+
+/* --- Page Specific Custom CSS (Post #16970: Board Of Directors) --- */
+blockquote::after{background: none;}
+h5{font-size: 20px;}
+p{margin:0px;}
+
+
+/* --- Page Specific Custom CSS (Post #16975: مجلس الإدارة) --- */
+blockquote::after{background: none;}
+h5{font-size: 20px;}
+p{margin:0px;}
+
+
+/* --- Page Specific Custom CSS (Post #17012: اتصل بنا) --- */
+.one-fifth.column {width: 16%;}
+.column_map .google-map-contact-wrapper .get_in_touch::after {
+    border-top-color: transparent;
+}
+.get_in_touch, .infobox {
+    opacity: 0.8;
+}
+
+
+/* --- Page Specific Custom CSS (Post #17013: اتصل) --- */
+.one-fifth.column {width: 16%;}
+.column_map .google-map-contact-wrapper .get_in_touch::after {
+    border-top-color: transparent;
+}
+.get_in_touch, .infobox {
+    opacity: 0.8;
+}
+
+
+/* --- Page Specific Custom CSS (Post #17015: Contact us) --- */
+.one-fifth.column {width: 16%;}
+.column_map .google-map-contact-wrapper .get_in_touch::after {
+    border-top-color: transparent;
+}
+.get_in_touch, .infobox {
+    opacity: 0.8;
+}
+
+
+/* --- Page Specific Custom CSS (Post #17016: Contact) --- */
+.one-fifth.column {width: 16%;}
+.column_map .google-map-contact-wrapper .get_in_touch::after {
+    border-top-color: transparent;
+}
+.get_in_touch, .infobox {
+    opacity: 0.8;
+}
+
+
+/* --- Page Specific Custom CSS (Post #17194: front) --- */
+body{overflow:hidden;}
+div.section.dark.front-img{
+background-size: 80% auto;
+-webkit-background-size: 80% auto;
+}
+.front-img{
+margin-bottom: 50px;
+}
+.front-lang{
+padding: 50px 0;
+background: rgba(0,0,0,0.4);
+border: 1px solid white;
+border-radius: 4px;
+}
+.front-lang:hover{
+background: rgba(0,0,0,0.8);
+}
+.front-lang a{
+color: white;
+font-weight: bold;
+font-size: 26px;
+}
+.front-lang a:hover{
+text-decoration:none;
+}
+
+
+/* --- Page Specific Custom CSS (Post #17215: front en) --- */
+body{overflow:hidden;}
+div.section.dark.front-img{
+background-size: 80% auto;
+-webkit-background-size: 80% auto;
+}
+.front-img{
+margin-bottom: 50px;
+}
+.front-lang{
+padding: 50px 0;
+background: rgba(0,0,0,0.4);
+border: 1px solid white;
+border-radius: 4px;
+}
+.front-lang:hover{
+background: rgba(0,0,0,0.8);
+}
+.front-lang a{
+color: white;
+font-weight: bold;
+font-size: 26px;
+}
+.front-lang a:hover{
+text-decoration:none;
+}
+
+
+/* --- Page Specific Custom CSS (Post #17219: front ar) --- */
+body{overflow:hidden;}
+div.section.dark.front-img{
+background-size: 80% auto;
+-webkit-background-size: 80% auto;
+}
+.front-img{
+margin-bottom: 50px;
+}
+.front-lang{
+padding: 50px 0;
+background: rgba(0,0,0,0.4);
+border: 1px solid white;
+border-radius: 4px;
+}
+.front-lang:hover{
+background: rgba(0,0,0,0.8);
+}
+.front-lang a{
+color: white;
+font-weight: bold;
+font-size: 26px;
+}
+.front-lang a:hover{
+text-decoration:none;
+}
+/* --- Global Layout & Reset --- */
+html,
+body,
+.wp-site-blocks {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100vh;
+  font-family: var(--wp--preset--font-family--body, "Roboto", sans-serif);
+}
+
+/* --- Main Site Content Layout (940px Container) --- */
+.site-content,
+main.wp-block-group {
+  max-width: var(--wp--style--global--content-size, 58.75rem);
+  margin: 0 auto;
+  padding: 1.875rem 1.25rem;
+  width: 100%;
+}
+
+/* Header Logo Sizing */
+.eka-logo img {
+  height: 4.0625rem;
+  width: auto;
+}
+
+/* Compact Search Icon & Interactive Toggle Input */
+.eka-header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.eka-header-search .wp-block-search__button {
+  background: transparent;
+  color: var(--wp--preset--color--primary, #293e7a);
+  border: none;
+  padding: 0.375rem 0.625rem;
+  cursor: pointer;
+  font-size: 1.125rem;
+}
+.eka-header-search .wp-block-search__button:hover {
+  opacity: 0.8;
+}
+.eka-header-search input.wp-block-search__input {
+  border-radius: 0.25rem;
+  border: 0.0625rem solid #ccc;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+.eka-header-search input.wp-block-search__input.is-hidden {
+  display: none !important;
+}
+
+/* --- News Carousel Slider Styling --- */
+.eka-news-carousel {
+  position: relative;
+  margin: 1.5625rem 0 2.5rem 0;
+  overflow: hidden;
+  padding: 0 !important;
+  width: 100%;
+}
+.eka-news-carousel .wp-block-post-template,
+.eka-news-carousel .eka-news-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.eka-news-carousel .wp-block-post,
+.eka-news-carousel .eka-news-card {
+  position: relative;
+  width: 100%;
+  height: 32.375rem;
+  overflow: hidden;
+  margin: 0 !important;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.eka-news-carousel .wp-block-post .wp-block-post-featured-image,
+.eka-news-carousel .eka-news-card .wp-block-post-featured-image {
+  display: none !important;
+}
+.eka-news-carousel .wp-block-post h3,
+.eka-news-carousel .wp-block-post .wp-block-post-title,
+.eka-news-carousel .eka-news-card h3,
+.eka-news-carousel .eka-news-card .wp-block-post-title {
+  position: absolute;
+  bottom: 21%;
+  left: 0;
+  width: 70%;
+  margin: 0;
+  padding: 0.4375rem 0.875rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff !important;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+  box-sizing: border-box;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.eka-news-carousel .wp-block-post h3 a,
+.eka-news-carousel .wp-block-post .wp-block-post-title a,
+.eka-news-carousel .eka-news-card h3 a,
+.eka-news-carousel .eka-news-card .wp-block-post-title a {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+.eka-news-carousel .wp-block-post h3 a:hover,
+.eka-news-carousel .wp-block-post .wp-block-post-title a:hover,
+.eka-news-carousel .eka-news-card h3 a:hover,
+.eka-news-carousel .eka-news-card .wp-block-post-title a:hover {
+  text-decoration: underline;
+}
+.eka-news-carousel .wp-block-post.is-active-slide h3,
+.eka-news-carousel .wp-block-post.is-active-slide .wp-block-post-title,
+.eka-news-carousel .eka-news-card.is-active-slide h3,
+.eka-news-carousel .eka-news-card.is-active-slide .wp-block-post-title {
+  animation: ekaSlideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.1s;
+}
+.eka-news-carousel .eka-carousel-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.eka-news-carousel .eka-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  color: #ffffff;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  cursor: pointer;
+  font-size: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.7);
+}
+.eka-news-carousel .eka-carousel-btn:hover {
+  background: transparent !important;
+  opacity: 0.8;
+}
+.eka-news-carousel .eka-carousel-btn.eka-carousel-prev {
+  right: 1.25rem;
+}
+.eka-news-carousel .eka-carousel-btn.eka-carousel-next {
+  left: 1.25rem;
+}
+.eka-news-carousel .eka-carousel-dots {
+  position: absolute;
+  bottom: 3em;
+  right: 50%;
+  transform: translateX(50%);
+  background: none;
+  pointer-events: auto;
+  display: flex;
+  gap: 0.625rem;
+}
+.eka-news-carousel .eka-carousel-dots .eka-carousel-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 0.0625rem solid rgb(0, 0, 0);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.eka-news-carousel .eka-carousel-dots .eka-carousel-dot.active {
+  background: #ffffff;
+  width: 1.75rem;
+  border-radius: 0.75rem;
+}
+
+@keyframes ekaSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* --- Selected Pages 4-Column Grid --- */
+.eka-page-grid-4col-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr)) !important;
+  gap: 1.25rem !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 1.5625rem 0 !important;
+}
+
+.eka-page-card {
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.375rem;
+  padding: 0.9375rem;
+  background: #ffffff;
+  box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05);
+}
+.eka-page-card img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.eka-page-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.625rem 0;
+  color: var(--wp--preset--color--primary, #293e7a);
+  display: block;
+}
+.eka-page-card h3 a {
+  color: var(--wp--preset--color--primary, #293e7a);
+  text-decoration: none;
+}
+.eka-page-card h3 a:hover {
+  text-decoration: underline;
+}
+.eka-page-card .wp-block-post-excerpt {
+  display: block;
+  font-size: 0.875rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+/* Mailchimp Newsletter Block */
+.eka-mailchimp-block {
+  background: #f7f7f7;
+  border-right: 0.25rem solid var(--wp--preset--color--primary, #293e7a);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+}
+.eka-mailchimp-block h3 {
+  margin-top: 0;
+  color: var(--wp--preset--color--primary, #293e7a);
+}
+.eka-mailchimp-block form {
+  display: flex;
+  gap: 0.625rem;
+}
+.eka-mailchimp-block form input[type=email] {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.1875rem;
+}
+.eka-mailchimp-block form button {
+  background-color: var(--wp--preset--color--primary, #293e7a);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.1875rem;
+  cursor: pointer;
+}
+.eka-mailchimp-block form button:hover {
+  opacity: 0.9;
+}
+
+/* Polylang Switcher styling */
+.polylang-switcher {
+  display: flex;
+  list-style: none;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+.polylang-switcher li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+/* Board Members Layout */
+.wp-block-post-template.is-layout-flow.board-members-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  gap: 1.25rem;
+}
+
+/* Alexandrinos Tachydromos Layout */
+.tachydromos-card {
+  border: 0.0625rem solid #e0e0e0;
+  border-radius: 0.25rem;
+  padding: 0.9375rem;
+  background: #ffffff;
+  margin-bottom: 1.25rem;
+}
+.tachydromos-card .tachydromos-title {
+  font-size: 1.125rem;
+  color: var(--wp--preset--color--primary, #293e7a);
+  margin-bottom: 0.625rem;
+}
+
+body.rtl {
+  direction: ltr;
+  unicode-bidi: embed;
+  text-align: left;
+}
+
+.rtl .eka-header-topbar {
+  flex-direction: row-reverse;
+}
+.rtl .eka-header-main {
+  flex-direction: row-reverse;
+}
+.rtl .eka-mailchimp-block {
+  border-right: none;
+  border-left: 4px solid #293e7a;
+}
+.rtl .widget_polylang li {
+  text-align: right;
+}
