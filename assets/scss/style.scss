@@ -244,15 +244,22 @@ main.wp-block-group {
         transform: translateY(-50%);
         pointer-events: auto;
         color: #ffffff;
-        background-color: none;
+        background: transparent !important;
+        background-color: transparent !important;
         border: none;
         width: 44px;
         height: 44px;
         cursor: pointer;
-        font-size: 20px;
+        font-size: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+
+        &:hover {
+            background: transparent !important;
+            opacity: 0.8;
+        }
 
         &.eka-carousel-prev {
             left: 20px;
