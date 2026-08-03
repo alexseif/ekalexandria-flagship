@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "eka/homepage-services-grid",
+	"version": "1.0.0",
+	"title": "Homepage Services Grid",
+	"category": "widgets",
+	"icon": "grid-view",
+	"description": "Displays 4 key homepage service pages in a grid layout.",
+	"textdomain": "ekalexandria-flagship",
+	"supports": {
+		"html": false
+	}
+}

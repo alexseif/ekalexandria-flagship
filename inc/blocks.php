@@ -9,16 +9,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'init', function() {
-	// 1. Register homepage-services-grid dynamic block
-	register_block_type( 'eka/homepage-services-grid', [
-		'render_callback' => 'eka_render_homepage_services_grid',
-		'attributes'      => [
-			'category' => [
-				'type'    => 'string',
-				'default' => '',
-			],
-		],
-	] );
+	// 1. Register homepage-services-grid dynamic block from block.json
+	$block_json_path = get_template_directory() . '/blocks/homepage-services-grid/block.json';
+	if ( file_exists( $block_json_path ) ) {
+		register_block_type( $block_json_path, [
+			'render_callback' => 'eka_render_homepage_services_grid',
+		] );
+	} else {
+		register_block_type( 'eka/homepage-services-grid', [
+			'render_callback' => 'eka_render_homepage_services_grid',
+		] );
+	}
 
 	// 2. Register child-pages-grid dynamic block
 	register_block_type( 'eka/child-pages-grid', [
@@ -68,24 +69,23 @@ add_action( 'init', function() {
 function eka_render_homepage_services_grid( $attributes ) {
 	$args = [
 		'post_type'      => 'page',
-		'posts_per_page' => 6,
-		'post_parent'    => 0,
-		'orderby'        => 'menu_order',
-		'order'          => 'ASC',
+		'post__in'       => [ 7837, 8088, 28, 14 ],
+		'orderby'        => 'post__in',
+		'posts_per_page' => 4,
 	];
 	$query = new WP_Query( $args );
 
 	ob_start();
 	if ( $query->have_posts() ) {
-		echo '<div class="wp-block-eka-homepage-services-grid eka-services-grid">';
+		echo '<div class="wp-block-eka-homepage-services-grid eka-services-grid eka-page-grid-4col-list">';
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			echo '<div class="eka-service-card">';
+			echo '<div class="eka-service-card eka-page-card">';
 			if ( has_post_thumbnail() ) {
 				echo '<div class="eka-service-thumbnail"><a href="' . esc_url( get_permalink() ) . '">' . get_the_post_thumbnail( get_the_ID(), 'medium' ) . '</a></div>';
 			}
 			echo '<h3 class="eka-service-title"><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></h3>';
-			echo '<div class="eka-service-excerpt">' . wp_kses_post( get_the_excerpt() ) . '</div>';
+			echo '<div class="eka-service-excerpt wp-block-post-excerpt">' . wp_kses_post( get_the_excerpt() ) . '</div>';
 			echo '</div>';
 		}
 		echo '</div>';
