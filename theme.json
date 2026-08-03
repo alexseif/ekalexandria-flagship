@@ -188,6 +188,26 @@
       }
     },
     "blocks": {
+      "core/template-part/footer": {
+        "color": {
+          "text": "var(--wp--preset--color--white)"
+        },
+        "elements": {
+          "link": {
+            "color": {
+              "text": "var(--wp--preset--color--white)"
+            }
+          }
+        },
+        "spacing": {
+          "padding": {
+            "top": "var(--wp--preset--spacing--30)",
+            "bottom": "var(--wp--preset--spacing--30)",
+            "left": "0px",
+            "right": "0px"
+          }
+        }
+      },
       "core/navigation": {
         "typography": {
           "fontSize": "0.9375rem",
