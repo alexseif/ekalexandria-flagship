@@ -65,6 +65,21 @@ main.wp-block-group {
     }
 }
 
+/* Footer Layout & Link Styling */
+footer.wp-block-group {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+
+    a {
+        color: #ffffff !important;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
 /* --- News Carousel Slider Styling --- */
 .eka-news-carousel {
     position: relative;
