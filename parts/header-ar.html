@@ -1,13 +1,14 @@
-<!-- wp:group {"tagName":"header","className":"site-header eka-header","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"header","className":"site-header eka-header","layout":{"type":"default"}} -->
 <header class="wp-block-group site-header eka-header">
-
-	<!-- wp:group {"align":"full","className":"eka-header-topbar-wrapper","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignfull eka-header-topbar-wrapper">
-		<!-- wp:group {"className":"eka-header-topbar-inner","layout":{"type":"flex","justifyContent":"space-between","alignItems":"center"}} -->
-		<div class="wp-block-group eka-header-topbar-inner">
+	<!-- wp:group {"align":"full","backgroundColor":"primary","textColor":"white","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignfull has-white-color has-primary-background-color has-text-color has-background">
+		<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","alignItems":"center"}} -->
+		<div class="wp-block-group">
 			<!-- wp:group {"layout":{"type":"flex","alignItems":"center"}} -->
 			<div class="wp-block-group">
-				<!-- wp:shortcode -->[polylang_langswitcher]<!-- /wp:shortcode -->
+				<!-- wp:shortcode -->
+				[polylang_langswitcher]
+				<!-- /wp:shortcode -->
 			</div>
 			<!-- /wp:group -->
 
@@ -26,10 +27,10 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"align":"full","className":"eka-header-main-wrapper","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignfull eka-header-main-wrapper">
-		<!-- wp:group {"className":"eka-header-main-inner","layout":{"type":"flex","justifyContent":"space-between","alignItems":"center"}} -->
-		<div class="wp-block-group eka-header-main-inner">
+	<!-- wp:group {"align":"full","backgroundColor":"white","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group alignfull has-white-background-color has-background">
+		<!-- wp:group {"layout":{"type":"flex","justifyContent":"space-between","alignItems":"center"}} -->
+		<div class="wp-block-group">
 			<!-- wp:group {"className":"eka-logo","layout":{"type":"flex","alignItems":"center"}} -->
 			<div class="wp-block-group eka-logo">
 				<!-- wp:site-logo {"width":240} /-->
@@ -39,13 +40,12 @@
 			<!-- wp:group {"className":"eka-header-right-group","layout":{"type":"flex","alignItems":"center","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group eka-header-right-group">
 				<!-- wp:navigation {"slug":"main-menu___ar","layout":{"type":"flex","justifyContent":"right"}} /-->
-				<!-- wp:search {"showLabel":false,"buttonText":"","buttonUseIcon":true,"placeholder":"بحث...","className":"eka-header-search"} /-->
+				<!-- wp:search {"showLabel":false,"placeholder":"بحث...","buttonText":"","buttonUseIcon":true,"className":"eka-header-search"} /-->
 			</div>
 			<!-- /wp:group -->
 		</div>
 		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
-
 </header>
 <!-- /wp:group -->
