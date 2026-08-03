@@ -1,6 +1,6 @@
 /**
  * EKA Flagship Main Stylesheet (SCSS)
- * Streamlined to leverage theme.json variables & responsive rem/em units.
+ * Streamlined to offload layout, colors, and block defaults to theme.json & Gutenberg.
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&family=Roboto:wght@400;500;700&display=swap');
@@ -18,68 +18,19 @@ body,
     font-family: var(--wp--preset--font-family--body, 'Roboto', sans-serif);
 }
 
-/* --- Container Layout & Content Width (940px / 58.75rem) --- */
-.eka-header-topbar-wrapper {
-    background-color: var(--wp--preset--color--primary, #293e7a);
-    color: #ffffff;
+/* --- Main Site Content Layout (940px Container) --- */
+.site-content,
+main.wp-block-group {
+    max-width: var(--wp--style--global--content-size, 58.75rem);
+    margin: 0 auto;
+    padding: 1.875rem 1.25rem;
     width: 100%;
 }
 
-.eka-header-topbar-inner {
-    max-width: var(--wp--style--global--content-size, 58.75rem);
-    margin: 0 auto;
-    padding: 0.375rem 1.25rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8125rem;
-
-    a {
-        color: #ffffff;
-        text-decoration: none;
-
-        &:hover {
-            opacity: 0.85;
-        }
-    }
-}
-
-.eka-header-main-wrapper {
-    background-color: #ffffff;
-    width: 100%;
-    border-bottom: 0.0625rem solid #e5e5e5;
-}
-
-.eka-header-main-inner {
-    max-width: var(--wp--style--global--content-size, 58.75rem);
-    margin: 0 auto;
-    padding: 0.9375rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .eka-logo img {
-        height: 4.0625rem;
-        width: auto;
-    }
-}
-
-/* Navigation Menu Styling */
-.wp-block-navigation {
-    font-family: var(--wp--preset--font-family--body, 'Roboto', sans-serif);
-    font-size: 0.9375rem;
-    font-weight: 400;
-
-    .wp-block-navigation-item__label,
-    a.wp-block-navigation-item__content {
-        font-size: 0.9375rem;
-        color: #333333;
-        text-decoration: none;
-
-        &:hover {
-            color: var(--wp--preset--color--primary, #293e7a);
-        }
-    }
+/* Header Logo Sizing */
+.eka-logo img {
+    height: 4.0625rem;
+    width: auto;
 }
 
 /* Compact Search Icon & Interactive Toggle Input */
@@ -111,55 +62,6 @@ body,
         &.is-hidden {
             display: none !important;
         }
-    }
-}
-
-/* Main Site Content Layout (940px Container) */
-.site-content,
-main.wp-block-group {
-    max-width: var(--wp--style--global--content-size, 58.75rem);
-    margin: 0 auto;
-    padding: 1.875rem 1.25rem;
-    width: 100%;
-}
-
-/* Edge-to-Edge Gray Footer Layout */
-.site-footer-wrapper {
-    background-color: var(--wp--preset--color--footer-bg, #545454);
-    color: #ffffff;
-    width: 100%;
-    margin-top: 2.5rem;
-}
-
-.site-footer-inner {
-    max-width: var(--wp--style--global--content-size, 58.75rem);
-    margin: 0 auto;
-    padding: 1.5625rem 1.25rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    font-size: 0.875rem;
-
-    a {
-        color: #ffffff;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .footer-left {
-        display: flex;
-        align-items: center;
-        gap: 0.375rem;
-    }
-
-    .footer-right {
-        display: flex;
-        align-items: center;
     }
 }
 
