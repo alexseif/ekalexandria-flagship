@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const list = carousel.querySelector('.wp-block-post-template') || carousel.querySelector('.eka-news-list');
         if (!list) return;
 
-        const items = list.querySelectorAll('.wp-block-post, .eka-news-card');
+        const items = Array.from(list.children).filter(child => child.matches('.wp-block-post, .eka-news-card, li'));
         if (items.length <= 1) return;
 
         let currentIndex = 0;
