@@ -28,7 +28,7 @@
         },
         {
           "name": "Text Color",
-          "slug": "text",
+          "slug": "text-default",
           "color": "#626262"
         },
         {
@@ -89,23 +89,6 @@
       "blockGap": true,
       "margin": true,
       "padding": true,
-      "spacingSizes": [
-        {
-          "name": "Small",
-          "slug": "20",
-          "size": "0.75rem"
-        },
-        {
-          "name": "Medium",
-          "slug": "30",
-          "size": "1.5rem"
-        },
-        {
-          "name": "Large",
-          "slug": "40",
-          "size": "2.5rem"
-        }
-      ],
       "units": [
         "px",
         "em",
@@ -125,7 +108,7 @@
   "styles": {
     "color": {
       "background": "var(--wp--preset--color--white)",
-      "text": "var(--wp--preset--color--text)"
+      "text": "var(--wp--preset--color-text-default)"
     },
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--body)",
