@@ -167,8 +167,6 @@ main.wp-block-group {
     position: relative;
     margin: 25px 0 40px 0;
     overflow: hidden;
-    border-radius: 6px;
-    background: #111111;
     padding: 0 !important;
     width: 100%;
 
@@ -186,32 +184,30 @@ main.wp-block-group {
         height: 518px;
         overflow: hidden;
         margin: 0 !important;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
 
-        .wp-block-post-featured-image,
-        img {
-            width: 100%;
-            height: 518px !important;
-            max-height: 518px !important;
-            object-fit: cover;
-            border-radius: 0;
-            margin: 0;
-            display: block;
+        .wp-block-post-featured-image {
+            display: none !important;
         }
 
         h3,
         .wp-block-post-title {
             position: absolute;
-            bottom: 25%;
+            bottom: 21%;
             right: 0;
-            max-width: 75%;
+            width: 70%;
             margin: 0;
-            padding: 15px 25px;
-            background: rgba(50, 50, 50, 0.75);
+            padding: 7px 14px;
+            background: rgba(0, 0, 0, 0.6);
             color: #ffffff !important;
-            font-size: 24px;
+            font-size: 1.3rem;
             font-weight: 500;
             line-height: 1.3;
             box-sizing: border-box;
+            opacity: 0;
+            transform: translateX(100%);
 
             a {
                 color: #ffffff !important;
@@ -220,6 +216,14 @@ main.wp-block-group {
                 &:hover {
                     text-decoration: underline;
                 }
+            }
+        }
+
+        &.is-active-slide {
+            h3,
+            .wp-block-post-title {
+                animation: ekaSlideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+                animation-delay: 0.1s;
             }
         }
     }
@@ -239,22 +243,16 @@ main.wp-block-group {
         top: 50%;
         transform: translateY(-50%);
         pointer-events: auto;
-        background: rgba(41, 62, 122, 0.85);
         color: #ffffff;
+        background-color: none;
         border: none;
         width: 44px;
         height: 44px;
-        border-radius: 50%;
         cursor: pointer;
         font-size: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: background 0.3s;
-
-        &:hover {
-            background: rgba(30, 46, 92, 0.95);
-        }
 
         &.eka-carousel-prev {
             left: 20px;
@@ -267,9 +265,10 @@ main.wp-block-group {
 
     .eka-carousel-dots {
         position: absolute;
-        bottom: 20px;
+        bottom: 3em;
         left: 50%;
         transform: translateX(-50%);
+        background: none;
         pointer-events: auto;
         display: flex;
         gap: 10px;
@@ -277,8 +276,8 @@ main.wp-block-group {
         .eka-carousel-dot {
             width: 12px;
             height: 12px;
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 1);
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -289,6 +288,17 @@ main.wp-block-group {
                 border-radius: 12px;
             }
         }
+    }
+}
+
+@keyframes ekaSlideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
