@@ -29,6 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
         dotsContainer.className = 'eka-carousel-dots';
 
         items.forEach((item, idx) => {
+            const img = item.querySelector('img');
+            if (img && img.src) {
+                item.style.backgroundImage = `url("${img.src}")`;
+                item.style.backgroundSize = 'cover';
+                item.style.backgroundPosition = 'center center';
+                item.style.backgroundRepeat = 'no-repeat';
+            }
+
             const dot = document.createElement('span');
             dot.className = `eka-carousel-dot${idx === 0 ? ' active' : ''}`;
             dot.addEventListener('click', () => goToSlide(idx));
@@ -42,8 +50,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function updateSlides() {
             items.forEach((item, idx) => {
-                item.style.display = idx === currentIndex ? 'block' : 'none';
-                item.classList.toggle('is-active-slide', idx === currentIndex);
+                const isActive = (idx === currentIndex);
+                item.style.display = isActive ? 'block' : 'none';
+                if (isActive) {
+                    item.classList.remove('is-active-slide');
+                    // Force reflow for animation restart
+                    void item.offsetWidth;
+                    item.classList.add('is-active-slide');
+                } else {
+                    item.classList.remove('is-active-slide');
+                }
             });
             const dots = dotsContainer.querySelectorAll('.eka-carousel-dot');
             dots.forEach((dot, idx) => {
