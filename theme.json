@@ -188,7 +188,7 @@
       }
     },
     "blocks": {
-      "core/parts/footer": {
+      "core/template-part/footer": {
         "color": {
           "background": "var(--wp--preset--color--footer-bg)",
           "text": "var(--wp--preset--color--white)"
