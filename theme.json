@@ -4,8 +4,8 @@
   "settings": {
     "appearanceTools": true,
     "layout": {
-      "contentSize": "1200px",
-      "wideSize": "1400px"
+      "contentSize": "940px",
+      "wideSize": "940px"
     },
     "color": {
       "palette": [
@@ -85,13 +85,13 @@
     },
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--body)",
-      "fontSize": "16px",
+      "fontSize": "1rem",
       "lineHeight": "1.6"
     },
     "elements": {
       "link": {
         "color": {
-          "text": "#293e7a"
+          "text": "var(--wp--preset--color--primary)"
         }
       },
       "h1": {
