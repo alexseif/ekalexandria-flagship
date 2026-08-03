@@ -662,7 +662,61 @@ class EKA_CLI {
 
         $log("Production cutover completed successfully!", "INFO", "All data, templates, and plugins finalized.");
     }
+
+    /**
+     * Seed language-specific footer navigation menus (idempotent)
+     *
+     * @subcommand seed-footer-menus
+     */
+    public function seed_footer_menus() {
+        $log = $this->get_logger('menu-assignments.log');
+        $log("Seeding Footer Navigation Menus...", "INFO", "Checking for existing English and Arabic footer navigation posts.");
+
+        global $wpdb;
+
+        $menus_to_seed = [
+            [
+                'slug' => 'footer-english-menu',
+                'title' => 'Footer English Menu',
+                'content' => '<!-- wp:navigation-link {"label":"Establishment","url":"/en/establishment/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"Services","url":"/en/services/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"Activities","url":"/en/activities/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"News","url":"/en/news/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"Contact","url":"/en/contact/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"Privacy Policy","url":"/en/privacy-policy/","isTopLevelLink":true} /-->'
+            ],
+            [
+                'slug' => 'footer-arabic-menu',
+                'title' => 'Footer Arabic Menu',
+                'content' => '<!-- wp:navigation-link {"label":"التأسيس","url":"/ar/establishment/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"الخدمات","url":"/ar/services/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"الأنشطة","url":"/ar/activities/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"الأخبار","url":"/ar/news/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"اتصل بنا","url":"/ar/contact/","isTopLevelLink":true} /--><!-- wp:navigation-link {"label":"سياسة الخصوصية","url":"/ar/privacy-policy/","isTopLevelLink":true} /-->'
+            ]
+        ];
+
+        foreach ($menus_to_seed as $menu) {
+            $existing_id = $wpdb->get_var($wpdb->prepare(
+                "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type = 'wp_navigation' AND post_status = 'publish'",
+                $menu['slug']
+            ));
+
+            if ($existing_id) {
+                $log("Skipping existing menu '{$menu['title']}' (ID: $existing_id)", "INFO", "Idempotency check confirmed menu post already exists.");
+                continue;
+            }
+
+            $post_id = wp_insert_post([
+                'post_title'   => $menu['title'],
+                'post_name'    => $menu['slug'],
+                'post_content' => $menu['content'],
+                'post_status'  => 'publish',
+                'post_type'    => 'wp_navigation',
+            ]);
+
+            if (is_wp_error($post_id)) {
+                $log("Failed to seed menu '{$menu['title']}'", "ERROR", $post_id->get_error_message());
+            } else {
+                $log("Successfully seeded menu '{$menu['title']}' (ID: $post_id)", "INFO");
+            }
+        }
+
+        $log("Footer Navigation Menu seeding finished successfully.", "INFO");
+    }
 }
 
 WP_CLI::add_command( 'eka', 'EKA_CLI' );
+
 

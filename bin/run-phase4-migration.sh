@@ -89,7 +89,7 @@ else
 fi
 
 # 8. Navigation Menu Location Assignments
-echo "[7/7] Executing Navigation Menu Location Assignments..."
+echo "[7/8] Executing Navigation Menu Location Assignments..."
 {
     echo "Assigning Greek Main Menu (13 -> main-menu)..."
     $WP_CLI menu location assign 13 main-menu --path="$WP_DIR" --allow-root
@@ -107,8 +107,18 @@ else
     echo "  -> ERROR: Menu Location Assignments encountered issues. Check $LOG_DIR/menu-assignments.log"
 fi
 
+# 9. Idempotent Footer Navigation Menu Seeding
+echo "[8/8] Seeding Language-Specific Footer Navigation Menus..."
+$WP_CLI eka seed-footer-menus --path="$WP_DIR" --allow-root >> "$LOG_DIR/menu-assignments.log" 2>&1
+if [ $? -eq 0 ]; then
+    echo "  -> Footer Navigation Menu Seeding completed successfully."
+else
+    echo "  -> ERROR: Footer Navigation Menu Seeding encountered issues. Check $LOG_DIR/menu-assignments.log"
+fi
+
 echo "=========================================="
 echo "Phase 4 Migration Pass Finished: $(date)"
 echo "=========================================="
 exit 0
+
 
