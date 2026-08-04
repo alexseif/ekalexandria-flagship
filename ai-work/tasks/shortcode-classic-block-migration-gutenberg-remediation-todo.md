@@ -23,16 +23,16 @@
   - [x] Run PHP linting (`php -l bin/remediate-shortcodes-to-blocks.php`).
   - [x] Commit: `feat(migration): implement Stage 1 shortcode to block transformer script`
 
-- [ ] **Task 3: Stage 2 - Idempotent Classic HTML to Gutenberg Block Converter Script**
-  - [ ] Implement `bin/convert-classic-to-gutenberg.php`.
-  - [ ] Connect script to target database `backstage_eka`.
-  - [ ] Add log file truncation on initialization (`ai-work/logs/convert-classic-to-gutenberg.log`).
-  - [ ] Add idempotency check to skip existing Gutenberg blocks (`<!-- wp:`).
-  - [ ] Implement conversions for `<p>`, `<hN>`, `<ul>`/`<ol>`, `<table>`, `<blockquote>`.
-  - [ ] Integrate `sanitize_inline_styles_fse()` for inline CSS.
-  - [ ] Integrate inline `parse_blocks()` AST check.
-  - [ ] Run PHP linting (`php -l bin/convert-classic-to-gutenberg.php`).
-  - [ ] Commit: `feat(migration): implement Stage 2 classic HTML to block converter script`
+- [x] **Task 3: Stage 2 - Idempotent Classic HTML to Gutenberg Block Converter Script**
+  - [x] Implement `bin/convert-classic-to-gutenberg.php`.
+  - [x] Connect script to target database `backstage_eka`.
+  - [x] Add log file truncation on initialization (`ai-work/logs/convert-classic-to-gutenberg.log`).
+  - [x] Add idempotency check to skip existing Gutenberg blocks (`<!-- wp:`).
+  - [x] Implement conversions for `<p>`, `<hN>`, `<ul>`/`<ol>`, `<table>`, `<blockquote>`.
+  - [x] Integrate `sanitize_inline_styles_fse()` for inline CSS.
+  - [x] Integrate inline `parse_blocks()` AST check.
+  - [x] Run PHP linting (`php -l bin/convert-classic-to-gutenberg.php`).
+  - [x] Commit: `feat(migration): implement Stage 2 classic HTML to block converter script`
 
 - [ ] **Task 4: Bash Orchestration Runner Script (`bin/run-migration.sh`)**
   - [ ] Implement `bin/run-migration.sh` with `set -euo pipefail`.
