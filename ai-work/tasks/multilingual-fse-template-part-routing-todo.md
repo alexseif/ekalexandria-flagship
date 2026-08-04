@@ -28,6 +28,6 @@
   - [x] Verify FSE Site Editor stability in admin.
   - [x] Commit: `test(fse): verify dynamic template part routing for multilingual posts`
 
-- [ ] **Task 4: Final Checkpoint & Quality Review**
-  - [ ] Review changes against SPEC criteria.
-  - [ ] Verify zero DB query overhead during filtering.
+- [x] **Task 4: Final Checkpoint & Quality Review**
+  - [x] Review changes against SPEC criteria.
+  - [x] Verify zero DB query overhead during filtering.
