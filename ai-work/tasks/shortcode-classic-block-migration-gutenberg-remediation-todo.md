@@ -48,7 +48,7 @@
   - [x] Run idempotency check (rerun Stage 2, verify 0 modifications).
   - [x] Commit: `fix(migration): execute 2-stage Gutenberg migration on backstage_eka database`
 
-- [ ] **Task 6: Final Checkpoint & Quality Review**
-  - [ ] Review all changes against SPEC criteria.
-  - [ ] Confirm `db207080_eka` remained read-only and all writes occurred strictly on `backstage_eka`.
+- [x] **Task 6: Final Checkpoint & Quality Review**
+  - [x] Review all changes against SPEC criteria.
+  - [x] Confirm `db207080_eka` remained read-only and all writes occurred strictly on `backstage_eka`.
 
