@@ -12,11 +12,11 @@
   - [x] Verify JSON validity.
   - [x] Commit: `feat(theme.json): add core/group and core/image border settings`
 
-- [ ] **Task 2: Register JS block editor script for `eka/homepage-services-grid`**
-  - [ ] Create `assets/js/blocks-editor.js` using `@wordpress/server-side-render`.
-  - [ ] Enqueue `blocks-editor.js` in `inc/blocks.php` via `enqueue_block_editor_assets`.
-  - [ ] Verify FSE editor rendering / JS syntax.
-  - [ ] Commit: `feat(blocks): register eka/homepage-services-grid JS editor script`
+- [x] **Task 2: Register JS block editor script for `eka/homepage-services-grid`**
+  - [x] Create `assets/js/blocks-editor.js` using `@wordpress/server-side-render`.
+  - [x] Enqueue `blocks-editor.js` in `inc/blocks.php` via `enqueue_block_editor_assets`.
+  - [x] Verify FSE editor rendering / JS syntax.
+  - [x] Commit: `feat(blocks): register eka/homepage-services-grid JS editor script`
 
 - [ ] **Task 3: Enqueue native Gutenberg core columns style for `eka/homepage-services-grid`**
   - [ ] Call `wp_enqueue_style('wp-block-columns')` in `eka_render_homepage_services_grid()`.
