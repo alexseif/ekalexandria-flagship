@@ -34,12 +34,12 @@
   - [x] Run PHP linting (`php -l bin/convert-classic-to-gutenberg.php`).
   - [x] Commit: `feat(migration): implement Stage 2 classic HTML to block converter script`
 
-- [ ] **Task 4: Bash Orchestration Runner Script (`bin/run-migration.sh`)**
-  - [ ] Implement `bin/run-migration.sh` with `set -euo pipefail`.
-  - [ ] Add execution steps for `bin/test-fse-sanitizer.php`, `bin/remediate-shortcodes-to-blocks.php`, and `bin/convert-classic-to-gutenberg.php`.
-  - [ ] Add status logging and error handling.
-  - [ ] Make executable (`chmod +x bin/run-migration.sh`).
-  - [ ] Commit: `feat(migration): add bash runner script for automated 2-stage migration execution`
+- [x] **Task 4: Bash Orchestration Runner Script (`bin/run-migration.sh`)**
+  - [x] Implement `bin/run-migration.sh` with `set -euo pipefail`.
+  - [x] Add execution steps for `bin/test-fse-sanitizer.php`, `bin/remediate-shortcodes-to-blocks.php`, and `bin/convert-classic-to-gutenberg.php`.
+  - [x] Add status logging and error handling.
+  - [x] Make executable (`chmod +x bin/run-migration.sh`).
+  - [x] Commit: `feat(migration): add bash runner script for automated 2-stage migration execution`
 
 - [ ] **Task 5: Full Engine Execution & Database Verification on `backstage_eka`**
   - [ ] Run migration pipeline via `bin/run-migration.sh` on `backstage_eka`.
