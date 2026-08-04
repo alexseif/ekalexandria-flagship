@@ -6,14 +6,14 @@
 
 ---
 
-- [ ] **Task 1: Add dynamic template part routing filter in `inc/custom-features.php`**
-  - [ ] Add `render_block_data` filter callback in `inc/custom-features.php`.
-  - [ ] Exclude admin context (`is_admin()`).
-  - [ ] Intercept `core/template-part` blocks with `slug` matching `header` or `footer`.
-  - [ ] Resolve language via `pll_current_language()`.
-  - [ ] Verify template part file existence via `file_exists()`.
-  - [ ] Run PHP linting (`php -l inc/custom-features.php`).
-  - [ ] Commit: `feat(fse): add dynamic Polylang header and footer template part routing filter`
+- [x] **Task 1: Add dynamic template part routing filter in `inc/custom-features.php`**
+  - [x] Add `render_block_data` filter callback in `inc/custom-features.php`.
+  - [x] Exclude admin context (`is_admin()`).
+  - [x] Intercept `core/template-part` blocks with `slug` matching `header` or `footer`.
+  - [x] Resolve language via `pll_current_language()`.
+  - [x] Verify template part file existence via `file_exists()`.
+  - [x] Run PHP linting (`php -l inc/custom-features.php`).
+  - [x] Commit: `feat(fse): add dynamic Polylang header and footer template part routing filter`
 
 - [ ] **Task 2: Audit and align standard FSE block templates in `templates/`**
   - [ ] Audit `templates/single.html` for generic template part references (`"slug":"header"`, `"slug":"footer"`).

@@ -204,3 +204,28 @@ add_shortcode('eka_mailchimp_form', function($atts) {
     return ob_get_clean();
 });
 
+/**
+ * Dynamically route FSE header and footer template parts based on Polylang language context.
+ */
+add_filter( 'render_block_data', function( $parsed_block ) {
+    if ( is_admin() ) {
+        return $parsed_block;
+    }
+
+    if ( isset( $parsed_block['blockName'] ) && 'core/template-part' === $parsed_block['blockName'] ) {
+        $slug = $parsed_block['attrs']['slug'] ?? '';
+        if ( in_array( $slug, [ 'header', 'footer' ], true ) && function_exists( 'pll_current_language' ) ) {
+            $lang = pll_current_language();
+            if ( $lang ) {
+                $target_slug = $slug . '-' . $lang;
+                $theme_dir   = get_stylesheet_directory();
+                if ( file_exists( $theme_dir . '/parts/' . $target_slug . '.html' ) ) {
+                    $parsed_block['attrs']['slug'] = $target_slug;
+                }
+            }
+        }
+    }
+
+    return $parsed_block;
+}, 10, 1 );
+
