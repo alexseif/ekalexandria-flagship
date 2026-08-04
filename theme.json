@@ -103,9 +103,28 @@
       "radius": true,
       "style": true,
       "width": true
+    },
+    "blocks": {
+      "core/group": {
+        "border": {
+          "color": true,
+          "radius": true,
+          "style": true,
+          "width": true
+        }
+      },
+      "core/image": {
+        "border": {
+          "color": true,
+          "radius": true,
+          "style": true,
+          "width": true
+        }
+      }
     }
   },
   "styles": {
+    "spacing": {},
     "color": {
       "background": "var(--wp--preset--color--white)",
       "text": "var(--wp--preset--color-text-default)"
