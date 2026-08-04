@@ -21,12 +21,12 @@
   - [x] Verify front-page templates are untouched.
   - [x] Commit: `refactor(templates): ensure standard FSE templates use generic header and footer slugs`
 
-- [ ] **Task 3: Multilingual Runtime Verification & Site Editor Compatibility**
-  - [ ] Test Greek post loading `parts/header-el.html` & `parts/footer-el.html`.
-  - [ ] Test English post loading `parts/header-en.html` & `parts/footer-en.html`.
-  - [ ] Test Arabic post loading `parts/header-ar.html` & `parts/footer-ar.html`.
-  - [ ] Verify FSE Site Editor stability in admin.
-  - [ ] Commit: `test(fse): verify dynamic template part routing for multilingual posts`
+- [x] **Task 3: Multilingual Runtime Verification & Site Editor Compatibility**
+  - [x] Test Greek post loading `parts/header-el.html` & `parts/footer-el.html`.
+  - [x] Test English post loading `parts/header-en.html` & `parts/footer-en.html`.
+  - [x] Test Arabic post loading `parts/header-ar.html` & `parts/footer-ar.html`.
+  - [x] Verify FSE Site Editor stability in admin.
+  - [x] Commit: `test(fse): verify dynamic template part routing for multilingual posts`
 
 - [ ] **Task 4: Final Checkpoint & Quality Review**
   - [ ] Review changes against SPEC criteria.
