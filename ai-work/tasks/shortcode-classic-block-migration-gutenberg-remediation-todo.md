@@ -14,14 +14,14 @@
   - [x] Run PHP linting (`php -l bin/migration-helpers.php`).
   - [x] Commit: `feat(migration): add shared helpers and FSE inline style allowlist filter`
 
-- [ ] **Task 2: Stage 1 - Shortcode & WPBakery Gutenberg Transformer Script**
-  - [ ] Implement `bin/remediate-shortcodes-to-blocks.php`.
-  - [ ] Connect script to target database `backstage_eka`.
-  - [ ] Add log file truncation on initialization (`ai-work/logs/remediate-shortcodes-to-blocks.log`).
-  - [ ] Add regex/AST transformers for `[vc_row]`, `[vc_column]`, `[vc_column_text]`, `[vc_single_image]`, `[vc_raw_html]`, `[our_team]`, `[rev_slider]`, `[layerslider]`, `[caption]`, and generic shortcodes.
-  - [ ] Integrate inline `parse_blocks()` AST check.
-  - [ ] Run PHP linting (`php -l bin/remediate-shortcodes-to-blocks.php`).
-  - [ ] Commit: `feat(migration): implement Stage 1 shortcode to block transformer script`
+- [x] **Task 2: Stage 1 - Shortcode & WPBakery Gutenberg Transformer Script**
+  - [x] Implement `bin/remediate-shortcodes-to-blocks.php`.
+  - [x] Connect script to target database `backstage_eka`.
+  - [x] Add log file truncation on initialization (`ai-work/logs/remediate-shortcodes-to-blocks.log`).
+  - [x] Add regex/AST transformers for `[vc_row]`, `[vc_column]`, `[vc_column_text]`, `[vc_single_image]`, `[vc_raw_html]`, `[our_team]`, `[rev_slider]`, `[layerslider]`, `[caption]`, and generic shortcodes.
+  - [x] Integrate inline `parse_blocks()` AST check.
+  - [x] Run PHP linting (`php -l bin/remediate-shortcodes-to-blocks.php`).
+  - [x] Commit: `feat(migration): implement Stage 1 shortcode to block transformer script`
 
 - [ ] **Task 3: Stage 2 - Idempotent Classic HTML to Gutenberg Block Converter Script**
   - [ ] Implement `bin/convert-classic-to-gutenberg.php`.
