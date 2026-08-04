@@ -23,11 +23,11 @@
   - [x] Verify PHP syntax and block rendering.
   - [x] Commit: `feat(blocks): enqueue native wp-block-columns style for homepage-services-grid`
 
-- [ ] **Task 4: Add multilingual front-page and page-parent-sidebar HTML templates**
-  - [ ] Create/verify `templates/front-page-el.html`, `templates/front-page-en.html`, `templates/front-page-ar.html`.
-  - [ ] Create `templates/page-parent-sidebar-el.html`, `templates/page-parent-sidebar-en.html`, `templates/page-parent-sidebar-ar.html`.
-  - [ ] Verify Gutenberg block template comment markup.
-  - [ ] Commit: `feat(templates): add multilingual front-page and page-parent-sidebar templates`
+- [x] **Task 4: Add multilingual front-page and page-parent-sidebar HTML templates**
+  - [x] Create/verify `templates/front-page-el.html`, `templates/front-page-en.html`, `templates/front-page-ar.html`.
+  - [x] Create `templates/page-parent-sidebar-el.html`, `templates/page-parent-sidebar-en.html`, `templates/page-parent-sidebar-ar.html`.
+  - [x] Verify Gutenberg block template comment markup.
+  - [x] Commit: `feat(templates): add multilingual front-page and page-parent-sidebar templates`
 
 - [ ] **Task 5: Final Checkpoint & Quality Review**
   - [ ] Review all changes across theme files.
