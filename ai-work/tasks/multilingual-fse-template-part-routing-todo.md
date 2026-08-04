@@ -15,11 +15,11 @@
   - [x] Run PHP linting (`php -l inc/custom-features.php`).
   - [x] Commit: `feat(fse): add dynamic Polylang header and footer template part routing filter`
 
-- [ ] **Task 2: Audit and align standard FSE block templates in `templates/`**
-  - [ ] Audit `templates/single.html` for generic template part references (`"slug":"header"`, `"slug":"footer"`).
-  - [ ] Audit additional general templates (`page.html`, `archive.html`) if applicable.
-  - [ ] Verify front-page templates are untouched.
-  - [ ] Commit: `refactor(templates): ensure standard FSE templates use generic header and footer slugs`
+- [x] **Task 2: Audit and align standard FSE block templates in `templates/`**
+  - [x] Audit `templates/single.html` for generic template part references (`"slug":"header"`, `"slug":"footer"`).
+  - [x] Audit additional general templates (`page.html`, `archive.html`, etc.).
+  - [x] Verify front-page templates are untouched.
+  - [x] Commit: `refactor(templates): ensure standard FSE templates use generic header and footer slugs`
 
 - [ ] **Task 3: Multilingual Runtime Verification & Site Editor Compatibility**
   - [ ] Test Greek post loading `parts/header-el.html` & `parts/footer-el.html`.
