@@ -88,6 +88,21 @@ function transform_wpbakery_shortcodes($content) {
         $content
     );
 
+    // If there are unclosed column or row block comments, append closing tags
+    $open_cols = substr_count($content, '<!-- wp:columns -->');
+    $close_cols = substr_count($content, '<!-- /wp:columns -->');
+    while ($close_cols < $open_cols) {
+        $content .= '</div><!-- /wp:columns -->';
+        $close_cols++;
+    }
+
+    $open_col = substr_count($content, '<!-- wp:column {"width":');
+    $close_col = substr_count($content, '<!-- /wp:column -->');
+    while ($close_col < $open_col) {
+        $content .= '</div><!-- /wp:column -->';
+        $close_col++;
+    }
+
     // 3. vc_column_text open / close
     $content = preg_replace(
         '/\[vc_column_text[^\]]*\]/i',
@@ -110,7 +125,7 @@ function transform_wpbakery_shortcodes($content) {
         $content
     );
 
-    // 5. vc_raw_html
+    // 5. vc_raw_html and vc_posts_grid
     $content = preg_replace_callback(
         '/\[vc_raw_html[^\]]*\](.*?)\[\/vc_raw_html\]/is',
         function ($matches) {
@@ -119,6 +134,14 @@ function transform_wpbakery_shortcodes($content) {
                 $raw_html = trim($matches[1]);
             }
             return '<!-- wp:html -->' . $raw_html . '<!-- /wp:html -->';
+        },
+        $content
+    );
+
+    $content = preg_replace_callback(
+        '/\[vc_posts_grid[^\]]*\]/i',
+        function ($matches) {
+            return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
         },
         $content
     );
@@ -146,18 +169,20 @@ function transform_our_team($content) {
  */
 function transform_sliders($content) {
     $content = preg_replace_callback(
-        '/\[(?:rev_slider|rev_slider_vc)\s+(?:alias|title|id)=["\']([^"\']+)["\'][^\]]*\]/i',
+        '/\[(?:rev_slider|rev_slider_vc)\s+(?:(?:alias|title|id)=["\']([^"\']+)["\']|([a-zA-Z0-9_-]+))[^\]]*\]/i',
         function ($matches) {
-            $alias = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
+            $alias = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
+            $alias = htmlspecialchars($alias, ENT_QUOTES, 'UTF-8');
             return '<!-- wp:gallery {"className":"rev-slider-replaced"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped rev-slider-replaced"><!-- wp:paragraph --><p>Slider: ' . $alias . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
         },
         $content
     );
 
     $content = preg_replace_callback(
-        '/\[layerslider\s+(?:id|title)=["\']([^"\']+)["\'][^\]]*\]/i',
+        '/\[layerslider\s+(?:(?:id|title)=["\']([^"\']+)["\']|([a-zA-Z0-9_-]+))[^\]]*\]/i',
         function ($matches) {
-            $id = htmlspecialchars($matches[1], ENT_QUOTES, 'UTF-8');
+            $id = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
+            $id = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
             return '<!-- wp:gallery {"className":"layerslider-replaced"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped layerslider-replaced"><!-- wp:paragraph --><p>LayerSlider ID: ' . $id . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
         },
         $content

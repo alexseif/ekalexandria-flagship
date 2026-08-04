@@ -107,7 +107,7 @@ if (!function_exists('eka_validate_blocks_ast')) {
         foreach ($matches as $match) {
             $is_close = !empty($match['type']);
             $block_name = $match['name'];
-            $is_self_closing = !empty($match['selfclosing']);
+            $is_self_closing = isset($match['selfclosing']) && !empty($match['selfclosing']);
 
             if ($is_self_closing) {
                 continue;
