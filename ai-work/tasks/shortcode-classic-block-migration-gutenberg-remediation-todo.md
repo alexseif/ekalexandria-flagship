@@ -6,13 +6,13 @@
 
 ---
 
-- [ ] **Task 1: Shared Migration Utilities & FSE Inline Style Allowlist Filter**
-  - [ ] Implement `sanitize_inline_styles_fse()` in `bin/migration-helpers.php`.
-  - [ ] Implement `eka_validate_blocks_ast()` helper in `bin/migration-helpers.php`.
-  - [ ] Implement `eka_init_log_file()` helper in `bin/migration-helpers.php`.
-  - [ ] Create and run unit test script `bin/test-fse-sanitizer.php`.
-  - [ ] Run PHP linting (`php -l bin/migration-helpers.php`).
-  - [ ] Commit: `feat(migration): add shared helpers and FSE inline style allowlist filter`
+- [x] **Task 1: Shared Migration Utilities & FSE Inline Style Allowlist Filter**
+  - [x] Implement `sanitize_inline_styles_fse()` in `bin/migration-helpers.php`.
+  - [x] Implement `eka_validate_blocks_ast()` helper in `bin/migration-helpers.php`.
+  - [x] Implement `eka_init_log_file()` helper in `bin/migration-helpers.php`.
+  - [x] Create and run unit test script `bin/test-fse-sanitizer.php`.
+  - [x] Run PHP linting (`php -l bin/migration-helpers.php`).
+  - [x] Commit: `feat(migration): add shared helpers and FSE inline style allowlist filter`
 
 - [ ] **Task 2: Stage 1 - Shortcode & WPBakery Gutenberg Transformer Script**
   - [ ] Implement `bin/remediate-shortcodes-to-blocks.php`.
