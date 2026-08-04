@@ -18,10 +18,10 @@
   - [x] Verify FSE editor rendering / JS syntax.
   - [x] Commit: `feat(blocks): register eka/homepage-services-grid JS editor script`
 
-- [ ] **Task 3: Enqueue native Gutenberg core columns style for `eka/homepage-services-grid`**
-  - [ ] Call `wp_enqueue_style('wp-block-columns')` in `eka_render_homepage_services_grid()`.
-  - [ ] Verify PHP syntax and block rendering.
-  - [ ] Commit: `feat(blocks): enqueue native wp-block-columns style for homepage-services-grid`
+- [x] **Task 3: Enqueue native Gutenberg core columns style for `eka/homepage-services-grid`**
+  - [x] Call `wp_enqueue_style('wp-block-columns')` in `eka_render_homepage_services_grid()`.
+  - [x] Verify PHP syntax and block rendering.
+  - [x] Commit: `feat(blocks): enqueue native wp-block-columns style for homepage-services-grid`
 
 - [ ] **Task 4: Add multilingual front-page and page-parent-sidebar HTML templates**
   - [ ] Create/verify `templates/front-page-el.html`, `templates/front-page-en.html`, `templates/front-page-ar.html`.

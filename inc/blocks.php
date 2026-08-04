@@ -84,6 +84,8 @@ add_action('enqueue_block_editor_assets', function () {
  */
 function eka_render_homepage_services_grid($attributes)
 {
+	wp_enqueue_style('wp-block-columns');
+
 	$args = [
 		'post_type' => 'page',
 		'post__in' => [7837, 8088, 28, 14],
