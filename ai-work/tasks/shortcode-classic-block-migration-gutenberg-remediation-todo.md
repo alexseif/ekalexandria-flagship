@@ -41,12 +41,12 @@
   - [x] Make executable (`chmod +x bin/run-migration.sh`).
   - [x] Commit: `feat(migration): add bash runner script for automated 2-stage migration execution`
 
-- [ ] **Task 5: Full Engine Execution & Database Verification on `backstage_eka`**
-  - [ ] Run migration pipeline via `bin/run-migration.sh` on `backstage_eka`.
-  - [ ] Verify log outputs in `ai-work/logs/`.
-  - [ ] Perform DB queries to confirm 0 unhandled target shortcodes remain.
-  - [ ] Run idempotency check (rerun Stage 2, verify 0 modifications).
-  - [ ] Commit: `fix(migration): execute 2-stage Gutenberg migration on backstage_eka database`
+- [x] **Task 5: Full Engine Execution & Database Verification on `backstage_eka`**
+  - [x] Run migration pipeline via `bin/run-migration.sh` on `backstage_eka`.
+  - [x] Verify log outputs in `ai-work/logs/`.
+  - [x] Perform DB queries to confirm 0 unhandled target shortcodes remain.
+  - [x] Run idempotency check (rerun Stage 2, verify 0 modifications).
+  - [x] Commit: `fix(migration): execute 2-stage Gutenberg migration on backstage_eka database`
 
 - [ ] **Task 6: Final Checkpoint & Quality Review**
   - [ ] Review all changes against SPEC criteria.
