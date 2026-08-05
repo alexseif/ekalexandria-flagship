@@ -30,12 +30,12 @@
   - [x] Add AST block validation before DB update
   - [x] Verify execution log `ai-work/logs/04-shortcode-migrations.log`
 
-- [ ] **Task 4: Classic HTML Block Conversion & CSS Sanitizer (`bin/05-classic-editor-migrations.php`)**
-  - [ ] Create `bin/05-classic-editor-migrations.php`
-  - [ ] Implement HTML element block conversion (`<p>`, `<h1>`-`<h6>`, `<ul>`, `<ol>`, `<table>`, `<blockquote>`)
-  - [ ] Integrate FSE inline CSS allowlist sanitizer
-  - [ ] Add AST block validation before DB update
-  - [ ] Verify execution log `ai-work/logs/05-classic-editor-migrations.log`
+- [x] **Task 4: Classic HTML Block Conversion & CSS Sanitizer (`bin/05-classic-editor-migrations.php`)**
+  - [x] Create `bin/05-classic-editor-migrations.php`
+  - [x] Implement HTML element block conversion (`<p>`, `<h1>`-`<h6>`, `<ul>`, `<ol>`, `<table>`, `<blockquote>`)
+  - [x] Integrate FSE inline CSS allowlist sanitizer
+  - [x] Add AST block validation before DB update
+  - [x] Verify execution log `ai-work/logs/05-classic-editor-migrations.log`
 
 - [ ] **Task 5: Pipeline Orchestration & Cache Flush Ordering (`bin/06-assign-templates-and-menus.sh`)**
   - [ ] Create `bin/06-assign-templates-and-menus.sh` with transient delete & cache flush prior to layout/menu assignments
