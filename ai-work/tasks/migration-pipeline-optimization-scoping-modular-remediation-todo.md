@@ -16,12 +16,12 @@
   - [x] Update `bin/assign-menus.php` with scoping menu IDs (`main-menu`: 13, `en`: 3315, `ar`: 3316, `footer`: 21)
   - [x] Verify menu assignment script execution via WP-CLI
 
-- [ ] **Task 2: Surgical Page-Specific Migration Engine (`bin/03-surgical-migrations.php`)**
-  - [ ] Create `bin/03-surgical-migrations.php`
-  - [ ] Implement slider & gallery conversions using legacy scoping media IDs
-  - [ ] Implement testimonial & VC posts grid query loop conversions
-  - [ ] Add AST block validation before DB update
-  - [ ] Verify execution log `ai-work/logs/03-surgical-migrations.log`
+- [x] **Task 2: Surgical Page-Specific Migration Engine (`bin/03-surgical-migrations.php`)**
+  - [x] Create `bin/03-surgical-migrations.php`
+  - [x] Implement slider & gallery conversions using legacy scoping media IDs
+  - [x] Implement testimonial & VC posts grid query loop conversions
+  - [x] Add AST block validation before DB update
+  - [x] Verify execution log `ai-work/logs/03-surgical-migrations.log`
 
 - [ ] **Task 3: Shortcode Remediation Engine (`bin/04-shortcode-migrations.php`)**
   - [ ] Create `bin/04-shortcode-migrations.php`
