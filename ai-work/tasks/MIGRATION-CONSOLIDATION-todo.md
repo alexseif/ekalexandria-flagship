@@ -32,9 +32,9 @@
   - [x] Add structured metric reporting (`Scanned`, `Converted`, `Skipped`, `Failed`)
   - [x] Verify syntax with `bash -n bin/03-migrate-content.sh` and `php7.4 -l bin/migration-content-engine.php`
 
-- [ ] **Task 4: Legacy Script Cleanup & Preservation Verification**
-  - [ ] Remove deprecated scripts: `ai-work/cleanup-plugins.sh`, `bin/cutover.sh`, `bin/run-phase2-migration.sh`, `bin/run-phase4-migration.sh`
-  - [ ] Verify all scoping JSON files in `ai-work/scopings/` remain intact
+- [x] **Task 4: Legacy Script Cleanup & Preservation Verification**
+  - [x] Remove deprecated scripts: `ai-work/cleanup-plugins.sh`, `bin/cutover.sh`, `bin/run-phase2-migration.sh`, `bin/run-phase4-migration.sh`
+  - [x] Verify all scoping JSON files in `ai-work/scopings/` remain intact
 
 - [ ] **Task 5: Post-Migration PHP 8.2 Upgrade & WP Core Update Documentation**
   - [ ] Document PHP 8.2 web server & CLI switch commands
