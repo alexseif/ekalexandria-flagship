@@ -14,13 +14,13 @@ if (get_post($greek_homepage_id)) {
 }
 
 // Find English & Arabic homepages
-$en_home_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'home-en' OR post_name = 'en' OR post_title LIKE '%Home%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
+$en_home_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'front-en' OR post_name = 'home-en' OR post_name = 'en' OR post_title LIKE '%Home%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
 if ($en_home_id) {
     update_post_meta($en_home_id, '_wp_page_template', 'front-page-en');
     echo "Assigned template 'front-page-en' to English Homepage (ID: $en_home_id)\n";
 }
 
-$ar_home_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'home-ar' OR post_name = 'ar' OR post_title LIKE '%الرئيسية%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
+$ar_home_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'front-ar' OR post_name = 'home-ar' OR post_name = 'ar' OR post_title LIKE '%الرئيسية%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
 if ($ar_home_id) {
     update_post_meta($ar_home_id, '_wp_page_template', 'front-page-ar');
     echo "Assigned template 'front-page-ar' to Arabic Homepage (ID: $ar_home_id)\n";

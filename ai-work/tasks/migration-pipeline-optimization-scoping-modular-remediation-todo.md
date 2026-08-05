@@ -42,6 +42,6 @@
   - [x] Update `bin/03-migrate-content.sh` to run `03` -> `04` -> `05` -> `06` sequentially
   - [x] Test full orchestrator execution
 
-- [ ] **Task 6: End-to-End Pipeline Verification**
-  - [ ] Verify Greek, English, and Arabic homepages load correct templates and menu IDs
-  - [ ] Confirm zero AST validation failures in logs
+- [x] **Task 6: End-to-End Pipeline Verification**
+  - [x] Verify Greek, English, and Arabic homepages load correct templates and menu IDs
+  - [x] Confirm zero AST validation failures in logs
