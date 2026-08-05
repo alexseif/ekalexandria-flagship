@@ -7,13 +7,13 @@
   - [x] Ensure autoloader hash patches and WPBakery nested ternary syntax fix are preserved
   - [x] Verify bash syntax with `bash -n bin/01-reset-env.sh`
 
-- [ ] **Task 2: Implement Theme Activation, CPT Import & Legacy Cleanup (`bin/02-setup-theme-and-plugins.sh`)**
-  - [ ] Create `bin/02-setup-theme-and-plugins.sh`
-  - [ ] Extract CPT migration logic to `bin/migrate-cpts.php` (Tachydromos PDFs & Board Member testimonials)
-  - [ ] Add WP-CLI theme activation for `ekalexandria-flagship`
-  - [ ] Implement legacy plugin deletion with `rm -rf` directory fallback
-  - [ ] Remove legacy drop-ins (`advanced-cache.php`, `object-cache.php`, `cache/`, `w3tc-config/`)
-  - [ ] Verify syntax with `bash -n bin/02-setup-theme-and-plugins.sh` and `php7.4 -l bin/migrate-cpts.php`
+- [x] **Task 2: Implement Theme Activation, CPT Import & Legacy Cleanup (`bin/02-setup-theme-and-plugins.sh`)**
+  - [x] Create `bin/02-setup-theme-and-plugins.sh`
+  - [x] Extract CPT migration logic to `bin/migrate-cpts.php` (Tachydromos PDFs & Board Member testimonials)
+  - [x] Add WP-CLI theme activation for `ekalexandria-flagship`
+  - [x] Implement legacy plugin deletion with `rm -rf` directory fallback
+  - [x] Remove legacy drop-ins (`advanced-cache.php`, `object-cache.php`, `cache/`, `w3tc-config/`)
+  - [x] Verify syntax with `bash -n bin/02-setup-theme-and-plugins.sh` and `php7.4 -l bin/migrate-cpts.php`
 
 - [ ] **Task 3: Consolidate Content Migration Engine (`bin/migration-content-engine.php` & `bin/03-migrate-content.sh`)**
   - [ ] Create `bin/migration-content-engine.php` with modular 6-step transformation handlers:
