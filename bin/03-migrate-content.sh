@@ -23,14 +23,19 @@ echo "Starting Content Transformation & Navigation Assignment: $(date)"
 echo "Target WP Path: $WP_DIR"
 echo "=========================================="
 
+run_eval_script() {
+    local script_name="$1"
+    local full_path="$THEME_DIR/bin/$script_name"
+    if [ ! -f "$full_path" ]; then
+        echo "ERROR: $full_path not found!"
+        exit 1
+    fi
+    php7.4 $(which wp) eval-file "$full_path" --path="$WP_DIR" --allow-root || { echo "ERROR: $script_name execution failed."; exit 1; }
+}
+
 # 1. Execute Content Transformation Engine (Steps 3A - 3F)
 echo "Executing Content Transformation Engine (bin/migration-content-engine.php)..."
-if [ -f "$THEME_DIR/bin/migration-content-engine.php" ]; then
-    php7.4 $(which wp) eval-file "$THEME_DIR/bin/migration-content-engine.php" --path="$WP_DIR" --allow-root || { echo "ERROR: Content engine execution failed."; exit 1; }
-else
-    echo "ERROR: bin/migration-content-engine.php not found!"
-    exit 1
-fi
+run_eval_script "migration-content-engine.php"
 
 # 2. Transient Clean-Up (Step 3G)
 echo "Flushing transient cache..."
@@ -39,12 +44,7 @@ php7.4 $(which wp) transient delete --all --path="$WP_DIR" --allow-root
 
 # 3. Page Template Assignments (Step 3H)
 echo "Assigning FSE Page Templates (bin/assign-page-templates.php)..."
-if [ -f "$THEME_DIR/bin/assign-page-templates.php" ]; then
-    php7.4 $(which wp) eval-file "$THEME_DIR/bin/assign-page-templates.php" --path="$WP_DIR" --allow-root || { echo "ERROR: Page template assignment failed."; exit 1; }
-else
-    echo "ERROR: bin/assign-page-templates.php not found!"
-    exit 1
-fi
+run_eval_script "assign-page-templates.php"
 
 # 4. Navigation Menu Assignments, Footer Seeding & Sidebar Injection (Final Task)
 echo "Assigning navigation menu locations..."
@@ -55,12 +55,7 @@ php7.4 $(which wp) eka seed-footer-menus --path="$WP_DIR" --allow-root >> "$MENU
 
 echo "Executing sidebar navigation menu injection (bin/inject-sidebar-menus.php)..."
 # TODO: Sidebar menu assignment for parent/sub-pages is specified here, but implementation logic is pending in the next phase.
-if [ -f "$THEME_DIR/bin/inject-sidebar-menus.php" ]; then
-    php7.4 $(which wp) eval-file "$THEME_DIR/bin/inject-sidebar-menus.php" --path="$WP_DIR" --allow-root || { echo "ERROR: Sidebar menu injection failed."; exit 1; }
-else
-    echo "ERROR: bin/inject-sidebar-menus.php not found!"
-    exit 1
-fi
+run_eval_script "inject-sidebar-menus.php"
 
 echo "Content transformation & navigation assignment pipeline completed successfully at $(date)!"
 exit 0

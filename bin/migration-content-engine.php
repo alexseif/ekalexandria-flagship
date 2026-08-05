@@ -106,23 +106,19 @@ function step_3a_transform_sliders($content, $post_id) {
         }
     }
 
-    $static_galleries = [
-        7820 => [7821, 7822, 7823],
-        17129 => [7821, 7822, 7823],
-        17133 => [7821, 7822, 7823],
-        7811 => [7813, 7814, 7815],
-        17137 => [7813, 7814, 7815],
-        17139 => [7813, 7814, 7815],
-        3442 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
-        17023 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
-        17027 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
-        17155 => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
-        7756 => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
-        17150 => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
-        7390 => [10328],
-        17018 => [10328],
-        17020 => [10328]
+    $gallery_groups = [
+        ['ids' => [7821, 7822, 7823], 'pages' => [7820, 17129, 17133]],
+        ['ids' => [7813, 7814, 7815], 'pages' => [7811, 17137, 17139]],
+        ['ids' => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673], 'pages' => [3442, 17023, 17027, 17155]],
+        ['ids' => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942], 'pages' => [7756, 17150]],
+        ['ids' => [10328], 'pages' => [7390, 17018, 17020]],
     ];
+    $static_galleries = [];
+    foreach ($gallery_groups as $group) {
+        foreach ($group['pages'] as $pid) {
+            $static_galleries[$pid] = $group['ids'];
+        }
+    }
 
     if (isset($static_galleries[(int)$post_id])) {
         $media_ids = $static_galleries[(int)$post_id];
@@ -321,72 +317,37 @@ function step_3e_transform_residual_shortcodes($content) {
 // Phase 3F: Classic HTML AST Block Conversion & Inline CSS Allowlist
 // ----------------------------------------------------------------------
 function convert_html_elements_to_blocks($html) {
-    $html = preg_replace_callback(
-        '/<h([1-6])(\s+[^>]*)?>(.*?)<\/h\1>/is',
-        function ($matches) {
-            $level = (int)$matches[1];
-            $attrs = isset($matches[2]) ? $matches[2] : '';
-            $inner = $matches[3];
-            $tag_html = clean_html_inline_styles("<h{$level}{$attrs}>{$inner}</h{$level}>");
+    $rules = [
+        '/<h([1-6])(\s+[^>]*)?>(.*?)<\/h\1>/is' => function ($m) {
+            $level = (int)$m[1];
+            $tag_html = clean_html_inline_styles("<h{$level}" . ($m[2] ?? '') . ">{$m[3]}</h{$level}>");
             return "<!-- wp:heading {\"level\":{$level}} -->{$tag_html}<!-- /wp:heading -->";
         },
-        $html
-    );
-
-    $html = preg_replace_callback(
-        '/<ul(\s+[^>]*)?>(.*?)<\/ul>/is',
-        function ($matches) {
-            $attrs = isset($matches[1]) ? $matches[1] : '';
-            $inner = $matches[2];
-            $tag_html = clean_html_inline_styles("<ul{$attrs}>{$inner}</ul>");
+        '/<ul(\s+[^>]*)?>(.*?)<\/ul>/is' => function ($m) {
+            $tag_html = clean_html_inline_styles("<ul" . ($m[1] ?? '') . ">{$m[2]}</ul>");
             return "<!-- wp:list -->{$tag_html}<!-- /wp:list -->";
         },
-        $html
-    );
-
-    $html = preg_replace_callback(
-        '/<ol(\s+[^>]*)?>(.*?)<\/ol>/is',
-        function ($matches) {
-            $attrs = isset($matches[1]) ? $matches[1] : '';
-            $inner = $matches[2];
-            $tag_html = clean_html_inline_styles("<ol{$attrs}>{$inner}</ol>");
+        '/<ol(\s+[^>]*)?>(.*?)<\/ol>/is' => function ($m) {
+            $tag_html = clean_html_inline_styles("<ol" . ($m[1] ?? '') . ">{$m[2]}</ol>");
             return "<!-- wp:list {\"ordered\":true} -->{$tag_html}<!-- /wp:list -->";
         },
-        $html
-    );
-
-    $html = preg_replace_callback(
-        '/<table(\s+[^>]*)?>(.*?)<\/table>/is',
-        function ($matches) {
-            $attrs = isset($matches[1]) ? $matches[1] : '';
-            $inner = $matches[2];
-            $tag_html = clean_html_inline_styles("<table{$attrs}>{$inner}</table>");
+        '/<table(\s+[^>]*)?>(.*?)<\/table>/is' => function ($m) {
+            $tag_html = clean_html_inline_styles("<table" . ($m[1] ?? '') . ">{$m[2]}</table>");
             return "<!-- wp:table --><figure class=\"wp-block-table\">{$tag_html}</figure><!-- /wp:table -->";
         },
-        $html
-    );
-
-    $html = preg_replace_callback(
-        '/<blockquote(\s+[^>]*)?>(.*?)<\/blockquote>/is',
-        function ($matches) {
-            $attrs = isset($matches[1]) ? $matches[1] : '';
-            $inner = $matches[2];
-            $tag_html = clean_html_inline_styles("<blockquote class=\"wp-block-quote\"{$attrs}>{$inner}</blockquote>");
+        '/<blockquote(\s+[^>]*)?>(.*?)<\/blockquote>/is' => function ($m) {
+            $tag_html = clean_html_inline_styles("<blockquote class=\"wp-block-quote\"" . ($m[1] ?? '') . ">{$m[2]}</blockquote>");
             return "<!-- wp:quote -->{$tag_html}<!-- /wp:quote -->";
         },
-        $html
-    );
-
-    $html = preg_replace_callback(
-        '/<p(\s+[^>]*)?>(.*?)<\/p>/is',
-        function ($matches) {
-            $attrs = isset($matches[1]) ? $matches[1] : '';
-            $inner = $matches[2];
-            $tag_html = clean_html_inline_styles("<p{$attrs}>{$inner}</p>");
+        '/<p(\s+[^>]*)?>(.*?)<\/p>/is' => function ($m) {
+            $tag_html = clean_html_inline_styles("<p" . ($m[1] ?? '') . ">{$m[2]}</p>");
             return "<!-- wp:paragraph -->{$tag_html}<!-- /wp:paragraph -->";
         },
-        $html
-    );
+    ];
+
+    foreach ($rules as $pattern => $callback) {
+        $html = preg_replace_callback($pattern, $callback, $html);
+    }
 
     return $html;
 }

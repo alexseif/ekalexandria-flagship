@@ -37,22 +37,17 @@ if (!function_exists('eka_get_db_config')) {
         $config = ['host' => 'localhost', 'user' => 'root', 'pass' => '', 'name' => 'backstage_eka'];
 
         foreach ($possible_paths as $wp_config_path) {
-            if (file_exists($wp_config_path)) {
-                $content = file_get_contents($wp_config_path);
-                if (preg_match("/define\(\s*['\"]DB_NAME['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
-                    $config['name'] = $m[1];
-                }
-                if (preg_match("/define\(\s*['\"]DB_USER['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
-                    $config['user'] = $m[1];
-                }
-                if (preg_match("/define\(\s*['\"]DB_PASSWORD['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
-                    $config['pass'] = $m[1];
-                }
-                if (preg_match("/define\(\s*['\"]DB_HOST['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
-                    $config['host'] = $m[1];
-                }
-                break;
+            if (!file_exists($wp_config_path)) {
+                continue;
             }
+            $content = file_get_contents($wp_config_path);
+            $keys = ['name' => 'DB_NAME', 'user' => 'DB_USER', 'pass' => 'DB_PASSWORD', 'host' => 'DB_HOST'];
+            foreach ($keys as $config_key => $const_name) {
+                if (preg_match("/define\(\s*['\"]" . $const_name . "['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
+                    $config[$config_key] = $m[1];
+                }
+            }
+            break;
         }
 
         return $config;
@@ -74,48 +69,22 @@ if (!function_exists('sanitize_inline_styles_fse')) {
         }
 
         $allowlist = [
-            'flex-basis',
-            'flex-grow',
-            'flex-shrink',
-            'flex-direction',
-            'grid-template-columns',
-            'width',
-            'height',
-            'min-height',
-            'max-width',
-            'aspect-ratio',
-            'object-fit',
-            'vertical-align',
-            'text-align'
+            'flex-basis', 'flex-grow', 'flex-shrink', 'flex-direction',
+            'grid-template-columns', 'width', 'height', 'min-height',
+            'max-width', 'aspect-ratio', 'object-fit', 'vertical-align', 'text-align'
         ];
 
-        $declarations = explode(';', $style_string);
+        $declarations = array_filter(array_map('trim', explode(';', $style_string)));
         $retained = [];
 
         foreach ($declarations as $decl) {
-            $decl = trim($decl);
-            if (empty($decl)) {
-                continue;
-            }
-
-            $parts = explode(':', $decl, 2);
-            if (count($parts) !== 2) {
-                continue;
-            }
-
-            $prop = strtolower(trim($parts[0]));
-            $val = trim($parts[1]);
-
-            if (in_array($prop, $allowlist, true)) {
-                $retained[] = "{$prop}: {$val}";
+            $parts = array_map('trim', explode(':', $decl, 2));
+            if (count($parts) === 2 && in_array(strtolower($parts[0]), $allowlist, true)) {
+                $retained[] = strtolower($parts[0]) . ": {$parts[1]}";
             }
         }
 
-        if (empty($retained)) {
-            return '';
-        }
-
-        return implode('; ', $retained) . ';';
+        return empty($retained) ? '' : implode('; ', $retained) . ';';
     }
 }
 
