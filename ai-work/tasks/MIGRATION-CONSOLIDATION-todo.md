@@ -36,6 +36,6 @@
   - [x] Remove deprecated scripts: `ai-work/cleanup-plugins.sh`, `bin/cutover.sh`, `bin/run-phase2-migration.sh`, `bin/run-phase4-migration.sh`
   - [x] Verify all scoping JSON files in `ai-work/scopings/` remain intact
 
-- [ ] **Task 5: Post-Migration PHP 8.2 Upgrade & WP Core Update Documentation**
-  - [ ] Document PHP 8.2 web server & CLI switch commands
-  - [ ] Document WP core database and plugin update commands
+- [x] **Task 5: Post-Migration PHP 8.2 Upgrade & WP Core Update Documentation**
+  - [x] Document PHP 8.2 web server & CLI switch commands
+  - [x] Document WP core database and plugin update commands
