@@ -37,10 +37,10 @@
   - [x] Add AST block validation before DB update
   - [x] Verify execution log `ai-work/logs/05-classic-editor-migrations.log`
 
-- [ ] **Task 5: Pipeline Orchestration & Cache Flush Ordering (`bin/06-assign-templates-and-menus.sh`)**
-  - [ ] Create `bin/06-assign-templates-and-menus.sh` with transient delete & cache flush prior to layout/menu assignments
-  - [ ] Update `bin/03-migrate-content.sh` to run `03` -> `04` -> `05` -> `06` sequentially
-  - [ ] Test full orchestrator execution
+- [x] **Task 5: Pipeline Orchestration & Cache Flush Ordering (`bin/06-assign-templates-and-menus.sh`)**
+  - [x] Create `bin/06-assign-templates-and-menus.sh` with transient delete & cache flush prior to layout/menu assignments
+  - [x] Update `bin/03-migrate-content.sh` to run `03` -> `04` -> `05` -> `06` sequentially
+  - [x] Test full orchestrator execution
 
 - [ ] **Task 6: End-to-End Pipeline Verification**
   - [ ] Verify Greek, English, and Arabic homepages load correct templates and menu IDs

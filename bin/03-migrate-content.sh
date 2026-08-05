@@ -1,6 +1,6 @@
 #!/bin/bash
 # bin/03-migrate-content.sh
-# Content Transformation & Navigation Assignment Script (Script 3)
+# Master Content Transformation & Navigation Assignment Pipeline
 # Targets: /var/www/backstage.ekalexandria.org (DB: extracted from environment/wp-config.php)
 
 STAGING_DIR="/var/www/backstage.ekalexandria.org"
@@ -8,18 +8,14 @@ WP_DIR="$STAGING_DIR/public"
 THEME_DIR="$WP_DIR/wp-content/themes/ekalexandria-flagship"
 LOG_DIR="$THEME_DIR/ai-work/logs"
 MAIN_LOG="$LOG_DIR/03-migrate-content.log"
-ENGINE_LOG="$LOG_DIR/content-engine.log"
-MENU_LOG="$LOG_DIR/menu-assignments.log"
 
 mkdir -p "$LOG_DIR"
 > "$MAIN_LOG"
-> "$ENGINE_LOG"
-> "$MENU_LOG"
 
 exec > >(tee -a "$MAIN_LOG") 2>&1
 
 echo "=========================================="
-echo "Starting Content Transformation & Navigation Assignment: $(date)"
+echo "Starting Master Migration Content Pipeline: $(date)"
 echo "Target WP Path: $WP_DIR"
 echo "=========================================="
 
@@ -30,31 +26,24 @@ run_eval_script() {
         echo "ERROR: $full_path not found!"
         exit 1
     fi
-    php7.4 $(which wp) eval-file "$full_path" --path="$WP_DIR" --allow-root || { echo "ERROR: $script_name execution failed."; exit 1; }
+    php7.4 $(which wp) eval-file "$full_path" --path="$WP_DIR" || { echo "ERROR: $script_name execution failed."; exit 1; }
 }
 
-# 1. Execute Content Transformation Engine (Steps 3A - 3F)
-echo "Executing Content Transformation Engine (bin/migration-content-engine.php)..."
-run_eval_script "migration-content-engine.php"
+# Step 03: Surgical Migrations
+echo "[Step 03] Executing Surgical Page Migrations (bin/03-surgical-migrations.php)..."
+run_eval_script "03-surgical-migrations.php"
 
-# 2. Transient Clean-Up (Step 3G)
-echo "Flushing transient cache..."
-cd "$WP_DIR" || exit 1
-php7.4 $(which wp) transient delete --all --path="$WP_DIR" --allow-root
+# Step 04: Shortcode Migrations
+echo "[Step 04] Executing Shortcode Migrations (bin/04-shortcode-migrations.php)..."
+run_eval_script "04-shortcode-migrations.php"
 
-# 3. Page Template Assignments (Step 3H)
-echo "Assigning FSE Page Templates (bin/assign-page-templates.php)..."
-run_eval_script "assign-page-templates.php"
+# Step 05: Classic Editor & CSS Sanitizer Migrations
+echo "[Step 05] Executing Classic Editor & CSS Sanitizer Migrations (bin/05-classic-editor-migrations.php)..."
+run_eval_script "05-classic-editor-migrations.php"
 
-echo "Assigning navigation menu locations (bin/assign-menus.php)..."
-run_eval_script "assign-menus.php" >> "$MENU_LOG" 2>&1
+# Step 06: Template & Menu Assignments
+echo "[Step 06] Executing Template & Menu Assignments (bin/06-assign-templates-and-menus.sh)..."
+bash "$THEME_DIR/bin/06-assign-templates-and-menus.sh" || { echo "ERROR: 06-assign-templates-and-menus.sh execution failed."; exit 1; }
 
-echo "Seeding footer navigation posts (bin/seed-footer-menus.php)..."
-run_eval_script "seed-footer-menus.php" >> "$MENU_LOG" 2>&1
-
-echo "Executing sidebar navigation menu injection (bin/inject-sidebar-menus.php)..."
-# TODO: Sidebar menu assignment for parent/sub-pages is specified here, but implementation logic is pending in the next phase.
-run_eval_script "inject-sidebar-menus.php"
-
-echo "Content transformation & navigation assignment pipeline completed successfully at $(date)!"
+echo "Master migration content pipeline completed successfully at $(date)!"
 exit 0
