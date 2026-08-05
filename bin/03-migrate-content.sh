@@ -46,12 +46,11 @@ php7.4 $(which wp) transient delete --all --path="$WP_DIR" --allow-root
 echo "Assigning FSE Page Templates (bin/assign-page-templates.php)..."
 run_eval_script "assign-page-templates.php"
 
-# 4. Navigation Menu Assignments, Footer Seeding & Sidebar Injection (Final Task)
-echo "Assigning navigation menu locations..."
-php7.4 $(which wp) eka assign-menus --path="$WP_DIR" --allow-root >> "$MENU_LOG" 2>&1
+echo "Assigning navigation menu locations (bin/assign-menus.php)..."
+run_eval_script "assign-menus.php" >> "$MENU_LOG" 2>&1
 
-echo "Seeding footer navigation posts..."
-php7.4 $(which wp) eka seed-footer-menus --path="$WP_DIR" --allow-root >> "$MENU_LOG" 2>&1
+echo "Seeding footer navigation posts (bin/seed-footer-menus.php)..."
+run_eval_script "seed-footer-menus.php" >> "$MENU_LOG" 2>&1
 
 echo "Executing sidebar navigation menu injection (bin/inject-sidebar-menus.php)..."
 # TODO: Sidebar menu assignment for parent/sub-pages is specified here, but implementation logic is pending in the next phase.
