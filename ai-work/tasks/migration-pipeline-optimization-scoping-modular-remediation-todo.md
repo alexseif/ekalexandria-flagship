@@ -23,12 +23,12 @@
   - [x] Add AST block validation before DB update
   - [x] Verify execution log `ai-work/logs/03-surgical-migrations.log`
 
-- [ ] **Task 3: Shortcode Remediation Engine (`bin/04-shortcode-migrations.php`)**
-  - [ ] Create `bin/04-shortcode-migrations.php`
-  - [ ] Implement WPBakery `vc_row` / `vc_column` column layout transformations
-  - [ ] Implement `vc_single_image`, `[our_team]`, and `[caption]` transformations
-  - [ ] Add AST block validation before DB update
-  - [ ] Verify execution log `ai-work/logs/04-shortcode-migrations.log`
+- [x] **Task 3: Shortcode Remediation Engine (`bin/04-shortcode-migrations.php`)**
+  - [x] Create `bin/04-shortcode-migrations.php`
+  - [x] Implement WPBakery `vc_row` / `vc_column` column layout transformations
+  - [x] Implement `vc_single_image`, `[our_team]`, and `[caption]` transformations
+  - [x] Add AST block validation before DB update
+  - [x] Verify execution log `ai-work/logs/04-shortcode-migrations.log`
 
 - [ ] **Task 4: Classic HTML Block Conversion & CSS Sanitizer (`bin/05-classic-editor-migrations.php`)**
   - [ ] Create `bin/05-classic-editor-migrations.php`
