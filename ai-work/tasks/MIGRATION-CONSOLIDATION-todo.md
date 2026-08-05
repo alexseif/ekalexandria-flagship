@@ -1,11 +1,11 @@
 # Todo Checklist: Legacy WordPress Migration Strategy & Modular Pipeline Refactoring
 
-- [ ] **Task 1: Refactor Staging Environment Reset Script (`bin/01-reset-env.sh`)**
-  - [ ] Copy and refactor `bin/reset-env.sh` to `bin/01-reset-env.sh`
-  - [ ] Add explicit `--exclude='wp-content/themes/ekalexandria-flagship/***'` to `rsync`
-  - [ ] Truncate log `ai-work/logs/01-reset-env.log` on startup
-  - [ ] Ensure autoloader hash patches and WPBakery nested ternary syntax fix are preserved
-  - [ ] Verify bash syntax with `bash -n bin/01-reset-env.sh`
+- [x] **Task 1: Refactor Staging Environment Reset Script (`bin/01-reset-env.sh`)**
+  - [x] Copy and refactor `bin/reset-env.sh` to `bin/01-reset-env.sh`
+  - [x] Add explicit `--exclude='wp-content/themes/ekalexandria-flagship/***'` to `rsync`
+  - [x] Truncate log `ai-work/logs/01-reset-env.log` on startup
+  - [x] Ensure autoloader hash patches and WPBakery nested ternary syntax fix are preserved
+  - [x] Verify bash syntax with `bash -n bin/01-reset-env.sh`
 
 - [ ] **Task 2: Implement Theme Activation, CPT Import & Legacy Cleanup (`bin/02-setup-theme-and-plugins.sh`)**
   - [ ] Create `bin/02-setup-theme-and-plugins.sh`
