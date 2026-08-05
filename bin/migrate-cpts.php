@@ -236,11 +236,8 @@ function eka_migrate_board_members_cpt($log) {
     $scoping_file = get_template_directory() . '/ai-work/scopings/board-scoping.json';
     $scoping_data = file_exists($scoping_file) ? json_decode(file_get_contents($scoping_file), true) : null;
 
-    $legacy_db = new wpdb('root', '0024', 'db207080_eka', 'localhost');
-    if ($legacy_db->error) {
-        $log("Could not connect to legacy DB db207080_eka.", "WARNING", "Skipping board member CPT migration.");
-        return;
-    }
+    global $wpdb;
+    $legacy_db = $wpdb;
 
     $testimonials = $legacy_db->get_results("SELECT ID, post_title, post_content, menu_order FROM wp_posts WHERE post_type='testimonial' AND post_status='publish'");
     if (empty($testimonials)) {

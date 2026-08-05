@@ -3,6 +3,62 @@
  * Shared Helpers for Gutenberg Migration & FSE Style Sanitization
  */
 
+if (!function_exists('eka_get_db_config')) {
+    /**
+     * Dynamically extracts database credentials from WordPress environment constants,
+     * environment variables, or wp-config.php without hardcoded values.
+     *
+     * @return array Array with keys 'host', 'user', 'pass', 'name'.
+     */
+    function eka_get_db_config() {
+        if (defined('DB_NAME')) {
+            return [
+                'host' => defined('DB_HOST') ? DB_HOST : 'localhost',
+                'user' => defined('DB_USER') ? DB_USER : 'root',
+                'pass' => defined('DB_PASSWORD') ? DB_PASSWORD : '',
+                'name' => DB_NAME,
+            ];
+        }
+
+        if (getenv('DB_NAME')) {
+            return [
+                'host' => getenv('DB_HOST') ?: 'localhost',
+                'user' => getenv('DB_USER') ?: 'root',
+                'pass' => getenv('DB_PASSWORD') ?: '',
+                'name' => getenv('DB_NAME'),
+            ];
+        }
+
+        $possible_paths = [
+            dirname(__DIR__, 3) . '/wp-config.php',
+            '/var/www/backstage.ekalexandria.org/public/wp-config.php',
+        ];
+
+        $config = ['host' => 'localhost', 'user' => 'root', 'pass' => '', 'name' => 'backstage_eka'];
+
+        foreach ($possible_paths as $wp_config_path) {
+            if (file_exists($wp_config_path)) {
+                $content = file_get_contents($wp_config_path);
+                if (preg_match("/define\(\s*['\"]DB_NAME['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
+                    $config['name'] = $m[1];
+                }
+                if (preg_match("/define\(\s*['\"]DB_USER['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
+                    $config['user'] = $m[1];
+                }
+                if (preg_match("/define\(\s*['\"]DB_PASSWORD['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
+                    $config['pass'] = $m[1];
+                }
+                if (preg_match("/define\(\s*['\"]DB_HOST['\"]\s*,\s*['\"]([^'\"]+)['\"]\s*\)/", $content, $m)) {
+                    $config['host'] = $m[1];
+                }
+                break;
+            }
+        }
+
+        return $config;
+    }
+}
+
 if (!function_exists('sanitize_inline_styles_fse')) {
     /**
      * Filters inline CSS against a strict FSE Property Allowlist.

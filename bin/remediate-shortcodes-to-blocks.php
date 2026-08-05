@@ -21,12 +21,8 @@ function log_msg($msg, $level = 'INFO') {
 
 log_msg("Starting Stage 1: Shortcode & WPBakery Gutenberg Transformer Script");
 
-$host = 'localhost';
-$user = 'root';
-$pass = '0024';
-$dbname = 'backstage_eka';
-
-$mysqli = new mysqli($host, $user, $pass, $dbname);
+$db_config = eka_get_db_config();
+$mysqli = new mysqli($db_config['host'], $db_config['user'], $db_config['pass'], $db_config['name']);
 if ($mysqli->connect_error) {
     log_msg("Database connection failed: " . $mysqli->connect_error, "ERROR");
     die("Connection failed: " . $mysqli->connect_error . "\n");
