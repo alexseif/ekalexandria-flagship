@@ -244,14 +244,16 @@ function eka_build_gutenberg_gallery_block($images, $extra_class = 'rev-slider-r
     }
 
     $gallery_attrs = [
+        'columns' => 1,
         'ids' => $image_ids,
         'linkTo' => 'none',
+        'sizeSlug' => 'full',
         'className' => $extra_class,
     ];
     $attrs_json = json_encode($gallery_attrs, JSON_UNESCAPED_SLASHES);
 
     $html = '<!-- wp:gallery ' . $attrs_json . ' -->';
-    $html .= '<figure class="wp-block-gallery has-nested-images columns-default is-cropped ' . $extra_class . '">';
+    $html .= '<figure class="wp-block-gallery has-nested-images columns-1 is-cropped ' . $extra_class . '">';
     $html .= $inner_blocks_html;
     $html .= '</figure>';
     $html .= '<!-- /wp:gallery -->';
@@ -269,6 +271,17 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
         '/<p[^>]*>\s*(\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\])\s*<\/p>/i',
         function ($m) {
             return $m[1];
+        },
+        $content
+    );
+
+    // Upgrade previously converted slider galleries to 1-column full resolution
+    $content = preg_replace_callback(
+        '/<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->\s*<figure class="wp-block-gallery has-nested-images columns-[^\s"]+ is-cropped (rev-slider-replaced|layerslider-replaced)">/i',
+        function ($matches) use ($post_id, $scoping_map, $mysqli) {
+            $class = $matches[1];
+            $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
+            return eka_build_gutenberg_gallery_block($images, $class);
         },
         $content
     );

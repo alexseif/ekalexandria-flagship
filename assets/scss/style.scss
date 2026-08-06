@@ -78,9 +78,13 @@ body,
 
     .wp-block-post,
     .eka-news-card,
-    .wp-block-image {
+    .wp-block-image,
+    figure.wp-block-image {
         position: relative;
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-basis: 100% !important;
+        flex-grow: 1 !important;
         height: 32.375rem;
         overflow: hidden;
         margin: 0 !important;
