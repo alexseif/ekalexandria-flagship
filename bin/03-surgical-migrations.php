@@ -1,4 +1,5 @@
 <?php
+
 /**
  * bin/03-surgical-migrations.php
  * Stage 03: Surgical Page-Specific Migration Engine
@@ -12,7 +13,8 @@ require_once __DIR__ . '/migration-helpers.php';
 $log_file = dirname(__DIR__) . '/ai-work/logs/03-surgical-migrations.log';
 eka_init_log_file($log_file);
 
-function eka_surgical_log($msg, $level = 'INFO') {
+function eka_surgical_log($msg, $level = 'INFO')
+{
     static $log_file = null;
     if ($log_file === null) {
         $log_file = dirname(__DIR__) . '/ai-work/logs/03-surgical-migrations.log';
@@ -52,12 +54,13 @@ $mysqli->set_charset("utf8mb4");
 /**
  * 1. Transform Sliders ([rev_slider], [layerslider]) into Query Loops or Galleries
  */
-function step_3a_transform_sliders($content, $post_id) {
+function step_3a_transform_sliders($content, $post_id)
+{
     if (strpos($content, 'wp:query') !== false || strpos($content, 'wp:gallery') !== false) {
         // Skip if already converted
     }
 
-    $dynamic_pages = [13236, 8934, 16894, 16892, 17194, 17215, 17219, 16920, 16923];
+    $dynamic_pages = [13236, 8934, 16894, 16892, 17194, 17215, 17219, 16920, 16923, 18];
     $query_loop_block = '<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
 <div class="wp-block-query">
 <!-- wp:post-template -->
@@ -99,7 +102,8 @@ function step_3a_transform_sliders($content, $post_id) {
                 '<!-- wp:image {"id":%d,"sizeSlug":"large","linkDestination":"none"} -->
 <figure class="wp-block-image size-large"><img src="" alt="" class="wp-image-%d"/></figure>
 <!-- /wp:image -->',
-                $media_id, $media_id
+                $media_id,
+                $media_id
             );
         }
         $gallery_block .= '</figure>
@@ -139,7 +143,8 @@ function step_3a_transform_sliders($content, $post_id) {
 /**
  * 2. Transform Testimonials ([testimonials]) into Board Member Query Loop
  */
-function step_3b_transform_testimonials($content) {
+function step_3b_transform_testimonials($content)
+{
     if (strpos($content, '[testimonials') === false) {
         return $content;
     }
@@ -163,7 +168,8 @@ function step_3b_transform_testimonials($content) {
 /**
  * 3. Transform [vc_posts_grid] sub-navigation cards
  */
-function step_3c_transform_vc_posts_grid($content) {
+function step_3c_transform_vc_posts_grid($content)
+{
     if (strpos($content, '[vc_posts_grid') === false) {
         return $content;
     }

@@ -28,7 +28,22 @@ echo "Activating ekalexandria-flagship theme..."
 cd "$WP_DIR" || exit 1
 php7.4 $(which wp) theme activate ekalexandria-flagship --path="$WP_DIR" --allow-root || { echo "ERROR: Theme activation failed."; exit 1; }
 
-# 2. Execute CPT Migration (Tachydromos PDFs & Board Member Testimonials)
+# 2. Remove Legacy BeTheme Theme if Present
+echo "Removing legacy BeTheme theme if present..."
+THEME_SLUG="betheme"
+THEME_PATH="$WP_DIR/wp-content/themes/$THEME_SLUG"
+
+if [ -d "$THEME_PATH" ]; then
+    echo "Deleting BeTheme theme via WP-CLI..." | tee -a "$CLEANUP_LOG"
+    php7.4 $(which wp) theme delete "$THEME_SLUG" --path="$WP_DIR" --allow-root >> "$CLEANUP_LOG" 2>&1 || echo "WP-CLI theme delete returned a non-zero exit code; continuing with filesystem cleanup." | tee -a "$CLEANUP_LOG"
+fi
+
+if [ -d "$THEME_PATH" ]; then
+    echo "Removing stale BeTheme theme directory: $THEME_PATH" | tee -a "$CLEANUP_LOG"
+    rm -rf "$THEME_PATH"
+fi
+
+# 3. Execute CPT Migration (Tachydromos PDFs & Board Member Testimonials)
 echo "Executing CPT Migration script (bin/migrate-cpts.php)..."
 if [ -f "$THEME_DIR/bin/migrate-cpts.php" ]; then
     php7.4 $(which wp) eval-file "$THEME_DIR/bin/migrate-cpts.php" --path="$WP_DIR" --allow-root || { echo "WARNING: CPT migration returned non-zero exit code."; }
@@ -93,6 +108,12 @@ done
 # 5. Flush Permalinks and Rewrite Rules
 echo "Flushing rewrite rules post-setup..."
 php7.4 $(which wp) rewrite flush --path="$WP_DIR" --allow-root
+
+# 6. Transient Clean-Up & Cache Flush
+echo "Flushing transient cache and object cache..."
+cd "$WP_DIR" || exit 1
+php7.4 $(which wp) transient delete --all --path="$WP_DIR"
+php7.4 $(which wp) cache flush --path="$WP_DIR"
 
 echo "Theme activation, CPT migration, and legacy plugin cleanup complete successfully at $(date)!"
 exit 0
