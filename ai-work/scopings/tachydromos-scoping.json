@@ -1,12 +1,5 @@
 [
     {
-        "pdf_url": null,
-        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/Newspaper-banner-1024x194.png",
-        "extracted_title": null,
-        "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/Newspaper-banner.png\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/Newspaper-banner-1024x194.png\" alt=\"\" class=\"wp-image-8190\"\/><\/a><\/figure>",
-        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/Newspaper-banner.png"
-    },
-    {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/07\/06-26.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/07\/06-26-724x1024.jpg",
         "extracted_title": "Ιούνιος 2026",
@@ -51,56 +44,56 @@
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/01\/12-25.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/01\/12-25-724x1024.jpg",
-        "extracted_title": "Δεκέμβριος&nbsp;2025",
+        "extracted_title": "Δεκέμβριος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/01\/12-25.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/01\/12-25-724x1024.jpg\" alt=\"Αλεξανδρινός Ταχυδρόμος Δεκέμβριος 2025\" class=\"wp-image-66367\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/01\/12-25.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/01\/Alex-17-b.pdf\">Δεκέμβριος<\/a>&nbsp;2025<\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2026\/01\/12-25.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/12\/11-25.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/12\/11-25-724x1024.jpg",
-        "extracted_title": "Νοέμβριος&nbsp;2025",
+        "extracted_title": "Νοέμβριος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/12\/11-25.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/12\/11-25-724x1024.jpg\" alt=\"\" class=\"wp-image-65885\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/12\/11-25.pdf\">Νοέμβριος&nbsp;2025<\/a><\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/12\/11-25.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/11\/10-2025.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/11\/10-2025-724x1024.jpg",
-        "extracted_title": "Οκτώβριος&nbsp;2025",
+        "extracted_title": "Οκτώβριος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/11\/10-2025.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/11\/10-2025-724x1024.jpg\" alt=\"\" class=\"wp-image-64616\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a>Οκτώβριος&nbsp;2025<\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/11\/10-2025.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/10\/09-2025.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/10\/09-2025-724x1024.jpg",
-        "extracted_title": "Ιούλιος Αύγουστος Σεπτέμβριος&nbsp;2025",
+        "extracted_title": "Ιούλιος Αύγουστος Σεπτέμβριος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/10\/09-2025.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/10\/09-2025-724x1024.jpg\" alt=\"\" class=\"wp-image-62983\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/10\/09-2025.pdf\">Ιούλιος Αύγουστος Σεπτέμβριος&nbsp;2025<\/a><\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/10\/09-2025.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/06\/05-2025.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/06\/05-2025-724x1024.jpg",
-        "extracted_title": "Μάιος&nbsp;2025",
+        "extracted_title": "Μάιος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/06\/05-2025.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/06\/05-2025-724x1024.jpg\" alt=\"\" class=\"wp-image-61621\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/06\/05-2025.pdf\">Μάιος&nbsp;2025<\/a><\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/06\/05-2025.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/07\/06-2025.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/07\/06-2025-724x1024.jpg",
-        "extracted_title": "Ιούνιος&nbsp;2025",
+        "extracted_title": "Ιούνιος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/07\/06-2025.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/07\/06-2025-724x1024.jpg\" alt=\"\" class=\"wp-image-61866\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/07\/06-2025.pdf\">Ιούνιος&nbsp;2025<\/a><\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/07\/06-2025.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/05\/04-2025.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/05\/EKA-04-2025-724x1024.jpg",
-        "extracted_title": "Απρίλιος&nbsp;2025",
+        "extracted_title": "Απρίλιος 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/05\/04-2025.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/05\/EKA-04-2025-724x1024.jpg\" alt=\"\" class=\"wp-image-60682\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/05\/04-2025.pdf\">Απρίλιος&nbsp;2025<\/a><\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/05\/EKA-04-2025.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/04\/Mar-2025.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/04\/Mar-2025-724x1024.jpg",
-        "extracted_title": "Μαρτίου&nbsp;2025",
+        "extracted_title": "Μαρτίου 2025",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/04\/Mar-2025.pdf\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/04\/Mar-2025-724x1024.jpg\" alt=\"\" class=\"wp-image-58812\" title=\"Οκτώβριος 2024\"\/><\/a><figcaption class=\"wp-element-caption\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/04\/Mar-2025.pdf\">Μαρτίου&nbsp;2025<\/a><\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/04\/Mar-2025.jpg"
     },
@@ -245,25 +238,11 @@
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-August.jpg"
     },
     {
-        "pdf_url": null,
-        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-July-724x1024.jpg",
-        "extracted_title": "Ιούλιος 2022",
-        "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-July.jpg\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-July-724x1024.jpg\" alt=\"\" class=\"wp-image-36344\"\/><\/a><figcaption class=\"wp-element-caption\">Ιούλιος 2022<\/figcaption><\/figure>",
-        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-July.jpg"
-    },
-    {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-June.pdf",
         "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-June-724x1024.jpg",
         "extracted_title": "Ιούνιος 2022",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-June.pdf\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-June-724x1024.jpg\" alt=\"\" class=\"wp-image-36347\"\/><\/a><figcaption class=\"wp-element-caption\">Ιούνιος 2022<\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-June.jpg"
-    },
-    {
-        "pdf_url": null,
-        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-May-724x1024.jpg",
-        "extracted_title": "Μάιος 2022",
-        "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-May.jpg\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-May-724x1024.jpg\" alt=\"\" class=\"wp-image-36357\"\/><\/a><figcaption class=\"wp-element-caption\">Μάιος 2022<\/figcaption><\/figure>",
-        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-May.jpg"
     },
     {
         "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/12\/2022-April.pdf",
@@ -285,5 +264,712 @@
         "extracted_title": "Φεβρουάριος 2022",
         "raw_html": "<figure class=\"wp-block-image size-large\"><a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/02\/PREVIEW.pdf\" target=\"_blank\" rel=\"noreferrer noopener\"><img src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/02\/PHOTO-2022-02-16-11-29-41-725x1024.jpg\" alt=\"\" class=\"wp-image-34088\" title=\"\"\/><\/a><figcaption class=\"wp-element-caption\">Φεβρουάριος 2022<\/figcaption><\/figure>",
         "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2022\/02\/PHOTO-2022-02-16-11-29-41.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/12\/2021-12-eka-news.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/12\/2021-12-eka-new-cover-213x300.jpg",
+        "extracted_title": "Δεκέμβριος 2021",
+        "raw_html": "[caption id=\"33397\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/12\/2021-12-eka-news.pdf\"><img class=\"alignleft size-medium wp-image-33397\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/12\/2021-12-eka-new-cover-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Δεκέμβριος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/12\/2021-12-eka-new-cover.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/10\/OCT-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/10\/1-213x300.jpg",
+        "extracted_title": "Οκτώβριος 2021",
+        "raw_html": "[caption id=\"32077\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/10\/OCT-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-32363\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/10\/1-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Οκτώβριος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/10\/1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/SEP-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/1-212x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2021",
+        "raw_html": "[caption id=\"32077\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/SEP-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-32077\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> <br \/>Σεπτέμβριος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/AUG-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/Aug-2021-213x300.jpg",
+        "extracted_title": "Αύγουστος 2021",
+        "raw_html": "[caption id=\"31304\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/AUG-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-32040\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/Aug-2021-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Αύγουστος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/Aug-2021.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/JUL-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/Jul-2021-213x300.jpg",
+        "extracted_title": "Ιούλιος 2021",
+        "raw_html": "[caption id=\"31304\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/JUL-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-32039\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/Jul-2021-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Ιούλιος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/08\/Jul-2021.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/PREVIEW-Jun-2021.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/1-jun-213x300.jpg",
+        "extracted_title": "Ιούνιος 2021",
+        "raw_html": "[caption id=\"31304\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/PREVIEW-Jun-2021.pdf\"><img class=\"alignleft size-medium wp-image-31304\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/1-jun-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Ιούνιος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/1-jun.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/PREVIEW-May-2021.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/1-may-213x300.jpg",
+        "extracted_title": "Μάιος 2021",
+        "raw_html": "[caption id=\"31302\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/PREVIEW-May-2021.pdf\"><img class=\"alignleft size-medium wp-image-31302\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/1-may-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> Μάιος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/06\/1-may.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/01\/JAN-2021.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/01\/JAN-2021-212x300.jpg",
+        "extracted_title": "Ιανουάριος 2021",
+        "raw_html": "[caption id=\"29313\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/01\/JAN-2021.pdf\"><img class=\"alignleft size-medium wp-image-29313\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/01\/JAN-2021-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> <br \/>Ιανουάριος 2021[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2021\/01\/JAN-2021.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/Des2020-Preview.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/DEC-213x300.jpg",
+        "extracted_title": "Δεκέμβριος 2020",
+        "raw_html": "[caption id=\"29062\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/Des2020-Preview.pdf\"><img class=\"alignleft size-medium wp-image-29062\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/DEC-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Δεκέμβριος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/DEC.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/NOV2020-Preview.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/NOV-213x300.jpg",
+        "extracted_title": "Νοέμβριος 2020",
+        "raw_html": "[caption id=\"29064\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/NOV2020-Preview.pdf\"><img class=\"alignleft size-medium wp-image-29064\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/NOV-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Νοέμβριος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/NOV.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/OCT2020-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/OCT-213x300.jpg",
+        "extracted_title": "Οκτώβριος 2020",
+        "raw_html": "[caption id=\"29066\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/OCT2020-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-29066\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/OCT-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Οκτώβριος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/OCT.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/SEP2020-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/SEP-213x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2020",
+        "raw_html": "[caption id=\"29068\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/SEP2020-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-29068\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/SEP-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Σεπτέμβριος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/SEP.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/AUG2020-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/AUG-213x300.jpg",
+        "extracted_title": "Αύγουστος 2020",
+        "raw_html": "[caption id=\"29060\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/AUG2020-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-29060\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/AUG-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Αύγουστος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/AUG.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUL2020-preview.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUL-213x300.jpg",
+        "extracted_title": "Ιούλιος 2018",
+        "raw_html": "[caption id=\"29058\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUL2020-preview.pdf\"><img class=\"alignleft size-medium wp-image-29058\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUL-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Ιούλιος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUL.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUN2020-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUN-213x300.jpg",
+        "extracted_title": "Ιούνιος 2020",
+        "raw_html": "[caption id=\"29054\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUN2020-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-29054\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUN-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> <br \/>Ιούνιος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/JUN.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/MAY2020-PREVIEW.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/MAY-213x300.jpg",
+        "extracted_title": "Μάιος 2020",
+        "raw_html": "[caption id=\"29052\" align=\"alignleft\" width=\"213\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/MAY2020-PREVIEW.pdf\"><img class=\"alignleft size-medium wp-image-29052\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/MAY-213x300.jpg\" alt=\"\" width=\"213\" height=\"300\" \/><\/a> Μάιος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/12\/MAY.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020mar.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020mar-212x300.jpg",
+        "extracted_title": "Μαρτίου 2020",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020mar.pdf\"><img class=\"alignleft size-medium wp-image-27279\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020mar-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαρτίου 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020mar.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020feb.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020feb-212x300.jpg",
+        "extracted_title": "Φεβρουάριος 2020",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020feb.pdf\"><img class=\"alignleft size-medium wp-image-27276\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020feb-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/03\/2020feb.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Jan-2020.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Jan-2020-213x300.jpg",
+        "extracted_title": "Ιανουάριος 2020",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Jan-2020.pdf\"><img class=\"alignleft size-medium wp-image-26966\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Jan-2020-213x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2020[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Jan-2020.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Dec-2019.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Dec-2019-213x300.jpg",
+        "extracted_title": "Δεκέμβριος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Dec-2019.pdf\"><img class=\"alignleft size-medium wp-image-26965\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Dec-2019-213x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2020\/01\/Dec-2019.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/preview-Nov.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/preview-Nov-212x300.png",
+        "extracted_title": "Νοέμβριος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/preview-Nov.pdf\"><img class=\"size-medium wp-image-26407\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/preview-Nov-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Νοέμβριος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/preview-Nov.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/Preview-Oct.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/Preview-Oct-212x300.png",
+        "extracted_title": "Οκτώβριος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/Preview-Oct.pdf\"><img class=\"size-medium wp-image-26405\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/Preview-Oct-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Οκτώβριος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/11\/Preview-Oct.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/sep-2019.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/sep-2019-213x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/sep-2019.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/sep-2019-213x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/sep-2019.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/aug-2019.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/aug-2019-213x300.jpg",
+        "extracted_title": "Αύγουστος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/aug-2019.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/aug-2019-213x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Αύγουστος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/09\/aug-2019.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JULY.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JULY-212x300.jpg",
+        "extracted_title": "Ιούλιος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JULY.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JULY-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούλιος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JULY.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JUNE.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JUNE-212x300.jpg",
+        "extracted_title": "Ιούνιος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JUNE.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JUNE-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/JUNE.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/MAY.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/MAY-212x300.jpg",
+        "extracted_title": "Μαΐου 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/MAY.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/MAY-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαΐου 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/MAY.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/APRIL.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/APRIL-212x300.jpg",
+        "extracted_title": "Απρίλιος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/APRIL.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/APRIL-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Απρίλιος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/07\/APRIL.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/3-digital-copy.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/3-digital-copy.jpeg",
+        "extracted_title": "Μαρτίου 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/3-digital-copy.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/3-digital-copy.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαρτίου 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/3-digital-copy.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/2-digital-copy.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/2-digital-copy.jpeg",
+        "extracted_title": "Φεβρουάριος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/2-digital-copy.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/2-digital-copy.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/2-digital-copy.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/1-digital-copy.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/1-digital-copy.jpeg",
+        "extracted_title": "Ιανουάριος 2019",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/1-digital-copy.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/1-digital-copy.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2019[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/1-digital-copy.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/12-digital-copy.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/12-digital-copy.jpeg",
+        "extracted_title": "Δεκέμβριος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/12-digital-copy.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/12-digital-copy.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/12-digital-copy.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/11-digital-copy.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/11-digital-copy.jpeg",
+        "extracted_title": "Νοέμβριος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/11-digital-copy.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/11-digital-copy.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Νοέμβριος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2019\/03\/11-digital-copy.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/102018.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/102018-212x300.jpeg",
+        "extracted_title": "Οκτώβριος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/102018.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/102018-212x300.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Οκτώβριος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/102018.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/092018.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/092018-212x300.jpeg",
+        "extracted_title": "Σεπτέμβριος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/092018.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/092018-212x300.jpeg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/10\/092018.jpeg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/8.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/8_Page_1-212x300.jpg",
+        "extracted_title": "Αύγουστος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/8.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/8_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Αύγουστος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/8_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/7.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/7_Page_1-212x300.jpg",
+        "extracted_title": "Ιούλιος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/7.pdf\"><img class=\"size-medium wp-image-22050\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/7_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούλιος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/7_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/6.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/6_Page_1-212x300.jpg",
+        "extracted_title": "Ιούνιος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/6.pdf\"><img class=\"size-medium wp-image-22047\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/6_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/6_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/5.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/5_Page_1-212x300.jpg",
+        "extracted_title": "Μαΐου 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/5.pdf\"><img class=\"size-medium wp-image-22045\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/5_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαΐου 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/5_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/4.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/4_Page_1-212x300.jpg",
+        "extracted_title": "Απρίλιος 2018",
+        "raw_html": "[caption id=\"attachment_19332\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/4.pdf\"><img class=\"size-medium wp-image-22043\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/4_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Απρίλιος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/4_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/3.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/3_Page_1-212x300.jpg",
+        "extracted_title": "Μαρτίου 2018",
+        "raw_html": "[caption id=\"attachment_19331\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/3.pdf\"><img class=\"size-medium wp-image-22040\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/3_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαρτίου 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/08\/3_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/2.2018.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/2.2018-212x300.jpg",
+        "extracted_title": "Φεβρουάριος 2018",
+        "raw_html": "[caption id=\"attachment_19330\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/2.2018.pdf\"><img class=\"size-medium wp-image-19330\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/2.2018-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/2.2018.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/1.2018.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/1.2018-212x300.jpg",
+        "extracted_title": "Ιανουάριος 2018",
+        "raw_html": "[caption id=\"attachment_19330\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/1.2018.pdf\"><img class=\"size-medium wp-image-19330\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/1.2018-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2018[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/1.2018.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/12.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/12-1-212x300.jpg",
+        "extracted_title": "Δεκέμβριος 2017",
+        "raw_html": "[caption id=\"attachment_19330\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/12.pdf\"><img class=\"size-medium wp-image-19330\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/12-1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/12-1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/11.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/11-1-212x300.jpg",
+        "extracted_title": "Νοέμβριος 2017",
+        "raw_html": "[caption id=\"attachment_19330\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/11.pdf\"><img class=\"size-medium wp-image-19330\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/11-1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Νοέμβριος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2018\/02\/11-1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2-1.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2_Page_1-212x300.png",
+        "extracted_title": "Σεπτέμβριος 2017",
+        "raw_html": "[caption id=\"attachment_19330\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2-1.pdf\"><img class=\"size-medium wp-image-19330\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2_Page_1-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/Αύγουστος-2017.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2_Page_1-212x300.jpg",
+        "extracted_title": "Αύγουστος 2017",
+        "raw_html": "[caption id=\"attachment_19116\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/Αύγουστος-2017.pdf\"><img class=\"size-medium wp-image-19116\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2_Page_1-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Αύγουστος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy_Page_1-212x300.png",
+        "extracted_title": "Ιούλιος 2017",
+        "raw_html": "[caption id=\"attachment_19115\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy-2.pdf\"><img class=\"size-medium wp-image-19115\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy_Page_1-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούλιος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/digital-copy_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2017\/07\/web-copy.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/web-copy-3-1-212x300.png",
+        "extracted_title": "Ιούνιος 2017",
+        "raw_html": "[caption id=\"attachment_18647\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2017\/07\/web-copy.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"alignnone size-medium wp-image-18878\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/web-copy-3-1-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/web-copy-3-1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2017.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2017_Page_1-211x300.png",
+        "extracted_title": "Μαΐου 2017",
+        "raw_html": "[caption id=\"attachment_18647\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2017.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"alignnone size-medium wp-image-18647\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2017_Page_1-211x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαΐου 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2017_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2017.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2017_Page_1-211x300.png",
+        "extracted_title": "Απρίλιος 2017",
+        "raw_html": "[caption id=\"attachment_11837\" align=\"alignleft\" width=\"212\"]<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2017.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"alignnone size-medium wp-image-17752\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2017_Page_1-211x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Απρίλιος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2017_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/3-2017.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/3-2017_Page_1-212x300.png",
+        "extracted_title": "Μαρτίου 2017",
+        "raw_html": "[caption id=\"attachment_11837\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"03 2017\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/3-2017.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"alignnone size-medium wp-image-17302\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/3-2017_Page_1-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μαρτίου 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/3-2017_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/2-2017.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/2-2017_Page_1-212x300.png",
+        "extracted_title": "Φεβρουάριος 2017",
+        "raw_html": "[caption id=\"attachment_11837\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"02 2017\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/2-2017.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"alignnone size-medium wp-image-16401\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/2-2017_Page_1-212x300.png\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/2-2017_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/1-2017.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/1-2017_Page_1-212x300.png",
+        "extracted_title": "Ιανουάριος 2017",
+        "raw_html": "[caption id=\"attachment_11837\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"01 2017\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/1-2017.pdf\" target=\"_blank\" rel=\"attachment wp-att-11836 noopener noreferrer\"><img class=\"alignnone size-medium wp-image-16012\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/1-2017_Page_1-212x300.png\" alt=\"thumbnail of 01 2017\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2017[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/1-2017_Page_1.png"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2016.pdf",
+        "img_url": null,
+        "extracted_title": "Δεκέμβριος 2016",
+        "raw_html": "[caption id=\"\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Δεκέμβριος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2016.pdf\" target=\"_blank\" rel=\"attachment noopener noreferrer\"><img class=\"size-medium\" title=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2016.pdf\" alt=\"Δεκέμβριος 2016\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2016[\/caption]",
+        "unscaled_img_url": null
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2016.pdf",
+        "img_url": null,
+        "extracted_title": "Νοέμβριος 2016",
+        "raw_html": "[caption id=\"\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Νοέμβριος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2016.pdf\" target=\"_blank\" rel=\"attachment noopener noreferrer\"><img class=\"size-medium\" title=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2016.pdf\" alt=\"Νοέμβριος 2016\" width=\"212\" height=\"300\" \/><\/a> Νοέμβριος 2016[\/caption]",
+        "unscaled_img_url": null
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/10-2016.pdf",
+        "img_url": null,
+        "extracted_title": "Οκτώβριος 2016",
+        "raw_html": "[caption id=\"\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Οκτώβριος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/10-2016.pdf\" target=\"_blank\" rel=\"attachment noopener noreferrer\"><img class=\"size-medium\" title=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/10-2016.pdf\" alt=\"Οκτώβριος 2016\" width=\"212\" height=\"300\" \/><\/a> Οκτώβριος 2016[\/caption]",
+        "unscaled_img_url": null
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/9-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/9-2016_Page_1-212x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2016",
+        "raw_html": "[caption id=\"attachment_14115\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Σεπτέμβριος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/9-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-14114 noopener noreferrer\"><img class=\"wp-image-14115 size-medium\" title=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/9-2016.pdf\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/9-2016_Page_1-212x300.jpg\" alt=\"Σεπτέμβριος 2016\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/9-2016_Page_1.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/08-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/08-2016-pdf-212x300.jpg",
+        "extracted_title": "Αύγουστος 2016",
+        "raw_html": "[caption id=\"attachment_13760\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Αύγουστος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/08-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-13759 noopener noreferrer\"><img class=\"thumb-of-pdf wp-image-13760 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/08-2016-pdf-212x300.jpg\" alt=\"thumbnail of 08 2016\" width=\"212\" height=\"300\" \/><\/a> Αύγουστος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/08-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/07-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/07-2016-pdf-212x300.jpg",
+        "extracted_title": "Ιούλιος 2016",
+        "raw_html": "[caption id=\"attachment_13519\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"07 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/07-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-13518 noopener noreferrer\"><img class=\"thumb-of-pdf wp-image-13519 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/07-2016-pdf-212x300.jpg\" alt=\"thumbnail of 07 2016\" width=\"212\" height=\"300\" \/><\/a> Ιούλιος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/07-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/06-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/06-2016-pdf-212x300.jpg",
+        "extracted_title": "Ιούνιος 2016",
+        "raw_html": "[caption id=\"attachment_13240\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Ιούνιος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/06-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-13239 noopener noreferrer\"><img class=\"thumb-of-pdf wp-image-13240 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/06-2016-pdf-212x300.jpg\" alt=\"Ιούνιος 2016\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/06-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2016-pdf-212x300.jpg",
+        "extracted_title": "Μαΐου 2016",
+        "raw_html": "[caption id=\"attachment_12977\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Μαΐου 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-12976 noopener noreferrer\"><img class=\"thumb-of-pdf wp-image-12977 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2016-pdf-212x300.jpg\" alt=\"Αλεξανδρινός Ταχυδρόμος Μαΐου 2016\" width=\"212\" height=\"300\" \/><\/a> Μαΐου 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/05-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2016-pdf-212x300.jpg",
+        "extracted_title": "⁠Απρίλιος 2016",
+        "raw_html": "[caption id=\"attachment_12664\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Απρίλιος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-12663 noopener noreferrer\"><img class=\"alignnone size-medium wp-image-12664\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2016-pdf-212x300.jpg\" alt=\"Αλεξανδρινός Ταχυδρόμος Απρίλιος 2016\" width=\"212\" height=\"300\" \/><\/a> ⁠Απρίλιος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/04-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/03-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/03-2016-pdf-212x300.jpg",
+        "extracted_title": "⁠Μαρτίου 2016",
+        "raw_html": "[caption id=\"attachment_12339\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Μάρτιος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/03-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-12338 noopener noreferrer\"><img class=\"alignnone size-medium wp-image-12339\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/03-2016-pdf-212x300.jpg\" alt=\"Αλεξανδρινός Ταχυδρόμος Μάρτιος 2016\" width=\"212\" height=\"300\" \/><\/a> ⁠Μαρτίου 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/03-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/02-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/02-2016-pdf-212x300.jpg",
+        "extracted_title": "Φεβρουάριος 2016",
+        "raw_html": "[caption id=\"attachment_12133\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"Φεβρουάριος 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/02-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-12133 noopener noreferrer\"><img class=\"alignnone size-medium wp-image-12134\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/02-2016-pdf-212x300.jpg\" alt=\"Φεβρουάριος 2016\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/02-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/01-2016.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/01-2016-pdf-212x300.jpg",
+        "extracted_title": "Ιανουάριος 2016",
+        "raw_html": "[caption id=\"attachment_11837\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"01 2016\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/01-2016.pdf\" target=\"_blank\" rel=\"attachment wp-att-11836 noopener noreferrer\"><img class=\"alignnone size-medium wp-image-11837\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/01-2016-pdf-212x300.jpg\" alt=\"thumbnail of 01 2016\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2016[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/01-2016-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2015-pdf-212x300.jpg",
+        "extracted_title": "Δεκέμβριος 2015",
+        "raw_html": "[caption id=\"attachment_11532\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"12 2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2015.pdf\" target=\"_blank\" rel=\"attachment wp-att-11531 noopener noreferrer\"><img class=\"wp-image-11532 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2015-pdf-212x300.jpg\" alt=\"Δεκέμβριος 12 2015\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/12-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2015-pdf-212x300.jpg",
+        "extracted_title": "Νοέμβριος 2015",
+        "raw_html": "[caption id=\"attachment_10724\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-11-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2015.pdf\" target=\"_blank\" rel=\"attachment wp-att-10723 noopener noreferrer\"><img class=\"wp-image-10724 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2015-pdf-212x300.jpg\" alt=\"Νοέμβριος 2015\" width=\"212\" height=\"300\" \/><\/a> Νοέμβριος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/11-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-10-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-10-2015-pdf-212x300.jpg",
+        "extracted_title": "Οκτώβριος 2015",
+        "raw_html": "[caption id=\"attachment_10463\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-10-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-10-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-10463 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-10-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Οκτώβριος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-10-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-09-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-09-2015-pdf-212x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2015",
+        "raw_html": "[caption id=\"attachment_10165\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-09-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-09-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-10165 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-09-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-09-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-08-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-08-2015-pdf-212x300.jpg",
+        "extracted_title": "Αύγουστος 2015",
+        "raw_html": "[caption id=\"attachment_8966\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-08-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-08-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"size-medium wp-image-9084\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-08-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Αύγουστος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-08-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-07-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-07-2015-pdf-212x300.jpg",
+        "extracted_title": "Ιούλιος 2015",
+        "raw_html": "[caption id=\"attachment_8966\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-07-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-07-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8966 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-07-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούλιος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-07-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-06-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-06-2015-pdf-212x300.jpg",
+        "extracted_title": "Ιούνιος 2015",
+        "raw_html": "[caption id=\"attachment_8962\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-06-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-06-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8962 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-06-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-06-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-05-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-05-2015-pdf-212x300.jpg",
+        "extracted_title": "Μάιος 2015",
+        "raw_html": "[caption id=\"attachment_8958\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-05-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-05-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8958 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-05-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μάιος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-05-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-04-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-04-2015-pdf-212x300.jpg",
+        "extracted_title": "Απρίλιος 2015",
+        "raw_html": "[caption id=\"attachment_8949\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-04-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-04-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8949 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-04-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Απρίλιος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-04-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-03-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-03-2015-pdf-212x300.jpg",
+        "extracted_title": "Μάρτιος 2015",
+        "raw_html": "[caption id=\"attachment_8947\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-03-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-03-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8947 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-03-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μάρτιος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-03-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-02-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-02-2015-pdf-212x300.jpg",
+        "extracted_title": "Φεβρουάριος 2015",
+        "raw_html": "[caption id=\"attachment_8956\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-02-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-02-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8956 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-02-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-02-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-01-2015.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-01-2015-pdf-212x300.jpg",
+        "extracted_title": "Ιανουάριος 2015",
+        "raw_html": "[caption id=\"attachment_8954\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-01-2015\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-01-2015.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-8954 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-01-2015-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-01-2015-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2014-pdf-212x300.jpg",
+        "extracted_title": "Δεκέμβριος 2014",
+        "raw_html": "[caption id=\"attachment_7626\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7626 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-10-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-10-2014-pdf-212x300.jpg",
+        "extracted_title": "Οκτώβριος 2014",
+        "raw_html": "[caption id=\"attachment_7615\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-10-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-10-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7615 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-10-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Οκτώβριος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-10-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-09-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-09-2014-pdf-212x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2014",
+        "raw_html": "[caption id=\"attachment_7613\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-09-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-09-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7613 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-09-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-09-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-08-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-08-2014-pdf-212x300.jpg",
+        "extracted_title": "Αύγουστος 2014",
+        "raw_html": "[caption id=\"attachment_7611\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-08-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-08-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7611 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-08-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Αύγουστος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-08-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-07-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-07-2014-pdf-212x300.jpg",
+        "extracted_title": "Ιούλιος 2014",
+        "raw_html": "[caption id=\"attachment_7609\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-07-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-07-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7609 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-07-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούλιος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-07-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2014-pdf-212x300.jpg",
+        "extracted_title": "Ιούνιος 2014",
+        "raw_html": "[caption id=\"attachment_7607\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7607 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2014-pdf-212x300.jpg",
+        "extracted_title": "Μάιος 2015",
+        "raw_html": "[caption id=\"attachment_8958\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"size-medium wp-image-9010\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μάιος 2015[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-04-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-04-2014-pdf-212x300.jpg",
+        "extracted_title": "Απρίλιος 2014",
+        "raw_html": "[caption id=\"attachment_7598\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-04-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-04-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7598 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-04-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Απρίλιος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-04-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2014-pdf-212x300.jpg",
+        "extracted_title": "Μάρτιος 2014",
+        "raw_html": "[caption id=\"attachment_7596\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"size-medium wp-image-9007\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μάρτιος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/06\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2014-pdf-212x300.jpg",
+        "extracted_title": "Φεβρουάριος 2014",
+        "raw_html": "[caption id=\"attachment_7592\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7592 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2014.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2014-pdf-212x300.jpg",
+        "extracted_title": "Ιανουάριος 2014",
+        "raw_html": "[caption id=\"attachment_7588\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2014.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7588 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2014[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2013-pdf-212x300.jpg",
+        "extracted_title": "Δεκέμβριος 2013",
+        "raw_html": "[caption id=\"attachment_7622\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7622 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-11-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-11-2013-pdf-212x300.jpg",
+        "extracted_title": "Νοέμβριος 2013",
+        "raw_html": "[caption id=\"attachment_7617\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-11-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-11-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7617 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-11-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Νοέμβριος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-11-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-10-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-10-2014-pdf-212x300.jpg",
+        "extracted_title": "Οκτώβριος 2013",
+        "raw_html": "[caption id=\"attachment_7631\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-10-2014\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-10-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7631 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-10-2014-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Οκτώβριος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-10-2014-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-09-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-09-2013-pdf-212x300.jpg",
+        "extracted_title": "Σεπτέμβριος 2013",
+        "raw_html": "[caption id=\"attachment_7628\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-09-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-09-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7628 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-09-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Σεπτέμβριος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-28-09-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2013-pdf-212x300.jpg",
+        "extracted_title": "Ιούνιος 2013",
+        "raw_html": "[caption id=\"attachment_7604\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7604 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιούνιος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-06-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2013-pdf-212x300.jpg",
+        "extracted_title": "Μάιος 2013",
+        "raw_html": "[caption id=\"attachment_7600\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7600 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μάιος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-05-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-30-04-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-30-04-2013-pdf-212x300.jpg",
+        "extracted_title": "Απρίλιος 2013",
+        "raw_html": "[caption id=\"attachment_7633\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-30-04-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-30-04-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7633 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-30-04-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Απρίλιος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-30-04-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2013-pdf-212x300.jpg",
+        "extracted_title": "Μάρτιος 2013",
+        "raw_html": "[caption id=\"attachment_7594\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7594 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Μάρτιος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-03-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2013-pdf-212x300.jpg",
+        "extracted_title": "Φεβρουάριος 2013",
+        "raw_html": "[caption id=\"attachment_7590\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7590 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Φεβρουάριος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-02-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2013.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2013-pdf-212x300.jpg",
+        "extracted_title": "Ιανουάριος 2013",
+        "raw_html": "[caption id=\"attachment_7586\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2013\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2013.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7586 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2013-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Ιανουάριος 2013[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-01-2013-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2012.pdf",
+        "img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2012-pdf-212x300.jpg",
+        "extracted_title": "Δεκέμβριος 2012",
+        "raw_html": "[caption id=\"attachment_7620\" align=\"alignleft\" width=\"212\"]<a class=\"link-to-pdf\" title=\"ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2012\" href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2012.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><img class=\"wp-image-7620 size-medium\" src=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2012-pdf-212x300.jpg\" alt=\"\" width=\"212\" height=\"300\" \/><\/a> Δεκέμβριος 2012[\/caption]",
+        "unscaled_img_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2015\/07\/ΑΛΕΞΑΝΔΡΙΝΟΣ-ΤΑΧΥΔΡΟΜΟΣ-22-12-2012-pdf.jpg"
+    },
+    {
+        "pdf_url": "https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf",
+        "img_url": null,
+        "extracted_title": "",
+        "raw_html": "<a href=\"https:\/\/ekalexandria.org\/wp-content\/uploads\/2025\/02\/Jan-2025.pdf\"><\/a>",
+        "unscaled_img_url": null
     }
 ]
