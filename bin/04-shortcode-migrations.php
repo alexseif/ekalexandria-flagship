@@ -342,7 +342,7 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
         '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
         function ($matches) {
             $img_id = isset($matches[1]) ? (int)$matches[1] : 0;
-            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt="" class="wp-image-' . $img_id . '"/></figure><!-- /wp:image -->';
+            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
         },
         $content
     );
@@ -357,11 +357,13 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
 
             if (preg_match('/(<img[^>]+>)(.*)/is', $inner, $img_matches)) {
                 $img_tag = $img_matches[1];
+                $img_tag = preg_replace('/\s+(class|width|height)=(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $img_tag);
                 $caption_text = trim(strip_tags($img_matches[2]));
                 return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image">' . $img_tag . '<figcaption>' . htmlspecialchars($caption_text, ENT_QUOTES, 'UTF-8') . '</figcaption></figure><!-- /wp:image -->';
             }
 
-            return '<!-- wp:image --><figure class="wp-block-image">' . $inner . '</figure><!-- /wp:image -->';
+            $inner_clean = preg_replace('/\s+(class|width|height)=(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $inner);
+            return '<!-- wp:image --><figure class="wp-block-image">' . $inner_clean . '</figure><!-- /wp:image -->';
         },
         $content
     );
