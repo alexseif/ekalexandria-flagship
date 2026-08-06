@@ -18,14 +18,13 @@ exec > >(tee -a "$MAIN_LOG") 2>&1
 
 usage() {
     cat <<'EOF'
-Usage: ./03-migrate-content.sh [--step 3|4|5|6] [--step 3 ...] [--help]
+Usage: ./03-migrate-content.sh [--step 3|4|5] [--step 3 ...] [--help]
 
 Runs the content-specific migration stages independently so each can be debugged in isolation.
-- Without flags, runs steps 3, 4, 5, and 6 in order.
+- Without flags, runs steps 3, 4, and 5 in order.
 - Use --step 3 to run only the surgical page migration stage.
 - Use --step 4 to run only the shortcode remediation stage.
 - Use --step 5 to run only the classic editor / HTML conversion stage.
-- Use --step 6 to run only the template and menu assignment stage.
 EOF
 }
 
@@ -72,13 +71,6 @@ run_stage() {
                 exit 1
             fi
             ;;
-        6)
-            echo "[Step 06] Executing template and menu assignments (bin/06-assign-templates-and-menus.sh)..."
-            if ! bash "$THEME_DIR/bin/06-assign-templates-and-menus.sh" 2>&1 | tee -a "$step_log"; then
-                echo "ERROR: Step 06 failed."
-                exit 1
-            fi
-            ;;
         *)
             echo "ERROR: Unsupported step '$step'."
             usage
@@ -114,7 +106,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ ${#SELECTED_STEPS[@]} -eq 0 ]; then
-    SELECTED_STEPS=(3 4 5 6)
+    SELECTED_STEPS=(3 4 5)
 fi
 
 echo "=========================================="

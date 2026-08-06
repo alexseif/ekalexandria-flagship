@@ -1,4 +1,5 @@
 <?php
+
 /**
  * bin/05-classic-editor-migrations.php
  * Stage 05: Classic HTML Block Conversion & CSS Sanitizer Engine
@@ -12,7 +13,8 @@ require_once __DIR__ . '/migration-helpers.php';
 $log_file = dirname(__DIR__) . '/ai-work/logs/05-classic-editor-migrations.log';
 eka_init_log_file($log_file);
 
-function eka_classic_log($msg, $level = 'INFO') {
+function eka_classic_log($msg, $level = 'INFO')
+{
     static $log_file = null;
     if ($log_file === null) {
         $log_file = dirname(__DIR__) . '/ai-work/logs/05-classic-editor-migrations.log';
@@ -49,7 +51,8 @@ $mysqli->set_charset("utf8mb4");
 // HTML & FSE CSS Helper Functions
 // ----------------------------------------------------------------------
 
-function clean_html_inline_styles($html) {
+function clean_html_inline_styles($html)
+{
     return preg_replace_callback(
         '/\s+style=["\']([^"\']*)["\']/i',
         function ($matches) {
@@ -64,7 +67,13 @@ function clean_html_inline_styles($html) {
     );
 }
 
-function convert_html_elements_to_blocks($html) {
+function eka_has_classic_html_markup($content)
+{
+    return preg_match('/<(p|h[1-6]|ul|ol|table|blockquote)\b/i', $content) === 1;
+}
+
+function convert_html_elements_to_blocks($html)
+{
     $rules = [
         '/<h([1-6])(\s+[^>]*)?>(.*?)<\/h\1>/is' => function ($m) {
             $level = (int)$m[1];
@@ -103,7 +112,8 @@ function convert_html_elements_to_blocks($html) {
 /**
  * Split content into existing block tokens vs non-block HTML, converting non-block elements.
  */
-function step_5a_process_classic_html($content) {
+function step_5a_process_classic_html($content)
+{
     if (empty(trim($content))) {
         return $content;
     }
@@ -155,6 +165,11 @@ $failed_post_ids = [];
 while ($row = $res->fetch_assoc()) {
     $id = (int)$row['ID'];
     $original_content = $row['post_content'];
+
+    if (!eka_has_classic_html_markup($original_content)) {
+        $skipped_count++;
+        continue;
+    }
 
     // Apply Stage 05 classic HTML conversion
     $content = step_5a_process_classic_html($original_content);

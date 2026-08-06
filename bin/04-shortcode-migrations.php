@@ -1,4 +1,5 @@
 <?php
+
 /**
  * bin/04-shortcode-migrations.php
  * Stage 04: Shortcode Remediation Engine
@@ -12,7 +13,8 @@ require_once __DIR__ . '/migration-helpers.php';
 $log_file = dirname(__DIR__) . '/ai-work/logs/04-shortcode-migrations.log';
 eka_init_log_file($log_file);
 
-function eka_shortcode_log($msg, $level = 'INFO') {
+function eka_shortcode_log($msg, $level = 'INFO')
+{
     static $log_file = null;
     if ($log_file === null) {
         $log_file = dirname(__DIR__) . '/ai-work/logs/04-shortcode-migrations.log';
@@ -49,7 +51,8 @@ $mysqli->set_charset("utf8mb4");
 // Shortcode Transformation Functions
 // ----------------------------------------------------------------------
 
-function parse_fraction_width($width_str) {
+function parse_fraction_width($width_str)
+{
     $width_str = trim($width_str);
     if (empty($width_str)) {
         return '100%';
@@ -70,9 +73,10 @@ function parse_fraction_width($width_str) {
 }
 
 /**
- * Structural WPBakery (vc_row, vc_column, vc_single_image) & Caption Transformations
+ * Structural WPBakery (vc_row, vc_column, vc_single_image), caption, and slider fallback transformations.
  */
-function step_4a_transform_wpbakery_and_caption($content) {
+function step_4a_transform_wpbakery_and_caption($content)
+{
     // 1. vc_row
     $content = preg_replace('/\[vc_row[^\]]*\]/i', '<!-- wp:columns --><div class="wp-block-columns">', $content);
     $content = preg_replace('/\[\/vc_row\]/i', '</div><!-- /wp:columns -->', $content);
@@ -118,21 +122,108 @@ function step_4a_transform_wpbakery_and_caption($content) {
         $content
     );
 
+    $content = preg_replace_callback(
+        '/\[(?:rev_slider|rev_slider_vc)\s+(?:(?:alias|title|id)=["\']([^"\']+)["\']|([a-zA-Z0-9_-]+))[^
+]*\]/i',
+        function ($matches) {
+            $alias = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
+            $alias = htmlspecialchars($alias, ENT_QUOTES, 'UTF-8');
+            return '<!-- wp:gallery {"className":"rev-slider-replaced"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped rev-slider-replaced"><!-- wp:paragraph --><p>Slider: ' . $alias . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
+        },
+        $content
+    );
+
+    $content = preg_replace_callback(
+        '/\[layerslider\s+(?:(?:id|title)=["\']([^"\']+)["\']|([a-zA-Z0-9_-]+))[^
+]*\]/i',
+        function ($matches) {
+            $id = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
+            $id = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
+            return '<!-- wp:gallery {"className":"layerslider-replaced"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped layerslider-replaced"><!-- wp:paragraph --><p>LayerSlider ID: ' . $id . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
+        },
+        $content
+    );
+
     return $content;
 }
 
 /**
- * Residual Shortcode Clean-Up & Html Block Wrapping
+ * Testimonials ([testimonials]) into Board Member Query Loop.
  */
-function step_4b_transform_residual_shortcodes($content) {
+function step_4b_transform_testimonials($content)
+{
+    if (strpos($content, '[testimonials') === false) {
+        return $content;
+    }
+
+    $board_query = '<!-- wp:query {"queryId":2,"query":{"perPage":50,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":false} /-->
+<!-- wp:post-title {"level":3} /-->
+<!-- wp:post-content /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->';
+
+    $content = preg_replace('/<!-- wp:shortcode -->\s*\[testimonials[^\]]*\]\s*<!-- \/wp:shortcode -->/is', $board_query, $content);
+    $content = preg_replace('/\[testimonials[^\]]*\]/is', $board_query, $content);
+
+    return $content;
+}
+
+/**
+ * Transform [vc_posts_grid] sub-navigation cards.
+ */
+function step_4c_transform_vc_posts_grid($content)
+{
+    if (strpos($content, '[vc_posts_grid') === false) {
+        return $content;
+    }
+
+    if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
+        $ids = array_map('intval', explode(',', $matches[1]));
+        $include_json = json_encode($ids);
+
+        $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":true} /-->
+<!-- wp:post-title {"isLink":true,"level":3} /-->
+<!-- wp:post-excerpt /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->';
+
+        $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
+        $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
+    } else {
+        $content = preg_replace_callback(
+            '/\[vc_posts_grid[^\]]*\]/i',
+            function ($matches) {
+                return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
+            },
+            $content
+        );
+    }
+
+    return $content;
+}
+
+/**
+ * Residual Shortcode Logging for Analysis
+ */
+function step_4d_transform_residual_shortcodes($content)
+{
     $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
     $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
     $ignored_tags = ['wp', 'caption', 'vc_row', 'vc_column', 'vc_column_text', 'vc_single_image', 'vc_raw_html', 'our_team', 'rev_slider', 'rev_slider_vc', 'layerslider', 'testimonials', 'vc_posts_grid'];
+    $residual_tags = [];
 
     $content = preg_replace_callback(
         '/\[([a-zA-Z0-9_]+)([^\]]*)\](?:(.*?)\[\/\1\])?/s',
-        function ($matches) use ($ignored_tags) {
+        function ($matches) use ($ignored_tags, &$residual_tags) {
             $tag = strtolower($matches[1]);
             if (in_array($tag, $ignored_tags, true)) {
                 return $matches[0];
@@ -140,12 +231,17 @@ function step_4b_transform_residual_shortcodes($content) {
             if (in_array($tag, ['endif', 'if', 'the', 'general', 'this', 'list', 'in', 'it', 'on', 'was', 'who', 'f'], true)) {
                 return $matches[0];
             }
-
-            $raw_shortcode = $matches[0];
-            return '<!-- wp:html -->' . $raw_shortcode . '<!-- /wp:html -->';
+            if (!in_array($tag, $residual_tags, true)) {
+                $residual_tags[] = $tag;
+            }
+            return $matches[0];
         },
         $content
     );
+
+    if (!empty($residual_tags)) {
+        eka_shortcode_log('Residual shortcodes detected: ' . implode(', ', $residual_tags), 'WARNING');
+    }
 
     return $content;
 }
@@ -174,9 +270,11 @@ while ($row = $res->fetch_assoc()) {
     $id = (int)$row['ID'];
     $original_content = $row['post_content'];
 
-    // Apply shortcode transformations: 4a -> 4b
+    // Apply shortcode transformations in a staged sequence.
     $content = step_4a_transform_wpbakery_and_caption($original_content);
-    $content = step_4b_transform_residual_shortcodes($content);
+    $content = step_4b_transform_testimonials($content);
+    $content = step_4c_transform_vc_posts_grid($content);
+    $content = step_4d_transform_residual_shortcodes($content);
 
     if ($content === $original_content) {
         $skipped_count++;

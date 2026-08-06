@@ -140,69 +140,6 @@ function step_3a_transform_sliders($content, $post_id)
     return $content;
 }
 
-/**
- * 2. Transform Testimonials ([testimonials]) into Board Member Query Loop
- */
-function step_3b_transform_testimonials($content)
-{
-    if (strpos($content, '[testimonials') === false) {
-        return $content;
-    }
-
-    $board_query = '<!-- wp:query {"queryId":2,"query":{"perPage":50,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
-<div class="wp-block-query">
-<!-- wp:post-template -->
-<!-- wp:post-featured-image {"isLink":false} /-->
-<!-- wp:post-title {"level":3} /-->
-<!-- wp:post-content /-->
-<!-- /wp:post-template -->
-</div>
-<!-- /wp:query -->';
-
-    $content = preg_replace('/<!-- wp:shortcode -->\s*\[testimonials[^\]]*\]\s*<!-- \/wp:shortcode -->/is', $board_query, $content);
-    $content = preg_replace('/\[testimonials[^\]]*\]/is', $board_query, $content);
-
-    return $content;
-}
-
-/**
- * 3. Transform [vc_posts_grid] sub-navigation cards
- */
-function step_3c_transform_vc_posts_grid($content)
-{
-    if (strpos($content, '[vc_posts_grid') === false) {
-        return $content;
-    }
-
-    if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
-        $ids = array_map('intval', explode(',', $matches[1]));
-        $include_json = json_encode($ids);
-
-        $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
-<div class="wp-block-query">
-<!-- wp:post-template -->
-<!-- wp:post-featured-image {"isLink":true} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt /-->
-<!-- /wp:post-template -->
-</div>
-<!-- /wp:query -->';
-
-        $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
-        $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
-    } else {
-        // Fallback for non-by_id vc_posts_grid tags
-        $content = preg_replace_callback(
-            '/\[vc_posts_grid[^\]]*\]/i',
-            function ($matches) {
-                return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
-            },
-            $content
-        );
-    }
-
-    return $content;
-}
 
 // ----------------------------------------------------------------------
 // Main Transformation Pipeline Execution for Stage 03
@@ -228,10 +165,8 @@ while ($row = $res->fetch_assoc()) {
     $id = (int)$row['ID'];
     $original_content = $row['post_content'];
 
-    // Apply surgical transformations: 3a -> 3b -> 3c
+    // Apply surgical transformations focused on dynamic slider replacements.
     $content = step_3a_transform_sliders($original_content, $id);
-    $content = step_3b_transform_testimonials($content);
-    $content = step_3c_transform_vc_posts_grid($content);
 
     if ($content === $original_content) {
         $skipped_count++;
