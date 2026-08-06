@@ -1,7 +1,9 @@
 #!/bin/bash
 # bin/03-migrate-content.sh
-# Master Content Transformation & Navigation Assignment Pipeline
+# Surgical content migration orchestrator for debugging and controlled re-runs.
 # Targets: /var/www/backstage.ekalexandria.org (DB: extracted from environment/wp-config.php)
+
+set -euo pipefail
 
 STAGING_DIR="/var/www/backstage.ekalexandria.org"
 WP_DIR="$STAGING_DIR/public"
@@ -10,14 +12,22 @@ LOG_DIR="$THEME_DIR/ai-work/logs"
 MAIN_LOG="$LOG_DIR/03-migrate-content.log"
 
 mkdir -p "$LOG_DIR"
-> "$MAIN_LOG"
+: > "$MAIN_LOG"
 
 exec > >(tee -a "$MAIN_LOG") 2>&1
 
-echo "=========================================="
-echo "Starting Master Migration Content Pipeline: $(date)"
-echo "Target WP Path: $WP_DIR"
-echo "=========================================="
+usage() {
+    cat <<'EOF'
+Usage: ./03-migrate-content.sh [--step 3|4|5|6] [--step 3 ...] [--help]
+
+Runs the content-specific migration stages independently so each can be debugged in isolation.
+- Without flags, runs steps 3, 4, 5, and 6 in order.
+- Use --step 3 to run only the surgical page migration stage.
+- Use --step 4 to run only the shortcode remediation stage.
+- Use --step 5 to run only the classic editor / HTML conversion stage.
+- Use --step 6 to run only the template and menu assignment stage.
+EOF
+}
 
 run_eval_script() {
     local script_name="$1"
@@ -26,24 +36,95 @@ run_eval_script() {
         echo "ERROR: $full_path not found!"
         exit 1
     fi
-    php7.4 $(which wp) eval-file "$full_path" --path="$WP_DIR" || { echo "ERROR: $script_name execution failed."; exit 1; }
+
+    echo "Running $script_name"
+    php7.4 "$(which wp)" eval-file "$full_path" --path="$WP_DIR"
 }
 
-# Step 03: Surgical Migrations
-echo "[Step 03] Executing Surgical Page Migrations (bin/03-surgical-migrations.php)..."
-run_eval_script "03-surgical-migrations.php"
+run_stage() {
+    local step="$1"
+    local step_log="$LOG_DIR/03-migrate-content-step-${step}.log"
 
-# Step 04: Shortcode Migrations
-echo "[Step 04] Executing Shortcode Migrations (bin/04-shortcode-migrations.php)..."
-run_eval_script "04-shortcode-migrations.php"
+    : > "$step_log"
+    echo "=========================================="
+    echo "Starting Step ${step}: $(date)"
+    echo "=========================================="
 
-# Step 05: Classic Editor & CSS Sanitizer Migrations
-echo "[Step 05] Executing Classic Editor & CSS Sanitizer Migrations (bin/05-classic-editor-migrations.php)..."
-run_eval_script "05-classic-editor-migrations.php"
+    case "$step" in
+        3)
+            echo "[Step 03] Executing surgical page migrations (bin/03-surgical-migrations.php)..."
+            if ! run_eval_script "03-surgical-migrations.php" 2>&1 | tee -a "$step_log"; then
+                echo "ERROR: Step 03 failed."
+                exit 1
+            fi
+            ;;
+        4)
+            echo "[Step 04] Executing shortcode migrations (bin/04-shortcode-migrations.php)..."
+            if ! run_eval_script "04-shortcode-migrations.php" 2>&1 | tee -a "$step_log"; then
+                echo "ERROR: Step 04 failed."
+                exit 1
+            fi
+            ;;
+        5)
+            echo "[Step 05] Executing classic editor / HTML conversions (bin/05-classic-editor-migrations.php)..."
+            if ! run_eval_script "05-classic-editor-migrations.php" 2>&1 | tee -a "$step_log"; then
+                echo "ERROR: Step 05 failed."
+                exit 1
+            fi
+            ;;
+        6)
+            echo "[Step 06] Executing template and menu assignments (bin/06-assign-templates-and-menus.sh)..."
+            if ! bash "$THEME_DIR/bin/06-assign-templates-and-menus.sh" 2>&1 | tee -a "$step_log"; then
+                echo "ERROR: Step 06 failed."
+                exit 1
+            fi
+            ;;
+        *)
+            echo "ERROR: Unsupported step '$step'."
+            usage
+            exit 1
+            ;;
+    esac
 
-# Step 06: Template & Menu Assignments
-echo "[Step 06] Executing Template & Menu Assignments (bin/06-assign-templates-and-menus.sh)..."
-bash "$THEME_DIR/bin/06-assign-templates-and-menus.sh" || { echo "ERROR: 06-assign-templates-and-menus.sh execution failed."; exit 1; }
+    echo "Step ${step} completed successfully."
+}
 
-echo "Master migration content pipeline completed successfully at $(date)!"
+SELECTED_STEPS=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --step)
+            if [[ $# -lt 2 ]]; then
+                echo "ERROR: --step requires a value."
+                usage
+                exit 1
+            fi
+            SELECTED_STEPS+=("$2")
+            shift 2
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "ERROR: Unknown argument '$1'."
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+if [ ${#SELECTED_STEPS[@]} -eq 0 ]; then
+    SELECTED_STEPS=(3 4 5 6)
+fi
+
+echo "=========================================="
+echo "Starting surgical migration pipeline: $(date)"
+echo "Target WP Path: $WP_DIR"
+echo "=========================================="
+
+for step in "${SELECTED_STEPS[@]}"; do
+    run_stage "$step"
+done
+
+echo "Surgical migration pipeline completed successfully at $(date)!"
 exit 0
