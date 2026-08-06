@@ -14,8 +14,8 @@
   - [x] Ensure fallback markup passes `eka_validate_blocks_ast()`.
   - Verification: Test block conversion output against AST validator.
 
-- [ ] **Task 3: Execute Migration Pipeline & Audit Post ID 32**
-  - [ ] Run `php public/wp-content/themes/ekalexandria-flagship/bin/04-shortcode-migrations.php`.
-  - [ ] Run `wp post get 32 --field=post_content --path=public/wordpress` to verify attachment `13369` (`HR.png`) is in `wp:gallery` -> `wp:image`.
-  - [ ] Inspect `public/wp-content/themes/ekalexandria-flagship/ai-work/logs/04-shortcode-migrations.log` to confirm 0 AST validation failures.
+- [x] **Task 3: Execute Migration Pipeline & Audit Post ID 32**
+  - [x] Run `php public/wp-content/themes/ekalexandria-flagship/bin/04-shortcode-migrations.php`.
+  - [x] Run `wp post get 32 --field=post_content --path=public/wordpress` to verify attachment `13369` (`HR.png`) is in `wp:gallery` -> `wp:image`.
+  - [x] Inspect `public/wp-content/themes/ekalexandria-flagship/ai-work/logs/04-shortcode-migrations.log` to confirm 0 AST validation failures.
   - Verification: Clean pipeline execution with zero errors and accurate block output.
