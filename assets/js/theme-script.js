@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
     // 1. Carousel Slider Implementation
-    const carousels = document.querySelectorAll('.eka-news-carousel');
+    const carousels = document.querySelectorAll('.eka-news-carousel, .rev-slider-replaced, .layerslider-replaced, .is-style-legacy-slider');
     carousels.forEach(carousel => {
-        const list = carousel.querySelector('.wp-block-post-template') || carousel.querySelector('.eka-news-list');
+        const list = carousel.querySelector('.wp-block-post-template') || carousel.querySelector('.eka-news-list') || carousel;
         if (!list) return;
 
-        const items = Array.from(list.children).filter(child => child.matches('.wp-block-post, .eka-news-card, li'));
-        if (items.length <= 1) return;
+        const items = Array.from(list.children).filter(child => child.matches('.wp-block-post, .eka-news-card, .wp-block-image, li, figure'));
+        if (items.length < 1) return;
 
         let currentIndex = 0;
         const totalItems = items.length;
+
+        if (carousel.querySelector('.eka-carousel-controls')) return;
 
         // Create Navigation Controls
         const navContainer = document.createElement('div');
@@ -29,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dotsContainer.className = 'eka-carousel-dots';
 
         items.forEach((item, idx) => {
-            const img = item.querySelector('img');
+            const img = item.querySelector('img') || (item.tagName === 'IMG' ? item : null);
             if (img) {
                 const imgSrc = img.currentSrc || img.src;
                 if (imgSrc) {

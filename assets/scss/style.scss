@@ -57,13 +57,17 @@ body,
     }
 }
 
-/* --- News Carousel Slider Styling --- */
-.eka-news-carousel {
+/* --- News & Gallery Carousel Slider Styling --- */
+.eka-news-carousel,
+.wp-block-gallery.rev-slider-replaced,
+.wp-block-gallery.layerslider-replaced,
+.wp-block-gallery.is-style-legacy-slider {
     position: relative;
     margin: 1.5625rem 0 2.5rem 0;
     overflow: hidden;
     padding: 0 !important;
     width: 100%;
+    display: block !important;
 
     .wp-block-post-template,
     .eka-news-list {
@@ -73,7 +77,8 @@ body,
     }
 
     .wp-block-post,
-    .eka-news-card {
+    .eka-news-card,
+    .wp-block-image {
         position: relative;
         width: 100%;
         height: 32.375rem;
@@ -83,7 +88,8 @@ body,
         background-position: center center;
         background-repeat: no-repeat;
 
-        .wp-block-post-featured-image {
+        .wp-block-post-featured-image,
+        img {
             display: none !important;
         }
 
