@@ -1,79 +1,85 @@
 <?php
+
 /**
  * Custom Post Types and Admin Features
  */
 
 // Theme setup and nav menu registrations
-add_action( 'after_setup_theme', function() {
-    register_nav_menus( [
+add_action('after_setup_theme', function () {
+    register_nav_menus([
         'main-menu'          => 'Main Menu (Greek)',
         'main-menu___en'     => 'Main Menu (English)',
         'main-menu___ar'     => 'Main Menu (Arabic)',
         'secondary-menu'     => 'Secondary Menu',
         'footer-menu'        => 'Footer Menu',
         'social-menu-bottom' => 'Social Menu Bottom',
-    ] );
-} );
+    ]);
+});
 
 // Enqueue Flagship Scoped Styles & Scripts
-add_action( 'wp_enqueue_scripts', function() {
+add_action('wp_enqueue_scripts', function () {
     $theme_dir = get_stylesheet_directory();
     $theme_uri = get_stylesheet_directory_uri();
 
-    if ( file_exists( $theme_dir . '/build/style-style.scss.css' ) ) {
-        wp_enqueue_style( 'ekalexandria-flagship-style', $theme_uri . '/build/style-style.scss.css', [], filemtime( $theme_dir . '/build/style-style.scss.css' ) );
+    if (file_exists($theme_dir . '/build/style-style.scss.css')) {
+        wp_enqueue_style('ekalexandria-flagship-style', $theme_uri . '/build/style-style.scss.css', [], filemtime($theme_dir . '/build/style-style.scss.css'));
     }
-    if ( is_rtl() && file_exists( $theme_dir . '/build/rtl.scss.css' ) ) {
-        wp_enqueue_style( 'ekalexandria-flagship-rtl', $theme_uri . '/build/rtl.scss.css', ['ekalexandria-flagship-style'], filemtime( $theme_dir . '/build/rtl.scss.css' ) );
+    if (is_rtl() && file_exists($theme_dir . '/build/rtl.scss.css')) {
+        wp_enqueue_style('ekalexandria-flagship-rtl', $theme_uri . '/build/rtl.scss.css', ['ekalexandria-flagship-style'], filemtime($theme_dir . '/build/rtl.scss.css'));
     }
-    if ( file_exists( $theme_dir . '/assets/js/theme-script.js' ) ) {
-        wp_enqueue_script( 'ekalexandria-flagship-script', $theme_uri . '/assets/js/theme-script.js', [], filemtime( $theme_dir . '/assets/js/theme-script.js' ), true );
+    if (file_exists($theme_dir . '/assets/js/theme-script.js')) {
+        wp_enqueue_script('ekalexandria-flagship-script', $theme_uri . '/assets/js/theme-script.js', [], filemtime($theme_dir . '/assets/js/theme-script.js'), true);
     }
-} );
+});
 
 
 // Admin login panel branded
-function ekalexandria_login_logo() { ?>
+function ekalexandria_login_logo()
+{ ?>
     <style type="text/css">
-        #login h1 a, .login h1 a {
+        #login h1 a,
+        .login h1 a {
             background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logo.png);
             width: 100%;
             background-size: contain;
             background-repeat: no-repeat;
             padding-bottom: 30px;
         }
+
         body.login {
             background-color: #f5f5f5;
         }
     </style>
 <?php }
-add_action( 'login_enqueue_scripts', 'ekalexandria_login_logo' );
+add_action('login_enqueue_scripts', 'ekalexandria_login_logo');
 
 // Greek admin dashboard labels for default posts
-function ekalexandria_change_post_menu_label() {
+function ekalexandria_change_post_menu_label()
+{
     global $menu;
     global $submenu;
-    if(isset($menu[5])) {
+    if (isset($menu[5])) {
         $menu[5][0] = 'Νέα';
     }
-    if(isset($submenu['edit.php'])) {
+    if (isset($submenu['edit.php'])) {
         $submenu['edit.php'][5][0] = 'Όλα τα Νέα';
         $submenu['edit.php'][10][0] = 'Προσθήκη Νέου';
     }
 }
-add_action( 'admin_menu', 'ekalexandria_change_post_menu_label' );
+add_action('admin_menu', 'ekalexandria_change_post_menu_label');
 
 // Register Polylang Switcher Shortcode for FSE Header
-function ekalexandria_polylang_shortcode() {
-    if ( function_exists('pll_the_languages') ) {
-        return '<ul class="polylang-switcher" style="display:flex; list-style:none; gap:10px; margin:0; padding:0; align-items:center;">' . pll_the_languages( array( 'echo' => 0, 'hide_current' => 0 ) ) . '</ul>';
+function ekalexandria_polylang_shortcode()
+{
+    if (function_exists('pll_the_languages')) {
+        return '<ul class="polylang-switcher" style="display:flex; list-style:none; gap:10px; margin:0; padding:0; align-items:center;">' . pll_the_languages(array('echo' => 0, 'hide_current' => 0)) . '</ul>';
     }
     return '';
 }
-add_shortcode( 'polylang_langswitcher', 'ekalexandria_polylang_shortcode' );
+add_shortcode('polylang_langswitcher', 'ekalexandria_polylang_shortcode');
 
 // Register Alexandrinos Tachydromos CPT
-add_action('init', function() {
+add_action('init', function () {
     register_post_type('alx_tachydromos', [
         'labels' => [
             'name' => 'Alexandrinos Tachydromos',
@@ -97,23 +103,27 @@ add_action('init', function() {
 });
 
 // Register Gutenberg Meta Fields for Tachydromos PDF
-add_action('init', function() {
+add_action('init', function () {
     register_post_meta('alx_tachydromos', '_eka_pdf_attachment_id', [
         'show_in_rest' => true,
         'single' => true,
         'type' => 'integer',
-        'auth_callback' => function() { return current_user_can('edit_posts'); }
+        'auth_callback' => function () {
+            return current_user_can('edit_posts');
+        }
     ]);
     register_post_meta('alx_tachydromos', '_eka_pdf_filename', [
         'show_in_rest' => true,
         'single' => true,
         'type' => 'string',
-        'auth_callback' => function() { return current_user_can('edit_posts'); }
+        'auth_callback' => function () {
+            return current_user_can('edit_posts');
+        }
     ]);
 });
 
 // Register Board Member CPT
-add_action('init', function() {
+add_action('init', function () {
     register_post_type('board_member', [
         'labels' => [
             'name' => 'Board Members',
@@ -132,12 +142,14 @@ add_action('init', function() {
         'show_in_rest' => true,
         'single' => true,
         'type' => 'integer',
-        'auth_callback' => function() { return current_user_can('edit_posts'); }
+        'auth_callback' => function () {
+            return current_user_can('edit_posts');
+        }
     ]);
 });
 
 // Exclude Tachydromos and include Board Member for Polylang
-add_filter('pll_get_post_types', function($post_types, $is_settings) {
+add_filter('pll_get_post_types', function ($post_types, $is_settings) {
     if (isset($post_types['alx_tachydromos'])) {
         unset($post_types['alx_tachydromos']);
     }
@@ -146,7 +158,7 @@ add_filter('pll_get_post_types', function($post_types, $is_settings) {
 }, 10, 2);
 
 // Auto-set featured image from PDF on save via ImageMagick
-add_action('save_post_alx_tachydromos', function($post_id) {
+add_action('save_post_alx_tachydromos', function ($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (wp_is_post_revision($post_id)) return;
 
@@ -180,7 +192,7 @@ add_action('save_post_alx_tachydromos', function($post_id) {
 }, 20);
 
 // Register Block Style for Gallery (Legacy Slider)
-add_action('init', function() {
+add_action('init', function () {
     register_block_style('core/gallery', [
         'name'         => 'legacy-slider',
         'label'        => __('Legacy Slider', 'ekalexandria-flagship'),
@@ -189,7 +201,7 @@ add_action('init', function() {
 });
 
 // Re-engineered Mailchimp Newsletter Shortcode
-add_shortcode('eka_mailchimp_form', function($atts) {
+add_shortcode('eka_mailchimp_form', function ($atts) {
     ob_start(); ?>
     <div class="eka-mailchimp-block">
         <h3><?php _e('Subscribe to Our Newsletter', 'ekalexandria-flagship'); ?></h3>
@@ -200,32 +212,88 @@ add_shortcode('eka_mailchimp_form', function($atts) {
             <button type="submit" name="eka_mc_submit"><?php _e('Subscribe', 'ekalexandria-flagship'); ?></button>
         </form>
     </div>
-    <?php
+<?php
     return ob_get_clean();
 });
 
 /**
+ * Route the posts page and single posts to language-aware FSE templates when available.
+ */
+add_filter('pre_get_block_template', function ($template, $id, $template_type) {
+    if (is_admin() || 'wp_template' !== $template_type) {
+        return $template;
+    }
+
+    $is_posts_page = ('home' === $id || 'index' === $id) && (is_home() || is_posts_page());
+    $is_single_post = 'single' === $id && is_singular();
+
+    if (! $is_posts_page && ! $is_single_post) {
+        return $template;
+    }
+
+    if (! function_exists('pll_current_language')) {
+        return $template;
+    }
+
+    $lang = pll_current_language();
+    $candidate_slugs = [];
+
+    if ($is_posts_page) {
+        if ('en' === $lang) {
+            $candidate_slugs = ['home-en', 'index-en', 'home', 'index'];
+        } elseif ('ar' === $lang) {
+            $candidate_slugs = ['home-ar', 'index-ar', 'home', 'index'];
+        } elseif ('el' === $lang) {
+            $candidate_slugs = ['home-el', 'index-el', 'home', 'index'];
+        } else {
+            $candidate_slugs = ['home', 'index'];
+        }
+    } else {
+        if ('en' === $lang) {
+            $candidate_slugs = ['single-en', 'single'];
+        } elseif ('ar' === $lang) {
+            $candidate_slugs = ['single-ar', 'single'];
+        } elseif ('el' === $lang) {
+            $candidate_slugs = ['single-el', 'single'];
+        } else {
+            $candidate_slugs = ['single'];
+        }
+    }
+
+    $theme_dir = get_stylesheet_directory();
+    foreach ($candidate_slugs as $candidate_slug) {
+        $template_path = $theme_dir . '/templates/' . $candidate_slug . '.html';
+        if (file_exists($template_path)) {
+            $language_template = get_block_template($candidate_slug, $template_type);
+            if ($language_template) {
+                return $language_template;
+            }
+        }
+    }
+
+    return $template;
+}, 10, 3);
+
+/**
  * Dynamically route FSE header and footer template parts based on Polylang language context.
  */
-add_filter( 'render_block_data', function( $parsed_block ) {
-    if ( is_admin() ) {
+add_filter('render_block_data', function ($parsed_block) {
+    if (is_admin()) {
         return $parsed_block;
     }
 
-    if ( isset( $parsed_block['blockName'] ) && 'core/template-part' === $parsed_block['blockName'] ) {
+    if (isset($parsed_block['blockName']) && 'core/template-part' === $parsed_block['blockName']) {
         $slug = $parsed_block['attrs']['slug'] ?? '';
-        if ( in_array( $slug, [ 'header', 'footer' ], true ) && function_exists( 'pll_current_language' ) ) {
+        if (in_array($slug, ['header', 'footer'], true) && function_exists('pll_current_language')) {
             $lang = pll_current_language();
-            if ( $lang ) {
+            if ($lang) {
                 $target_slug = $slug . '-' . $lang;
                 $theme_dir   = get_stylesheet_directory();
-                if ( file_exists( $theme_dir . '/parts/' . $target_slug . '.html' ) ) {
+                if (file_exists($theme_dir . '/parts/' . $target_slug . '.html')) {
                     $parsed_block['attrs']['slug'] = $target_slug;
                 }
             }
         }
     }
-
     return $parsed_block;
-}, 10, 1 );
-
+}, 10, 1);

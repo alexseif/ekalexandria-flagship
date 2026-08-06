@@ -28,6 +28,17 @@ echo "Activating ekalexandria-flagship theme..."
 cd "$WP_DIR" || exit 1
 php7.4 $(which wp) theme activate ekalexandria-flagship --path="$WP_DIR" --allow-root || { echo "ERROR: Theme activation failed."; exit 1; }
 
+# 1b. Assign the requested site logo attachment ID
+echo "Assigning the configured site logo..."
+LOGO_ID="63053"
+
+if php7.4 $(which wp) post exists "$LOGO_ID" --path="$WP_DIR" --allow-root >/dev/null 2>&1; then
+    php7.4 $(which wp) theme mod set custom_logo "$LOGO_ID" --path="$WP_DIR" --allow-root >/dev/null 2>&1
+    echo "Assigned site logo attachment ID $LOGO_ID"
+else
+    echo "WARNING: Attachment $LOGO_ID was not found"
+fi
+
 # 2. Remove Legacy BeTheme Theme if Present
 echo "Removing legacy BeTheme theme if present..."
 THEME_SLUG="betheme"
