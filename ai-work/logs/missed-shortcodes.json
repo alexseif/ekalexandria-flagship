@@ -37,9 +37,9 @@
     {
         "post_id": 32,
         "post_title": "\u03a3\u03c4\u03b5\u03bb\u03ad\u03c7\u03c9\u03c3\u03b7",
-        "type": "residual",
-        "tag": "13369",
-        "raw_shortcode": "[13369]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider staff]"
     },
     {
         "post_id": 21689,
@@ -79,9 +79,9 @@
     {
         "post_id": 7390,
         "post_title": "\u039a\u03bf\u03b9\u03bd\u03bf\u03c4\u03b9\u03ba\u03cc \u0395\u03bd\u03c4\u03b5\u03c5\u03ba\u03c4\u03ae\u03c1\u03b9\u03bf",
-        "type": "residual",
-        "tag": "10328",
-        "raw_shortcode": "[10328]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider GREEK-CLUB]"
     },
     {
         "post_id": 7387,
@@ -114,9 +114,16 @@
     {
         "post_id": 3442,
         "post_title": "\u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1]"
+    },
+    {
+        "post_id": 3444,
+        "post_title": "\u0395\u03ba\u03b4\u03b7\u03bb\u03ce\u03c3\u03b5\u03b9\u03c2",
         "type": "residual",
-        "tag": "10329",
-        "raw_shortcode": "[10329,7667,7668,7669,7670,7671,7672,7673]"
+        "tag": "397",
+        "raw_shortcode": "[397]"
     },
     {
         "post_id": 3479,
@@ -135,16 +142,23 @@
     {
         "post_id": 7820,
         "post_title": "\u039c\u03bf\u03c5\u03c3\u03b5\u03af\u03bf \u039c\u03bf\u03c5\u03c3\u03b9\u03ba\u03ae\u03c2",
-        "type": "residual",
-        "tag": "7821",
-        "raw_shortcode": "[7821,7822,7823]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider music-museum]"
     },
     {
         "post_id": 7811,
         "post_title": "\u039c\u03bf\u03c5\u03c3\u03b5\u03af\u03bf \u03ba\u03b1\u03b9 \u0395\u03c1\u03b3\u03b1\u03c3\u03c4\u03ae\u03c1\u03b9\u03bf \u0398\u03b5\u03c4\u03b9\u03ba\u03ce\u03bd \u0395\u03c0\u03b9\u03c3\u03c4\u03b7\u03bc\u03ce\u03bd",
-        "type": "residual",
-        "tag": "7814",
-        "raw_shortcode": "[7814,7815,7813]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider science-museum]"
+    },
+    {
+        "post_id": 8934,
+        "post_title": "\u039d\u03ad\u03b1",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[layerslider id=\"6\"]"
     },
     {
         "post_id": 8934,
@@ -161,11 +175,25 @@
         "raw_shortcode": "[map lat=\"31.213097\" lng=\"29.926859\" height=\"400\" zoom=\"17\" icon=\"\" title=\"\" telephone=\"\" email=\"\" www=\"\"][/map]"
     },
     {
+        "post_id": 7409,
+        "post_title": "\u0395\u03ba\u03b8\u03ad\u03c3\u03b5\u03b9\u03c2",
+        "type": "residual",
+        "tag": "396",
+        "raw_shortcode": "[396]"
+    },
+    {
+        "post_id": 7411,
+        "post_title": "\u03a3\u03c5\u03bd\u03ad\u03b4\u03c1\u03b9\u03b1 & \u0397\u03bc\u03b5\u03c1\u03af\u03b4\u03b5\u03c2",
+        "type": "residual",
+        "tag": "395",
+        "raw_shortcode": "[395]"
+    },
+    {
         "post_id": 7756,
         "post_title": "\u03a3\u03c5\u03bd\u03c4\u03ae\u03c1\u03b7\u03c3\u03b7 \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03b7\u03c1\u03af\u03c9\u03bd",
-        "type": "residual",
-        "tag": "7936",
-        "raw_shortcode": "[7936,7939,7940,7942,7935,7941,7938,7937]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider cemeteries-maintenance]"
     },
     {
         "post_id": 7967,
@@ -296,6 +324,13 @@
     {
         "post_id": 13236,
         "post_title": "\u0391\u03c1\u03c7\u03b9\u03ba\u03ae",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[layerslider id=\"6\"]"
+    },
+    {
+        "post_id": 13236,
+        "post_title": "\u0391\u03c1\u03c7\u03b9\u03ba\u03ae",
         "type": "residual",
         "tag": "7837",
         "raw_shortcode": "[7837,8088,28,14]"
@@ -408,6 +443,13 @@
     {
         "post_id": 16892,
         "post_title": "\u0645\u0631\u062d\u0628\u0627\u064b",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider_vc alias=\"newhome_ar\"]"
+    },
+    {
+        "post_id": 16892,
+        "post_title": "\u0645\u0631\u062d\u0628\u0627\u064b",
         "type": "residual",
         "tag": "28",
         "raw_shortcode": "[28,18,8088]"
@@ -418,6 +460,13 @@
         "type": "residual",
         "tag": "16892",
         "raw_shortcode": "[16892]"
+    },
+    {
+        "post_id": 16894,
+        "post_title": "Welcome",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider_vc alias=\"newhome_en\"]"
     },
     {
         "post_id": 16894,
@@ -464,16 +513,44 @@
     {
         "post_id": 16982,
         "post_title": "Staff",
-        "type": "residual",
-        "tag": "13369",
-        "raw_shortcode": "[13369]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider staff]"
     },
     {
         "post_id": 16984,
         "post_title": "\u0627\u0644\u0639\u0627\u0645\u0644\u064a\u0646",
-        "type": "residual",
-        "tag": "13369",
-        "raw_shortcode": "[13369]"
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider staff]"
+    },
+    {
+        "post_id": 17018,
+        "post_title": "Community Lounge",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider GREEK-CLUB]"
+    },
+    {
+        "post_id": 17020,
+        "post_title": "\u0627\u0633\u062a\u0631\u0627\u062d\u0629 \u0627\u0644\u062c\u0645\u0639\u064a\u0629",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider GREEK-CLUB]"
+    },
+    {
+        "post_id": 17023,
+        "post_title": "Cemeteries",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1]"
+    },
+    {
+        "post_id": 17027,
+        "post_title": "\u0627\u0644\u0645\u0642\u0627\u0628\u0631",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1]"
     },
     {
         "post_id": 17036,
@@ -572,6 +649,48 @@
         "type": "residual",
         "tag": "17110",
         "raw_shortcode": "[17110]"
+    },
+    {
+        "post_id": 17129,
+        "post_title": "Music Museum",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider music-museum]"
+    },
+    {
+        "post_id": 17133,
+        "post_title": "\u0645\u062a\u062d\u0641 \u0645\u0648\u0633\u064a\u0642\u064a",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider music-museum]"
+    },
+    {
+        "post_id": 17137,
+        "post_title": "Museum and Laboratory",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider science-museum]"
+    },
+    {
+        "post_id": 17139,
+        "post_title": "\u0645\u062a\u062d\u0641 \u0648\u0645\u062e\u062a\u0628\u0631",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider science-museum]"
+    },
+    {
+        "post_id": 17150,
+        "post_title": "Conservation of the Cemeteries",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider cemeteries-maintenance]"
+    },
+    {
+        "post_id": 17155,
+        "post_title": "\u0627\u0644\u0645\u0642\u0627\u0628\u0631",
+        "type": "slider",
+        "tag": "rev_slider",
+        "raw_shortcode": "[rev_slider cemeteries-maintenance]"
     },
     {
         "post_id": 18175,

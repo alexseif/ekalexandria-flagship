@@ -413,34 +413,123 @@ function step_4c_transform_vc_posts_grid($content, $post_id = 0)
     }
 
     $build_block_markup = function ($shortcode_str) use ($post_id) {
-        $include_ids = [];
+        $loop_str = '';
+        if (preg_match('/loop=["\']([^"\']+)["\']/', $shortcode_str, $loop_match)) {
+            $loop_str = $loop_match[1];
+        }
 
-        if (preg_match('/by_id:([0-9,]+)/', $shortcode_str, $id_matches)) {
+        $loop_params = [];
+        if (!empty($loop_str)) {
+            $pairs = explode('|', $loop_str);
+            foreach ($pairs as $pair) {
+                if (strpos($pair, ':') !== false) {
+                    list($k, $v) = explode(':', $pair, 2);
+                    $loop_params[trim($k)] = trim($v);
+                }
+            }
+        }
+
+        // 1. Extract by_id
+        $include_ids = [];
+        if (isset($loop_params['by_id'])) {
+            $include_ids = array_values(array_filter(array_map('intval', explode(',', $loop_params['by_id']))));
+        } elseif (preg_match('/by_id:([0-9,]+)/', $shortcode_str, $id_matches)) {
             $include_ids = array_values(array_filter(array_map('intval', explode(',', $id_matches[1]))));
         }
 
-        if (empty($include_ids)) {
+        // 2. Extract tags
+        $tag_ids = [];
+        if (isset($loop_params['tags'])) {
+            $tag_ids = array_values(array_filter(array_map('intval', explode(',', $loop_params['tags']))));
+        }
+
+        // 3. Extract categories / cat
+        $cat_ids = [];
+        if (isset($loop_params['categories'])) {
+            $cat_ids = array_values(array_filter(array_map('intval', explode(',', $loop_params['categories']))));
+        } elseif (isset($loop_params['cat'])) {
+            $cat_ids = array_values(array_filter(array_map('intval', explode(',', $loop_params['cat']))));
+        }
+
+        // Check if shortcode contains any actionable query params
+        if (empty($include_ids) && empty($tag_ids) && empty($cat_ids) && !isset($loop_params['post_type'])) {
             return '<!-- wp:html -->' . $shortcode_str . '<!-- /wp:html -->';
         }
 
+        // Query Defaults
+        $post_type = isset($loop_params['post_type']) ? $loop_params['post_type'] : 'page';
+        $per_page = isset($loop_params['size']) ? (int)$loop_params['size'] : 10;
+        if ($per_page <= 0) {
+            $per_page = 10;
+        }
+
+        $order = isset($loop_params['order']) ? strtolower($loop_params['order']) : 'asc';
+        if (!in_array($order, ['asc', 'desc'], true)) {
+            $order = 'asc';
+        }
+
+        $order_by = isset($loop_params['order_by']) ? strtolower($loop_params['order_by']) : 'menu_order';
+        $order_by_map = [
+            'date' => 'date',
+            'title' => 'title',
+            'menu_order' => 'menu_order',
+            'id' => 'id',
+            'rand' => 'rand',
+        ];
+        $order_by = isset($order_by_map[$order_by]) ? $order_by_map[$order_by] : 'date';
+
         $query_data = [
-            'perPage' => 50,
+            'perPage' => $per_page,
             'pages' => 0,
             'offset' => 0,
-            'postType' => 'page',
-            'order' => 'asc',
-            'orderBy' => 'menu_order',
+            'postType' => $post_type,
+            'order' => $order,
+            'orderBy' => $order_by,
             'author' => '',
             'search' => '',
             'exclude' => [],
             'sticky' => '',
             'inherit' => false,
-            'include' => $include_ids,
         ];
 
-        $post_id = (int)$post_id;
-        if ($post_id > 0) {
-            $query_data['parents'] = [$post_id];
+        if (!empty($include_ids)) {
+            $query_data['include'] = $include_ids;
+            $post_id = (int)$post_id;
+            if ($post_id > 0) {
+                $query_data['parents'] = [$post_id];
+            }
+        }
+
+        $tax_query = [];
+        if (!empty($tag_ids)) {
+            $tax_query['post_tag'] = $tag_ids;
+        }
+        if (!empty($cat_ids)) {
+            $tax_query['category'] = $cat_ids;
+        }
+        if (!empty($tax_query)) {
+            $query_data['taxQuery'] = $tax_query;
+        }
+
+        // Extract column count
+        $column_count = 2;
+        if (preg_match('/grid_columns_count=["\'](\d+)["\']/', $shortcode_str, $col_match)) {
+            $column_count = (int)$col_match[1];
+            if ($column_count <= 0) {
+                $column_count = 2;
+            }
+        }
+
+        // Extract section title if present
+        $title_html = '';
+        if (preg_match('/title=["\']([^"\']+)["\']/', $shortcode_str, $title_match)) {
+            $raw_title = html_entity_decode($title_match[1], ENT_QUOTES, 'UTF-8');
+            $clean_title = htmlspecialchars($raw_title, ENT_QUOTES, 'UTF-8');
+            if (!empty($clean_title)) {
+                $title_html = '<!-- wp:heading {"level":2} -->' . "\n" .
+                    '<h2 class="wp-block-heading">' . $clean_title . '</h2>' . "\n" .
+                    '<!-- /wp:heading -->' . "\n";
+            }
         }
 
         $query_attr = [
@@ -454,8 +543,10 @@ function step_4c_transform_vc_posts_grid($content, $post_id = 0)
         $query_json = json_encode($query_attr, JSON_UNESCAPED_SLASHES);
 
         $block_html = '<!-- wp:group {"layout":{"type":"constrained"}} -->' . "\n" .
-            '<div class="wp-block-group"><!-- wp:query ' . $query_json . ' -->' . "\n" .
-            '<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->' . "\n" .
+            '<div class="wp-block-group">' .
+            (!empty($title_html) ? "\n" . $title_html : '') .
+            '<!-- wp:query ' . $query_json . ' -->' . "\n" .
+            '<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":' . $column_count . '}} -->' . "\n" .
             '<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","style":{"border":{"radius":{"topLeft":"12px","topRight":"12px","bottomLeft":"12px","bottomRight":"12px"}}}} /-->' . "\n\n" .
             '<!-- wp:post-title {"level":3,"isLink":true} /-->' . "\n" .
             '<!-- /wp:post-template --></div>' . "\n" .
