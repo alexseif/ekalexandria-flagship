@@ -39,14 +39,7 @@ php7.4 $(which wp) cache flush --path="$WP_DIR"
 echo "Assigning FSE Page Templates (bin/assign-page-templates.php)..."
 run_eval_script "assign-page-templates.php"
 
-# 3. Menu Assignments
-echo "Assigning navigation menu locations (bin/assign-menus.php)..."
-run_eval_script "assign-menus.php"
-
-# 4. Footer & Sidebar Menus
-echo "Seeding footer navigation posts (bin/seed-footer-menus.php)..."
-run_eval_script "seed-footer-menus.php"
-
+# 3. Sidebar Menus
 echo "Executing sidebar navigation menu injection (bin/inject-sidebar-menus.php)..."
 run_eval_script "inject-sidebar-menus.php"
 

@@ -2,7 +2,7 @@
 
 /**
  * bin/assign-page-templates.php
- * Assigns FSE Page Templates (front-page-el/en/ar and page-parent-sidebar) to target pages.
+ * Assigns FSE Page Templates (front-page-el/en/ar and index-el/en/ar) to target home & news pages.
  */
 
 global $wpdb;
@@ -58,23 +58,6 @@ if ($posts_page_id) {
                 update_post_meta((int) $translated_id, '_wp_page_template', $translated_template);
                 echo "Assigned template '$translated_template' to translated posts page (ID: $translated_id)\n";
             }
-        }
-    }
-}
-
-// Parent pages: Ίδρυση, Υπηρεσίες, Δραστηριότητες and children
-$parent_titles = ['Ίδρυση', 'Υπηρεσίες', 'Δραστηριότητες', 'Establishment', 'Services', 'Activities'];
-foreach ($parent_titles as $title) {
-    $parent_ids = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_title LIKE %s AND post_type = 'page' AND post_status = 'publish'", '%' . $title . '%'));
-    foreach ($parent_ids as $pid) {
-        update_post_meta($pid, '_wp_page_template', 'page-parent-sidebar');
-        echo "Assigned 'page-parent-sidebar' to parent page ID $pid ($title)\n";
-
-        // Child pages
-        $child_ids = $wpdb->get_col($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d AND post_type = 'page' AND post_status = 'publish'", $pid));
-        foreach ($child_ids as $cid) {
-            update_post_meta($cid, '_wp_page_template', 'page-parent-sidebar');
-            echo "Assigned 'page-parent-sidebar' to child page ID $cid\n";
         }
     }
 }

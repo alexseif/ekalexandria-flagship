@@ -366,9 +366,6 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
         $content
     );
 
-    // 5. rev_slider and layerslider fallback
-    $content = step_3a_transform_sliders($content, $post_id, $mysqli);
-
     return $content;
 }
 
