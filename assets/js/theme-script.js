@@ -14,17 +14,18 @@ document.addEventListener('DOMContentLoaded', function () {
         if (carousel.querySelector('.eka-carousel-controls')) return;
 
         // Create Navigation Controls
+        const isRTL = document.documentElement.dir === 'rtl' || document.body.classList.contains('rtl');
         const navContainer = document.createElement('div');
         navContainer.className = 'eka-carousel-controls';
 
         const prevBtn = document.createElement('button');
         prevBtn.className = 'eka-carousel-btn eka-carousel-prev';
-        prevBtn.innerHTML = '&#10094;';
+        prevBtn.innerHTML = isRTL ? '&#10095;' : '&#10094;';
         prevBtn.setAttribute('aria-label', 'Previous Slide');
 
         const nextBtn = document.createElement('button');
         nextBtn.className = 'eka-carousel-btn eka-carousel-next';
-        nextBtn.innerHTML = '&#10095;';
+        nextBtn.innerHTML = isRTL ? '&#10094;' : '&#10095;';
         nextBtn.setAttribute('aria-label', 'Next Slide');
 
         const dotsContainer = document.createElement('div');
@@ -77,15 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
             updateSlides();
         }
 
-        prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-        nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+        prevBtn.addEventListener('click', () => goToSlide(currentIndex + (isRTL ? 1 : -1)));
+        nextBtn.addEventListener('click', () => goToSlide(currentIndex + (isRTL ? -1 : 1)));
 
         // Auto Advance every 5 seconds
-        let timer = setInterval(() => goToSlide(currentIndex + 1), 5000);
+        let timer = setInterval(() => goToSlide(currentIndex + (isRTL ? -1 : 1)), 5000);
         carousel.addEventListener('mouseenter', () => clearInterval(timer));
         carousel.addEventListener('mouseleave', () => {
             clearInterval(timer);
-            timer = setInterval(() => goToSlide(currentIndex + 1), 5000);
+            timer = setInterval(() => goToSlide(currentIndex + (isRTL ? -1 : 1)), 5000);
         });
 
         // Initialize first slide view

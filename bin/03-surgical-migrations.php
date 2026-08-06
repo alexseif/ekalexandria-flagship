@@ -54,11 +54,16 @@ $mysqli->set_charset("utf8mb4");
 /**
  * 1. Transform Sliders ([rev_slider], [layerslider]) into Query Loops or Galleries
  */
-function step_3a_transform_sliders($content, $post_id)
+function step_3a_transform_sliders($content, $post_id, $mysqli = null)
 {
-    if (strpos($content, 'wp:query') !== false || strpos($content, 'wp:gallery') !== false) {
-        // Skip if already converted
-    }
+    // Clean up surrounding <p> tags around slider shortcodes or placeholder galleries
+    $content = preg_replace_callback(
+        '/<p[^>]*>\s*(\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]|<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->.*?<!-- \/wp:gallery -->)\s*<\/p>/is',
+        function ($m) {
+            return $m[1];
+        },
+        $content
+    );
 
     $dynamic_pages = [13236, 8934, 16894, 16892, 17194, 17215, 17219, 16920, 16923, 18];
     $query_loop_block = '<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
@@ -80,59 +85,115 @@ function step_3a_transform_sliders($content, $post_id)
     }
 
     $gallery_groups = [
-        ['ids' => [7821, 7822, 7823], 'pages' => [7820, 17129, 17133]],
-        ['ids' => [7813, 7814, 7815], 'pages' => [7811, 17137, 17139]],
-        ['ids' => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673], 'pages' => [3442, 17023, 17027, 17155]],
-        ['ids' => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942], 'pages' => [7756, 17150]],
-        ['ids' => [10328], 'pages' => [7390, 17018, 17020]],
+        [
+            'aliases' => ['music-museum'],
+            'pages'   => [7820, 17129, 17133],
+            'ids'     => [7821, 7822, 7823],
+        ],
+        [
+            'aliases' => ['science-museum'],
+            'pages'   => [7811, 17137, 17139],
+            'ids'     => [7813, 7814, 7815],
+        ],
+        [
+            'aliases' => ['cemeteries-maintenance'],
+            'pages'   => [7756, 17150, 17155],
+            'ids'     => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942],
+        ],
+        [
+            'aliases' => ['monuments-maintenance'],
+            'pages'   => [3442, 17023, 17027],
+            'ids'     => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673],
+        ],
+        [
+            'aliases' => ['patriarchate', 'patriarchate-building'],
+            'pages'   => [7390, 17018, 17020],
+            'ids'     => [10328],
+        ],
     ];
-    $static_galleries = [];
+
+    $build_group_gallery = function ($ids) use ($mysqli) {
+        $images = [];
+        foreach ($ids as $media_id) {
+            $url = '';
+            if ($mysqli instanceof mysqli) {
+                $stmt = $mysqli->prepare("SELECT guid FROM wp_posts WHERE ID = ?");
+                if ($stmt) {
+                    $stmt->bind_param("i", $media_id);
+                    if ($stmt->execute()) {
+                        $res = $stmt->get_result();
+                        if ($row = $res->fetch_assoc()) {
+                            $url = $row['guid'];
+                        }
+                    }
+                    $stmt->close();
+                }
+            }
+            $images[] = ['id' => $media_id, 'url' => $url];
+        }
+        return eka_build_gutenberg_gallery_block($images, 'rev-slider-replaced');
+    };
+
+    // 1. Check if post_id matches any group in gallery_groups
+    $matched_group_ids = null;
     foreach ($gallery_groups as $group) {
-        foreach ($group['pages'] as $pid) {
-            $static_galleries[$pid] = $group['ids'];
+        if (in_array((int)$post_id, $group['pages'], true)) {
+            $matched_group_ids = $group['ids'];
+            break;
         }
     }
 
-    if (isset($static_galleries[(int)$post_id])) {
-        $media_ids = $static_galleries[(int)$post_id];
-        $gallery_block = '<!-- wp:gallery {"linkTo":"none"} -->
-<figure class="wp-block-gallery has-nested-images columns-default is-cropped">';
-        foreach ($media_ids as $media_id) {
-            $gallery_block .= sprintf(
-                '<!-- wp:image {"id":%d,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="" alt="" class="wp-image-%d"/></figure>
-<!-- /wp:image -->',
-                $media_id,
-                $media_id
-            );
-        }
-        $gallery_block .= '</figure>
-<!-- /wp:gallery -->';
+    if ($matched_group_ids !== null) {
+        $gallery_block = $build_group_gallery($matched_group_ids);
 
         if (preg_match('/\[(rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', $content)) {
-            $content = preg_replace('/\[(rev_slider|rev_slider_vc)[^\]]*\]/i', $gallery_block, $content);
-            $content = preg_replace('/\[layerslider[^\]]*\]/i', $gallery_block, $content);
+            $content = preg_replace('/\[(rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', $gallery_block, $content);
+            return $content;
+        }
+        if (preg_match('/<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->.*?<!-- \/wp:gallery -->/is', $content)) {
+            $content = preg_replace('/<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->.*?<!-- \/wp:gallery -->/is', $gallery_block, $content);
             return $content;
         }
     }
 
-    // Generic slider fallback
+    // 2. Replace RevSlider shortcodes or placeholder gallery blocks by Alias
     $content = preg_replace_callback(
-        '/\[(?:rev_slider|rev_slider_vc)\s+(?:(?:alias|title|id)=["\']([^"\']+)["\']|([a-zA-Z0-9_-]+))[^\]]*\]/i',
-        function ($matches) {
-            $alias = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
-            $alias = htmlspecialchars($alias, ENT_QUOTES, 'UTF-8');
-            return '<!-- wp:gallery {"className":"rev-slider-replaced"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped rev-slider-replaced"><!-- wp:paragraph --><p>Slider: ' . $alias . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
+        '/(?:\[(?:rev_slider|rev_slider_vc)(?:\s+(?:(?:alias|title|id)=["\']([^"\']+)["\']|([^\s\]]+)))?[^\]]*\]|<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced)"|.*?"className":"(?:rev-slider-replaced)".*?)\} -->.*?<p>Slider:\s*([^<]+)<\/p>.*?<!-- \/wp:gallery -->)/is',
+        function ($matches) use ($gallery_groups, $build_group_gallery) {
+            $alias = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : (!empty($matches[3]) ? trim($matches[3]) : ''));
+
+            if (!empty($alias)) {
+                foreach ($gallery_groups as $group) {
+                    foreach ($group['aliases'] as $g_alias) {
+                        if (strcasecmp($g_alias, $alias) === 0) {
+                            return $build_group_gallery($group['ids']);
+                        }
+                    }
+                }
+            }
+
+            return eka_build_gutenberg_gallery_block([], 'rev-slider-replaced', 'Slider: ' . ($alias ?: 'default'));
         },
         $content
     );
 
+    // 3. Replace LayerSlider shortcodes or placeholder gallery blocks by ID
     $content = preg_replace_callback(
-        '/\[layerslider\s+(?:(?:id|title)=["\']([^"\']+)["\']|([a-zA-Z0-9_-]+))[^\]]*\]/i',
-        function ($matches) {
-            $id = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
-            $id = htmlspecialchars($id, ENT_QUOTES, 'UTF-8');
-            return '<!-- wp:gallery {"className":"layerslider-replaced"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped layerslider-replaced"><!-- wp:paragraph --><p>LayerSlider ID: ' . $id . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
+        '/(?:\[layerslider(?:\s+(?:(?:id|title)=["\']([^"\']+)["\']|([^\s\]]+)))?[^\]]*\]|<!-- wp:gallery \{(?:"className":"(?:layerslider-replaced)"|.*?"className":"(?:layerslider-replaced)".*?)\} -->.*?<p>LayerSlider ID:\s*([^<]+)<\/p>.*?<!-- \/wp:gallery -->)/is',
+        function ($matches) use ($gallery_groups, $build_group_gallery) {
+            $id = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : (!empty($matches[3]) ? trim($matches[3]) : ''));
+
+            if (!empty($id)) {
+                foreach ($gallery_groups as $group) {
+                    foreach ($group['aliases'] as $g_alias) {
+                        if (strcasecmp($g_alias, $id) === 0) {
+                            return $build_group_gallery($group['ids']);
+                        }
+                    }
+                }
+            }
+
+            return eka_build_gutenberg_gallery_block([], 'layerslider-replaced', 'LayerSlider ID: ' . ($id ?: 'default'));
         },
         $content
     );
@@ -166,7 +227,7 @@ while ($row = $res->fetch_assoc()) {
     $original_content = $row['post_content'];
 
     // Apply surgical transformations focused on dynamic slider replacements.
-    $content = step_3a_transform_sliders($original_content, $id);
+    $content = step_3a_transform_sliders($original_content, $id, $mysqli);
 
     if ($content === $original_content) {
         $skipped_count++;

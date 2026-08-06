@@ -38,7 +38,7 @@ DUMP_FILE="/tmp/prod_db.sql"
 if [ -d "$PROD_DIR/public" ]; then
     echo "Exporting live production database snapshot from $PROD_DIR/public..."
     cd "$PROD_DIR/public" || exit 1
-    php7.4 $(which wp) db export "$DUMP_FILE" --skip-plugins --allow-root || { echo "ERROR: Live DB export failed."; exit 1; }
+    php7.4 $(which wp) db export "$DUMP_FILE" --hex-blob --default-character-set=utf8mb4 --skip-plugins --allow-root || { echo "ERROR: Live DB export failed."; exit 1; }
 else
     echo "ERROR: Production directory $PROD_DIR/public not found. Live DB export aborted."
     exit 1
@@ -146,6 +146,10 @@ else
     echo "ERROR: bin/migrate-cpts.php not found!"
     exit 1
 fi
+
+# 12c. Deactivate Google Captcha Plugin (Without Deleting)
+echo "Deactivating google-captcha plugin..."
+php7.4 $(which wp) plugin deactivate google-captcha --path="$WP_DIR" --allow-root >> "$CLEANUP_LOG" 2>&1
 
 # 13. Deactivate & Delete Legacy Plugins with Automated Fallback
 echo "Cleaning up legacy plugins..."

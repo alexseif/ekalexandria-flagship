@@ -167,6 +167,40 @@ function eka_resolve_post_images($post_id, $scoping_map = [], $mysqli = null)
     return $images;
 }
 
+/**
+ * Resolves media images by slider alias across translated pages in scoping index.
+ *
+ * @param string $alias
+ * @param int $post_id
+ * @param array $scoping_map
+ * @param mysqli|null $mysqli
+ * @return array Array of ['id' => int, 'url' => string]
+ */
+function eka_resolve_slider_images_by_alias($alias, $post_id, $scoping_map = [], $mysqli = null)
+{
+    $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
+    if (!empty($images)) {
+        return $images;
+    }
+
+    if (!empty($alias) && is_array($scoping_map)) {
+        foreach ($scoping_map as $pid => $scoped) {
+            if (!empty($scoped['rev_sliders']) && is_array($scoped['rev_sliders'])) {
+                foreach ($scoped['rev_sliders'] as $rs) {
+                    if (isset($rs['alias']) && strcasecmp($rs['alias'], $alias) === 0) {
+                        $found = eka_resolve_post_images($pid, $scoping_map, $mysqli);
+                        if (!empty($found)) {
+                            return $found;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return [];
+}
+
 $is_direct_execution = !defined('EKA_TEST_MODE');
 
 if ($is_direct_execution) {
@@ -266,9 +300,9 @@ function eka_build_gutenberg_gallery_block($images, $extra_class = 'rev-slider-r
  */
 function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping_map = [], $mysqli = null)
 {
-    // Clean up surrounding <p> tags around slider shortcodes before replacing
+    // Clean up surrounding <p> tags around slider shortcodes or converted slider gallery blocks before replacing
     $content = preg_replace_callback(
-        '/<p[^>]*>\s*(\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\])\s*<\/p>/i',
+        '/<p[^>]*>\s*(\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]|<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->.*?<!-- \/wp:gallery -->)\s*<\/p>/is',
         function ($m) {
             return $m[1];
         },
@@ -277,11 +311,12 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
 
     // Upgrade previously converted slider galleries to 1-column full resolution
     $content = preg_replace_callback(
-        '/<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->\s*<figure class="wp-block-gallery has-nested-images columns-[^\s"]+ is-cropped (rev-slider-replaced|layerslider-replaced)">/i',
+        '/<!-- wp:gallery \{(?:"className":"(?:rev-slider-replaced|layerslider-replaced)"|.*?"className":"(?:rev-slider-replaced|layerslider-replaced)".*?)\} -->\s*<figure class="wp-block-gallery has-nested-images columns-[^\s"]+ is-cropped (rev-slider-replaced|layerslider-replaced)">(?:<!-- wp:paragraph --><p>(?:Slider|LayerSlider ID):\s*([^<]+)<\/p><!-- \/wp:paragraph -->)?.*?<\/figure><!-- \/wp:gallery -->/is',
         function ($matches) use ($post_id, $scoping_map, $mysqli) {
             $class = $matches[1];
-            $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
-            return eka_build_gutenberg_gallery_block($images, $class);
+            $alias = isset($matches[2]) ? trim($matches[2]) : '';
+            $images = eka_resolve_slider_images_by_alias($alias, $post_id, $scoping_map, $mysqli);
+            return eka_build_gutenberg_gallery_block($images, $class, $alias ? 'Slider: ' . $alias : 'Slider');
         },
         $content
     );
@@ -331,27 +366,8 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
         $content
     );
 
-    // 5. rev_slider and rev_slider_vc
-    $content = preg_replace_callback(
-        '/\[(?:rev_slider|rev_slider_vc)(?:\s+(?:(?:alias|title|id)=["\']([^"\']+)["\']|([^\s\]]+)))?[^\]]*\]/i',
-        function ($matches) use ($post_id, $scoping_map, $mysqli) {
-            $alias = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
-            $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
-            return eka_build_gutenberg_gallery_block($images, 'rev-slider-replaced', 'Slider: ' . $alias);
-        },
-        $content
-    );
-
-    // 6. layerslider
-    $content = preg_replace_callback(
-        '/\[layerslider(?:\s+(?:(?:id|title)=["\']([^"\']+)["\']|([^\s\]]+)))?[^\]]*\]/i',
-        function ($matches) use ($post_id, $scoping_map, $mysqli) {
-            $id = !empty($matches[1]) ? $matches[1] : (!empty($matches[2]) ? $matches[2] : 'default');
-            $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
-            return eka_build_gutenberg_gallery_block($images, 'layerslider-replaced', 'LayerSlider ID: ' . $id);
-        },
-        $content
-    );
+    // 5. rev_slider and layerslider fallback
+    $content = step_3a_transform_sliders($content, $post_id, $mysqli);
 
     return $content;
 }
@@ -384,37 +400,98 @@ function step_4b_transform_testimonials($content)
 /**
  * Transform [vc_posts_grid] sub-navigation cards.
  */
-function step_4c_transform_vc_posts_grid($content)
+/**
+ * Transform [vc_posts_grid] sub-navigation cards into FSE query loop grid.
+ *
+ * @param string $content
+ * @param int $post_id
+ * @return string
+ */
+function step_4c_transform_vc_posts_grid($content, $post_id = 0)
 {
     if (strpos($content, '[vc_posts_grid') === false) {
         return $content;
     }
 
-    if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
-        $ids = array_map('intval', explode(',', $matches[1]));
-        $include_json = json_encode($ids);
+    $build_block_markup = function ($shortcode_str) use ($post_id) {
+        $include_ids = [];
 
-        $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
-<div class="wp-block-query">
-<!-- wp:post-template -->
-<!-- wp:post-featured-image {"isLink":true} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt /-->
-<!-- /wp:post-template -->
-</div>
-<!-- /wp:query -->';
+        if (preg_match('/by_id:([0-9,]+)/', $shortcode_str, $id_matches)) {
+            $include_ids = array_values(array_filter(array_map('intval', explode(',', $id_matches[1]))));
+        }
 
-        $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
-        $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
-    } else {
-        $content = preg_replace_callback(
-            '/\[vc_posts_grid[^\]]*\]/i',
-            function ($matches) {
-                return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
-            },
-            $content
-        );
-    }
+        if (empty($include_ids)) {
+            return '<!-- wp:html -->' . $shortcode_str . '<!-- /wp:html -->';
+        }
+
+        $query_data = [
+            'perPage' => 50,
+            'pages' => 0,
+            'offset' => 0,
+            'postType' => 'page',
+            'order' => 'asc',
+            'orderBy' => 'menu_order',
+            'author' => '',
+            'search' => '',
+            'exclude' => [],
+            'sticky' => '',
+            'inherit' => false,
+            'include' => $include_ids,
+        ];
+
+        $post_id = (int)$post_id;
+        if ($post_id > 0) {
+            $query_data['parents'] = [$post_id];
+        }
+
+        $query_attr = [
+            'queryId' => 3,
+            'query' => $query_data,
+            'layout' => [
+                'type' => 'constrained',
+            ],
+        ];
+
+        $query_json = json_encode($query_attr, JSON_UNESCAPED_SLASHES);
+
+        $block_html = '<!-- wp:group {"layout":{"type":"constrained"}} -->' . "\n" .
+            '<div class="wp-block-group"><!-- wp:query ' . $query_json . ' -->' . "\n" .
+            '<div class="wp-block-query"><!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->' . "\n" .
+            '<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"4/3","style":{"border":{"radius":{"topLeft":"12px","topRight":"12px","bottomLeft":"12px","bottomRight":"12px"}}}} /-->' . "\n\n" .
+            '<!-- wp:post-title {"level":3,"isLink":true} /-->' . "\n" .
+            '<!-- /wp:post-template --></div>' . "\n" .
+            '<!-- /wp:query --></div>' . "\n" .
+            '<!-- /wp:group -->';
+
+        return $block_html;
+    };
+
+    // 1. If wrapped by transformed wp:columns / wp:column from step_4a
+    $content = preg_replace_callback(
+        '/<!-- wp:columns -->\s*<div class="wp-block-columns">\s*<!-- wp:column {"width":"100%"} -->\s*<div class="wp-block-column" style="flex-basis: 100%;">\s*(\[vc_posts_grid[^\]]*\])\s*<\/div>\s*<!-- \/wp:column -->\s*<\/div>\s*<!-- \/wp:columns -->/is',
+        function ($m) use ($build_block_markup) {
+            return $build_block_markup($m[1]);
+        },
+        $content
+    );
+
+    // 2. If wrapped by raw vc_row / vc_column
+    $content = preg_replace_callback(
+        '/\[vc_row\]\s*\[vc_column[^\]]*\]\s*(\[vc_posts_grid[^\]]*\])\s*\[\/vc_column\]\s*\[\/vc_row\]/is',
+        function ($m) use ($build_block_markup) {
+            return $build_block_markup($m[1]);
+        },
+        $content
+    );
+
+    // 3. Fallback: match any bare [vc_posts_grid ...]
+    $content = preg_replace_callback(
+        '/\[vc_posts_grid[^\]]*\]/is',
+        function ($m) use ($build_block_markup) {
+            return $build_block_markup($m[0]);
+        },
+        $content
+    );
 
     return $content;
 }
@@ -424,6 +501,13 @@ function step_4c_transform_vc_posts_grid($content)
  */
 function step_4d_transform_residual_shortcodes($content)
 {
+    // Log warning if any untransformed slider shortcodes remain
+    if (preg_match_all('/\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', $content, $slider_matches)) {
+        foreach ($slider_matches[0] as $raw_slider) {
+            eka_shortcode_log("WARNING: Untransformed slider shortcode detected: {$raw_slider}", "WARNING");
+        }
+    }
+
     $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
     $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
@@ -485,7 +569,7 @@ if ($is_direct_execution) {
         // Apply shortcode transformations in a staged sequence.
         $content = step_4a_transform_wpbakery_and_caption($original_content, $id, $scoping_map, $mysqli);
         $content = step_4b_transform_testimonials($content);
-        $content = step_4c_transform_vc_posts_grid($content);
+        $content = step_4c_transform_vc_posts_grid($content, $id);
         $content = step_4d_transform_residual_shortcodes($content);
 
         if ($content === $original_content) {

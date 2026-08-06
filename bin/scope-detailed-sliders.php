@@ -25,7 +25,7 @@ global $wpdb;
 
 // 1. Query all posts and pages
 $args = [
-    'post_type'        => ['page', 'post'],
+    'post_type'        => ['page', 'post', 'testimonial', 'board_member', 'alx_tachydromos'],
     'post_status'      => ['publish', 'draft', 'private', 'pending', 'future'],
     'posts_per_page'   => -1,
     'suppress_filters' => true,
