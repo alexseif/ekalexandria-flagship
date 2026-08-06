@@ -8,10 +8,10 @@
   - [x] Implement `eka_resolve_post_images($post_id, $scoping_map, $mysqli)` to return image objects `{id, url}` by querying scoping data and `wp_posts` attachments.
   - Verification: Execute test snippet or dry run to ensure Post ID 32 resolves to attachment 13369 with URL `https://backstage.ekalexandria.org/wp-content/uploads/2015/05/HR.png`.
 
-- [ ] **Task 2: Refactor Slider Shortcode Conversion to Gutenberg Block Structure**
-  - [ ] Update signature of `step_4a_transform_wpbakery_and_caption($content, $post_id, $scoping_map, $mysqli)` to accept post ID and media context.
-  - [ ] Update `rev_slider`, `rev_slider_vc`, and `layerslider` callbacks to generate valid `<!-- wp:gallery -->` and `<!-- wp:image -->` block structures.
-  - [ ] Ensure fallback markup passes `eka_validate_blocks_ast()`.
+- [x] **Task 2: Refactor Slider Shortcode Conversion to Gutenberg Block Structure**
+  - [x] Update signature of `step_4a_transform_wpbakery_and_caption($content, $post_id, $scoping_map, $mysqli)` to accept post ID and media context.
+  - [x] Update `rev_slider`, `rev_slider_vc`, and `layerslider` callbacks to generate valid `<!-- wp:gallery -->` and `<!-- wp:image -->` block structures.
+  - [x] Ensure fallback markup passes `eka_validate_blocks_ast()`.
   - Verification: Test block conversion output against AST validator.
 
 - [ ] **Task 3: Execute Migration Pipeline & Audit Post ID 32**
