@@ -35,17 +35,154 @@ function eka_shortcode_log($msg, $level = 'INFO')
     }
 }
 
-eka_shortcode_log("==========================================");
-eka_shortcode_log("Starting Stage 04: Shortcode Migrations - " . date('Y-m-d H:i:s'));
-eka_shortcode_log("==========================================");
+/**
+ * Loads slider scoping JSON file into an in-memory map keyed by page_id.
+ *
+ * @param string|null $scoping_file_path Path to rev-sliders-scoping.json
+ * @return array Map of page_id => scoping_data_array
+ */
+function eka_load_slider_scoping($scoping_file_path = null)
+{
+    if ($scoping_file_path === null) {
+        $scoping_file_path = dirname(__DIR__) . '/ai-work/scopings/rev-sliders-scoping.json';
+    }
 
-$db_config = eka_get_db_config();
-$mysqli = new mysqli($db_config['host'], $db_config['user'], $db_config['pass'], $db_config['name']);
-if ($mysqli->connect_error) {
-    eka_shortcode_log("Database connection failed: " . $mysqli->connect_error, "ERROR");
-    die("Connection failed: " . $mysqli->connect_error . "\n");
+    if (!file_exists($scoping_file_path)) {
+        eka_shortcode_log("Scoping file not found: {$scoping_file_path}", "WARNING");
+        return [];
+    }
+
+    $json = file_get_contents($scoping_file_path);
+    $data = json_decode($json, true);
+
+    if (!is_array($data)) {
+        eka_shortcode_log("Failed to parse scoping JSON: {$scoping_file_path}", "WARNING");
+        return [];
+    }
+
+    $map = [];
+    foreach ($data as $item) {
+        if (isset($item['page_id'])) {
+            $map[(int)$item['page_id']] = $item;
+        }
+    }
+
+    return $map;
 }
-$mysqli->set_charset("utf8mb4");
+
+/**
+ * Resolves media images (IDs and URLs) for a given post ID using scoping data and MySQL fallback.
+ *
+ * @param int $post_id
+ * @param array $scoping_map
+ * @param mysqli|null $mysqli
+ * @return array Array of ['id' => int, 'url' => string]
+ */
+function eka_resolve_post_images($post_id, $scoping_map = [], $mysqli = null)
+{
+    $post_id = (int)$post_id;
+    $images = [];
+    $seen_ids = [];
+
+    // 1. Check scoping map for post_id
+    if (isset($scoping_map[$post_id])) {
+        $scoped = $scoping_map[$post_id];
+
+        // 1a. attached_media
+        if (!empty($scoped['attached_media']) && is_array($scoped['attached_media'])) {
+            foreach ($scoped['attached_media'] as $media) {
+                $id = isset($media['attachment_id']) ? (int)$media['attachment_id'] : 0;
+                $url = isset($media['url']) ? $media['url'] : '';
+                if ($id > 0 && !isset($seen_ids[$id])) {
+                    $seen_ids[$id] = true;
+                    $images[] = ['id' => $id, 'url' => $url];
+                }
+            }
+        }
+
+        // 1b. embedded_images
+        if (!empty($scoped['embedded_images']) && is_array($scoped['embedded_images'])) {
+            foreach ($scoped['embedded_images'] as $media) {
+                $id = isset($media['db_attachment_id']) ? (int)$media['db_attachment_id'] : 0;
+                $url = isset($media['src_url']) ? $media['src_url'] : '';
+                if ($id > 0 && !isset($seen_ids[$id])) {
+                    $seen_ids[$id] = true;
+                    $images[] = ['id' => $id, 'url' => $url];
+                }
+            }
+        }
+
+        // 1c. gallery_image_ids
+        if (!empty($scoped['gallery_image_ids']) && is_array($scoped['gallery_image_ids'])) {
+            foreach ($scoped['gallery_image_ids'] as $gid) {
+                $id = (int)$gid;
+                if ($id > 0 && !isset($seen_ids[$id])) {
+                    $seen_ids[$id] = true;
+                    $images[] = ['id' => $id, 'url' => ''];
+                }
+            }
+        }
+    }
+
+    // 2. MySQL fallback query if no images found in scoping
+    if (empty($images) && $mysqli instanceof mysqli) {
+        $stmt = $mysqli->prepare("SELECT ID, guid FROM wp_posts WHERE post_parent = ? AND post_type = 'attachment' AND post_mime_type LIKE 'image/%'");
+        if ($stmt) {
+            $stmt->bind_param("i", $post_id);
+            if ($stmt->execute()) {
+                $res = $stmt->get_result();
+                while ($row = $res->fetch_assoc()) {
+                    $id = (int)$row['ID'];
+                    $url = $row['guid'];
+                    if ($id > 0 && !isset($seen_ids[$id])) {
+                        $seen_ids[$id] = true;
+                        $images[] = ['id' => $id, 'url' => $url];
+                    }
+                }
+            }
+            $stmt->close();
+        }
+    }
+
+    // 3. Resolve missing URLs or IDs via MySQL if needed
+    if (!empty($images) && $mysqli instanceof mysqli) {
+        foreach ($images as &$img) {
+            if ($img['id'] > 0 && empty($img['url'])) {
+                $stmt = $mysqli->prepare("SELECT guid FROM wp_posts WHERE ID = ?");
+                if ($stmt) {
+                    $stmt->bind_param("i", $img['id']);
+                    if ($stmt->execute()) {
+                        $res = $stmt->get_result();
+                        if ($row = $res->fetch_assoc()) {
+                            $img['url'] = $row['guid'];
+                        }
+                    }
+                    $stmt->close();
+                }
+            }
+        }
+        unset($img);
+    }
+
+    return $images;
+}
+
+$is_direct_execution = (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === realpath(__FILE__));
+
+if ($is_direct_execution) {
+    eka_shortcode_log("==========================================");
+    eka_shortcode_log("Starting Stage 04: Shortcode Migrations - " . date('Y-m-d H:i:s'));
+    eka_shortcode_log("==========================================");
+
+    $db_config = eka_get_db_config();
+    $mysqli = new mysqli($db_config['host'], $db_config['user'], $db_config['pass'], $db_config['name']);
+    if ($mysqli->connect_error) {
+        eka_shortcode_log("Database connection failed: " . $mysqli->connect_error, "ERROR");
+        die("Connection failed: " . $mysqli->connect_error . "\n");
+    }
+    $mysqli->set_charset("utf8mb4");
+}
+
 
 // ----------------------------------------------------------------------
 // Shortcode Transformation Functions
@@ -246,79 +383,82 @@ function step_4d_transform_residual_shortcodes($content)
     return $content;
 }
 
-// ----------------------------------------------------------------------
-// Main Stage 04 Execution
-// ----------------------------------------------------------------------
+if ($is_direct_execution) {
+    // ----------------------------------------------------------------------
+    // Main Stage 04 Execution
+    // ----------------------------------------------------------------------
 
-$sql = "SELECT ID, post_title, post_content FROM wp_posts WHERE post_type IN ('page', 'post', 'testimonial', 'board_member', 'alx_tachydromos') AND post_status IN ('publish', 'draft', 'private', 'pending', 'future')";
-$res = $mysqli->query($sql);
+    $sql = "SELECT ID, post_title, post_content FROM wp_posts WHERE post_type IN ('page', 'post', 'testimonial', 'board_member', 'alx_tachydromos') AND post_status IN ('publish', 'draft', 'private', 'pending', 'future')";
+    $res = $mysqli->query($sql);
 
-if (!$res) {
-    eka_shortcode_log("Query failed: " . $mysqli->error, "ERROR");
-    exit(1);
-}
-
-$total_scanned = $res->num_rows;
-eka_shortcode_log("Scanning {$total_scanned} posts for Stage 04 shortcode transformations...");
-
-$converted_count = 0;
-$skipped_count = 0;
-$failed_ast_count = 0;
-$failed_post_ids = [];
-
-while ($row = $res->fetch_assoc()) {
-    $id = (int)$row['ID'];
-    $original_content = $row['post_content'];
-
-    // Apply shortcode transformations in a staged sequence.
-    $content = step_4a_transform_wpbakery_and_caption($original_content);
-    $content = step_4b_transform_testimonials($content);
-    $content = step_4c_transform_vc_posts_grid($content);
-    $content = step_4d_transform_residual_shortcodes($content);
-
-    if ($content === $original_content) {
-        $skipped_count++;
-        continue;
+    if (!$res) {
+        eka_shortcode_log("Query failed: " . $mysqli->error, "ERROR");
+        exit(1);
     }
 
-    // AST Validation
-    if (!eka_validate_blocks_ast($content)) {
-        eka_shortcode_log("AST Validation failed for post ID {$id} ('{$row['post_title']}'). Skipping update.", "WARNING");
-        $failed_ast_count++;
-        $failed_post_ids[] = $id;
-        continue;
-    }
+    $total_scanned = $res->num_rows;
+    eka_shortcode_log("Scanning {$total_scanned} posts for Stage 04 shortcode transformations...");
 
-    $stmt = $mysqli->prepare("UPDATE wp_posts SET post_content = ? WHERE ID = ?");
-    if ($stmt) {
-        $stmt->bind_param("si", $content, $id);
-        if ($stmt->execute()) {
-            $converted_count++;
-        } else {
-            eka_shortcode_log("Failed to update Post ID {$id}: " . $stmt->error, "ERROR");
+    $converted_count = 0;
+    $skipped_count = 0;
+    $failed_ast_count = 0;
+    $failed_post_ids = [];
+
+    while ($row = $res->fetch_assoc()) {
+        $id = (int)$row['ID'];
+        $original_content = $row['post_content'];
+
+        // Apply shortcode transformations in a staged sequence.
+        $content = step_4a_transform_wpbakery_and_caption($original_content);
+        $content = step_4b_transform_testimonials($content);
+        $content = step_4c_transform_vc_posts_grid($content);
+        $content = step_4d_transform_residual_shortcodes($content);
+
+        if ($content === $original_content) {
+            $skipped_count++;
+            continue;
+        }
+
+        // AST Validation
+        if (!eka_validate_blocks_ast($content)) {
+            eka_shortcode_log("AST Validation failed for post ID {$id} ('{$row['post_title']}'). Skipping update.", "WARNING");
             $failed_ast_count++;
             $failed_post_ids[] = $id;
+            continue;
         }
-        $stmt->close();
+
+        $stmt = $mysqli->prepare("UPDATE wp_posts SET post_content = ? WHERE ID = ?");
+        if ($stmt) {
+            $stmt->bind_param("si", $content, $id);
+            if ($stmt->execute()) {
+                $converted_count++;
+            } else {
+                eka_shortcode_log("Failed to update Post ID {$id}: " . $stmt->error, "ERROR");
+                $failed_ast_count++;
+                $failed_post_ids[] = $id;
+            }
+            $stmt->close();
+        }
     }
+
+    // ----------------------------------------------------------------------
+    // Metrics Summary
+    // ----------------------------------------------------------------------
+    eka_shortcode_log("==========================================");
+    eka_shortcode_log(" STAGE 04 SUMMARY: Shortcode Migrations");
+    eka_shortcode_log("==========================================");
+    eka_shortcode_log(" Total Posts Scanned   : {$total_scanned}");
+    eka_shortcode_log(" Successfully Converted: {$converted_count}");
+    eka_shortcode_log(" Skipped / Unchanged   : {$skipped_count}");
+    eka_shortcode_log(" Failed AST Validation : {$failed_ast_count}");
+    if (!empty($failed_post_ids)) {
+        eka_shortcode_log(" Failed Post IDs       : [" . implode(', ', $failed_post_ids) . "]");
+    } else {
+        eka_shortcode_log(" Failed Post IDs       : []");
+    }
+    eka_shortcode_log("==========================================");
+
+    $mysqli->close();
+    eka_shortcode_log("Stage 04 shortcode migration pipeline completed successfully.");
 }
 
-// ----------------------------------------------------------------------
-// Metrics Summary
-// ----------------------------------------------------------------------
-eka_shortcode_log("==========================================");
-eka_shortcode_log(" STAGE 04 SUMMARY: Shortcode Migrations");
-eka_shortcode_log("==========================================");
-eka_shortcode_log(" Total Posts Scanned   : {$total_scanned}");
-eka_shortcode_log(" Successfully Converted: {$converted_count}");
-eka_shortcode_log(" Skipped / Unchanged   : {$skipped_count}");
-eka_shortcode_log(" Failed AST Validation : {$failed_ast_count}");
-if (!empty($failed_post_ids)) {
-    eka_shortcode_log(" Failed Post IDs       : [" . implode(', ', $failed_post_ids) . "]");
-} else {
-    eka_shortcode_log(" Failed Post IDs       : []");
-}
-eka_shortcode_log("==========================================");
-
-$mysqli->close();
-eka_shortcode_log("Stage 04 shortcode migration pipeline completed successfully.");
