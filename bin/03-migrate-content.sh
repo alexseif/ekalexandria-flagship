@@ -118,5 +118,17 @@ for step in "${SELECTED_STEPS[@]}"; do
     run_stage "$step"
 done
 
+if [ -f "$LOG_DIR/missed-shortcodes.log" ]; then
+    echo ""
+    echo "=========================================="
+    echo "MISSED SHORTCODES REPORT SUMMARY"
+    echo "=========================================="
+    echo "Detailed log saved to: $LOG_DIR/missed-shortcodes.log"
+    echo "JSON report saved to: $LOG_DIR/missed-shortcodes.json"
+    echo "------------------------------------------"
+    head -n 20 "$LOG_DIR/missed-shortcodes.log"
+    echo "=========================================="
+fi
+
 echo "Surgical migration pipeline completed successfully at $(date)!"
 exit 0

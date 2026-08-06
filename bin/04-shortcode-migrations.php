@@ -498,12 +498,26 @@ function step_4c_transform_vc_posts_grid($content, $post_id = 0)
 /**
  * Residual Shortcode Logging for Analysis
  */
-function step_4d_transform_residual_shortcodes($content)
+function step_4d_transform_residual_shortcodes($content, $post_id = 0, $post_title = '')
 {
+    global $eka_missed_shortcodes;
+    if (!isset($eka_missed_shortcodes) || !is_array($eka_missed_shortcodes)) {
+        $eka_missed_shortcodes = [];
+    }
+
+    $post_label = $post_id > 0 ? "Post ID {$post_id} ('{$post_title}')" : "Unknown Post";
+
     // Log warning if any untransformed slider shortcodes remain
     if (preg_match_all('/\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', $content, $slider_matches)) {
         foreach ($slider_matches[0] as $raw_slider) {
-            eka_shortcode_log("WARNING: Untransformed slider shortcode detected: {$raw_slider}", "WARNING");
+            eka_shortcode_log("WARNING: Untransformed slider shortcode detected in {$post_label}: {$raw_slider}", "WARNING");
+            $eka_missed_shortcodes[] = [
+                'post_id' => (int)$post_id,
+                'post_title' => $post_title,
+                'type' => 'slider',
+                'tag' => 'rev_slider',
+                'raw_shortcode' => $raw_slider,
+            ];
         }
     }
 
@@ -511,11 +525,10 @@ function step_4d_transform_residual_shortcodes($content)
     $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
     $ignored_tags = ['wp', 'caption', 'vc_row', 'vc_column', 'vc_column_text', 'vc_single_image', 'vc_raw_html', 'our_team', 'rev_slider', 'rev_slider_vc', 'layerslider', 'testimonials', 'vc_posts_grid'];
-    $residual_tags = [];
 
     $content = preg_replace_callback(
         '/\[([a-zA-Z0-9_]+)([^\]]*)\](?:(.*?)\[\/\1\])?/s',
-        function ($matches) use ($ignored_tags, &$residual_tags) {
+        function ($matches) use ($ignored_tags, $post_id, $post_title, $post_label, &$eka_missed_shortcodes) {
             $tag = strtolower($matches[1]);
             if (in_array($tag, $ignored_tags, true)) {
                 return $matches[0];
@@ -523,17 +536,26 @@ function step_4d_transform_residual_shortcodes($content)
             if (in_array($tag, ['endif', 'if', 'the', 'general', 'this', 'list', 'in', 'it', 'on', 'was', 'who', 'f'], true)) {
                 return $matches[0];
             }
-            if (!in_array($tag, $residual_tags, true)) {
-                $residual_tags[] = $tag;
+
+            $raw_shortcode = $matches[0];
+            if (strlen($raw_shortcode) > 200) {
+                $raw_shortcode = substr($raw_shortcode, 0, 200) . '...';
             }
+
+            eka_shortcode_log("WARNING: Residual shortcode detected in {$post_label}: {$raw_shortcode}", "WARNING");
+
+            $eka_missed_shortcodes[] = [
+                'post_id' => (int)$post_id,
+                'post_title' => $post_title,
+                'type' => 'residual',
+                'tag' => $tag,
+                'raw_shortcode' => $raw_shortcode,
+            ];
+
             return $matches[0];
         },
         $content
     );
-
-    if (!empty($residual_tags)) {
-        eka_shortcode_log('Residual shortcodes detected: ' . implode(', ', $residual_tags), 'WARNING');
-    }
 
     return $content;
 }
@@ -569,7 +591,7 @@ if ($is_direct_execution) {
         $content = step_4a_transform_wpbakery_and_caption($original_content, $id, $scoping_map, $mysqli);
         $content = step_4b_transform_testimonials($content);
         $content = step_4c_transform_vc_posts_grid($content, $id);
-        $content = step_4d_transform_residual_shortcodes($content);
+        $content = step_4d_transform_residual_shortcodes($content, $id, $row['post_title']);
 
         if ($content === $original_content) {
             $skipped_count++;
@@ -599,8 +621,38 @@ if ($is_direct_execution) {
     }
 
     // ----------------------------------------------------------------------
-    // Metrics Summary
+    // Metrics Summary & Missed Shortcodes Report Generation
     // ----------------------------------------------------------------------
+    global $eka_missed_shortcodes;
+    $missed_log_file = dirname(__DIR__) . '/ai-work/logs/missed-shortcodes.log';
+    $missed_json_file = dirname(__DIR__) . '/ai-work/logs/missed-shortcodes.json';
+    $missed_count = is_array($eka_missed_shortcodes) ? count($eka_missed_shortcodes) : 0;
+
+    if ($missed_count > 0) {
+        $formatted_lines = [];
+        $formatted_lines[] = "==========================================";
+        $formatted_lines[] = " MISSED SHORTCODES REPORT (" . date('Y-m-d H:i:s') . ")";
+        $formatted_lines[] = " Total Missed Shortcodes: " . $missed_count;
+        $formatted_lines[] = "==========================================";
+        foreach ($eka_missed_shortcodes as $item) {
+            $formatted_lines[] = sprintf(
+                "[Post ID %d] %s | Type: %s | Tag: %s | Shortcode: %s",
+                $item['post_id'],
+                $item['post_title'],
+                strtoupper($item['type']),
+                isset($item['tag']) ? $item['tag'] : 'N/A',
+                $item['raw_shortcode']
+            );
+        }
+        $formatted_lines[] = "==========================================";
+
+        file_put_contents($missed_log_file, implode("\n", $formatted_lines) . "\n");
+        file_put_contents($missed_json_file, json_encode($eka_missed_shortcodes, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    } else {
+        file_put_contents($missed_log_file, "No missed shortcodes detected.\n");
+        file_put_contents($missed_json_file, json_encode([], JSON_PRETTY_PRINT));
+    }
+
     eka_shortcode_log("==========================================");
     eka_shortcode_log(" STAGE 04 SUMMARY: Shortcode Migrations");
     eka_shortcode_log("==========================================");
@@ -608,6 +660,7 @@ if ($is_direct_execution) {
     eka_shortcode_log(" Successfully Converted: {$converted_count}");
     eka_shortcode_log(" Skipped / Unchanged   : {$skipped_count}");
     eka_shortcode_log(" Failed AST Validation : {$failed_ast_count}");
+    eka_shortcode_log(" Missed / Residual     : {$missed_count} (Report: ai-work/logs/missed-shortcodes.log & .json)");
     if (!empty($failed_post_ids)) {
         eka_shortcode_log(" Failed Post IDs       : [" . implode(', ', $failed_post_ids) . "]");
     } else {
