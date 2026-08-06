@@ -7,9 +7,9 @@
 $locations = get_theme_mod('nav_menu_locations', []);
 
 $menu_map = [
-    'main-menu'          => 13,   // Greek Main Menu
-    'main-menu___en'     => 3315, // English Main Menu
-    'main-menu___ar'     => 3316, // Arabic Main Menu
+    'main-menu' => 13,   // Greek Main Menu
+    'main-menu___en' => 3315, // English Main Menu
+    'main-menu___ar' => 3316, // Arabic Main Menu
     'social-menu-bottom' => 21,   // Greek Footer Menu
 ];
 
