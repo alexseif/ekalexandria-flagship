@@ -52,10 +52,10 @@ run_stage() {
     case "$step" in
         3)
             echo "[Step 03] Executing surgical page migrations (bin/03-surgical-migrations.php)..."
-            if ! run_eval_script "03-surgical-migrations.php" 2>&1 | tee -a "$step_log"; then
-                echo "ERROR: Step 03 failed."
-                exit 1
-            fi
+            # if ! run_eval_script "03-surgical-migrations.php" 2>&1 | tee -a "$step_log"; then
+                # echo "ERROR: Step 03 failed."
+                # exit 1
+            # fi
             ;;
         4)
             echo "[Step 04] Executing shortcode migrations (bin/04-shortcode-migrations.php)..."
