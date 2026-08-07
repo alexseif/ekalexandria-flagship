@@ -267,10 +267,9 @@ if (!function_exists('eka_build_gutenberg_gallery_block')) {
             }
 
             $id_attr_json = $id > 0 ? '"id":' . $id . ',' : '';
-            $id_class = $id > 0 ? ' wp-image-' . $id : '';
 
             $inner_blocks_html .= '<!-- wp:image {' . $id_attr_json . '"sizeSlug":"full","linkDestination":"none"} -->';
-            $inner_blocks_html .= '<figure class="wp-block-image size-full"><img src="' . $url . '" alt="" class="' . trim($id_class) . '"/></figure>';
+            $inner_blocks_html .= '<figure class="wp-block-image"><img src="' . $url . '" alt=""/></figure>';
             $inner_blocks_html .= '<!-- /wp:image -->';
         }
 
@@ -811,6 +810,7 @@ if ($is_direct_execution) {
         $content = step_4c_transform_vc_posts_grid($content, $id);
         $content = step_4d_transform_residual_shortcodes($content, $id, $row['post_title']);
         $content = eka_transform_mfn_left_sidebar_layout($content, $id, $mysqli);
+        $content = eka_sanitize_image_tags($content);
 
         if ($content === $original_content) {
             $skipped_count++;
@@ -823,6 +823,13 @@ if ($is_direct_execution) {
             $failed_ast_count++;
             $failed_post_ids[] = $id;
             continue;
+        }
+
+        if (!$mysqli->ping()) {
+            $db_config = eka_get_db_config();
+            $mysqli = new mysqli($db_config['host'], $db_config['user'], $db_config['pass'], $db_config['name']);
+            $mysqli->set_charset("utf8mb4");
+            $mysqli->select_db($db_config['name']);
         }
 
         $stmt = $mysqli->prepare("UPDATE wp_posts SET post_content = ? WHERE ID = ?");

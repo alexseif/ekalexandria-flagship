@@ -100,6 +100,17 @@ assert_equals(true, strpos($out_mfn_wrapped, '"width":"30%"') !== false, 'Wrappe
 assert_equals(true, strpos($out_mfn_wrapped, '"width":"70%"') !== false, 'Wrapped layout has 70% right column containing main content');
 assert_equals(true, eka_validate_blocks_ast($out_mfn_wrapped), 'Wrapped MFN 30/70 layout passes AST validation');
 
+// 6. Test Image Tag Attribute Sanitization
+echo "\n--- Running Image Tag Attribute Sanitization Tests ---\n";
+$input_dirty_img = '<figure class="wp-block-image size-full alignright"><img src="https://example.com/test.jpg" alt="test" class="wp-image-8130 size-full alignright" width="700" height="302"/></figure>';
+$out_clean_img = eka_sanitize_image_tags($input_dirty_img);
+assert_equals(false, strpos($out_clean_img, 'class="wp-image-8130'), 'Strips wp-image-* class from img tag');
+assert_equals(false, strpos($out_clean_img, 'width="700"'), 'Strips width attribute from img tag');
+assert_equals(false, strpos($out_clean_img, 'height="302"'), 'Strips height attribute from img tag');
+assert_equals(false, strpos($out_clean_img, 'size-full'), 'Strips size-full class from figure tag');
+assert_equals(false, strpos($out_clean_img, 'alignright'), 'Strips alignright class from figure and img tag');
+assert_equals(true, strpos($out_clean_img, '<figure class="wp-block-image"><img src="https://example.com/test.jpg" alt="test"/></figure>') !== false, 'Produces clean figure and img block markup');
+
 if ($failures > 0) {
     echo "\nTEST SUITE FAILED with {$failures} failure(s).\n";
     exit(1);

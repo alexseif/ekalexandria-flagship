@@ -339,10 +339,9 @@ if (!function_exists('eka_build_gutenberg_gallery_block')) {
             }
 
             $id_attr_json = $id > 0 ? '"id":' . $id . ',' : '';
-            $id_class = $id > 0 ? ' wp-image-' . $id : '';
 
             $inner_blocks_html .= '<!-- wp:image {' . $id_attr_json . '"sizeSlug":"full","linkDestination":"none"} -->';
-            $inner_blocks_html .= '<figure class="wp-block-image size-full"><img src="' . $url . '" alt="" class="' . trim($id_class) . '"/></figure>';
+            $inner_blocks_html .= '<figure class="wp-block-image"><img src="' . $url . '" alt=""/></figure>';
             $inner_blocks_html .= '<!-- /wp:image -->';
         }
 
@@ -360,6 +359,42 @@ if (!function_exists('eka_build_gutenberg_gallery_block')) {
         $html .= $inner_blocks_html;
         $html .= '</figure>';
         $html .= '<!-- /wp:gallery -->';
+
+        return $html;
+    }
+}
+
+if (!function_exists('eka_sanitize_image_tags')) {
+    /**
+     * Sanitizes image tags and figure blocks by stripping legacy class names
+     * (e.g. wp-image-*, size-full, size-large, alignright, alignleft) and explicit width/height attributes.
+     *
+     * @param string $html
+     * @return string
+     */
+    function eka_sanitize_image_tags($html) {
+        if (empty($html) || strpos($html, '<img') === false) {
+            return $html;
+        }
+
+        // Clean <img ... /> tags: strip width, height, class attributes completely
+        $html = preg_replace_callback('/<img\s+[^>]*>/i', function ($m) {
+            $img = $m[0];
+            $img = preg_replace('/\s+(width|height)=(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $img);
+            $img = preg_replace('/\s+class=(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $img);
+            return $img;
+        }, $html);
+
+        // Clean <figure class="...">: strip size-full, size-large, alignright, alignleft, etc.
+        $html = preg_replace_callback('/<figure\s+class=["\']([^"\']*)["\']>/i', function ($m) {
+            $classes = array_filter(explode(' ', $m[1]));
+            $disallowed = ['size-full', 'size-large', 'size-medium', 'alignright', 'alignleft', 'aligncenter'];
+            $clean_classes = array_values(array_diff($classes, $disallowed));
+            if (empty($clean_classes)) {
+                $clean_classes = ['wp-block-image'];
+            }
+            return '<figure class="' . implode(' ', $clean_classes) . '">';
+        }, $html);
 
         return $html;
     }

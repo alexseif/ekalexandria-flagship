@@ -116,7 +116,7 @@ function transform_wpbakery_shortcodes($content) {
         '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
         function ($matches) {
             $img_id = isset($matches[1]) ? (int)$matches[1] : 0;
-            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt="" class="wp-image-' . $img_id . '"/></figure><!-- /wp:image -->';
+            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
         },
         $content
     );

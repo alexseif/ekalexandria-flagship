@@ -126,10 +126,10 @@ function step_3a_transform_sliders($content, $post_id) {
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped">';
         foreach ($media_ids as $media_id) {
             $gallery_block .= sprintf(
-                '<!-- wp:image {"id":%d,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="" alt="" class="wp-image-%d"/></figure>
-<!-- /wp:image -->',
-                $media_id, $media_id
+                '<!-- wp:image {"id":%d,"linkDestination":"none"} -->' . "\n" .
+                '<figure class="wp-block-image"><img src="" alt=""/></figure>' . "\n" .
+                '<!-- /wp:image -->',
+                $media_id
             );
         }
         $gallery_block .= '</figure>
@@ -257,7 +257,7 @@ function step_3d_transform_wpbakery_and_caption($content) {
         '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
         function ($matches) {
             $img_id = isset($matches[1]) ? (int)$matches[1] : 0;
-            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt="" class="wp-image-' . $img_id . '"/></figure><!-- /wp:image -->';
+            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
         },
         $content
     );
