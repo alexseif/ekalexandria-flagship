@@ -37,7 +37,10 @@
   - [x] Test script execution idempotency.
   - [x] Commit: `feat(migration): add cache invalidation and deferred template assignment script`
 
-- [ ] **Task 5: Final Checkpoint & End-to-End Migration Pipeline Review**
-  - [ ] Run full migration pipeline end-to-end.
-  - [ ] Verify 0 AST validation failures and zero duplicate header/footer tags in DOM.
-  - [ ] Perform final code review against SPEC acceptance criteria.
+- [x] **Task 5: Final Checkpoint & End-to-End Migration Pipeline Review**
+  - [x] Run full migration pipeline end-to-end.
+  - [x] Run `bin/test-fse-sanitizer.php` and verify unit tests pass cleanly.
+  - [x] Perform AST validation (`eka_validate_blocks_ast()`) across all converted pages.
+  - [x] Inspect residual shortcodes log (`ai-work/logs/missed-shortcodes.json`) and verify zero unintended residual shortcodes.
+  - [x] Check template tag deduplication (`tagName="header"` / `tagName="footer"`).
+  - [x] Commit: `chore(migration): finalize FSE edge-case refinement pipeline and verification suite`.
