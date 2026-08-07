@@ -696,6 +696,88 @@ function step_4d_transform_residual_shortcodes($content, $post_id = 0, $post_tit
     return $content;
 }
 
+/**
+ * Detects if a post/page had a legacy MFN left-sidebar layout via postmeta or scoping data.
+ *
+ * @param int $post_id
+ * @param mysqli|null $mysqli
+ * @return bool
+ */
+function eka_is_mfn_left_sidebar_page($post_id, $mysqli = null)
+{
+    $post_id = (int)$post_id;
+    if ($post_id <= 0) {
+        return false;
+    }
+
+    if ($mysqli instanceof mysqli) {
+        // Exclude posts page / page_for_posts if configured in wp_options
+        $res = $mysqli->query("SELECT option_value FROM wp_options WHERE option_name = 'page_for_posts'");
+        if ($res && $row = $res->fetch_assoc()) {
+            if ((int)$row['option_value'] === $post_id) {
+                return false;
+            }
+        }
+
+        // Query postmeta for layout / sidebar settings
+        $stmt = $mysqli->prepare("SELECT meta_key, meta_value FROM wp_postmeta WHERE post_id = ? AND meta_key IN ('mfn-post-sidebar', '_mfn-post-sidebar', 'mfn-post-layout', '_mfn-post-layout', 'mfn_layout', '_mfn_layout', 'mfn-post-sidebar2', '_mfn-post-sidebar2')");
+        if ($stmt) {
+            $stmt->bind_param("i", $post_id);
+            if ($stmt->execute()) {
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+                    $val = strtolower(trim($row['meta_value']));
+
+                    if (empty($val) || $val === 'no-sidebar' || $val === 'full-width' || $val === 'right' || strpos($val, 'right') !== false) {
+                        continue;
+                    }
+
+                    if ($val === 'left' || $val === 'sidebar-left' || strpos($val, 'left') !== false) {
+                        $stmt->close();
+                        return true;
+                    }
+                }
+            }
+            $stmt->close();
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Wraps page content in a 30/70 Gutenberg columns layout if it has an MFN left-sidebar layout.
+ *
+ * @param string $content
+ * @param int $post_id
+ * @param mysqli|null $mysqli
+ * @param bool $force_enable
+ * @return string
+ */
+function eka_transform_mfn_left_sidebar_layout($content, $post_id, $mysqli = null, $force_enable = false)
+{
+    if (empty($content)) {
+        return $content;
+    }
+
+    $is_left_sidebar = $force_enable || eka_is_mfn_left_sidebar_page($post_id, $mysqli);
+    if (!$is_left_sidebar) {
+        return $content;
+    }
+
+    // Prevent duplicate wrapping
+    if (strpos($content, 'eka-has-sidebar-left') !== false) {
+        return $content;
+    }
+
+    $left_col = '<!-- wp:column {"width":"30%"} --><div class="wp-block-column" style="flex-basis: 30%;"><!-- wp:paragraph --><p></p><!-- /wp:paragraph --></div><!-- /wp:column -->';
+    $right_col = '<!-- wp:column {"width":"70%"} --><div class="wp-block-column" style="flex-basis: 70%;">' . $content . '</div><!-- /wp:column -->';
+
+    $wrapped = '<!-- wp:columns {"className":"eka-has-sidebar-left"} --><div class="wp-block-columns eka-has-sidebar-left">' . $left_col . $right_col . '</div><!-- /wp:columns -->';
+
+    return $wrapped;
+}
+
 if ($is_direct_execution) {
     // ----------------------------------------------------------------------
     // Main Stage 04 Execution
@@ -728,6 +810,7 @@ if ($is_direct_execution) {
         $content = step_4b_transform_testimonials($content);
         $content = step_4c_transform_vc_posts_grid($content, $id);
         $content = step_4d_transform_residual_shortcodes($content, $id, $row['post_title']);
+        $content = eka_transform_mfn_left_sidebar_layout($content, $id, $mysqli);
 
         if ($content === $original_content) {
             $skipped_count++;

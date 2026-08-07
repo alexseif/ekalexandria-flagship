@@ -21,12 +21,14 @@
   - [x] Run AST validation (`eka_validate_blocks_ast()`) and PHP syntax check (`php -l bin/04-shortcode-migrations.php`).
   - [x] Commit: `fix(migration): implement smart 1/1 column unwrapping in shortcode migration engine`
 
-- [ ] **Task 3: MFN Left Sidebar Page Layout Support**
-  - [ ] Implement MFN left sidebar detection in migration pipeline (`mfn-post-sidebar`, `_mfn-post-sidebar`, or `mfn_layout`).
-  - [ ] Exclude right sidebar pages and news/posts page (`index` / `page_for_posts`).
-  - [ ] Wrap post content in 30/70 Gutenberg columns (`wp:columns` with `eka-has-sidebar-left` class).
-  - [ ] Verify AST validity of converted 30/70 sidebar pages.
-  - [ ] Commit: `feat(migration): add 30/70 Gutenberg column layout for legacy MFN left sidebar pages`
+- [x] **Task 3: MFN Left Sidebar Page Layout Support**
+  - [x] Implement MFN left sidebar detection in migration pipeline (`mfn-post-sidebar`, `_mfn-post-sidebar`, or `mfn_layout`).
+  - [x] Exclude right sidebar pages and news/posts page (`index` / `page_for_posts`).
+  - [x] Wrap post content in 30/70 Gutenberg columns (`wp:columns` with `eka-has-sidebar-left` class).
+  - [x] Ensure left column (`30%`) is reserved for sidebar content and right column (`70%`) contains main content.
+  - [x] Do NOT assign dedicated template parts or template files (`_wp_page_template`) for sidebars at this stage.
+  - [x] Verify AST validity of converted 30/70 sidebar pages.
+  - [x] Commit: `feat(migration): add 30/70 Gutenberg column layout for legacy MFN left sidebar pages`
 
 - [ ] **Task 4: Deferred Language & Template Assignment with Cache/Transient Flushes**
   - [ ] Add transient and cache flushes (`delete_transient('wp_theme_files_')`, `wp_cache_flush()`, Polylang invalidation) to `bin/assign-page-templates.php`.

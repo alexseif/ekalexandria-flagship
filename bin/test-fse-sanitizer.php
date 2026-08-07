@@ -91,6 +91,15 @@ $out_multi_col = step_4a_transform_wpbakery_and_caption($input_multi_col);
 assert_equals(true, strpos($out_multi_col, 'wp:columns') !== false, 'Multi-column row retains wp:columns block wrapper');
 assert_equals(true, strpos($out_multi_col, 'flex-basis: 50%') !== false, 'Multi-column row retains calculated flex basis');
 
+// 5. Test MFN Left Sidebar 30/70 Column Wrapping
+echo "\n--- Running MFN Left Sidebar 30/70 Layout Tests ---\n";
+$input_mfn_content = '<!-- wp:paragraph --><p>Main page content here</p><!-- /wp:paragraph -->';
+$out_mfn_wrapped = eka_transform_mfn_left_sidebar_layout($input_mfn_content, 99999, null, true); // pass force_enable = true for testing
+assert_equals(true, strpos($out_mfn_wrapped, 'eka-has-sidebar-left') !== false, 'Wrapped layout contains eka-has-sidebar-left class');
+assert_equals(true, strpos($out_mfn_wrapped, '"width":"30%"') !== false, 'Wrapped layout has 30% left column');
+assert_equals(true, strpos($out_mfn_wrapped, '"width":"70%"') !== false, 'Wrapped layout has 70% right column containing main content');
+assert_equals(true, eka_validate_blocks_ast($out_mfn_wrapped), 'Wrapped MFN 30/70 layout passes AST validation');
+
 if ($failures > 0) {
     echo "\nTEST SUITE FAILED with {$failures} failure(s).\n";
     exit(1);
