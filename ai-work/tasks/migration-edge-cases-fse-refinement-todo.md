@@ -6,12 +6,12 @@
 
 ---
 
-- [ ] **Task 1: Outer Semantic Tag Clean-up (`tagName` Deduplication)**
-  - [ ] Audit `templates/*.html` and remove `"tagName":"header"` / `"tagName":"footer"` from `wp:template-part` block calls.
-  - [ ] Retain `"tagName":"header"` on top-level group block in `parts/header.html`, `parts/header-en.html`, `parts/header-ar.html`.
-  - [ ] Retain `"tagName":"footer"` on top-level group block in `parts/footer.html`, `parts/footer-en.html`, `parts/footer-ar.html`.
-  - [ ] Verify single `<header>` and `<footer>` tag rendering in DOM output.
-  - [ ] Commit: `refactor(fse): deduplicate outer semantic header and footer tags in templates and parts`
+- [x] **Task 1: Outer Semantic Tag Clean-up (`tagName` Deduplication)**
+  - [x] Audit `templates/*.html` and remove `"tagName":"header"` / `"tagName":"footer"` from `wp:template-part` block calls.
+  - [x] Retain `"tagName":"header"` on top-level group block in `parts/header.html`, `parts/header-en.html`, `parts/header-ar.html`.
+  - [x] Retain `"tagName":"footer"` on top-level group block in `parts/footer.html`, `parts/footer-en.html`, `parts/footer-ar.html`.
+  - [x] Verify single `<header>` and `<footer>` tag rendering in DOM output.
+  - [x] Commit: `refactor(fse): deduplicate outer semantic header and footer tags in templates and parts`
 
 - [ ] **Task 2: Smart `[vc_row]` / `[vc_column]` & Sub-grid Shortcode Unwrapping**
   - [ ] Update `step_4a_transform_wpbakery_and_caption` in `bin/04-shortcode-migrations.php` to unwrap single 1/1 column rows.
