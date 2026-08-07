@@ -41,8 +41,9 @@ function eka_shortcode_log($msg, $level = 'INFO')
  * @param string|null $scoping_file_path Path to rev-sliders-scoping.json
  * @return array Map of page_id => scoping_data_array
  */
-function eka_load_slider_scoping($scoping_file_path = null)
-{
+if (!function_exists('eka_load_slider_scoping')) {
+    function eka_load_slider_scoping($scoping_file_path = null)
+    {
     if ($scoping_file_path === null) {
         $scoping_file_path = dirname(__DIR__) . '/ai-work/scopings/rev-sliders-scoping.json';
     }
@@ -68,6 +69,7 @@ function eka_load_slider_scoping($scoping_file_path = null)
     }
 
     return $map;
+    }
 }
 
 /**
@@ -78,127 +80,122 @@ function eka_load_slider_scoping($scoping_file_path = null)
  * @param mysqli|null $mysqli
  * @return array Array of ['id' => int, 'url' => string]
  */
-function eka_resolve_post_images($post_id, $scoping_map = [], $mysqli = null)
-{
-    $post_id = (int)$post_id;
-    $images = [];
-    $seen_ids = [];
+if (!function_exists('eka_resolve_post_images')) {
+    function eka_resolve_post_images($post_id, $scoping_map = [], $mysqli = null)
+    {
+        $post_id = (int)$post_id;
+        $images = [];
+        $seen_ids = [];
 
-    // 1. Check scoping map for post_id
-    if (isset($scoping_map[$post_id])) {
-        $scoped = $scoping_map[$post_id];
+        // 1. Check scoping map for post_id
+        if (isset($scoping_map[$post_id])) {
+            $scoped = $scoping_map[$post_id];
 
-        // 1a. attached_media
-        if (!empty($scoped['attached_media']) && is_array($scoped['attached_media'])) {
-            foreach ($scoped['attached_media'] as $media) {
-                $id = isset($media['attachment_id']) ? (int)$media['attachment_id'] : 0;
-                $url = isset($media['url']) ? $media['url'] : '';
-                if ($id > 0 && !isset($seen_ids[$id])) {
-                    $seen_ids[$id] = true;
-                    $images[] = ['id' => $id, 'url' => $url];
-                }
-            }
-        }
-
-        // 1b. embedded_images
-        if (!empty($scoped['embedded_images']) && is_array($scoped['embedded_images'])) {
-            foreach ($scoped['embedded_images'] as $media) {
-                $id = isset($media['db_attachment_id']) ? (int)$media['db_attachment_id'] : 0;
-                $url = isset($media['src_url']) ? $media['src_url'] : '';
-                if ($id > 0 && !isset($seen_ids[$id])) {
-                    $seen_ids[$id] = true;
-                    $images[] = ['id' => $id, 'url' => $url];
-                }
-            }
-        }
-
-        // 1c. gallery_image_ids
-        if (!empty($scoped['gallery_image_ids']) && is_array($scoped['gallery_image_ids'])) {
-            foreach ($scoped['gallery_image_ids'] as $gid) {
-                $id = (int)$gid;
-                if ($id > 0 && !isset($seen_ids[$id])) {
-                    $seen_ids[$id] = true;
-                    $images[] = ['id' => $id, 'url' => ''];
-                }
-            }
-        }
-    }
-
-    // 2. MySQL fallback query if no images found in scoping
-    if (empty($images) && $mysqli instanceof mysqli) {
-        $stmt = $mysqli->prepare("SELECT ID, guid FROM wp_posts WHERE post_parent = ? AND post_type = 'attachment' AND post_mime_type LIKE 'image/%'");
-        if ($stmt) {
-            $stmt->bind_param("i", $post_id);
-            if ($stmt->execute()) {
-                $res = $stmt->get_result();
-                while ($row = $res->fetch_assoc()) {
-                    $id = (int)$row['ID'];
-                    $url = $row['guid'];
+            // 1a. attached_media
+            if (!empty($scoped['attached_media']) && is_array($scoped['attached_media'])) {
+                foreach ($scoped['attached_media'] as $media) {
+                    $id = isset($media['attachment_id']) ? (int)$media['attachment_id'] : 0;
+                    $url = isset($media['url']) ? $media['url'] : '';
                     if ($id > 0 && !isset($seen_ids[$id])) {
                         $seen_ids[$id] = true;
                         $images[] = ['id' => $id, 'url' => $url];
                     }
                 }
             }
-            $stmt->close();
-        }
-    }
 
-    // 3. Resolve missing URLs or IDs via MySQL if needed
-    if (!empty($images) && $mysqli instanceof mysqli) {
-        foreach ($images as &$img) {
-            if ($img['id'] > 0 && empty($img['url'])) {
-                $stmt = $mysqli->prepare("SELECT guid FROM wp_posts WHERE ID = ?");
-                if ($stmt) {
-                    $stmt->bind_param("i", $img['id']);
-                    if ($stmt->execute()) {
-                        $res = $stmt->get_result();
-                        if ($row = $res->fetch_assoc()) {
-                            $img['url'] = $row['guid'];
-                        }
+            // 1b. embedded_images
+            if (!empty($scoped['embedded_images']) && is_array($scoped['embedded_images'])) {
+                foreach ($scoped['embedded_images'] as $media) {
+                    $id = isset($media['db_attachment_id']) ? (int)$media['db_attachment_id'] : 0;
+                    $url = isset($media['src_url']) ? $media['src_url'] : '';
+                    if ($id > 0 && !isset($seen_ids[$id])) {
+                        $seen_ids[$id] = true;
+                        $images[] = ['id' => $id, 'url' => $url];
                     }
-                    $stmt->close();
+                }
+            }
+
+            // 1c. gallery_image_ids
+            if (!empty($scoped['gallery_image_ids']) && is_array($scoped['gallery_image_ids'])) {
+                foreach ($scoped['gallery_image_ids'] as $gid) {
+                    $id = (int)$gid;
+                    if ($id > 0 && !isset($seen_ids[$id])) {
+                        $seen_ids[$id] = true;
+                        $images[] = ['id' => $id, 'url' => ''];
+                    }
                 }
             }
         }
-        unset($img);
-    }
 
-    return $images;
-}
+        // 2. MySQL fallback query if no images found in scoping
+        if (empty($images) && $mysqli instanceof mysqli) {
+            $stmt = $mysqli->prepare("SELECT ID, guid FROM wp_posts WHERE post_parent = ? AND post_type = 'attachment' AND post_mime_type LIKE 'image/%'");
+            if ($stmt) {
+                $stmt->bind_param("i", $post_id);
+                if ($stmt->execute()) {
+                    $res = $stmt->get_result();
+                    while ($row = $res->fetch_assoc()) {
+                        $id = (int)$row['ID'];
+                        $url = $row['guid'];
+                        if ($id > 0 && !isset($seen_ids[$id])) {
+                            $seen_ids[$id] = true;
+                            $images[] = ['id' => $id, 'url' => $url];
+                        }
+                    }
+                }
+                $stmt->close();
+            }
+        }
 
-/**
- * Resolves media images by slider alias across translated pages in scoping index.
- *
- * @param string $alias
- * @param int $post_id
- * @param array $scoping_map
- * @param mysqli|null $mysqli
- * @return array Array of ['id' => int, 'url' => string]
- */
-function eka_resolve_slider_images_by_alias($alias, $post_id, $scoping_map = [], $mysqli = null)
-{
-    $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
-    if (!empty($images)) {
+        // 3. Resolve missing URLs or IDs via MySQL if needed
+        if (!empty($images) && $mysqli instanceof mysqli) {
+            foreach ($images as &$img) {
+                if ($img['id'] > 0 && empty($img['url'])) {
+                    $stmt = $mysqli->prepare("SELECT guid FROM wp_posts WHERE ID = ?");
+                    if ($stmt) {
+                        $stmt->bind_param("i", $img['id']);
+                        if ($stmt->execute()) {
+                            $res = $stmt->get_result();
+                            if ($row = $res->fetch_assoc()) {
+                                $img['url'] = $row['guid'];
+                            }
+                        }
+                        $stmt->close();
+                    }
+                }
+            }
+            unset($img);
+        }
+
         return $images;
     }
+}
 
-    if (!empty($alias) && is_array($scoping_map)) {
-        foreach ($scoping_map as $pid => $scoped) {
-            if (!empty($scoped['rev_sliders']) && is_array($scoped['rev_sliders'])) {
-                foreach ($scoped['rev_sliders'] as $rs) {
-                    if (isset($rs['alias']) && strcasecmp($rs['alias'], $alias) === 0) {
-                        $found = eka_resolve_post_images($pid, $scoping_map, $mysqli);
-                        if (!empty($found)) {
-                            return $found;
+if (!function_exists('eka_resolve_slider_images_by_alias')) {
+    function eka_resolve_slider_images_by_alias($alias, $post_id, $scoping_map = [], $mysqli = null)
+    {
+        $images = eka_resolve_post_images($post_id, $scoping_map, $mysqli);
+        if (!empty($images)) {
+            return $images;
+        }
+
+        if (!empty($alias) && is_array($scoping_map)) {
+            foreach ($scoping_map as $pid => $scoped) {
+                if (!empty($scoped['rev_sliders']) && is_array($scoped['rev_sliders'])) {
+                    foreach ($scoped['rev_sliders'] as $rs) {
+                        if (isset($rs['alias']) && strcasecmp($rs['alias'], $alias) === 0) {
+                            $found = eka_resolve_post_images($pid, $scoping_map, $mysqli);
+                            if (!empty($found)) {
+                                return $found;
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    return [];
+        return [];
+    }
 }
 
 $is_direct_execution = !defined('EKA_TEST_MODE');
@@ -222,77 +219,78 @@ if ($is_direct_execution) {
 // Shortcode Transformation Functions
 // ----------------------------------------------------------------------
 
-function parse_fraction_width($width_str)
-{
-    $width_str = trim($width_str);
-    if (empty($width_str)) {
+if (!function_exists('parse_fraction_width')) {
+    function parse_fraction_width($width_str)
+    {
+        $width_str = trim($width_str);
+        if (empty($width_str)) {
+            return '100%';
+        }
+        if (strpos($width_str, '/') !== false) {
+            $parts = explode('/', $width_str);
+            $num = (float)$parts[0];
+            $den = (float)$parts[1];
+            if ($den > 0) {
+                $pct = round(($num / $den) * 100, 2);
+                return $pct . '%';
+            }
+        }
+        if (is_numeric(rtrim($width_str, '%'))) {
+            return rtrim($width_str, '%') . '%';
+        }
         return '100%';
     }
-    if (strpos($width_str, '/') !== false) {
-        $parts = explode('/', $width_str);
-        $num = (float)$parts[0];
-        $den = (float)$parts[1];
-        if ($den > 0) {
-            $pct = round(($num / $den) * 100, 2);
-            return $pct . '%';
-        }
-    }
-    if (is_numeric(rtrim($width_str, '%'))) {
-        return rtrim($width_str, '%') . '%';
-    }
-    return '100%';
 }
 
-/**
- * Helper to construct Gutenberg wp:gallery block with nested wp:image blocks.
- */
-function eka_build_gutenberg_gallery_block($images, $extra_class = 'rev-slider-replaced', $fallback_title = 'Slider')
-{
-    $valid_images = [];
-    foreach ($images as $img) {
-        if (!empty($img['id']) || !empty($img['url'])) {
-            $valid_images[] = $img;
-        }
-    }
-
-    if (empty($valid_images)) {
-        return '<!-- wp:gallery {"className":"' . $extra_class . '"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped ' . $extra_class . '"><!-- wp:paragraph --><p>' . htmlspecialchars($fallback_title, ENT_QUOTES, 'UTF-8') . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
-    }
-
-    $image_ids = [];
-    $inner_blocks_html = '';
-
-    foreach ($valid_images as $img) {
-        $id = (int)$img['id'];
-        $url = htmlspecialchars($img['url'], ENT_QUOTES, 'UTF-8');
-        if ($id > 0) {
-            $image_ids[] = $id;
+if (!function_exists('eka_build_gutenberg_gallery_block')) {
+    function eka_build_gutenberg_gallery_block($images, $extra_class = 'rev-slider-replaced', $fallback_title = 'Slider')
+    {
+        $valid_images = [];
+        foreach ($images as $img) {
+            if (!empty($img['id']) || !empty($img['url'])) {
+                $valid_images[] = $img;
+            }
         }
 
-        $id_attr_json = $id > 0 ? '"id":' . $id . ',' : '';
-        $id_class = $id > 0 ? ' wp-image-' . $id : '';
+        if (empty($valid_images)) {
+            return '<!-- wp:gallery {"className":"' . $extra_class . '"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped ' . $extra_class . '"><!-- wp:paragraph --><p>' . htmlspecialchars($fallback_title, ENT_QUOTES, 'UTF-8') . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
+        }
 
-        $inner_blocks_html .= '<!-- wp:image {' . $id_attr_json . '"sizeSlug":"full","linkDestination":"none"} -->';
-        $inner_blocks_html .= '<figure class="wp-block-image size-full"><img src="' . $url . '" alt="" class="' . trim($id_class) . '"/></figure>';
-        $inner_blocks_html .= '<!-- /wp:image -->';
+        $image_ids = [];
+        $inner_blocks_html = '';
+
+        foreach ($valid_images as $img) {
+            $id = (int)$img['id'];
+            $url = htmlspecialchars($img['url'], ENT_QUOTES, 'UTF-8');
+            if ($id > 0) {
+                $image_ids[] = $id;
+            }
+
+            $id_attr_json = $id > 0 ? '"id":' . $id . ',' : '';
+            $id_class = $id > 0 ? ' wp-image-' . $id : '';
+
+            $inner_blocks_html .= '<!-- wp:image {' . $id_attr_json . '"sizeSlug":"full","linkDestination":"none"} -->';
+            $inner_blocks_html .= '<figure class="wp-block-image size-full"><img src="' . $url . '" alt="" class="' . trim($id_class) . '"/></figure>';
+            $inner_blocks_html .= '<!-- /wp:image -->';
+        }
+
+        $gallery_attrs = [
+            'columns' => 1,
+            'ids' => $image_ids,
+            'linkTo' => 'none',
+            'sizeSlug' => 'full',
+            'className' => $extra_class,
+        ];
+        $attrs_json = json_encode($gallery_attrs, JSON_UNESCAPED_SLASHES);
+
+        $html = '<!-- wp:gallery ' . $attrs_json . ' -->';
+        $html .= '<figure class="wp-block-gallery has-nested-images columns-1 is-cropped ' . $extra_class . '">';
+        $html .= $inner_blocks_html;
+        $html .= '</figure>';
+        $html .= '<!-- /wp:gallery -->';
+
+        return $html;
     }
-
-    $gallery_attrs = [
-        'columns' => 1,
-        'ids' => $image_ids,
-        'linkTo' => 'none',
-        'sizeSlug' => 'full',
-        'className' => $extra_class,
-    ];
-    $attrs_json = json_encode($gallery_attrs, JSON_UNESCAPED_SLASHES);
-
-    $html = '<!-- wp:gallery ' . $attrs_json . ' -->';
-    $html .= '<figure class="wp-block-gallery has-nested-images columns-1 is-cropped ' . $extra_class . '">';
-    $html .= $inner_blocks_html;
-    $html .= '</figure>';
-    $html .= '<!-- /wp:gallery -->';
-
-    return $html;
 }
 
 /**
@@ -321,20 +319,67 @@ function step_4a_transform_wpbakery_and_caption($content, $post_id = 0, $scoping
         $content
     );
 
-    // 1. vc_row
-    $content = preg_replace('/\[vc_row[^\]]*\]/i', '<!-- wp:columns --><div class="wp-block-columns">', $content);
-    $content = preg_replace('/\[\/vc_row\]/i', '</div><!-- /wp:columns -->', $content);
-
-    // 2. vc_column
+    // 1. Process vc_row shortcodes smartly (unwrap single 1/1 column rows, wrap multi-column rows)
     $content = preg_replace_callback(
-        '/\[vc_column(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\]/i',
+        '/\[vc_row[^\]]*\](.*?)\[\/vc_row\]/is',
         function ($matches) {
-            $width = isset($matches[1]) ? parse_fraction_width($matches[1]) : '100%';
-            return '<!-- wp:column {"width":"' . $width . '"} --><div class="wp-block-column" style="flex-basis: ' . $width . ';">';
+            $row_inner = $matches[1];
+
+            // Count vc_column instances inside row
+            preg_match_all('/\[vc_column(?:\s+[^\]]*)?\]/i', $row_inner, $col_matches);
+            $num_cols = count($col_matches[0]);
+
+            if ($num_cols <= 1) {
+                // Check column width
+                $width_attr = '1/1';
+                if ($num_cols === 1 && preg_match('/\[vc_column(?:\s+[^\]]*?width=["\']([^"\']+)["\'])?[^\]]*\]/i', $row_inner, $wm)) {
+                    if (isset($wm[1])) {
+                        $width_attr = $wm[1];
+                    }
+                }
+                $parsed_pct = parse_fraction_width($width_attr);
+
+                if ($parsed_pct === '100%') {
+                    // Single 1/1 Column Row -> Unwrap entirely
+                    $inner = preg_replace('/\[\/?vc_column[^\]]*\]/i', '', $row_inner);
+                    $inner = preg_replace('/\[\/?vc_column_text[^\]]*\]/i', '', $inner);
+                    $inner = trim($inner);
+
+                    if (empty($inner)) {
+                        return '';
+                    }
+
+                    if (!preg_match('/^(?:<!-- wp:|\[vc_|\[rev_slider|\[layerslider|\[testimonials|\[caption|<h[1-6]|<ul|<ol|<table|<div|<figure)/i', $inner)) {
+                        if (preg_match('/^<p[^>]*>.*<\/p>$/is', $inner)) {
+                            return '<!-- wp:paragraph -->' . $inner . '<!-- /wp:paragraph -->';
+                        } else {
+                            return '<!-- wp:paragraph --><p>' . $inner . '</p><!-- /wp:paragraph -->';
+                        }
+                    }
+
+                    return $inner;
+                }
+            }
+
+            // Multi-column row or non-100% single column -> Retain wp:columns wrapper
+            $inner = preg_replace_callback(
+                '/\[vc_column(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\](.*?)\[\/vc_column\]/is',
+                function ($cm) {
+                    $width = isset($cm[1]) ? parse_fraction_width($cm[1]) : '100%';
+                    $col_inner = preg_replace('/\[\/?vc_column_text[^\]]*\]/i', '', $cm[2]);
+                    return '<!-- wp:column {"width":"' . $width . '"} --><div class="wp-block-column" style="flex-basis: ' . $width . ';">' . $col_inner . '</div><!-- /wp:column -->';
+                },
+                $row_inner
+            );
+
+            return '<!-- wp:columns --><div class="wp-block-columns">' . $inner . '</div><!-- /wp:columns -->';
         },
         $content
     );
-    $content = preg_replace('/\[\/vc_column\]/i', '</div><!-- /wp:column -->', $content);
+
+    // Clean up residual row/column tags if any were orphaned
+    $content = preg_replace('/\[\/?vc_row[^\]]*\]/i', '', $content);
+    $content = preg_replace('/\[\/?vc_column[^\]]*\]/i', '', $content);
     $content = preg_replace('/\[\/?vc_column_text[^\]]*\]/i', '', $content);
 
     // 3. vc_single_image

@@ -13,13 +13,13 @@
   - [x] Verify single `<header>` and `<footer>` tag rendering in DOM output.
   - [x] Commit: `refactor(fse): deduplicate outer semantic header and footer tags in templates and parts`
 
-- [ ] **Task 2: Smart `[vc_row]` / `[vc_column]` & Sub-grid Shortcode Unwrapping**
-  - [ ] Update `step_4a_transform_wpbakery_and_caption` in `bin/04-shortcode-migrations.php` to unwrap single 1/1 column rows.
-  - [ ] Convert inner `[vc_column_text]` directly to root `<!-- wp:paragraph -->` / heading blocks.
-  - [ ] Wrap sub-grids (`[vc_posts_grid]`) in clean `wp:group` + `wp:query` blocks without outer `wp:columns` wrappers.
-  - [ ] Preserve multi-column row wrapping with calculated flex percentages for 1/2, 1/3, 2/3 layouts.
-  - [ ] Run AST validation (`eka_validate_blocks_ast()`) and PHP syntax check (`php -l bin/04-shortcode-migrations.php`).
-  - [ ] Commit: `fix(migration): implement smart 1/1 column unwrapping in shortcode migration engine`
+- [x] **Task 2: Smart `[vc_row]` / `[vc_column]` & Sub-grid Shortcode Unwrapping**
+  - [x] Update `step_4a_transform_wpbakery_and_caption` in `bin/04-shortcode-migrations.php` to unwrap single 1/1 column rows.
+  - [x] Convert inner `[vc_column_text]` directly to root `<!-- wp:paragraph -->` / heading blocks.
+  - [x] Wrap sub-grids (`[vc_posts_grid]`) in clean `wp:group` + `wp:query` blocks without outer `wp:columns` wrappers.
+  - [x] Preserve multi-column row wrapping with calculated flex percentages for 1/2, 1/3, 2/3 layouts.
+  - [x] Run AST validation (`eka_validate_blocks_ast()`) and PHP syntax check (`php -l bin/04-shortcode-migrations.php`).
+  - [x] Commit: `fix(migration): implement smart 1/1 column unwrapping in shortcode migration engine`
 
 - [ ] **Task 3: MFN Left Sidebar Page Layout Support**
   - [ ] Implement MFN left sidebar detection in migration pipeline (`mfn-post-sidebar`, `_mfn-post-sidebar`, or `mfn_layout`).
