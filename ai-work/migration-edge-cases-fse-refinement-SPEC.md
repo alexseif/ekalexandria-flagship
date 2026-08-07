@@ -38,14 +38,19 @@ Resolve critical edge cases, block structural malfunctions, template tag duplica
   - `[vc_row][vc_column width="1/1"][vc_posts_grid ...][/vc_column][/vc_row]` produces `<!-- wp:group {"layout":{"type":"constrained"}} --><div class="wp-block-group"><!-- wp:query ... -->...<!-- /wp:query --></div><!-- /wp:group -->`.
   - All transformed content passes `eka_validate_blocks_ast()` without AST syntax errors.
 
-### Feature 3: MFN Sidebar Page Layout Support
-- **Problem**: Pages previously utilizing BeTheme/MFN left or right sidebars lose their sidebar structure during FSE migration.
+### Feature 3: MFN Left Sidebar Page Layout Support
+- **Problem**: Pages previously utilizing BeTheme/MFN left sidebars lose their sidebar layout structure during FSE migration.
 - **Solution**:
-  - Create dedicated FSE sidebar page templates: `page-sidebar-left.html`, `page-sidebar-right.html`, and localized variants (`page-sidebar-left-en.html`, `page-sidebar-left-ar.html`, `page-sidebar-right-en.html`, `page-sidebar-right-ar.html`).
-  - Read legacy postmeta (`mfn-post-sidebar`, `_mfn-post-sidebar`, `mfn_layout`) from `betheme-config-scoping.json` / `wp_postmeta`.
-  - Programmatically assign corresponding sidebar templates (`_wp_page_template`) for pages with active MFN sidebars.
+  - Apply strictly to pages that had a legacy MFN left sidebar (`mfn-post-sidebar`, `_mfn-post-sidebar`, or `mfn_layout` specifying left sidebar).
+  - Do NOT assign dedicated template parts or template files (`_wp_page_template`) for sidebars at this stage.
+  - Create a 30/70 2-column layout structure using native Gutenberg column blocks (`wp:columns` with `eka-has-sidebar-left` CSS class):
+    - Left Column (30% flex-basis / width): Reserved for left sidebar content.
+    - Right Column (70% flex-basis / width): Main page content.
+  - Explicitly exclude right sidebar pages and the news page (`index` / `page_for_posts`) from this solution.
 - **Acceptance Criteria**:
-  - Pages with legacy left/right sidebars render content in a 2-column flex layout with the respective sidebar template part (`parts/sidebar-child-pages.html` or `parts/sidebar-news.html`).
+  - Legacy MFN left-sidebar pages render inside a 30/70 column layout (`<!-- wp:column {"width":"30%"} -->` on left, `<!-- wp:column {"width":"70%"} -->` on right).
+  - Wrapper carries the `eka-has-sidebar-left` CSS class.
+  - No dedicated template files or template parts are assigned yet.
 
 ### Feature 4: Deferred Language & Template Assignment with Cache/Transient Flushes
 - **Problem**: Template assignments fail to take effect if applied before theme block template transients and Polylang language tax caches are invalidated.
@@ -88,11 +93,7 @@ public/wp-content/themes/ekalexandria-flagship/
     ├── front-page-ar.html
     ├── page.html
     ├── page-en.html
-    ├── page-ar.html
-    ├── page-sidebar-left.html                # NEW: Left sidebar layout template
-    ├── page-sidebar-right.html               # NEW: Right sidebar layout template
-    ├── page-sidebar-left-en.html             # NEW: Localized left sidebar template
-    └── page-sidebar-right-en.html            # NEW: Localized right sidebar template
+    └── page-ar.html
 ```
 
 ---
