@@ -1,6 +1,58 @@
 {
   "$schema": "https://schemas.wp.org/wp/6.4/theme.json",
   "version": 2,
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header (Greek / Default)",
+      "area": "header"
+    },
+    {
+      "name": "header-en",
+      "title": "Header (English)",
+      "area": "header"
+    },
+    {
+      "name": "header-ar",
+      "title": "Header (Arabic)",
+      "area": "header"
+    },
+    {
+      "name": "header-el",
+      "title": "Header (Greek)",
+      "area": "header"
+    },
+    {
+      "name": "footer",
+      "title": "Footer (Greek / Default)",
+      "area": "footer"
+    },
+    {
+      "name": "footer-en",
+      "title": "Footer (English)",
+      "area": "footer"
+    },
+    {
+      "name": "footer-ar",
+      "title": "Footer (Arabic)",
+      "area": "footer"
+    },
+    {
+      "name": "footer-el",
+      "title": "Footer (Greek)",
+      "area": "footer"
+    },
+    {
+      "name": "sidebar-news",
+      "title": "Sidebar (News)",
+      "area": "uncategorized"
+    },
+    {
+      "name": "sidebar-child-pages",
+      "title": "Sidebar (Child Pages)",
+      "area": "uncategorized"
+    }
+  ],
   "settings": {
     "appearanceTools": true,
     "layout": {

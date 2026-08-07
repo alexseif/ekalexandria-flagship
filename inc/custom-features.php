@@ -284,13 +284,16 @@ add_filter('render_block_data', function ($parsed_block) {
 
     if (isset($parsed_block['blockName']) && 'core/template-part' === $parsed_block['blockName']) {
         $slug = $parsed_block['attrs']['slug'] ?? '';
-        if (in_array($slug, ['header', 'footer'], true) && function_exists('pll_current_language')) {
+        if ((strpos($slug, 'header') === 0 || strpos($slug, 'footer') === 0) && function_exists('pll_current_language')) {
             $lang = pll_current_language();
             if ($lang) {
-                $target_slug = $slug . '-' . $lang;
+                $base_slug   = (strpos($slug, 'header') === 0) ? 'header' : 'footer';
+                $target_slug = ($lang === 'el' || $lang === 'gr') ? $base_slug : $base_slug . '-' . $lang;
                 $theme_dir   = get_stylesheet_directory();
                 if (file_exists($theme_dir . '/parts/' . $target_slug . '.html')) {
                     $parsed_block['attrs']['slug'] = $target_slug;
+                } elseif (file_exists($theme_dir . '/parts/' . $base_slug . '.html')) {
+                    $parsed_block['attrs']['slug'] = $base_slug;
                 }
             }
         }
