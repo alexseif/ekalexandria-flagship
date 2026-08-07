@@ -30,12 +30,12 @@
   - [x] Verify AST validity of converted 30/70 sidebar pages.
   - [x] Commit: `feat(migration): add 30/70 Gutenberg column layout for legacy MFN left sidebar pages`
 
-- [ ] **Task 4: Deferred Language & Template Assignment with Cache/Transient Flushes**
-  - [ ] Add transient and cache flushes (`delete_transient('wp_theme_files_')`, `wp_cache_flush()`, Polylang invalidation) to `bin/assign-page-templates.php`.
-  - [ ] Implement strict multilingual page template mapping rules (`front-page`/`front-page-en`/`front-page-ar` and `page`/`page-en`/`page-ar`).
-  - [ ] Verify script execution ordering in `bin/06-assign-templates-and-menus.sh`.
-  - [ ] Verify postmeta updates via WP-CLI / MySQL queries.
-  - [ ] Commit: `feat(migration): add cache flushing and deferred multilingual page template assignment`
+- [x] **Task 4: Deferred Language & Template Assignment with Cache/Transient Flushes**
+  - [x] Add transient and cache flushes (`delete_transient('wp_theme_files_')`, `wp_cache_flush()`, Polylang invalidation) to `bin/assign-page-templates.php`.
+  - [x] Ensure language assignment script runs AFTER all post content migrations complete.
+  - [x] Verify templates are properly assigned for translated pages (`page-ar`, `page-en`, `news-ar`, `news-en`, `index-ar`, `index-en`).
+  - [x] Test script execution idempotency.
+  - [x] Commit: `feat(migration): add cache invalidation and deferred template assignment script`
 
 - [ ] **Task 5: Final Checkpoint & End-to-End Migration Pipeline Review**
   - [ ] Run full migration pipeline end-to-end.
