@@ -29,21 +29,39 @@ function eka_flush_all_caches()
 // 1. Initial Cache Flush
 eka_flush_all_caches();
 
-// 2. Homepage template assignments
+// 2. Homepage publishing & template assignments
+$en_home_id = 16894;
+$ar_home_id = 16892;
+
+// Publish English and Arabic homepage pages before assignment
+foreach ([$en_home_id, $ar_home_id] as $home_id) {
+    $post_obj = get_post($home_id);
+    if ($post_obj && $post_obj->post_status !== 'publish') {
+        wp_update_post([
+            'ID'          => $home_id,
+            'post_status' => 'publish',
+        ]);
+        echo "Published homepage (ID: $home_id, Title: '{$post_obj->post_title}')\n";
+    }
+}
+
 $greek_homepage_id = 13236;
 if (get_post($greek_homepage_id)) {
     update_post_meta($greek_homepage_id, '_wp_page_template', 'front-page');
     echo "Assigned template 'front-page' to Greek Homepage (ID: $greek_homepage_id)\n";
 }
 
-// Find English & Arabic homepages
-$en_home_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'front-en' OR post_name = 'home-en' OR post_name = 'en' OR post_title LIKE '%Home%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
+if (!$en_home_id || !get_post($en_home_id)) {
+    $en_home_id = (int)$wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'front-en' OR post_name = 'home-en' OR post_name = 'en' OR post_title LIKE '%Home%' OR post_title LIKE '%Welcome%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
+}
 if ($en_home_id) {
     update_post_meta($en_home_id, '_wp_page_template', 'front-page-en');
     echo "Assigned template 'front-page-en' to English Homepage (ID: $en_home_id)\n";
 }
 
-$ar_home_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'front-ar' OR post_name = 'home-ar' OR post_name = 'ar' OR post_title LIKE '%الرئيسية%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
+if (!$ar_home_id || !get_post($ar_home_id)) {
+    $ar_home_id = (int)$wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE (post_name = 'front-ar' OR post_name = 'home-ar' OR post_name = 'ar' OR post_title LIKE '%الرئيسية%' OR post_title LIKE '%مرحباً%') AND post_type = 'page' AND post_status = 'publish' LIMIT 1");
+}
 if ($ar_home_id) {
     update_post_meta($ar_home_id, '_wp_page_template', 'front-page-ar');
     echo "Assigned template 'front-page-ar' to Arabic Homepage (ID: $ar_home_id)\n";
