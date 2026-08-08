@@ -37,9 +37,9 @@
     {
         "post_id": 32,
         "post_title": "\u03a3\u03c4\u03b5\u03bb\u03ad\u03c7\u03c9\u03c3\u03b7",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider staff]"
+        "type": "residual",
+        "tag": "13369",
+        "raw_shortcode": "[13369]"
     },
     {
         "post_id": 21689,
@@ -79,9 +79,9 @@
     {
         "post_id": 7390,
         "post_title": "\u039a\u03bf\u03b9\u03bd\u03bf\u03c4\u03b9\u03ba\u03cc \u0395\u03bd\u03c4\u03b5\u03c5\u03ba\u03c4\u03ae\u03c1\u03b9\u03bf",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider GREEK-CLUB]"
+        "type": "residual",
+        "tag": "10328",
+        "raw_shortcode": "[10328]"
     },
     {
         "post_id": 7387,
@@ -114,9 +114,9 @@
     {
         "post_id": 3442,
         "post_title": "\u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1]"
+        "type": "residual",
+        "tag": "10329",
+        "raw_shortcode": "[10329,7667,7668,7669,7670,7671,7672,7673]"
     },
     {
         "post_id": 3444,
@@ -142,23 +142,16 @@
     {
         "post_id": 7820,
         "post_title": "\u039c\u03bf\u03c5\u03c3\u03b5\u03af\u03bf \u039c\u03bf\u03c5\u03c3\u03b9\u03ba\u03ae\u03c2",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider music-museum]"
+        "type": "residual",
+        "tag": "7821",
+        "raw_shortcode": "[7821,7822,7823]"
     },
     {
         "post_id": 7811,
         "post_title": "\u039c\u03bf\u03c5\u03c3\u03b5\u03af\u03bf \u03ba\u03b1\u03b9 \u0395\u03c1\u03b3\u03b1\u03c3\u03c4\u03ae\u03c1\u03b9\u03bf \u0398\u03b5\u03c4\u03b9\u03ba\u03ce\u03bd \u0395\u03c0\u03b9\u03c3\u03c4\u03b7\u03bc\u03ce\u03bd",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider science-museum]"
-    },
-    {
-        "post_id": 8934,
-        "post_title": "\u039d\u03ad\u03b1",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[layerslider id=\"6\"]"
+        "type": "residual",
+        "tag": "7814",
+        "raw_shortcode": "[7814,7815,7813]"
     },
     {
         "post_id": 8934,
@@ -191,9 +184,9 @@
     {
         "post_id": 7756,
         "post_title": "\u03a3\u03c5\u03bd\u03c4\u03ae\u03c1\u03b7\u03c3\u03b7 \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03b7\u03c1\u03af\u03c9\u03bd",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider cemeteries-maintenance]"
+        "type": "residual",
+        "tag": "7936",
+        "raw_shortcode": "[7936,7939,7940,7942,7935,7941,7938,7937]"
     },
     {
         "post_id": 7967,
@@ -324,13 +317,6 @@
     {
         "post_id": 13236,
         "post_title": "\u0391\u03c1\u03c7\u03b9\u03ba\u03ae",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[layerslider id=\"6\"]"
-    },
-    {
-        "post_id": 13236,
-        "post_title": "\u0391\u03c1\u03c7\u03b9\u03ba\u03ae",
         "type": "residual",
         "tag": "7837",
         "raw_shortcode": "[7837,8088,28,14]"
@@ -368,7 +354,7 @@
         "post_title": "\u03a4\u03bf \u03bd\u03ad\u03bf \u03c4\u03b5\u03cd\u03c7\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03b5\u03c6\u03b7\u03bc\u03b5\u03c1\u03af\u03b4\u03b1\u03c2 \"\u03a0\u03c1\u03c9\u03c4\u03bf\u03c0\u03cc\u03c1\u03bf\u03c2\"",
         "type": "residual",
         "tag": "gview",
-        "raw_shortcode": "[gview file=&quot;https://ekalexandria.org/wp-content/uploads/2016/11/Protoporos_Sep-Oct-2016_web.pdf&quot;]"
+        "raw_shortcode": "[gview file=&quot;https://backstage.ekalexandria.org/wp-content/uploads/2016/11/Protoporos_Sep-Oct-2016_web.pdf&quot;]"
     },
     {
         "post_id": 14655,
@@ -443,13 +429,6 @@
     {
         "post_id": 16892,
         "post_title": "\u0645\u0631\u062d\u0628\u0627\u064b",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider_vc alias=\"newhome_ar\"]"
-    },
-    {
-        "post_id": 16892,
-        "post_title": "\u0645\u0631\u062d\u0628\u0627\u064b",
         "type": "residual",
         "tag": "28",
         "raw_shortcode": "[28,18,8088]"
@@ -460,13 +439,6 @@
         "type": "residual",
         "tag": "16892",
         "raw_shortcode": "[16892]"
-    },
-    {
-        "post_id": 16894,
-        "post_title": "Welcome",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider_vc alias=\"newhome_en\"]"
     },
     {
         "post_id": 16894,
@@ -513,44 +485,16 @@
     {
         "post_id": 16982,
         "post_title": "Staff",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider staff]"
+        "type": "residual",
+        "tag": "13369",
+        "raw_shortcode": "[13369]"
     },
     {
         "post_id": 16984,
         "post_title": "\u0627\u0644\u0639\u0627\u0645\u0644\u064a\u0646",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider staff]"
-    },
-    {
-        "post_id": 17018,
-        "post_title": "Community Lounge",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider GREEK-CLUB]"
-    },
-    {
-        "post_id": 17020,
-        "post_title": "\u0627\u0633\u062a\u0631\u0627\u062d\u0629 \u0627\u0644\u062c\u0645\u0639\u064a\u0629",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider GREEK-CLUB]"
-    },
-    {
-        "post_id": 17023,
-        "post_title": "Cemeteries",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1]"
-    },
-    {
-        "post_id": 17027,
-        "post_title": "\u0627\u0644\u0645\u0642\u0627\u0628\u0631",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider \u039a\u03bf\u03b9\u03bc\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1]"
+        "type": "residual",
+        "tag": "13369",
+        "raw_shortcode": "[13369]"
     },
     {
         "post_id": 17036,
@@ -649,48 +593,6 @@
         "type": "residual",
         "tag": "17110",
         "raw_shortcode": "[17110]"
-    },
-    {
-        "post_id": 17129,
-        "post_title": "Music Museum",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider music-museum]"
-    },
-    {
-        "post_id": 17133,
-        "post_title": "\u0645\u062a\u062d\u0641 \u0645\u0648\u0633\u064a\u0642\u064a",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider music-museum]"
-    },
-    {
-        "post_id": 17137,
-        "post_title": "Museum and Laboratory",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider science-museum]"
-    },
-    {
-        "post_id": 17139,
-        "post_title": "\u0645\u062a\u062d\u0641 \u0648\u0645\u062e\u062a\u0628\u0631",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider science-museum]"
-    },
-    {
-        "post_id": 17150,
-        "post_title": "Conservation of the Cemeteries",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider cemeteries-maintenance]"
-    },
-    {
-        "post_id": 17155,
-        "post_title": "\u0627\u0644\u0645\u0642\u0627\u0628\u0631",
-        "type": "slider",
-        "tag": "rev_slider",
-        "raw_shortcode": "[rev_slider cemeteries-maintenance]"
     },
     {
         "post_id": 18175,
@@ -1229,21 +1131,21 @@
         "post_title": "\u0397 \u0391\u03af\u03b3\u03c5\u03c0\u03c4\u03bf\u03c2 \u03b5\u03bd\u03b7\u03bc\u03b5\u03c1\u03ce\u03bd\u03b5\u03b9 \u03bc\u03b5 \u03b2\u03af\u03bd\u03c4\u03b5\u03bf \u03c3\u03c4\u03b7\u03bd \u03b5\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ae \u03b3\u03bb\u03ce\u03c3\u03c3\u03b1 \u03b3\u03b9\u03b1 \u03c4\u03bf \u03b4\u03af\u03ba\u03b1\u03b9\u03bf \u03b1\u03b3\u03ce\u03bd\u03b1 \u03c4\u03b7\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03bf \u03b8\u03ad\u03bc\u03b1 \u03c4\u03bf\u03c5 \u039d\u03b5\u03af\u03bb\u03bf\u03c5 (VIDEO)",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://ekalexandria.org/wp-content/uploads/2021/04/WhatsApp-Video-2021-04-21-at-8.04.00-AM.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2021/04/WhatsApp-Video-2021-04-21-at-8.04.00-AM.mp4\"][/video]"
     },
     {
         "post_id": 31993,
         "post_title": "\u03a4\u03b7 \u03b4\u03b5\u03bd\u03c4\u03c1\u03bf\u03c6\u03cd\u03c4\u03b5\u03c5\u03c3\u03b7 \u03bc\u03ad\u03c1\u03bf\u03c5\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03b1\u03bc\u03ad\u03bd\u03b7\u03c2 \u03b3\u03b7\u03c2 \u03c3\u03c4\u03b7\u03bd \u039a\u03cd\u03c0\u03c1\u03bf \u03b1\u03bd\u03ad\u03bb\u03b1\u03b2\u03b1\u03bd \u03bf\u03b9 \u0391\u03c0\u03cc\u03b4\u03b7\u03bc\u03bf\u03b9 \u03bd\u03ad\u03bf\u03b9 \u03c4\u03bf\u03c5 \u00ab\u039d\u039f\u03a3\u03a4\u039f\u03a3\u00bb (\u03a6\u03a9\u03a4\u039f, \u0392\u0399\u039d\u03a4\u0395\u039f)",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"640\" height=\"288\" mp4=\"https://ekalexandria.org/wp-content/uploads/2021/08/WhatsApp-Video-2021-08-05-at-20.20.56.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"640\" height=\"288\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2021/08/WhatsApp-Video-2021-08-05-at-20.20.56.mp4\"][/video]"
     },
     {
         "post_id": 32510,
         "post_title": "\u039f \u03a0\u03c1\u03c9\u03b8\u03c5\u03c0\u03bf\u03c5\u03c1\u03b3\u03cc\u03c2 \u039a. \u039c\u03b7\u03c4\u03c3\u03bf\u03c4\u03ac\u03ba\u03b7\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b9\u03c2 \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ad\u03c2 \u039a\u03bf\u03b9\u03bd\u03cc\u03c4\u03b7\u03c4\u03b5\u03c2 \u0391\u03bb\u03b5\u03be\u03b1\u03bd\u03b4\u03c1\u03b5\u03af\u03b1\u03c2 \u03ba\u03b1\u03b9 \u039a\u03b1\u0390\u03c1\u03bf\u03c5 \u03c3\u03c4\u03b7\u03bd \u03c4\u03c1\u03b9\u03bc\u03b5\u03c1\u03ae \u03c4\u03b7\u03c2 \u0391\u03b8\u03ae\u03bd\u03b1\u03c2 (\u0392\u0399\u039d\u03a4\u0395\u039f)",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"1280\" height=\"720\" mp4=\"https://ekalexandria.org/wp-content/uploads/2021/10/mitsotakis-gia-koinotites-aigyptou-stin-triemri-tis-athinas.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"1280\" height=\"720\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2021/10/mitsotakis-gia-koinotites-aigyptou-stin-triemri-tis-athinas.mp4\"][/video]"
     },
     {
         "post_id": 33515,
@@ -1264,28 +1166,28 @@
         "post_title": "\u03a4\u03bf \u0391\u03b2\u03b5\u03c1\u03ce\u03c6\u03b5\u03b9\u03bf \u03c4\u03af\u03bc\u03b7\u03c3\u03b5 \u03c4\u03b7\u03bd \u03a0\u03b1\u03b3\u03ba\u03cc\u03c3\u03bc\u03b9\u03b1 \u0397\u03bc\u03ad\u03c1\u03b1 \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ae\u03c2 \u0393\u03bb\u03ce\u03c3\u03c3\u03b1\u03c2",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"320\" height=\"576\" mp4=\"https://ekalexandria.org/wp-content/uploads/2022/02/EllhnikhGlwssa.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"320\" height=\"576\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2022/02/EllhnikhGlwssa.mp4\"][/video]"
     },
     {
         "post_id": 34174,
         "post_title": "\u03a4\u03bf \u039c\u03bd\u03b7\u03bc\u03cc\u03c3\u03c5\u03bd\u03bf \u03c4\u03c9\u03bd \u0395\u03c5\u03b5\u03c1\u03b3\u03b5\u03c4\u03ce\u03bd \u03ba\u03b1\u03b9 \u0394\u03c9\u03c1\u03b7\u03c4\u03ce\u03bd \u03c4\u03b7\u03c2 \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ae\u03c2 \u039a\u03bf\u03b9\u03bd\u03cc\u03c4\u03b7\u03c4\u03b1\u03c2 \u0391\u03bb\u03b5\u03be\u03b1\u03bd\u03b4\u03c1\u03b5\u03af\u03b1\u03c2",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://ekalexandria.org/wp-content/uploads/2022/03/VIDEO-2022-03-13-14-39-20.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2022/03/VIDEO-2022-03-13-14-39-20.mp4\"][/video]"
     },
     {
         "post_id": 34174,
         "post_title": "\u03a4\u03bf \u039c\u03bd\u03b7\u03bc\u03cc\u03c3\u03c5\u03bd\u03bf \u03c4\u03c9\u03bd \u0395\u03c5\u03b5\u03c1\u03b3\u03b5\u03c4\u03ce\u03bd \u03ba\u03b1\u03b9 \u0394\u03c9\u03c1\u03b7\u03c4\u03ce\u03bd \u03c4\u03b7\u03c2 \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ae\u03c2 \u039a\u03bf\u03b9\u03bd\u03cc\u03c4\u03b7\u03c4\u03b1\u03c2 \u0391\u03bb\u03b5\u03be\u03b1\u03bd\u03b4\u03c1\u03b5\u03af\u03b1\u03c2",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://ekalexandria.org/wp-content/uploads/2022/03/VIDEO-2022-03-13-14-37-41.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2022/03/VIDEO-2022-03-13-14-37-41.mp4\"][/video]"
     },
     {
         "post_id": 34174,
         "post_title": "\u03a4\u03bf \u039c\u03bd\u03b7\u03bc\u03cc\u03c3\u03c5\u03bd\u03bf \u03c4\u03c9\u03bd \u0395\u03c5\u03b5\u03c1\u03b3\u03b5\u03c4\u03ce\u03bd \u03ba\u03b1\u03b9 \u0394\u03c9\u03c1\u03b7\u03c4\u03ce\u03bd \u03c4\u03b7\u03c2 \u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ae\u03c2 \u039a\u03bf\u03b9\u03bd\u03cc\u03c4\u03b7\u03c4\u03b1\u03c2 \u0391\u03bb\u03b5\u03be\u03b1\u03bd\u03b4\u03c1\u03b5\u03af\u03b1\u03c2",
         "type": "residual",
         "tag": "video",
-        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://ekalexandria.org/wp-content/uploads/2022/03/VIDEO-2022-03-13-14-40-17-2.mp4\"][/video]"
+        "raw_shortcode": "[video width=\"640\" height=\"352\" mp4=\"https://backstage.ekalexandria.org/wp-content/uploads/2022/03/VIDEO-2022-03-13-14-40-17-2.mp4\"][/video]"
     },
     {
         "post_id": 34280,
