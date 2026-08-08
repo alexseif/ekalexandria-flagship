@@ -122,6 +122,56 @@ add_action('init', function () {
     ]);
 });
 
+// Register Admin Metabox for Tachydromos PDF Upload
+add_action('add_meta_boxes', function () {
+    add_meta_box(
+        'eka_tachydromos_pdf_meta',
+        'Tachydromos PDF Attachment',
+        function ($post) {
+            wp_nonce_field('eka_save_tachydromos_pdf', 'eka_tachydromos_pdf_nonce');
+            $pdf_id = get_post_meta($post->ID, '_eka_pdf_attachment_id', true);
+            $pdf_filename = get_post_meta($post->ID, '_eka_pdf_filename', true);
+            $url = $pdf_id ? wp_get_attachment_url($pdf_id) : '';
+            ?>
+            <div class="eka-pdf-metabox">
+                <p>
+                    <label for="eka_pdf_attachment_id"><strong>PDF Attachment ID:</strong></label><br/>
+                    <input type="number" id="eka_pdf_attachment_id" name="eka_pdf_attachment_id" value="<?php echo esc_attr($pdf_id); ?>" class="widefat" />
+                </p>
+                <?php if ($url): ?>
+                    <p>Current PDF: <a href="<?php echo esc_url($url); ?>" target="_blank"><?php echo esc_html($pdf_filename ? $pdf_filename : basename($url)); ?></a></p>
+                <?php endif; ?>
+            </div>
+            <?php
+        },
+        'alx_tachydromos',
+        'side',
+        'default'
+    );
+});
+
+add_action('save_post_alx_tachydromos', function ($post_id) {
+    if (!isset($_POST['eka_tachydromos_pdf_nonce']) || !wp_verify_nonce($_POST['eka_tachydromos_pdf_nonce'], 'eka_save_tachydromos_pdf')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+    if (!current_user_can('edit_post', $post_id)) return;
+
+    if (isset($_POST['eka_pdf_attachment_id'])) {
+        $pdf_id = intval($_POST['eka_pdf_attachment_id']);
+        if ($pdf_id > 0) {
+            update_post_meta($post_id, '_eka_pdf_attachment_id', $pdf_id);
+            $pdf_path = get_attached_file($pdf_id);
+            if ($pdf_path) {
+                update_post_meta($post_id, '_eka_pdf_filename', basename($pdf_path));
+            }
+        } else {
+            delete_post_meta($post_id, '_eka_pdf_attachment_id');
+            delete_post_meta($post_id, '_eka_pdf_filename');
+        }
+    }
+}, 10);
+
 // Register Board Member CPT
 add_action('init', function () {
     register_post_type('board_member', [
