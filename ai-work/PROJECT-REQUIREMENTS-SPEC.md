@@ -47,13 +47,13 @@
 
 ## 2. FSE PAGES & TEMPLATE SPECIFICATIONS
 
-### 2.1 Front Page (`front-page.html`, `front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
-- **Header & Footer Routing:** Loads language-specific header (`parts/header-el.html`, etc.) and footer (`parts/footer-ar.html`, etc.).
+### 2.1 Front Page (`front-page.html`, `front-page-en.html`, `front-page-ar.html`)
+- **Header & Footer Routing:** Loads language-specific header (`parts/header.html` for Greek default, `parts/header-en.html`, `parts/header-ar.html`) and footer (`parts/footer.html` for Greek default, `parts/footer-en.html`, `parts/footer-ar.html`).
 - **Hero Slider Section:** Native FSE hero slider component built into templates.
 - **Services Grid Section:** Embedded `eka/homepage-services-grid` dynamic block displaying a 4-column card grid for primary establishment pages (`7837, 8088, 28, 14`).
 - **Newsletter Subscription:** Embedded `[eka_mailchimp_form]` shortcode.
 - **Page ID Template Assignments:**
-  - Greek Front Page (`ID: 13236`): Assigned to `front-page` (or `front-page-el`)
+  - Greek Front Page (`ID: 13236`): Assigned to `front-page` (Default Template)
   - English Front Page (`ID: 16894`): Assigned to `front-page-en`
   - Arabic Front Page (`ID: 16892`): Assigned to `front-page-ar`
 
@@ -65,8 +65,8 @@
 - **Layout Proportions:** 2-column flex layout (75% main news post query loop, 25% right sidebar).
 - **Right Sidebar Component:** Integrates `parts/sidebar-news.html` featuring search bar (`core/search`), category taxonomy navigation menu (`core/categories`), and recent posts loop.
 
-### 2.3 Single Post Page (`single.html`, `single-el.html`, `single-ar.html`)
-- **Template Resolution:** Intercepted by `pre_get_block_template` filter hook resolving language templates (`single-en.html`, `single-ar.html`, `single-el.html`) based on Polylang context.
+### 2.3 Single Post Page (`single.html`, `single-en.html`, `single-ar.html`)
+- **Template Resolution:** Intercepted by `pre_get_block_template` filter hook resolving language templates (`single.html` for Greek default, `single-en.html`, `single-ar.html`) based on Polylang context.
 - **Layout Elements:** Main post column featuring category badge, post title, date, featured image, post content, author bio, social sharing button component, and right news sidebar.
 
 ### 2.4 Newsletter Pages (`archive-alx_tachydromos.html`, `single-alx_tachydromos.html`)
@@ -83,7 +83,7 @@
 
 ### 3.1 Slider Exception List
 Pages where sliders are built natively into FSE templates must be skipped by shortcode converters.
-- **Exception Page IDs:** `13236` (Front EL), `16894` (Front EN), `16892` (Front AR), `18` (Index EL), `16920` (Index EN), `16923` (Index AR).
+- **Exception Page IDs:** `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
 - **Transformation Action:** During migration, any `[layerslider]` or `[rev_slider]` shortcode and its surrounding WPBakery wrapper container on exception pages must be completely removed.
 
 ### 3.2 Remaining Shortcode Categories & Transformation Rules
@@ -108,7 +108,7 @@ Pages where sliders are built natively into FSE templates must be skipped by sho
 
 ### 4.1 WordPress Core Navigation Menu Locations
 Registered in `inc/custom-features.php` under `after_setup_theme`:
-- `main-menu`: Main Menu (Greek)
+- `main-menu`: Main Menu (Greek Default)
 - `main-menu___en`: Main Menu (English)
 - `main-menu___ar`: Main Menu (Arabic)
 - `secondary-menu`: Secondary Menu
@@ -116,10 +116,10 @@ Registered in `inc/custom-features.php` under `after_setup_theme`:
 - `social-menu-bottom`: Social Menu Bottom
 
 ### 4.2 Legacy Navigation Menu Mapping
-- **Greek (el):** `Main Greek Menu` (ID: 13) $\rightarrow$ Assigned to `main-menu`
+- **Greek (el / default):** `Main Greek Menu` (ID: 13) $\rightarrow$ Assigned to `main-menu`
 - **English (en):** `Main English Menu` (ID: 3315) $\rightarrow$ Assigned to `main-menu___en`
 - **Arabic (ar):** `Main Arabic Menu` (ID: 3316) $\rightarrow$ Assigned to `main-menu___ar`
-- **Footer Navigation (el):** `Footer Greek Menu` (ID: 21) $\rightarrow$ Assigned to `footer-menu`
+- **Footer Navigation (el / default):** `Footer Greek Menu` (ID: 21) $\rightarrow$ Assigned to `footer-menu`
 
 ---
 

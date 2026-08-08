@@ -4,7 +4,7 @@
 **Issue Name:** `incremental-implementation`  
 **Target Database:** `backstage_eka`  
 **Base PHP Version:** PHP 7.4 $\rightarrow$ PHP 8.2  
-**Strategy:** Minimal interference with existing codebase, incremental enhancement of active theme features, standardized `theme.json`, plugin research, and 3-stage pipeline refactoring.
+**Strategy:** Minimal interference with existing codebase, incremental enhancement of active theme features, standardized `theme.json` (dropping all `-el` template references in favor of Greek default names), plugin research, and 3-stage pipeline refactoring.
 
 ---
 
@@ -22,33 +22,46 @@ graph TD
 
 ---
 
-## 2. VERTICALLY SLICED IMPLEMENTATION PHASES
+## 2. DETAILED VERTICALLY SLICED IMPLEMENTATION PHASES
 
 ### Phase 1: Theme & FSE Foundation Standardization
-*Goal: Standardize `theme.json` declarations and evaluate plugin solutions for social sharing and Polylang FSE integration.*
+*Goal: Standardize `theme.json` declarations (using native default names for Greek templates) and evaluate plugin solutions for social sharing and Polylang FSE integration.*
 
 #### Task 1.1: Standardize `theme.json` with Custom Templates & Parts
 - **Target File:** `theme.json`
 - **Actions:**
-  1. Add `customTemplates` array declaring all custom FSE page templates:
-     - `front-page-el`, `front-page-en`, `front-page-ar`
-     - `index-el`, `index-en`, `index-ar`
-     - `single-el`, `single-en`, `single-ar`
-     - `archive-alx_tachydromos`, `single-alx_tachydromos`
-     - `archive-board_member`
-     - `page-parent-sidebar`
-  2. Standardize `templateParts` area definitions (`header`, `footer`, `uncategorized`).
+  1. Add explicit `customTemplates` array in `theme.json` declaring non-default custom FSE page templates:
+     - `front-page-en` (Title: "Front Page (English)", `postTypes`: `["page"]`)
+     - `front-page-ar` (Title: "Front Page (Arabic)", `postTypes`: `["page"]`)
+     - `index-en` (Title: "Posts Index (English)", `postTypes`: `["page"]`)
+     - `index-ar` (Title: "Posts Index (Arabic)", `postTypes`: `["page"]`)
+     - `single-en` (Title: "Single Post (English)", `postTypes`: `["post"]`)
+     - `single-ar` (Title: "Single Post (Arabic)", `postTypes`: `["post"]`)
+     - `archive-alx_tachydromos` (Title: "Tachydromos Archive", `postTypes`: `["alx_tachydromos"]`)
+     - `single-alx_tachydromos` (Title: "Tachydromos Single Issue", `postTypes`: `["alx_tachydromos"]`)
+     - `archive-board_member` (Title: "Board Members Grid", `postTypes`: `["board_member"]`)
+     - `page-parent-sidebar` (Title: "Page with Parent Sidebar", `postTypes`: `["page"]`)
+     *(Note: `front-page`, `index`, `single`, and `page` are native core WordPress FSE template names for Greek default and do NOT require customTemplate registration).*
+  2. Standardize `templateParts` array in `theme.json`:
+     - `header` (Title: "Header (Greek / Default)", `area`: "header")
+     - `header-en` (Title: "Header (English)", `area`: "header")
+     - `header-ar` (Title: "Header (Arabic)", `area`: "header")
+     - `footer` (Title: "Footer (Greek / Default)", `area`: "footer")
+     - `footer-en` (Title: "Footer (English)", `area`: "footer")
+     - `footer-ar` (Title: "Footer (Arabic)", `area`: "footer")
+     - `sidebar-news` (Title: "Sidebar (News)", `area`: "uncategorized")
+     - `sidebar-child-pages` (Title: "Sidebar (Child Pages)", `area`: "uncategorized")
 - **Acceptance Criteria:** `wp-admin/site-editor.php` recognizes all custom templates and template parts without warnings.
-- **Verification:** `php -l inc/custom-features.php` & validate `theme.json` syntax via `json_decode()`.
+- **Verification:** Execute `php -l theme.json` and validate JSON syntax via `json_decode(file_get_contents('theme.json'))`.
 
 #### Task 1.2: Plugin Research & Solution Evaluation
 - **Research Topic A — Social Share Buttons Component:**
-  - *Option 1 (Plugin Approach):* Install & configure a lightweight, privacy-friendly social sharing plugin (e.g., AddToAny, Shared Counts, or Scriptless Social Sharing).
-  - *Option 2 (Native Block / Shortcode):* Build a lightweight FSE block style or SVG social share shortcode `[eka_social_share]` inside `inc/custom-features.php`.
-  - *Recommendation & Trade-offs:* Document trade-offs (plugin maintenance vs custom code footprint) for user decision.
+  - *Option 1 (Plugin Approach):* Evaluate lightweight, privacy-friendly social sharing plugin options (e.g., AddToAny, Shared Counts, or Scriptless Social Sharing).
+  - *Option 2 (Native Shortcode / Block):* Register lightweight SVG social share shortcode `[eka_social_share]` inside `inc/custom-features.php`.
+  - *Recommendation & Trade-offs:* Document trade-offs (plugin maintenance vs zero-dependency custom code) for user decision.
 - **Research Topic B — Polylang & FSE Template Integration:**
   - *Option 1 (Plugin Bridge):* Evaluate official Polylang Pro / Polylang FSE compatibility extensions.
-  - *Option 2 (Active Hook Approach):* Retain existing lightweight PHP filters (`pre_get_block_template` & `render_block_data`) in `inc/custom-features.php`.
+  - *Option 2 (Active Hook Approach):* Retain existing lightweight PHP filter hooks (`pre_get_block_template` & `render_block_data`) in `inc/custom-features.php`.
   - *Recommendation & Trade-offs:* Document trade-offs (plugin updates vs zero-dependency custom filter hook).
 
 ---
@@ -59,44 +72,57 @@ graph TD
 #### Task 2.1: Newsletter (`alx_tachydromos`) Admin PDF Upload Metabox & AST Fix
 - **Target Files:** `inc/custom-features.php`, `templates/single-alx_tachydromos.html`
 - **Actions:**
-  1. Register custom admin PDF upload metabox for `alx_tachydromos` edit screen in WP Admin.
-  2. Verify `save_post_alx_tachydromos` ImageMagick PNG thumbnail save hook.
-  3. Ensure PDF viewer markup is contained inside FSE template (`single-alx_tachydromos.html`), NOT injected into `post_content`.
-  4. Fix AST block markup in `single-alx_tachydromos.html` by removing invalid `aria-label` attributes to prevent the `"Block contains unexpected or invalid content"` editor error.
-- **Acceptance Criteria:** Admin edit screen displays clean PDF upload metabox; saving post triggers thumbnail generation; editor canvas opens without block validation warnings.
-- **Verification:** Test post save hook and inspect rendered block AST via `parse_blocks()`.
+  1. Register custom admin PDF upload metabox (`add_meta_box('eka_tachydromos_pdf_meta', ...)`) for `alx_tachydromos` edit screen in `inc/custom-features.php` managing `_eka_pdf_attachment_id` and `_eka_pdf_filename`.
+  2. Verify `save_post_alx_tachydromos` hook in `inc/custom-features.php` running ImageMagick CLI (`convert -density 150 <pdf>[0] -quality 90 <png>`) to generate post featured image.
+  3. Update `templates/single-alx_tachydromos.html`: Ensure PDF embed viewer canvas is rendered via FSE template, NOT injected into `post_content`.
+  4. Correct Gutenberg `core/file` AST block format in `templates/single-alx_tachydromos.html` by stripping invalid `aria-label` attributes to prevent editor validation error:
+     ```html
+     <!-- wp:file {"id":72271,"href":"https://backstage.ekalexandria.org/wp-content/uploads/2026/07/06-26.pdf","displayPreview":true} -->
+     <div class="wp-block-file"><object class="wp-block-file__embed" data="https://backstage.ekalexandria.org/wp-content/uploads/2026/07/06-26.pdf" type="application/pdf" style="width:100%;height:600px" aria-label="Ιούνιος 2026"></object><a href="https://backstage.ekalexandria.org/wp-content/uploads/2026/07/06-26.pdf">Ιούνιος 2026</a><a href="https://backstage.ekalexandria.org/wp-content/uploads/2026/07/06-26.pdf" class="wp-block-file__button wp-element-button" download>Λήψη</a></div>
+     <!-- /wp:file -->
+     ```
+- **Acceptance Criteria:** Admin edit screen displays clean PDF upload metabox; post saving triggers ImageMagick thumbnail generation; single newsletter template opens in block editor without invalid content warnings.
+- **Verification:** Test post save hook and parse block AST via `parse_blocks()`.
 
 #### Task 2.2: Board of Directors (`board_member`) Page Layout Refinement
 - **Target Files:** `templates/archive-board_member.html`, `templates/board-members.html`
 - **Actions:**
-  1. Refine 3-column grid layout for Board Members displaying photo, title, bio, and language switcher.
-  2. Verify zero `<img>` tags inside `post_content`.
+  1. Refine 3-column team grid layout for `board_member` CPT displaying photo thumbnail, member full name/title, bio text, and language switcher sorted by `menu_order`.
+  2. Confirm zero `<img>` tags inside `post_content`.
 - **Acceptance Criteria:** Page renders clean responsive grid sorted by `menu_order`.
 - **Verification Checkpoint:** Present Board Page output for human revision.
 
 ---
 
 ### Phase 3: Content Engine & Pipeline Script Refactoring
-*Goal: Implement shortcode exception lists, process remaining shortcodes, and update script pipeline.*
+*Goal: Implement shortcode exception lists, process remaining shortcodes with exact transformation rules, and update script pipeline.*
 
-#### Task 3.1: Shortcode Engine Update with Slider Exception List
-- **Target Files:** `bin/migration-content-engine.php`
+#### Task 3.1: Shortcode Migration Engine with Slider Exception List & Categorized Rules
+- **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
-  1. Implement LayerSlider Exception List (`13236`, `16894`, `16892`, `18`, `16920`, `16923`).
-  2. Strip `[layerslider]` / `[rev_slider]` shortcodes and wrapper containers on exception pages.
-  3. Implement remaining 7 shortcode categories extracted from `missed-shortcodes.json`.
-- **Acceptance Criteria:** Homepage and news page shortcodes are stripped cleanly without removing native FSE sliders; remaining shortcodes transformed into Gutenberg AST blocks.
-- **Verification:** Run `bin/migration-content-engine.php` and verify `missed-shortcodes.json` log metrics.
+  1. Implement LayerSlider Exception List: Page IDs `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
+  2. Exception Transformation Rule: Completely strip `[layerslider]` / `[rev_slider]` shortcodes and surrounding `[vc_row]` / `[vc_column]` wrapper containers on exception pages.
+  3. Implement explicit handlers for the 7 shortcode categories in `bin/migration-content-engine.php`:
+     - **Category 1 (WPBakery Structural):** `[vc_row]`, `[vc_column]` $\rightarrow$ `core/columns` & `core/column` (calculating `flex-basis: X%` from fractions like `1/2` $\rightarrow$ `50%`, `1/3` $\rightarrow$ `33.33%`); `[vc_column_text]` $\rightarrow$ `core/paragraph` / `core/freeform`; `[vc_single_image]` $\rightarrow$ `core/image`; `[vc_raw_html]` $\rightarrow$ `core/html`.
+     - **Category 2 (BeTheme / Muffin):** `[mfn_button]` $\rightarrow$ `core/buttons`; `[items_list]`, `[content_box]` $\rightarrow$ unwrapped into `core/group` or `core/paragraph`.
+     - **Category 3 (Sliders - Non-Exception inner pages):** `[rev_slider]`, `[layerslider]` $\rightarrow$ `core/gallery` (`is-style-legacy-slider`) populated with Media Library attachment IDs.
+     - **Category 4 (Team & Board Query):** `[our_team]`, `[our_team_list]`, `[testimonials]` $\rightarrow$ `core/group` member cards or `core/query` block targeting `board_member` CPT sorted by `menu_order`.
+     - **Category 5 (Core & Media Embeds):** `[embed]` $\rightarrow$ `core/embed`; `[caption]` $\rightarrow$ `core/image` with `<figcaption>`; `[gallery]` $\rightarrow$ `core/gallery`; `[video]` $\rightarrow$ `core/video`; `[audio]` $\rightarrow$ `core/audio`.
+     - **Category 6 (Plugin Integrations):** `[gview file="...pdf"]` $\rightarrow$ native `core/file` block (`displayPreview: true`); `[mc4wp_form]` $\rightarrow$ `[eka_mailchimp_form]`.
+     - **Category 7 (Numeric References / Brackets):** `[14]`, `[7837, 8088]` $\rightarrow$ `eka/homepage-services-grid` or `eka/child-pages-sidebar`; bracketed text (`[Sigma]`, `[during World War II]`) $\rightarrow$ ignored by regex transformer.
+- **Acceptance Criteria:** Shortcodes on exception pages are stripped cleanly; remaining shortcodes across the database are transformed into Gutenberg AST blocks without breaking block syntax.
+- **Verification:** Run `bin/migration-content-engine.php` and verify `ai-work/logs/missed-shortcodes.json` log metrics.
 
-#### Task 3.2: 3-Stage Script Pipeline Renaming & Cleanup
+#### Task 3.2: 3-Stage Pipeline Script Renaming & Legacy Cleanup
 - **Target Files:** `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`, `bin/assign-page-templates.php`
 - **Actions:**
   1. Rename `bin/03-migrate-content.sh` $\rightarrow$ `bin/02-migrate-content.sh`.
   2. Rename `bin/06-assign-templates-and-menus.sh` $\rightarrow$ `bin/03-assign-templates.sh`.
-  3. Remove automated menu location assignments and sidebar menu injections from Script 3.
-  4. Update `assign-page-templates.php` with front page and news page ID mappings (`13236`, `16894`, `16892`, `18`, `16920`, `16923`).
-  5. Delete deprecated legacy scripts (`03-surgical-migrations.php`, `04-shortcode-migrations.php`, `05-classic-editor-migrations.php`, `inject-sidebar-menus.php`, `remediate-shortcodes-to-blocks.php`).
-- **Acceptance Criteria:** 3 consolidated scripts execute cleanly in sequence.
+  3. Modify `bin/03-assign-templates.sh` & `bin/assign-page-templates.php`:
+     - Remove automated menu location assignments (`wp menu location assign`) and sidebar injections (`inject-sidebar-menus.php`).
+     - Update FSE page template ID assignments: ID `13236` $\rightarrow$ `front-page`, ID `16894` $\rightarrow$ `front-page-en`, ID `16892` $\rightarrow$ `front-page-ar`, ID `18` $\rightarrow$ `index`, ID `16920` $\rightarrow$ `index-en`, ID `16923` $\rightarrow$ `index-ar`.
+  4. Delete deprecated legacy scripts: `bin/03-surgical-migrations.php`, `bin/04-shortcode-migrations.php`, `bin/05-classic-editor-migrations.php`, `bin/inject-sidebar-menus.php`, `bin/remediate-shortcodes-to-blocks.php`.
+- **Acceptance Criteria:** 3 consolidated scripts execute cleanly in sequence without references to deleted scripts.
 - **Verification:** Execute `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`.
 
 ---
