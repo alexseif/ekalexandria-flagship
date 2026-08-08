@@ -4,6 +4,7 @@
 **Issue Name:** `incremental-implementation`  
 **Target Database:** `backstage_eka`  
 **Base PHP Version:** PHP 7.4 $\rightarrow$ PHP 8.2  
+**Git Branching Standard:** Dedicated feature branch `eka-portal-migration-incremental-implementation`.  
 **Strategy:** Minimal interference with existing codebase, incremental enhancement of active theme features, standardized `theme.json` (dropping all `-el` template references in favor of Greek default names), and 3-stage pipeline refactoring.
 
 ---
@@ -87,7 +88,7 @@ graph TD
 ---
 
 ### Phase 3: Content Engine & Pipeline Script Refactoring
-*Goal: Implement LayerSlider exception engine, process individual missed shortcode tasks, and update script pipeline.*
+*Goal: Implement LayerSlider exception engine, process individual missed shortcode tasks, implement Gutenberg block comment isolation, and update script pipeline.*
 
 #### Task 3.1: LayerSlider Exception Engine Implementation
 - **Target File:** `bin/migration-content-engine.php`
@@ -115,14 +116,14 @@ graph TD
 - **Acceptance Criteria:** Document viewers and forms render properly; `[our_team_list]` is stripped.
 - **Verification:** Validate block AST for affected post IDs.
 
-#### Task 3.4: Subpages Query Loop Shortcodes Migration & Bracketed Text Exclusion
+#### Task 3.4: Subpages Query Loop Shortcodes & Block Comment Isolation
 - **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
-  1. Enhance `step_3c_transform_vc_posts_grid` to match standalone numeric arrays (`[7399,7397,7395,...]`) and single numeric IDs (`[16933]`, `[14]`).
-  2. Transform these numeric shortcodes into native Gutenberg subpages Query Loop blocks (`core/query` targeting `postType: "page"`, querying subpages of current page ID / parent ID, or included IDs, ordered by `menu_order`).
-  3. Update `step_3e_transform_residual_shortcodes` to exclude bracketed text false positives (`[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `[1883 – 1927]`) so they remain untouched in HTML paragraphs.
-- **Acceptance Criteria:** Numeric shortcodes render subpage card grids; bracketed text remains untouched.
-- **Verification:** Verify post ID 14, 16, 16933, and 13236 block AST.
+  1. Update residual scanner and transformer to ignore text inside `<!-- wp:... -->` Gutenberg HTML comments. Prevent JSON block attributes like `"include":[7399,7397,...]` inside `<!-- wp:query -->` comments from being logged as unhandled shortcodes.
+  2. Enhance `step_3c_transform_vc_posts_grid` to match standalone numeric shortcodes outside Gutenberg blocks (`[16933]`, `[14]`) and transform them into native Gutenberg subpages Query Loop blocks (`core/query` targeting `postType: "page"`).
+  3. Exclude bracketed text false positives (`[Sigma]`, `[Greek]`, `[5.4 acres]`) from regex transformer.
+- **Acceptance Criteria:** Block comment JSON attributes are ignored by residual logger; un-converted numeric shortcodes render subpage card grids; bracketed text remains untouched.
+- **Verification:** Verify post ID 14, 16, 16933, and 16936 block AST.
 
 #### Task 3.5: 3-Stage Pipeline Script Renaming & Legacy Cleanup
 - **Target Files:** `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`, `bin/assign-page-templates.php`
@@ -143,7 +144,7 @@ graph TD
 
 #### Task 4.1: Pipeline Execution & AST Validation
 - **Actions:**
-  1. Execute full 3-stage migration pipeline.
+  1. Execute full 3-stage migration pipeline on branch `eka-portal-migration-incremental-implementation`.
   2. Inspect logs in `ai-work/logs/` (`01-reset-and-setup.log`, `02-migrate-content.log`, `03-assign-templates.log`).
   3. Perform AST validation across posts (`eka_validate_blocks_ast()`).
 - **Acceptance Criteria:** Zero migration errors; clean AST block markup; manual admin checklist prepared for user.
@@ -159,7 +160,7 @@ Calculated based on typical LLM agent token consumption patterns for WordPress c
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Phase 1: `theme.json` Standardization** | 20,000 | 3,000 | 23,000 | $0.105 | Low complexity schema update. |
 | **Phase 2: Newsletter Metabox & AST Fix** | 35,000 | 6,000 | 41,000 | $0.195 | Moderate complexity CPT & template edit. |
-| **Phase 3: LayerSlider Exception & Shortcode Tasks** | 65,000 | 13,000 | 78,000 | $0.390 | High complexity regex & AST parsing. |
+| **Phase 3: LayerSlider Exception & Shortcode Tasks** | 70,000 | 14,000 | 84,000 | $0.420 | High complexity regex & AST parsing. |
 | **Phase 3: Script Renaming & Legacy Cleanup** | 20,000 | 3,000 | 23,000 | $0.105 | Low complexity shell script refactoring. |
 | **Phase 4: Pipeline Execution & AST Audit** | 30,000 | 5,000 | 35,000 | $0.165 | Verification & logging pass. |
-| **TOTAL ESTIMATE** | **170,000** | **30,000** | **200,000** | **~$0.96 USD** | **Optimal Agentic Cost Standard** |
+| **TOTAL ESTIMATE** | **175,000** | **31,000** | **206,000** | **~$0.99 USD** | **Optimal Agentic Cost Standard** |

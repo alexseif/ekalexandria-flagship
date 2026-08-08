@@ -3,7 +3,8 @@
 **Project:** Greek Community of Alexandria (EKA) Portal Modernization  
 **Theme:** `ekalexandria-flagship` (Gutenberg Full Site Editing Theme)  
 **Database Context:** `backstage_eka` (Development/Staging Target DB)  
-**Base PHP Version:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
+**Base PHP Target:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
+**Git Branching Standard:** All incremental work performed on dedicated feature branch `eka-portal-migration-incremental-implementation`.  
 **Document Purpose:** Complete, fully-detailed functional and technical requirements specification.
 
 ---
@@ -87,7 +88,10 @@ Pages where sliders are built natively into FSE templates must be skipped by sho
 - **Exception Page IDs:** `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
 - **Transformation Action:** During migration, any `[layerslider]` or `[rev_slider]` shortcode and its surrounding WPBakery wrapper container on exception pages must be completely removed.
 
-### 3.2 Remaining Shortcode Categories & Transformation Rules
+### 3.2 Shortcode Transformation Rules & Gutenberg Comment Isolation
+
+> [!IMPORTANT]
+> **Block Comment Isolation Rule:** Residual shortcode scanners and transformers MUST ignore all text inside Gutenberg block comment tags (e.g. `<!-- wp:query {"query":{...,"include":[7399,7397,...]}} -->`). JSON array attributes like `"include":[7399,7397,...]` inside block comments are valid Gutenberg attributes, NOT unhandled shortcodes.
 
 | Category | Tags & Extracted Examples | Transformation & Gutenberg Target Block |
 | :--- | :--- | :--- |
@@ -95,9 +99,9 @@ Pages where sliders are built natively into FSE templates must be skipped by sho
 | **2. Sliders (Non-Exception)** | `[rev_slider]`, `[layerslider]` on inner pages | Convert to `core/gallery` (`is-style-legacy-slider`) populated with attachment Media IDs. |
 | **3. Media Embeds** | `[embed]`, `[video]` | Convert `[embed]` to `core/embed` (YouTube slug); convert `[video]` to native `core/video` block. |
 | **4. Google Maps Embed** | `[map]` | Convert `[map lat="..." lng="..."]` to Google Maps Embed iframe (`<iframe src="https://maps.google.com/maps?q=LAT,LNG&output=embed" ...>`) inside `core/html`. |
-| **5. Subpages Query Loop** | Numeric Arrays `[7399,7397...]`, Numeric IDs `[16933]`, `[14]` | Convert to native Gutenberg subpages Query Loop block (`core/query` targeting `postType: "page"`, querying subpages of target/current page ID, ordered by `menu_order`). |
+| **5. Subpages Query Loop** | Numeric Arrays `[7399,7397...]`, Numeric IDs `[16933]`, `[14]` | Convert raw text numeric shortcodes (outside Gutenberg comments) to native Gutenberg subpages Query Loop blocks (`core/query` targeting `postType: "page"`). |
 | **6. Plugin Integrations & Removal** | `[gview]`, `[mc4wp_form]`, `[our_team_list]` | `[gview]` $\rightarrow$ `core/file` block (`displayPreview: true`); `[mc4wp_form]` $\rightarrow$ `[eka_mailchimp_form]`; `[our_team_list]` $\rightarrow$ **Remove completely from content**. |
-| **7. Bracketed Text False Positives** | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `[1883 – 1927]` | **Exclude from shortcode regex transformer** to preserve inline text content without breaking HTML. |
+| **7. False Positive Isolation** | `"include":[7399,7397]`, `[Sigma]`, `[Greek]` | Skip Gutenberg comment attributes and plain text brackets to preserve valid HTML/JSON syntax. |
 
 ### 3.3 FSE Inline Style Allowlist Sanitization (`sanitize_inline_styles_fse`)
 - **Allowed Properties:** `flex-basis`, `flex-grow`, `flex-shrink`, `flex-direction`, `grid-template-columns`, `width`, `height`, `min-height`, `max-width`, `aspect-ratio`, `object-fit`, `vertical-align`, `text-align`.
@@ -129,5 +133,5 @@ Registered in `inc/custom-features.php` under `after_setup_theme`:
 The migration pipeline is structured into a 3-script execution workflow in `bin/`:
 
 1. **`bin/01-reset-and-setup.sh` (Script 1):** Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
-2. **`bin/02-migrate-content.sh` (Script 2):** Content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, WPBakery remediation, subpages Query Loop conversion, and classic HTML AST block conversion (`bin/convert-classic-to-gutenberg.php`).
+2. **`bin/02-migrate-content.sh` (Script 2):** Content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, WPBakery remediation, subpages Query Loop conversion, Gutenberg comment isolation, and classic HTML AST block conversion (`bin/convert-classic-to-gutenberg.php`).
 3. **`bin/03-assign-templates.sh` (Script 3):** FSE page template ID assignments (`bin/assign-page-templates.php`). Note: Menu location assignment and sidebar injection are removed from automation to be managed manually in WP Admin.

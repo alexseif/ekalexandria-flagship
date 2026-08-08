@@ -4,6 +4,7 @@
 **Theme:** `ekalexandria-flagship` (Gutenberg Full Site Editing Theme)  
 **Database Context:** `backstage_eka` (Development/Staging Target DB)  
 **Base PHP Target:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
+**Git Branching Standard:** All incremental work performed on dedicated feature branch `eka-portal-migration-incremental-implementation`.  
 **Document Purpose:** Complete audit of work completed, missing work, gap analysis, block validation fixes, shortcode recommendations, and script cleanup plan.
 
 ---
@@ -24,7 +25,7 @@ This document tracks the current execution status of the EKA Portal migration, d
 | **Newsletter Single (`single-alx_tachydromos`)** | `[WORK NEEDED]` | Fix Gutenberg `core/file` AST invalid content error (strip invalid `aria-label` attributes from block markup). |
 | **Newsletter Create / Edit (Admin)** | `[WORK NEEDED]` | Custom admin PDF upload metabox; PDF-to-PNG save hook; render viewer in FSE template, NOT `post_content`. |
 | **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review (decoupled from BeTheme `our_team` staff shortcodes). |
-| **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement LayerSlider Exception List and individual missed shortcode handlers (excluding `vc_row`/`vc_column` which are already implemented). |
+| **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement LayerSlider Exception List, individual missed shortcode handlers, and block comment isolation to ignore JSON attributes like `"include":[...]`. |
 | **Migration Pipeline (`bin/`)** | `[WORK NEEDED]` | `01-reset-and-setup.sh` (Good); rename `03` $\rightarrow$ `02-migrate-content.sh`; rename `06` $\rightarrow$ `03-assign-templates.sh` (strip menu assignments). |
 | **Legacy Script Cleanup** | `[NEEDS HUMAN REVISION]` | Execute script cleanup table (keep core 3-stage pipeline, deprecate redundant runners). |
 
@@ -108,8 +109,9 @@ The following tasks must be performed manually in WP Admin:
 | **`[gview]`** | 1 | `[gview file="...pdf"]` | Transform to native Gutenberg `core/file` block (`displayPreview: true`). |
 | **`[mc4wp_form]`** | 1 | `[mc4wp_form]` | Replace with custom theme shortcode `[eka_mailchimp_form]`. |
 | **`[our_team_list]`** | 1 | `[our_team_list]Member Text...` | **Remove completely** from post content (decoupled from `board_member` CPT). |
-| **Numeric Arrays & Numeric IDs** | 67 | `[7399,7397,7395,7390,7387,3479,3467,3451,3442]`, `[16933]`, `[14]` | Transform to **subpages Query Loop block** (`core/query` targeting `postType: "page"`, querying subpages of current page ID / parent ID, or included IDs, ordered by `menu_order`). |
-| **Bracketed Text False Positives** | 18 | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `[1883 – 1927]` | **Exclude from shortcode regex transformer** to preserve inline text content without breaking HTML. |
+| **Subpages Query Loop** | Un-converted | Raw `[16933]`, `[14]` outside blocks | Transform un-converted raw text shortcodes into subpages Query Loop blocks (`core/query` targeting `postType: "page"`). |
+| **Block Comment JSON Attributes (False Positive)** | 35 | `"include":[7399,7397,...]` inside `<!-- wp:query -->` | **Skip scanner processing inside `<!-- wp:... -->` HTML block comments**. Valid Gutenberg block parameters must not be logged as missed shortcodes. |
+| **Bracketed Text False Positives** | 18 | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]` | **Exclude from shortcode regex transformer** to preserve inline text content without breaking HTML. |
 
 ---
 
@@ -119,7 +121,7 @@ The following tasks must be performed manually in WP Admin:
 1. **`bin/01-reset-and-setup.sh` (Script 1):** `[GOOD / IMPLEMENTED]`
    - Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
 2. **`bin/02-migrate-content.sh` (Script 2 - Renamed from 03):** `[WORK NEEDED]`
-   - Run shortcode & content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists and classic HTML AST conversion.
+   - Run shortcode & content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, block comment isolation, and classic HTML AST conversion.
 3. **`bin/03-assign-templates.sh` (Script 3 - Renamed from 06):** `[WORK NEEDED]`
    - Run FSE page template assignments (`assign-page-templates.php`).
    - **REMOVED:** Automatic menu assignment and sidebar injection removed (menus and sidebars will be assigned manually).
