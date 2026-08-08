@@ -4,7 +4,7 @@
 **Theme:** `ekalexandria-flagship` (Gutenberg Full Site Editing Theme)  
 **Database Context:** `backstage_eka` (Development/Staging Target DB)  
 **Base PHP Target:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
-**Document Purpose:** Complete audit of work completed, missing work, gap analysis, block validation fixes, and script cleanup plan.
+**Document Purpose:** Complete audit of work completed, missing work, gap analysis, block validation fixes, shortcode recommendations, and script cleanup plan.
 
 ---
 
@@ -23,8 +23,8 @@ This document tracks the current execution status of the EKA Portal migration, d
 | **Newsletter Listing (`alx_tachydromos`)** | `[WORK NEEDED]` | Grid view of newsletter PDF issues, paginated by year. |
 | **Newsletter Single (`single-alx_tachydromos`)** | `[WORK NEEDED]` | Fix Gutenberg `core/file` AST invalid content error (strip invalid `aria-label` attributes from block markup). |
 | **Newsletter Create / Edit (Admin)** | `[WORK NEEDED]` | Custom admin PDF upload metabox; PDF-to-PNG save hook; render viewer in FSE template, NOT `post_content`. |
-| **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review. |
-| **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement 7 shortcode categories from `missed-shortcodes.json`; apply Slider Exception List. |
+| **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review (separate from BeTheme `our_team` staff shortcodes). |
+| **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement LayerSlider Exception List and individual missed shortcode handlers (excluding `vc_row`/`vc_column` which are already implemented). |
 | **Migration Pipeline (`bin/`)** | `[WORK NEEDED]` | `01-reset-and-setup.sh` (Good); rename `03` $\rightarrow$ `02-migrate-content.sh`; rename `06` $\rightarrow$ `03-assign-templates.sh` (strip menu assignments). |
 | **Legacy Script Cleanup** | `[NEEDS HUMAN REVISION]` | Execute script cleanup table (keep core 3-stage pipeline, deprecate redundant runners). |
 
@@ -41,11 +41,11 @@ The following tasks must be performed manually in WP Admin:
 
 ## 3. COMPONENT GAP ANALYSIS & UPDATE CRITERIA
 
-### 3.1 Front Page (`front-page.html`, `front-page-el.html`, `front-page-en.html`, `front-page-ar.html`)
+### 3.1 Front Page (`front-page.html`, `front-page-en.html`, `front-page-ar.html`)
 - **Status:** `[WORK NEEDED]`
 - **LayerSlider Exception Rule:** Front page LayerSliders are built natively into FSE templates. Front page IDs (`13236`, `16894`, `16892`) are added to an **Exception List**. During content migration, shortcodes (`[layerslider]`, `[rev_slider]`) and their wrapper containers are stripped cleanly.
 - **Page ID Assignments (`bin/03-assign-templates.sh`):**
-  - `13236` $\rightarrow$ `front-page` (Greek)
+  - `13236` $\rightarrow$ `front-page` (Greek Default)
   - `16894` $\rightarrow$ `front-page-en` (English)
   - `16892` $\rightarrow$ `front-page-ar` (Arabic)
 
@@ -53,12 +53,12 @@ The following tasks must be performed manually in WP Admin:
 - **Status:** `[WORK NEEDED]`
 - **LayerSlider Exception Rule:** News pages are added to the **Exception List**. Shortcodes (`[layerslider]`, `[rev_slider]`) and wrapper containers are stripped during content migration.
 - **Page ID Assignments (`bin/03-assign-templates.sh`):**
-  - `18` $\rightarrow$ `index` (Default Template - Greek)
+  - `18` $\rightarrow$ `index` (Greek Default)
   - `16920` $\rightarrow$ `index-en` (English)
   - `16923` $\rightarrow$ `index-ar` (Arabic)
 - **Sidebar Integration:** 2-column flex layout (75% main news post query loop, 25% right category sidebar menu via `parts/sidebar-news.html`).
 
-### 3.3 Single Post Page (`single.html`, `single-el.html`, `single-ar.html`)
+### 3.3 Single Post Page (`single.html`, `single-en.html`, `single-ar.html`)
 - **Status:** `[PARTIALLY IMPLEMENTED]`
 - **Gap 1 - Social Share Buttons:** Embed lightweight social sharing component (Facebook, Twitter/X, LinkedIn, WhatsApp, Email) beneath post content.
 - **Gap 2 - Polylang Posts Page Mapping:** Configure dynamic template part routing & Polylang posts page binding so `single-en` and `single-ar` correctly map localized headers/footers and permalinks.
@@ -91,13 +91,32 @@ The following tasks must be performed manually in WP Admin:
 
 ### 3.7 Board of Directors Page (`board_member`)
 - **Status:** `[NEEDS HUMAN REVISION]`
-- CPT `board_member` registered with REST support, `menu_order` ordering, zero `<img>` tags inside body text, and Polylang translation groups mapped across EL, EN, AR. Page layout needs human review.
+- CPT `board_member` registered with REST support, `menu_order` ordering, zero `<img>` tags inside body text, and Polylang translation groups mapped across EL, EN, AR. Page layout needs human review. Note: `board_member` is strictly decoupled from legacy BeTheme `our_team` staff shortcodes.
 
 ---
 
-## 4. MIGRATION SCRIPTS PIPELINE & SCRIPT CLEANUP PLAN
+## 4. MISSED SHORTCODES ANALYSIS & RECOMMENDATIONS TABLE
 
-### 4.1 Revised 3-Stage Shell Script Pipeline
+*(Extracted from `missed-shortcodes.json` & `missed-shortcodes.log`. Note: `vc_row` and `vc_column` are already fully implemented in `bin/migration-content-engine.php` and excluded below).*
+
+| Shortcode Tag | Logged Occurrences | Sample Raw Shortcode | Recommended Remediation Action / Block Mapping |
+| :--- | :--- | :--- | :--- |
+| **`[embed]`** | 74 | `[embed]https://youtu.be/SwE-OTtqqtc[/embed]` | Transform to native Gutenberg `core/embed` block with `providerNameSlug: "youtube"`. |
+| **`[video]`** | 7 | `[video mp4="https://...mp4"][/video]` | Transform to native Gutenberg `core/video` block embedding HTML `<video src="...">`. |
+| **`[hr]`** | 5 | `[hr height="30" style="default"]` | Transform to native Gutenberg `core/spacer` or `core/separator` (`height: 30px`). |
+| **`[map]`** | 6 | `[map lat="31.19" lng="29.89"]` | Transform to HTML iframe embed or Google Maps block wrapper. |
+| **`[gview]`** | 1 | `[gview file="...pdf"]` | Transform to native Gutenberg `core/file` block (`displayPreview: true`). |
+| **`[mc4wp_form]`** | 1 | `[mc4wp_form]` | Replace with custom theme shortcode `[eka_mailchimp_form]`. |
+| **`[our_team_list]`** | 1 | `[our_team_list]Member Text...` | Transform to static `core/group` member cards. (Separate from `board_member` CPT). |
+| **Numeric Arrays** | 35 | `[7399,7397,7395,7390,...]` | Transform to dynamic sub-page grid block `eka/homepage-services-grid` or `core/query`. |
+| **Numeric IDs** | 32 | `[14]`, `[13369]`, `[16892]` | Transform to single sub-page card grid or parent page link card block. |
+| **Bracketed Text False Positives** | 18 | `[Sigma]`, `[Greek]`, `[during World War II]` | Ignore in regex transformer to preserve inline text content without breaking HTML. |
+
+---
+
+## 5. MIGRATION SCRIPTS PIPELINE & SCRIPT CLEANUP PLAN
+
+### 5.1 Revised 3-Stage Shell Script Pipeline
 1. **`bin/01-reset-and-setup.sh` (Script 1):** `[GOOD / IMPLEMENTED]`
    - Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
 2. **`bin/02-migrate-content.sh` (Script 2 - Renamed from 03):** `[WORK NEEDED]`
@@ -106,7 +125,7 @@ The following tasks must be performed manually in WP Admin:
    - Run FSE page template assignments (`assign-page-templates.php`).
    - **REMOVED:** Automatic menu assignment and sidebar injection removed (menus and sidebars will be assigned manually).
 
-### 4.2 Script Audit & Cleanup Table
+### 5.2 Script Audit & Cleanup Table
 
 | Script Path | Description / Purpose | Proposed Action | Reason / Notes |
 | :--- | :--- | :--- | :--- |

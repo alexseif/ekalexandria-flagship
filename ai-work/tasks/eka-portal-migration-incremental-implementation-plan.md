@@ -4,7 +4,7 @@
 **Issue Name:** `incremental-implementation`  
 **Target Database:** `backstage_eka`  
 **Base PHP Version:** PHP 7.4 $\rightarrow$ PHP 8.2  
-**Strategy:** Minimal interference with existing codebase, incremental enhancement of active theme features, standardized `theme.json` (dropping all `-el` template references in favor of Greek default names), plugin research, and 3-stage pipeline refactoring.
+**Strategy:** Minimal interference with existing codebase, incremental enhancement of active theme features, standardized `theme.json` (dropping all `-el` template references in favor of Greek default names), and 3-stage pipeline refactoring.
 
 ---
 
@@ -12,12 +12,13 @@
 
 ```mermaid
 graph TD
-    A[Phase 1: theme.json & Plugin Research] --> B[Phase 2: Newsletter Admin UI & AST Fix]
+    A[Phase 1: theme.json Standardization] --> B[Phase 2: Newsletter Admin UI & AST Fix]
     A --> C[Phase 2: Board Page Layout Refinement]
-    B --> D[Phase 3: Shortcode Engine & Slider Exception List]
+    B --> D[Phase 3: LayerSlider Exception Engine]
     C --> D
-    D --> E[Phase 3: Pipeline Script Renaming & Legacy Cleanup]
-    E --> F[Phase 4: End-to-End Verification & Dry-Run]
+    D --> E[Phase 3: Missed Shortcode Migration Tasks]
+    E --> F[Phase 3: Pipeline Script Renaming & Legacy Cleanup]
+    F --> G[Phase 4: End-to-End Verification & Dry-Run]
 ```
 
 ---
@@ -25,9 +26,9 @@ graph TD
 ## 2. DETAILED VERTICALLY SLICED IMPLEMENTATION PHASES
 
 ### Phase 1: Theme & FSE Foundation Standardization
-*Goal: Standardize `theme.json` declarations (using native default names for Greek templates) and evaluate plugin solutions for social sharing and Polylang FSE integration.*
+*Goal: Standardize `theme.json` declarations (using native default names for Greek templates) and cleanup unused template parts.*
 
-#### Task 1.1: Standardize `theme.json` with Custom Templates & Parts
+#### Task 1.1: Standardize `theme.json` with Custom Templates & Template Parts
 - **Target File:** `theme.json`
 - **Actions:**
   1. Add explicit `customTemplates` array in `theme.json` declaring non-default custom FSE page templates:
@@ -50,19 +51,9 @@ graph TD
      - `footer-en` (Title: "Footer (English)", `area`: "footer")
      - `footer-ar` (Title: "Footer (Arabic)", `area`: "footer")
      - `sidebar-news` (Title: "Sidebar (News)", `area`: "uncategorized")
-     - `sidebar-child-pages` (Title: "Sidebar (Child Pages)", `area`: "uncategorized")
+     *(Note: `sidebar-child-pages` has been removed and its file deleted as requested).*
 - **Acceptance Criteria:** `wp-admin/site-editor.php` recognizes all custom templates and template parts without warnings.
-- **Verification:** Execute `php -l theme.json` and validate JSON syntax via `json_decode(file_get_contents('theme.json'))`.
-
-#### Task 1.2: Plugin Research & Solution Evaluation
-- **Research Topic A — Social Share Buttons Component:**
-  - *Option 1 (Plugin Approach):* Evaluate lightweight, privacy-friendly social sharing plugin options (e.g., AddToAny, Shared Counts, or Scriptless Social Sharing).
-  - *Option 2 (Native Shortcode / Block):* Register lightweight SVG social share shortcode `[eka_social_share]` inside `inc/custom-features.php`.
-  - *Recommendation & Trade-offs:* Document trade-offs (plugin maintenance vs zero-dependency custom code) for user decision.
-- **Research Topic B — Polylang & FSE Template Integration:**
-  - *Option 1 (Plugin Bridge):* Evaluate official Polylang Pro / Polylang FSE compatibility extensions.
-  - *Option 2 (Active Hook Approach):* Retain existing lightweight PHP filter hooks (`pre_get_block_template` & `render_block_data`) in `inc/custom-features.php`.
-  - *Recommendation & Trade-offs:* Document trade-offs (plugin updates vs zero-dependency custom filter hook).
+- **Verification:** Validate JSON syntax via `json_decode(file_get_contents('theme.json'))`.
 
 ---
 
@@ -89,31 +80,56 @@ graph TD
 - **Actions:**
   1. Refine 3-column team grid layout for `board_member` CPT displaying photo thumbnail, member full name/title, bio text, and language switcher sorted by `menu_order`.
   2. Confirm zero `<img>` tags inside `post_content`.
+  3. Note: `board_member` CPT implementation is strictly decoupled from legacy BeTheme `our_team` staff shortcodes.
 - **Acceptance Criteria:** Page renders clean responsive grid sorted by `menu_order`.
 - **Verification Checkpoint:** Present Board Page output for human revision.
 
 ---
 
 ### Phase 3: Content Engine & Pipeline Script Refactoring
-*Goal: Implement shortcode exception lists, process remaining shortcodes with exact transformation rules, and update script pipeline.*
+*Goal: Implement LayerSlider exception engine, process individual missed shortcode tasks, and update script pipeline.*
 
-#### Task 3.1: Shortcode Migration Engine with Slider Exception List & Categorized Rules
+#### Task 3.1: LayerSlider Exception Engine Implementation
 - **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
-  1. Implement LayerSlider Exception List: Page IDs `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
-  2. Exception Transformation Rule: Completely strip `[layerslider]` / `[rev_slider]` shortcodes and surrounding `[vc_row]` / `[vc_column]` wrapper containers on exception pages.
-  3. Implement explicit handlers for the 7 shortcode categories in `bin/migration-content-engine.php`:
-     - **Category 1 (WPBakery Structural):** `[vc_row]`, `[vc_column]` $\rightarrow$ `core/columns` & `core/column` (calculating `flex-basis: X%` from fractions like `1/2` $\rightarrow$ `50%`, `1/3` $\rightarrow$ `33.33%`); `[vc_column_text]` $\rightarrow$ `core/paragraph` / `core/freeform`; `[vc_single_image]` $\rightarrow$ `core/image`; `[vc_raw_html]` $\rightarrow$ `core/html`.
-     - **Category 2 (BeTheme / Muffin):** `[mfn_button]` $\rightarrow$ `core/buttons`; `[items_list]`, `[content_box]` $\rightarrow$ unwrapped into `core/group` or `core/paragraph`.
-     - **Category 3 (Sliders - Non-Exception inner pages):** `[rev_slider]`, `[layerslider]` $\rightarrow$ `core/gallery` (`is-style-legacy-slider`) populated with Media Library attachment IDs.
-     - **Category 4 (Team & Board Query):** `[our_team]`, `[our_team_list]`, `[testimonials]` $\rightarrow$ `core/group` member cards or `core/query` block targeting `board_member` CPT sorted by `menu_order`.
-     - **Category 5 (Core & Media Embeds):** `[embed]` $\rightarrow$ `core/embed`; `[caption]` $\rightarrow$ `core/image` with `<figcaption>`; `[gallery]` $\rightarrow$ `core/gallery`; `[video]` $\rightarrow$ `core/video`; `[audio]` $\rightarrow$ `core/audio`.
-     - **Category 6 (Plugin Integrations):** `[gview file="...pdf"]` $\rightarrow$ native `core/file` block (`displayPreview: true`); `[mc4wp_form]` $\rightarrow$ `[eka_mailchimp_form]`.
-     - **Category 7 (Numeric References / Brackets):** `[14]`, `[7837, 8088]` $\rightarrow$ `eka/homepage-services-grid` or `eka/child-pages-sidebar`; bracketed text (`[Sigma]`, `[during World War II]`) $\rightarrow$ ignored by regex transformer.
-- **Acceptance Criteria:** Shortcodes on exception pages are stripped cleanly; remaining shortcodes across the database are transformed into Gutenberg AST blocks without breaking block syntax.
-- **Verification:** Run `bin/migration-content-engine.php` and verify `ai-work/logs/missed-shortcodes.json` log metrics.
+  1. Add LayerSlider Exception List: Page IDs `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
+  2. Exception Transformation Rule: On exception pages, strip `[layerslider]` / `[rev_slider]` shortcodes and surrounding `[vc_row]` / `[vc_column]` wrapper containers completely, preserving the native FSE hero slider.
+- **Acceptance Criteria:** Exception pages have shortcodes and wrappers removed without affecting template sliders.
+- **Verification:** Test on page `13236` and verify clean HTML output.
 
-#### Task 3.2: 3-Stage Pipeline Script Renaming & Legacy Cleanup
+#### Task 3.2: Media Embed Shortcodes Migration (`[embed]`, `[video]`)
+- **Target File:** `bin/migration-content-engine.php`
+- **Actions:**
+  1. Transform `[embed]url[/embed]` (74 occurrences) into native Gutenberg `core/embed` blocks.
+  2. Transform `[video src="..."]` (7 occurrences) into native Gutenberg `core/video` blocks.
+- **Acceptance Criteria:** Video and URL embeds render as valid Gutenberg blocks.
+- **Verification:** Verify transformed post content via `eka_validate_blocks_ast()`.
+
+#### Task 3.3: Plugin Integration & Viewer Shortcodes Migration (`[gview]`, `[mc4wp_form]`)
+- **Target File:** `bin/migration-content-engine.php`
+- **Actions:**
+  1. Transform `[gview file="...pdf"]` (1 occurrence) into native Gutenberg `core/file` block (`displayPreview: true`).
+  2. Replace `[mc4wp_form]` (1 occurrence) with custom shortcode `[eka_mailchimp_form]`.
+- **Acceptance Criteria:** Document viewers and form shortcodes render properly.
+- **Verification:** Validate block AST for affected post IDs.
+
+#### Task 3.4: Staff & Separator Shortcodes Migration (`[our_team_list]`, `[hr]`)
+- **Target File:** `bin/migration-content-engine.php`
+- **Actions:**
+  1. Transform `[our_team_list]` (1 occurrence) into static `core/group` staff cards (independent of `board_member` CPT).
+  2. Transform `[hr height="X"]` (5 occurrences) into native Gutenberg `core/spacer` or `core/separator` blocks.
+- **Acceptance Criteria:** Staff list and separators render as Gutenberg blocks.
+- **Verification:** Check post ID 30 and ID 7946 AST.
+
+#### Task 3.5: Numeric Sub-Page Array Shortcodes Migration
+- **Target File:** `bin/migration-content-engine.php`
+- **Actions:**
+  1. Transform numeric page array shortcodes (e.g. `[7399,7397,7395,...]`, `[7837,7820,...]`, `[14]`) into dynamic sub-page grid block `eka/homepage-services-grid` or `core/query` cards.
+  2. Exclude bracketed regular text (`[Sigma]`, `[Greek]`, `[during World War II]`) in regex transformer to prevent content corruption.
+- **Acceptance Criteria:** Sub-page arrays render card grids; bracketed text remains untouched.
+- **Verification:** Verify post ID 14, 16, and 13236 block AST.
+
+#### Task 3.6: 3-Stage Pipeline Script Renaming & Legacy Cleanup
 - **Target Files:** `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`, `bin/assign-page-templates.php`
 - **Actions:**
   1. Rename `bin/03-migrate-content.sh` $\rightarrow$ `bin/02-migrate-content.sh`.
@@ -146,14 +162,9 @@ Calculated based on typical LLM agent token consumption patterns for WordPress c
 
 | Development Task | Input Tokens (Est.) | Output Tokens (Est.) | Total Tokens (Est.) | Est. Cost (USD @ $3/1M Input, $15/1M Output) | Industry Benchmark Comparison |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: `theme.json` & Plugin Research** | 25,000 | 4,000 | 29,000 | $0.135 | Low complexity schema update. |
+| **Phase 1: `theme.json` Standardization** | 20,000 | 3,000 | 23,000 | $0.105 | Low complexity schema update. |
 | **Phase 2: Newsletter Metabox & AST Fix** | 35,000 | 6,000 | 41,000 | $0.195 | Moderate complexity CPT & template edit. |
-| **Phase 3: Shortcode Engine & Exception List** | 60,000 | 12,000 | 72,000 | $0.360 | High complexity regex & AST parsing. |
+| **Phase 3: LayerSlider Exception & Shortcode Tasks** | 65,000 | 13,000 | 78,000 | $0.390 | High complexity regex & AST parsing. |
 | **Phase 3: Script Renaming & Legacy Cleanup** | 20,000 | 3,000 | 23,000 | $0.105 | Low complexity shell script refactoring. |
 | **Phase 4: Pipeline Execution & AST Audit** | 30,000 | 5,000 | 35,000 | $0.165 | Verification & logging pass. |
 | **TOTAL ESTIMATE** | **170,000** | **30,000** | **200,000** | **~$0.96 USD** | **Optimal Agentic Cost Standard** |
-
-### Optimization & Token Efficiency Guidelines:
-1. **Targeted File Reading:** Read specific line ranges instead of dumping entire 1,000+ line log files into context.
-2. **Modular Helper Invocation:** Use PHP CLI helper commands for JSON filtering rather than parsing raw arrays in agent memory.
-3. **Atomic Execution Loops:** Run single-task implement-verify loops to prevent token bloat from repeated failed attempts.
