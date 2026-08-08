@@ -97,39 +97,34 @@ graph TD
 - **Acceptance Criteria:** Exception pages have shortcodes and wrappers removed without affecting template sliders.
 - **Verification:** Test on page `13236` and verify clean HTML output.
 
-#### Task 3.2: Media Embed Shortcodes Migration (`[embed]`, `[video]`)
+#### Task 3.2: Media Embed & Map Shortcodes Migration (`[embed]`, `[video]`, `[map]`)
 - **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
   1. Transform `[embed]url[/embed]` (74 occurrences) into native Gutenberg `core/embed` blocks.
   2. Transform `[video src="..."]` (7 occurrences) into native Gutenberg `core/video` blocks.
-- **Acceptance Criteria:** Video and URL embeds render as valid Gutenberg blocks.
+  3. Transform `[map lat="LAT" lng="LNG" height="H"]` (6 occurrences) into Google Maps Embed iframe inside `core/html` block (`<iframe src="https://maps.google.com/maps?q=LAT,LNG&output=embed" width="100%" height="400" frameborder="0"></iframe>`).
+- **Acceptance Criteria:** Video embeds, URL embeds, and Google Maps render as valid Gutenberg blocks.
 - **Verification:** Verify transformed post content via `eka_validate_blocks_ast()`.
 
-#### Task 3.3: Plugin Integration & Viewer Shortcodes Migration (`[gview]`, `[mc4wp_form]`)
+#### Task 3.3: Plugin Integration & Removal Tasks (`[gview]`, `[mc4wp_form]`, `[our_team_list]`)
 - **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
   1. Transform `[gview file="...pdf"]` (1 occurrence) into native Gutenberg `core/file` block (`displayPreview: true`).
   2. Replace `[mc4wp_form]` (1 occurrence) with custom shortcode `[eka_mailchimp_form]`.
-- **Acceptance Criteria:** Document viewers and form shortcodes render properly.
+  3. Completely remove `[our_team_list]` (1 occurrence) from post content (decoupled from `board_member` CPT).
+- **Acceptance Criteria:** Document viewers and forms render properly; `[our_team_list]` is stripped.
 - **Verification:** Validate block AST for affected post IDs.
 
-#### Task 3.4: Staff & Separator Shortcodes Migration (`[our_team_list]`, `[hr]`)
+#### Task 3.4: Subpages Query Loop Shortcodes Migration & Bracketed Text Exclusion
 - **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
-  1. Transform `[our_team_list]` (1 occurrence) into static `core/group` staff cards (independent of `board_member` CPT).
-  2. Transform `[hr height="X"]` (5 occurrences) into native Gutenberg `core/spacer` or `core/separator` blocks.
-- **Acceptance Criteria:** Staff list and separators render as Gutenberg blocks.
-- **Verification:** Check post ID 30 and ID 7946 AST.
+  1. Enhance `step_3c_transform_vc_posts_grid` to match standalone numeric arrays (`[7399,7397,7395,...]`) and single numeric IDs (`[16933]`, `[14]`).
+  2. Transform these numeric shortcodes into native Gutenberg subpages Query Loop blocks (`core/query` targeting `postType: "page"`, querying subpages of current page ID / parent ID, or included IDs, ordered by `menu_order`).
+  3. Update `step_3e_transform_residual_shortcodes` to exclude bracketed text false positives (`[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `[1883 – 1927]`) so they remain untouched in HTML paragraphs.
+- **Acceptance Criteria:** Numeric shortcodes render subpage card grids; bracketed text remains untouched.
+- **Verification:** Verify post ID 14, 16, 16933, and 13236 block AST.
 
-#### Task 3.5: Numeric Sub-Page Array Shortcodes Migration
-- **Target File:** `bin/migration-content-engine.php`
-- **Actions:**
-  1. Transform numeric page array shortcodes (e.g. `[7399,7397,7395,...]`, `[7837,7820,...]`, `[14]`) into dynamic sub-page grid block `eka/homepage-services-grid` or `core/query` cards.
-  2. Exclude bracketed regular text (`[Sigma]`, `[Greek]`, `[during World War II]`) in regex transformer to prevent content corruption.
-- **Acceptance Criteria:** Sub-page arrays render card grids; bracketed text remains untouched.
-- **Verification:** Verify post ID 14, 16, and 13236 block AST.
-
-#### Task 3.6: 3-Stage Pipeline Script Renaming & Legacy Cleanup
+#### Task 3.5: 3-Stage Pipeline Script Renaming & Legacy Cleanup
 - **Target Files:** `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`, `bin/assign-page-templates.php`
 - **Actions:**
   1. Rename `bin/03-migrate-content.sh` $\rightarrow$ `bin/02-migrate-content.sh`.

@@ -23,7 +23,7 @@ This document tracks the current execution status of the EKA Portal migration, d
 | **Newsletter Listing (`alx_tachydromos`)** | `[WORK NEEDED]` | Grid view of newsletter PDF issues, paginated by year. |
 | **Newsletter Single (`single-alx_tachydromos`)** | `[WORK NEEDED]` | Fix Gutenberg `core/file` AST invalid content error (strip invalid `aria-label` attributes from block markup). |
 | **Newsletter Create / Edit (Admin)** | `[WORK NEEDED]` | Custom admin PDF upload metabox; PDF-to-PNG save hook; render viewer in FSE template, NOT `post_content`. |
-| **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review (separate from BeTheme `our_team` staff shortcodes). |
+| **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review (decoupled from BeTheme `our_team` staff shortcodes). |
 | **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement LayerSlider Exception List and individual missed shortcode handlers (excluding `vc_row`/`vc_column` which are already implemented). |
 | **Migration Pipeline (`bin/`)** | `[WORK NEEDED]` | `01-reset-and-setup.sh` (Good); rename `03` $\rightarrow$ `02-migrate-content.sh`; rename `06` $\rightarrow$ `03-assign-templates.sh` (strip menu assignments). |
 | **Legacy Script Cleanup** | `[NEEDS HUMAN REVISION]` | Execute script cleanup table (keep core 3-stage pipeline, deprecate redundant runners). |
@@ -99,18 +99,17 @@ The following tasks must be performed manually in WP Admin:
 
 *(Extracted from `missed-shortcodes.json` & `missed-shortcodes.log`. Note: `vc_row` and `vc_column` are already fully implemented in `bin/migration-content-engine.php` and excluded below).*
 
-| Shortcode Tag | Logged Occurrences | Sample Raw Shortcode | Recommended Remediation Action / Block Mapping |
+| Shortcode Tag | Logged Occurrences | Sample Raw Shortcode | Recommended Remediation Action / Target Gutenberg Block |
 | :--- | :--- | :--- | :--- |
 | **`[embed]`** | 74 | `[embed]https://youtu.be/SwE-OTtqqtc[/embed]` | Transform to native Gutenberg `core/embed` block with `providerNameSlug: "youtube"`. |
 | **`[video]`** | 7 | `[video mp4="https://...mp4"][/video]` | Transform to native Gutenberg `core/video` block embedding HTML `<video src="...">`. |
+| **`[map]`** | 6 | `[map lat="31.195171" lng="29.896021" height="400"]` | Transform to **Google Maps Embed iframe** (`<iframe src="https://maps.google.com/maps?q=31.195171,29.896021&output=embed" width="100%" height="400" frameborder="0"></iframe>` wrapped in `core/html`). |
 | **`[hr]`** | 5 | `[hr height="30" style="default"]` | Transform to native Gutenberg `core/spacer` or `core/separator` (`height: 30px`). |
-| **`[map]`** | 6 | `[map lat="31.19" lng="29.89"]` | Transform to HTML iframe embed or Google Maps block wrapper. |
 | **`[gview]`** | 1 | `[gview file="...pdf"]` | Transform to native Gutenberg `core/file` block (`displayPreview: true`). |
 | **`[mc4wp_form]`** | 1 | `[mc4wp_form]` | Replace with custom theme shortcode `[eka_mailchimp_form]`. |
-| **`[our_team_list]`** | 1 | `[our_team_list]Member Text...` | Transform to static `core/group` member cards. (Separate from `board_member` CPT). |
-| **Numeric Arrays** | 35 | `[7399,7397,7395,7390,...]` | Transform to dynamic sub-page grid block `eka/homepage-services-grid` or `core/query`. |
-| **Numeric IDs** | 32 | `[14]`, `[13369]`, `[16892]` | Transform to single sub-page card grid or parent page link card block. |
-| **Bracketed Text False Positives** | 18 | `[Sigma]`, `[Greek]`, `[during World War II]` | Ignore in regex transformer to preserve inline text content without breaking HTML. |
+| **`[our_team_list]`** | 1 | `[our_team_list]Member Text...` | **Remove completely** from post content (decoupled from `board_member` CPT). |
+| **Numeric Arrays & Numeric IDs** | 67 | `[7399,7397,7395,7390,7387,3479,3467,3451,3442]`, `[16933]`, `[14]` | Transform to **subpages Query Loop block** (`core/query` targeting `postType: "page"`, querying subpages of current page ID / parent ID, or included IDs, ordered by `menu_order`). |
+| **Bracketed Text False Positives** | 18 | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `[1883 – 1927]` | **Exclude from shortcode regex transformer** to preserve inline text content without breaking HTML. |
 
 ---
 

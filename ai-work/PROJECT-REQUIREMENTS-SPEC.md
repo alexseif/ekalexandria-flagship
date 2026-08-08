@@ -3,7 +3,7 @@
 **Project:** Greek Community of Alexandria (EKA) Portal Modernization  
 **Theme:** `ekalexandria-flagship` (Gutenberg Full Site Editing Theme)  
 **Database Context:** `backstage_eka` (Development/Staging Target DB)  
-**Base PHP Target:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
+**Base PHP Version:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
 **Document Purpose:** Complete, fully-detailed functional and technical requirements specification.
 
 ---
@@ -42,6 +42,7 @@
 - **Content Cleaning & Featured Image Rules:**
   - `post_content` is strictly cleaned to remove all `<img>` tags, legacy shortcodes, and figures, retaining only plain bio text.
   - Matches existing media library attachment IDs by unscaled original filename (stripping dimension suffixes like `-246x300`) and assigns as `_thumbnail_id` without re-uploading or local cropping.
+- **Decoupling Note:** `board_member` CPT is strictly decoupled from legacy BeTheme `our_team` / `our_team_list` staff shortcodes.
 
 ---
 
@@ -90,13 +91,13 @@ Pages where sliders are built natively into FSE templates must be skipped by sho
 
 | Category | Tags & Extracted Examples | Transformation & Gutenberg Target Block |
 | :--- | :--- | :--- |
-| **1. WPBakery Structural** | `[vc_row]`, `[vc_column]`, `[vc_column_text]`, `[vc_single_image]`, `[vc_raw_html]` | Convert fraction widths (`1/2` $\rightarrow$ `50%`) to `core/columns` & `core/column` (`flex-basis: X%`), `core/image`, `core/html`. |
-| **2. BeTheme / Muffin** | `[mfn_button]`, `[items_list]`, `[content_box]` | Strip wrapper tags; unwrap inner buttons/text into Gutenberg `core/buttons` or `core/paragraph`. |
-| **3. Sliders (Non-Exception)** | `[rev_slider]`, `[layerslider]` on inner pages | Convert to `core/gallery` (`is-style-legacy-slider`) populated with attachment Media IDs. |
-| **4. Team & Testimonials** | `[our_team]`, `[testimonials]` | Convert to `core/group` member cards or `core/query` block targeting `board_member` CPT sorted by `menu_order`. |
-| **5. Core & Media Embeds** | `[embed]`, `[caption]`, `[gallery]`, `[video]` | Convert to native `core/embed`, `core/image` with `<figcaption>`, `core/gallery`, `core/video`. |
-| **6. Plugin Integrations** | `[gview]`, `[mc4wp_form]` | `[gview]` $\rightarrow$ `core/file` block (`displayPreview: true`); `[mc4wp_form]` $\rightarrow$ `[eka_mailchimp_form]`. |
-| **7. Numeric References / Brackets** | `[14]`, `[7837, 8088]`, `[Sigma]`, bracketed text | Map numeric ID lists to sub-page card grids; ignore bracketed regular text. |
+| **1. WPBakery Structural** | `[vc_row]`, `[vc_column]`, `[vc_single_image]`, `[vc_raw_html]` | Convert fraction widths (`1/2` $\rightarrow$ `50%`) to `core/columns` & `core/column`, `core/image`, `core/html`. Single-column wrappers unwrapped. |
+| **2. Sliders (Non-Exception)** | `[rev_slider]`, `[layerslider]` on inner pages | Convert to `core/gallery` (`is-style-legacy-slider`) populated with attachment Media IDs. |
+| **3. Media Embeds** | `[embed]`, `[video]` | Convert `[embed]` to `core/embed` (YouTube slug); convert `[video]` to native `core/video` block. |
+| **4. Google Maps Embed** | `[map]` | Convert `[map lat="..." lng="..."]` to Google Maps Embed iframe (`<iframe src="https://maps.google.com/maps?q=LAT,LNG&output=embed" ...>`) inside `core/html`. |
+| **5. Subpages Query Loop** | Numeric Arrays `[7399,7397...]`, Numeric IDs `[16933]`, `[14]` | Convert to native Gutenberg subpages Query Loop block (`core/query` targeting `postType: "page"`, querying subpages of target/current page ID, ordered by `menu_order`). |
+| **6. Plugin Integrations & Removal** | `[gview]`, `[mc4wp_form]`, `[our_team_list]` | `[gview]` $\rightarrow$ `core/file` block (`displayPreview: true`); `[mc4wp_form]` $\rightarrow$ `[eka_mailchimp_form]`; `[our_team_list]` $\rightarrow$ **Remove completely from content**. |
+| **7. Bracketed Text False Positives** | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `[1883 – 1927]` | **Exclude from shortcode regex transformer** to preserve inline text content without breaking HTML. |
 
 ### 3.3 FSE Inline Style Allowlist Sanitization (`sanitize_inline_styles_fse`)
 - **Allowed Properties:** `flex-basis`, `flex-grow`, `flex-shrink`, `flex-direction`, `grid-template-columns`, `width`, `height`, `min-height`, `max-width`, `aspect-ratio`, `object-fit`, `vertical-align`, `text-align`.
@@ -128,5 +129,5 @@ Registered in `inc/custom-features.php` under `after_setup_theme`:
 The migration pipeline is structured into a 3-script execution workflow in `bin/`:
 
 1. **`bin/01-reset-and-setup.sh` (Script 1):** Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
-2. **`bin/02-migrate-content.sh` (Script 2):** Content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, WPBakery remediation, and classic HTML AST block conversion (`bin/convert-classic-to-gutenberg.php`).
+2. **`bin/02-migrate-content.sh` (Script 2):** Content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, WPBakery remediation, subpages Query Loop conversion, and classic HTML AST block conversion (`bin/convert-classic-to-gutenberg.php`).
 3. **`bin/03-assign-templates.sh` (Script 3):** FSE page template ID assignments (`bin/assign-page-templates.php`). Note: Menu location assignment and sidebar injection are removed from automation to be managed manually in WP Admin.
