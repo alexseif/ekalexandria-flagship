@@ -7,11 +7,11 @@
 
 require_once __DIR__ . '/migration-helpers.php';
 
-$log_file = dirname(__DIR__) . '/ai-work/logs/content-engine.log';
-eka_init_log_file($log_file);
+$GLOBALS['eka_log_file'] = dirname(__DIR__) . '/ai-work/logs/content-engine.log';
+eka_init_log_file($GLOBALS['eka_log_file']);
 
 function eka_engine_log($msg, $level = 'INFO') {
-    global $log_file;
+    $log_file = isset($GLOBALS['eka_log_file']) ? $GLOBALS['eka_log_file'] : dirname(__DIR__) . '/ai-work/logs/content-engine.log';
     $timestamp = date('Y-m-d H:i:s');
     $formatted = "[{$timestamp}] [{$level}] {$msg}\n";
     file_put_contents($log_file, $formatted, FILE_APPEND);
@@ -323,6 +323,58 @@ function step_3g_transform_media_and_plugins($content) {
 
     // 6. [our_team_list] -> remove completely
     $content = preg_replace('/\[our_team_list[^\]]*\]/i', '', $content);
+
+    return $content;
+}
+
+// ----------------------------------------------------------------------
+// Phase 3D: Structural WPBakery & Caption Shortcodes
+// ----------------------------------------------------------------------
+function step_3d_transform_wpbakery_and_caption($content) {
+    // 1. vc_row
+    $content = preg_replace('/\[vc_row[^\]]*\]/i', '<!-- wp:columns --><div class="wp-block-columns">', $content);
+    $content = preg_replace('/\[\/vc_row\]/i', '</div><!-- /wp:columns -->', $content);
+
+    // 2. vc_column
+    $content = preg_replace_callback(
+        '/\[vc_column(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\]/i',
+        function ($matches) {
+            $width = isset($matches[1]) ? parse_fraction_width($matches[1]) : '100%';
+            return '<!-- wp:column {"width":"' . $width . '"} --><div class="wp-block-column" style="flex-basis: ' . $width . ';">';
+        },
+        $content
+    );
+    $content = preg_replace('/\[\/vc_column\]/i', '</div><!-- /wp:column -->', $content);
+    $content = preg_replace('/\[\/?vc_column_text[^\]]*\]/i', '', $content);
+
+    // 3. vc_single_image
+    $content = preg_replace_callback(
+        '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
+        function ($matches) {
+            $img_id = isset($matches[1]) ? (int)$matches[1] : 0;
+            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
+        },
+        $content
+    );
+
+    // 4. [caption]
+    $content = preg_replace_callback(
+        '/\[caption(?:\s+id=["\']([^"\']+)["\'])?(?:\s+align=["\']([^"\']+)["\'])?(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\](.*?)\[\/caption\]/is',
+        function ($matches) {
+            $id_attr = isset($matches[1]) ? $matches[1] : '';
+            $img_id = (int)preg_replace('/\D/', '', $id_attr);
+            $inner = trim($matches[4]);
+
+            if (preg_match('/(<img[^>]+>)(.*)/is', $inner, $img_matches)) {
+                $img_tag = $img_matches[1];
+                $caption_text = trim(strip_tags($img_matches[2]));
+                return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image">' . $img_tag . '<figcaption>' . htmlspecialchars($caption_text, ENT_QUOTES, 'UTF-8') . '</figcaption></figure><!-- /wp:image -->';
+            }
+
+            return '<!-- wp:image --><figure class="wp-block-image">' . $inner . '</figure><!-- /wp:image -->';
+        },
+        $content
+    );
 
     return $content;
 }
