@@ -6,8 +6,8 @@
 **FSE Compliance Standard:** Zero invalid block validation errors in Gutenberg editor canvas.  
 **Script Standard:** 100% autonomous execution of `bin/01`, `bin/02`, `bin/03` scripts without AI runtime intervention.  
 
-- [ ] **Phase 1: Theme & FSE Foundation Standardization**
-  - [ ] Task 1.1: Standardize `theme.json` with `customTemplates` array (`front-page-en`, `front-page-ar`, `index-en`, `index-ar`, `single-en`, `single-ar`, `archive-alx_tachydromos`, `single-alx_tachydromos`, `archive-board_member`, `page-parent-sidebar`) and `templateParts` area definitions (`header`, `header-en`, `header-ar`, `footer`, `footer-en`, `footer-ar`, `sidebar-news`)
+- [x] **Phase 1: Theme & FSE Foundation Standardization**
+  - [x] Task 1.1: Standardize `theme.json` with `customTemplates` array (`front-page-en`, `front-page-ar`, `index-en`, `index-ar`, `single-en`, `single-ar`, `archive-alx_tachydromos`, `single-alx_tachydromos`, `archive-board_member`, `page-parent-sidebar`) and `templateParts` area definitions (`header`, `header-en`, `header-ar`, `footer`, `footer-en`, `footer-ar`, `sidebar-news`)
 
 - [ ] **Phase 2: CPT & Newsletter Architecture Fixes**
   - [ ] Task 2.1: Register custom PDF upload metabox (`_eka_pdf_attachment_id`) for `alx_tachydromos` in `inc/custom-features.php`, verify ImageMagick save hook (`save_post_alx_tachydromos`), and fix Gutenberg `core/file` AST block format in `templates/single-alx_tachydromos.html` (strip invalid `aria-label` attributes to ensure zero invalid block errors)
