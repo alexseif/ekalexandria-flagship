@@ -5,6 +5,8 @@
 **Database Context:** `backstage_eka` (Development/Staging Target DB)  
 **Base PHP Target:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
 **Git Branching Standard:** All incremental work performed on dedicated feature branch `eka-portal-migration-incremental-implementation`.  
+**FSE Compliance Standard:** Strict compliance with WordPress FSE standards; zero Gutenberg invalid block validation errors allowed.  
+**Autonomous Migration Standard:** 100% deterministic shell/PHP CLI script pipeline (`bin/01`, `bin/02`, `bin/03`); zero AI runtime intervention required during migration execution.  
 **Document Purpose:** Complete, fully-detailed functional and technical requirements specification.
 
 ---
@@ -73,7 +75,7 @@
 
 ### 2.4 Newsletter Pages (`archive-alx_tachydromos.html`, `single-alx_tachydromos.html`)
 - **Listing View (`archive-alx_tachydromos.html` / `tachydromos.html`):** Grid view displaying historical PDF newsletter issues of *Alexandrinos Tachydromos*, paginated by year. Displays PNG cover thumbnail, normalized Greek month/year title (e.g. "Ιούνιος 2026"), "View PDF" button, and direct download link.
-- **Single View (`single-alx_tachydromos.html`):** Dedicated single issue view embedding native `core/file` block with `displayPreview: true` (interactive PDF viewer canvas) and direct download option.
+- **Single View (`single-alx_tachydromos.html`):** Dedicated single issue view embedding native `core/file` block with `displayPreview: true` (interactive PDF viewer canvas) and direct download option. Zero `aria-label` attribute mismatches allowed to prevent Gutenberg invalid content warnings.
 
 ### 2.5 Board Page (`board-members.html`, `archive-board_member.html`)
 - **Grid Layout:** 3-column team card grid sorted by `menu_order`.
@@ -88,7 +90,7 @@ Pages where sliders are built natively into FSE templates must be skipped by sho
 - **Exception Page IDs:** `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
 - **Transformation Action:** During migration, any `[layerslider]` or `[rev_slider]` shortcode and its surrounding WPBakery wrapper container on exception pages must be completely removed.
 
-### 3.2 Shortcode Transformation Rules & Gutenberg Comment Isolation
+### 3.2 Shortcode Transformation Rules & Block Validation Isolation
 
 > [!IMPORTANT]
 > **Block Comment Isolation Rule:** Residual shortcode scanners and transformers MUST ignore all text inside Gutenberg block comment tags (e.g. `<!-- wp:query {"query":{...,"include":[7399,7397,...]}} -->`). JSON array attributes like `"include":[7399,7397,...]` inside block comments are valid Gutenberg attributes, NOT unhandled shortcodes.
@@ -130,7 +132,7 @@ Registered in `inc/custom-features.php` under `after_setup_theme`:
 
 ## 5. MIGRATION SCRIPTS & AUTOMATION ARCHITECTURE
 
-The migration pipeline is structured into a 3-script execution workflow in `bin/`:
+The migration pipeline is structured into a 100% autonomous 3-script execution workflow in `bin/`:
 
 1. **`bin/01-reset-and-setup.sh` (Script 1):** Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
 2. **`bin/02-migrate-content.sh` (Script 2):** Content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, WPBakery remediation, subpages Query Loop conversion, Gutenberg comment isolation, and classic HTML AST block conversion (`bin/convert-classic-to-gutenberg.php`).

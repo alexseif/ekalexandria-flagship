@@ -5,6 +5,8 @@
 **Database Context:** `backstage_eka` (Development/Staging Target DB)  
 **Base PHP Target:** PHP 7.4 (Migration & Transformation) $\rightarrow$ PHP 8.2 (Production Runtime)  
 **Git Branching Standard:** All incremental work performed on dedicated feature branch `eka-portal-migration-incremental-implementation`.  
+**FSE Compliance Standard:** Strict compliance with WordPress FSE standards; zero Gutenberg invalid block validation errors allowed.  
+**Autonomous Migration Standard:** 100% deterministic shell/PHP CLI script pipeline (`bin/01`, `bin/02`, `bin/03`); zero AI runtime intervention required during migration execution.  
 **Document Purpose:** Complete audit of work completed, missing work, gap analysis, block validation fixes, shortcode recommendations, and script cleanup plan.
 
 ---
@@ -26,7 +28,7 @@ This document tracks the current execution status of the EKA Portal migration, d
 | **Newsletter Create / Edit (Admin)** | `[WORK NEEDED]` | Custom admin PDF upload metabox; PDF-to-PNG save hook; render viewer in FSE template, NOT `post_content`. |
 | **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review (decoupled from BeTheme `our_team` staff shortcodes). |
 | **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement LayerSlider Exception List, individual missed shortcode handlers, and block comment isolation to ignore JSON attributes like `"include":[...]`. |
-| **Migration Pipeline (`bin/`)** | `[WORK NEEDED]` | `01-reset-and-setup.sh` (Good); rename `03` $\rightarrow$ `02-migrate-content.sh`; rename `06` $\rightarrow$ `03-assign-templates.sh` (strip menu assignments). |
+| **Migration Pipeline (`bin/`)** | `[WORK NEEDED]` | `01-reset-and-setup.sh` (Good); rename `03` $\rightarrow$ `02-migrate-content.sh`; rename `06` $\rightarrow$ `03-assign-templates.sh` (strip menu assignments). Ensure 100% autonomous execution without AI interference. |
 | **Legacy Script Cleanup** | `[NEEDS HUMAN REVISION]` | Execute script cleanup table (keep core 3-stage pipeline, deprecate redundant runners). |
 
 ---
@@ -117,7 +119,7 @@ The following tasks must be performed manually in WP Admin:
 
 ## 5. MIGRATION SCRIPTS PIPELINE & SCRIPT CLEANUP PLAN
 
-### 5.1 Revised 3-Stage Shell Script Pipeline
+### 5.1 Revised 3-Stage Shell Script Pipeline (100% Autonomous Execution)
 1. **`bin/01-reset-and-setup.sh` (Script 1):** `[GOOD / IMPLEMENTED]`
    - Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
 2. **`bin/02-migrate-content.sh` (Script 2 - Renamed from 03):** `[WORK NEEDED]`
@@ -130,13 +132,13 @@ The following tasks must be performed manually in WP Admin:
 
 | Script Path | Description / Purpose | Proposed Action | Reason / Notes |
 | :--- | :--- | :--- | :--- |
-| `bin/01-reset-and-setup.sh` | Main Script 1: Reset DB, sync files, setup theme/CPTs. | **KEEP** | Core pipeline entry point. |
-| `bin/02-migrate-content.sh` | Main Script 2: Content transformation & shortcode remediation. | **KEEP (RENAMED)** | Formerly `bin/03-migrate-content.sh`. |
+| `bin/01-reset-and-setup.sh` | Main Script 1: Reset DB, sync files, setup theme/CPTs. | **KEEP** | Core pipeline entry point. Fully autonomous. |
+| `bin/02-migrate-content.sh` | Main Script 2: Content transformation & shortcode remediation. | **KEEP (RENAMED)** | Formerly `bin/03-migrate-content.sh`. Fully autonomous. |
 | `bin/03-assign-templates.sh` | Main Script 3: FSE Page Template ID assignments. | **KEEP (RENAMED)** | Formerly `bin/06-assign-templates-and-menus.sh`. Menu logic stripped. |
-| `bin/migration-content-engine.php` | Driver for content transformation & shortcode parsing. | **KEEP** | Executed by Script 2. |
-| `bin/convert-classic-to-gutenberg.php` | Driver for classic HTML to AST block conversion. | **KEEP** | Executed by Script 2. |
-| `bin/assign-page-templates.php` | Driver for assigning FSE template slugs to post IDs. | **KEEP** | Executed by Script 3. |
-| `bin/migrate-cpts.php` | Driver for Tachydromos PDF & Board Member CPT import. | **KEEP** | Executed by Script 1. |
+| `bin/migration-content-engine.php` | Driver for content transformation & shortcode parsing. | **KEEP** | Executed by Script 2. Fully autonomous. |
+| `bin/convert-classic-to-gutenberg.php` | Driver for classic HTML to AST block conversion. | **KEEP** | Executed by Script 2. Fully autonomous. |
+| `bin/assign-page-templates.php` | Driver for assigning FSE template slugs to post IDs. | **KEEP** | Executed by Script 3. Fully autonomous. |
+| `bin/migrate-cpts.php` | Driver for Tachydromos PDF & Board Member CPT import. | **KEEP** | Executed by Script 1. Fully autonomous. |
 | `bin/pre-flight.sh` | Pre-execution sanity check script. | **KEEP** | Executed by Script 1. |
 | `bin/03-surgical-migrations.php` | Legacy surgical slider/shortcode script. | **DELETE** | Merged into `migration-content-engine.php`. |
 | `bin/04-shortcode-migrations.php` | Old shortcode migration runner. | **DELETE** | Merged into `migration-content-engine.php`. |

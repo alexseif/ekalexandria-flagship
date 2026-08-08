@@ -5,6 +5,8 @@
 **Target Database:** `backstage_eka`  
 **Base PHP Version:** PHP 7.4 $\rightarrow$ PHP 8.2  
 **Git Branching Standard:** Dedicated feature branch `eka-portal-migration-incremental-implementation`.  
+**FSE Compliance Standard:** Strict compliance with WordPress FSE standards; zero Gutenberg invalid block validation errors allowed.  
+**Autonomous Migration Standard:** 100% deterministic shell/PHP CLI script pipeline (`bin/01`, `bin/02`, `bin/03`); zero AI runtime intervention required during migration execution.  
 **Strategy:** Minimal interference with existing codebase, incremental enhancement of active theme features, standardized `theme.json` (dropping all `-el` template references in favor of Greek default names), and 3-stage pipeline refactoring.
 
 ---
@@ -53,7 +55,7 @@ graph TD
      - `footer-ar` (Title: "Footer (Arabic)", `area`: "footer")
      - `sidebar-news` (Title: "Sidebar (News)", `area`: "uncategorized")
      *(Note: `sidebar-child-pages` has been removed and its file deleted as requested).*
-- **Acceptance Criteria:** `wp-admin/site-editor.php` recognizes all custom templates and template parts without warnings.
+- **Acceptance Criteria:** `wp-admin/site-editor.php` recognizes all custom templates and template parts without warnings. Zero invalid block errors in Site Editor canvas.
 - **Verification:** Validate JSON syntax via `json_decode(file_get_contents('theme.json'))`.
 
 ---
@@ -88,14 +90,14 @@ graph TD
 ---
 
 ### Phase 3: Content Engine & Pipeline Script Refactoring
-*Goal: Implement LayerSlider exception engine, process individual missed shortcode tasks, implement Gutenberg block comment isolation, and update script pipeline.*
+*Goal: Implement LayerSlider exception engine, process individual missed shortcode tasks, implement Gutenberg block comment isolation, and update script pipeline for 100% autonomous execution.*
 
 #### Task 3.1: LayerSlider Exception Engine Implementation
 - **Target File:** `bin/migration-content-engine.php`
 - **Actions:**
   1. Add LayerSlider Exception List: Page IDs `13236` (Front EL/Default), `16894` (Front EN), `16892` (Front AR), `18` (Index EL/Default), `16920` (Index EN), `16923` (Index AR).
   2. Exception Transformation Rule: On exception pages, strip `[layerslider]` / `[rev_slider]` shortcodes and surrounding `[vc_row]` / `[vc_column]` wrapper containers completely, preserving the native FSE hero slider.
-- **Acceptance Criteria:** Exception pages have shortcodes and wrappers removed without affecting template sliders.
+- **Acceptance Criteria:** Exception pages have shortcodes and wrappers removed without affecting template sliders. Script executes autonomously.
 - **Verification:** Test on page `13236` and verify clean HTML output.
 
 #### Task 3.2: Media Embed & Map Shortcodes Migration (`[embed]`, `[video]`, `[map]`)
@@ -104,7 +106,7 @@ graph TD
   1. Transform `[embed]url[/embed]` (74 occurrences) into native Gutenberg `core/embed` blocks.
   2. Transform `[video src="..."]` (7 occurrences) into native Gutenberg `core/video` blocks.
   3. Transform `[map lat="LAT" lng="LNG" height="H"]` (6 occurrences) into Google Maps Embed iframe inside `core/html` block (`<iframe src="https://maps.google.com/maps?q=LAT,LNG&output=embed" width="100%" height="400" frameborder="0"></iframe>`).
-- **Acceptance Criteria:** Video embeds, URL embeds, and Google Maps render as valid Gutenberg blocks.
+- **Acceptance Criteria:** Video embeds, URL embeds, and Google Maps render as valid Gutenberg blocks without AST validation errors.
 - **Verification:** Verify transformed post content via `eka_validate_blocks_ast()`.
 
 #### Task 3.3: Plugin Integration & Removal Tasks (`[gview]`, `[mc4wp_form]`, `[our_team_list]`)
@@ -113,7 +115,7 @@ graph TD
   1. Transform `[gview file="...pdf"]` (1 occurrence) into native Gutenberg `core/file` block (`displayPreview: true`).
   2. Replace `[mc4wp_form]` (1 occurrence) with custom shortcode `[eka_mailchimp_form]`.
   3. Completely remove `[our_team_list]` (1 occurrence) from post content (decoupled from `board_member` CPT).
-- **Acceptance Criteria:** Document viewers and forms render properly; `[our_team_list]` is stripped.
+- **Acceptance Criteria:** Document viewers and forms render properly; `[our_team_list]` is stripped. Zero block validation warnings.
 - **Verification:** Validate block AST for affected post IDs.
 
 #### Task 3.4: Subpages Query Loop Shortcodes & Block Comment Isolation
@@ -122,10 +124,10 @@ graph TD
   1. Update residual scanner and transformer to ignore text inside `<!-- wp:... -->` Gutenberg HTML comments. Prevent JSON block attributes like `"include":[7399,7397,...]` inside `<!-- wp:query -->` comments from being logged as unhandled shortcodes.
   2. Enhance `step_3c_transform_vc_posts_grid` to match standalone numeric shortcodes outside Gutenberg blocks (`[16933]`, `[14]`) and transform them into native Gutenberg subpages Query Loop blocks (`core/query` targeting `postType: "page"`).
   3. Exclude bracketed text false positives (`[Sigma]`, `[Greek]`, `[5.4 acres]`) from regex transformer.
-- **Acceptance Criteria:** Block comment JSON attributes are ignored by residual logger; un-converted numeric shortcodes render subpage card grids; bracketed text remains untouched.
+- **Acceptance Criteria:** Block comment JSON attributes are ignored by residual logger; un-converted numeric shortcodes render subpage card grids; bracketed text remains untouched. Zero invalid block errors.
 - **Verification:** Verify post ID 14, 16, 16933, and 16936 block AST.
 
-#### Task 3.5: 3-Stage Pipeline Script Renaming & Legacy Cleanup
+#### Task 3.5: 3-Stage Pipeline Script Renaming & Legacy Cleanup (100% Autonomous)
 - **Target Files:** `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`, `bin/assign-page-templates.php`
 - **Actions:**
   1. Rename `bin/03-migrate-content.sh` $\rightarrow$ `bin/02-migrate-content.sh`.
@@ -134,7 +136,7 @@ graph TD
      - Remove automated menu location assignments (`wp menu location assign`) and sidebar injections (`inject-sidebar-menus.php`).
      - Update FSE page template ID assignments: ID `13236` $\rightarrow$ `front-page`, ID `16894` $\rightarrow$ `front-page-en`, ID `16892` $\rightarrow$ `front-page-ar`, ID `18` $\rightarrow$ `index`, ID `16920` $\rightarrow$ `index-en`, ID `16923` $\rightarrow$ `index-ar`.
   4. Delete deprecated legacy scripts: `bin/03-surgical-migrations.php`, `bin/04-shortcode-migrations.php`, `bin/05-classic-editor-migrations.php`, `bin/inject-sidebar-menus.php`, `bin/remediate-shortcodes-to-blocks.php`.
-- **Acceptance Criteria:** 3 consolidated scripts execute cleanly in sequence without references to deleted scripts.
+- **Acceptance Criteria:** 3 consolidated scripts execute cleanly and 100% autonomously in sequence without requiring AI or manual intervention.
 - **Verification:** Execute `bin/01-reset-and-setup.sh`, `bin/02-migrate-content.sh`, `bin/03-assign-templates.sh`.
 
 ---
@@ -142,12 +144,12 @@ graph TD
 ### Phase 4: End-to-End Verification & Final Sign-Off
 *Goal: Verify complete migration pipeline, audit log files, and validate FSE template rendering across languages.*
 
-#### Task 4.1: Pipeline Execution & AST Validation
+#### Task 4.1: Autonomous Pipeline Execution & AST Validation
 - **Actions:**
   1. Execute full 3-stage migration pipeline on branch `eka-portal-migration-incremental-implementation`.
   2. Inspect logs in `ai-work/logs/` (`01-reset-and-setup.log`, `02-migrate-content.log`, `03-assign-templates.log`).
   3. Perform AST validation across posts (`eka_validate_blocks_ast()`).
-- **Acceptance Criteria:** Zero migration errors; clean AST block markup; manual admin checklist prepared for user.
+- **Acceptance Criteria:** Zero migration errors; zero invalid block validation errors; clean AST block markup; manual admin checklist prepared for user.
 - **Verification:** Commit all changes to Git following conventional commit standards.
 
 ---
