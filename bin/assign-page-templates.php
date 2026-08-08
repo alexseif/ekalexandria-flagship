@@ -69,10 +69,23 @@ if ($ar_home_id) {
 
 $home_ids = array_filter([$greek_homepage_id, (int)$en_home_id, (int)$ar_home_id]);
 
-// 3. News/posts page template assignments
+// 3. News/posts page template assignments (Explicit IDs: 18 -> index, 16920 -> index-en, 16923 -> index-ar)
+$index_mappings = [
+    18    => 'index',
+    16920 => 'index-en',
+    16923 => 'index-ar'
+];
+
+foreach ($index_mappings as $idx_id => $tmpl_slug) {
+    if (get_post($idx_id)) {
+        update_post_meta($idx_id, '_wp_page_template', $tmpl_slug);
+        echo "Assigned template '$tmpl_slug' to Posts Index page (ID: $idx_id)\n";
+    }
+}
+
 $posts_page_id = (int) get_option('page_for_posts');
-$posts_page_ids = [];
-if ($posts_page_id) {
+$posts_page_ids = array_keys($index_mappings);
+if ($posts_page_id && !in_array($posts_page_id, $posts_page_ids, true)) {
     $posts_page_ids[] = $posts_page_id;
     $template_slug = 'index';
 
@@ -87,27 +100,6 @@ if ($posts_page_id) {
 
     update_post_meta($posts_page_id, '_wp_page_template', $template_slug);
     echo "Assigned template '$template_slug' to posts page (ID: $posts_page_id)\n";
-
-    if (function_exists('pll_get_post_translations')) {
-        $translations = pll_get_post_translations($posts_page_id);
-        foreach ($translations as $language => $translated_id) {
-            $translated_id = (int)$translated_id;
-            if ($translated_id) {
-                $posts_page_ids[] = $translated_id;
-                $translated_template = 'index';
-                if ('en' === $language) {
-                    $translated_template = 'index-en';
-                } elseif ('ar' === $language) {
-                    $translated_template = 'index-ar';
-                }
-
-                if ($translated_id !== $posts_page_id) {
-                    update_post_meta($translated_id, '_wp_page_template', $translated_template);
-                    echo "Assigned template '$translated_template' to translated posts page (ID: $translated_id)\n";
-                }
-            }
-        }
-    }
 }
 
 // 4. Multilingual template assignments for standard pages
