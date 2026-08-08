@@ -83,11 +83,19 @@ function clean_html_inline_styles($html) {
 // Phase 3A: Replace Sliders ([rev_slider], [layerslider])
 // ----------------------------------------------------------------------
 function step_3a_transform_sliders($content, $post_id) {
+    // Exception pages: Hero slider is handled natively by FSE templates. Strip shortcode & wrapper container completely.
+    $exception_pages = [13236, 16894, 16892, 18, 16920, 16923];
+    if (in_array((int)$post_id, $exception_pages, true)) {
+        $content = preg_replace('/\[vc_row[^\]]*\]\s*(?:\[vc_column[^\]]*\])?\s*\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]\s*(?:\[\/vc_column\])?\s*\[\/vc_row\]/is', '', $content);
+        $content = preg_replace('/\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', '', $content);
+        return $content;
+    }
+
     if (strpos($content, 'wp:query') !== false || strpos($content, 'wp:gallery') !== false) {
         // Skip if already converted
     }
 
-    $dynamic_pages = [13236, 8934, 16894, 16892, 17194, 17215, 17219, 16920, 16923];
+    $dynamic_pages = [8934, 17194, 17215, 17219];
     $query_loop_block = '<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
 <div class="wp-block-query">
 <!-- wp:post-template -->
@@ -110,7 +118,7 @@ function step_3a_transform_sliders($content, $post_id) {
         ['ids' => [7821, 7822, 7823], 'pages' => [7820, 17129, 17133]],
         ['ids' => [7813, 7814, 7815], 'pages' => [7811, 17137, 17139]],
         ['ids' => [10329, 7667, 7668, 7669, 7670, 7671, 7672, 7673], 'pages' => [3442, 17023, 17027, 17155]],
-        ['ids' => [7935, 7936, 7937, 7938, 7939, 7940, 7941, 7942], 'pages' => [7756, 17150]],
+        ['ids' => [7935, 7936, 7937, 7938, 7940, 7941, 7942], 'pages' => [7756, 17150]],
         ['ids' => [10328], 'pages' => [7390, 17018, 17020]],
     ];
     $static_galleries = [];
@@ -176,10 +184,14 @@ function step_3b_transform_testimonials($content) {
 
     $board_query = '<!-- wp:query {"queryId":2,"query":{"perPage":50,"pages":0,"offset":0,"postType":"board_member","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->
 <div class="wp-block-query">
-<!-- wp:post-template -->
+<!-- wp:post-template {"layout":{"type":"grid","columnCount":3},"className":"board-members-list"} -->
+<!-- wp:group {"className":"board-member-card"} -->
+<div class="wp-block-group board-member-card">
 <!-- wp:post-featured-image {"isLink":false} /-->
 <!-- wp:post-title {"level":3} /-->
 <!-- wp:post-content /-->
+</div>
+<!-- /wp:group -->
 <!-- /wp:post-template -->
 </div>
 <!-- /wp:query -->';
@@ -191,22 +203,15 @@ function step_3b_transform_testimonials($content) {
 }
 
 // ----------------------------------------------------------------------
-// Phase 3C: Isolated vc_posts_grid Handler
+// Phase 3C: Subpages Query Loop Shortcodes & vc_posts_grid
 // ----------------------------------------------------------------------
-/**
- * Isolated handler for [vc_posts_grid] sub-navigation cards.
- * TODO: Other [vc_posts_grid] shortcode variants across legacy pages need further analysis to be fully incorporated into the solution in future iterations.
- */
 function step_3c_transform_vc_posts_grid($content) {
-    if (strpos($content, '[vc_posts_grid') === false) {
-        return $content;
-    }
+    if (strpos($content, '[vc_posts_grid') !== false) {
+        if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
+            $ids = array_map('intval', explode(',', $matches[1]));
+            $include_json = json_encode($ids);
 
-    if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
-        $ids = array_map('intval', explode(',', $matches[1]));
-        $include_json = json_encode($ids);
-
-        $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
+            $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
 <div class="wp-block-query">
 <!-- wp:post-template -->
 <!-- wp:post-featured-image {"isLink":true} /-->
@@ -216,101 +221,160 @@ function step_3c_transform_vc_posts_grid($content) {
 </div>
 <!-- /wp:query -->';
 
-        $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
-        $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
-    } else {
-        // Fallback for non-by_id vc_posts_grid tags
-        $content = preg_replace_callback(
-            '/\[vc_posts_grid[^\]]*\]/i',
-            function ($matches) {
-                return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
-            },
-            $content
-        );
+            $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
+            $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
+        } else {
+            // Fallback for non-by_id vc_posts_grid tags
+            $content = preg_replace_callback(
+                '/\[vc_posts_grid[^\]]*\]/i',
+                function ($matches) {
+                    return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
+                },
+                $content
+            );
+        }
     }
 
-    return $content;
-}
+    // Convert standalone numeric shortcodes outside Gutenberg block comments into subpage query loops
+    $tokens = preg_split('/(<!--\s+\/?wp:[^>]+-->)/s', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $in_block = false;
+    $output = '';
 
-// ----------------------------------------------------------------------
-// Phase 3D: Structural WPBakery & Caption Shortcodes
-// ----------------------------------------------------------------------
-function step_3d_transform_wpbakery_and_caption($content) {
-    // 1. vc_row
-    $content = preg_replace('/\[vc_row[^\]]*\]/i', '<!-- wp:columns --><div class="wp-block-columns">', $content);
-    $content = preg_replace('/\[\/vc_row\]/i', '</div><!-- /wp:columns -->', $content);
-
-    // 2. vc_column
-    $content = preg_replace_callback(
-        '/\[vc_column(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\]/i',
-        function ($matches) {
-            $width = isset($matches[1]) ? parse_fraction_width($matches[1]) : '100%';
-            return '<!-- wp:column {"width":"' . $width . '"} --><div class="wp-block-column" style="flex-basis: ' . $width . ';">';
-        },
-        $content
-    );
-    $content = preg_replace('/\[\/vc_column\]/i', '</div><!-- /wp:column -->', $content);
-    $content = preg_replace('/\[\/?vc_column_text[^\]]*\]/i', '', $content);
-
-    // 3. vc_single_image
-    $content = preg_replace_callback(
-        '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
-        function ($matches) {
-            $img_id = isset($matches[1]) ? (int)$matches[1] : 0;
-            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
-        },
-        $content
-    );
-
-    // 4. [caption]
-    $content = preg_replace_callback(
-        '/\[caption(?:\s+id=["\']([^"\']+)["\'])?(?:\s+align=["\']([^"\']+)["\'])?(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\](.*?)\[\/caption\]/is',
-        function ($matches) {
-            $id_attr = isset($matches[1]) ? $matches[1] : '';
-            $img_id = (int)preg_replace('/\D/', '', $id_attr);
-            $inner = trim($matches[4]);
-
-            if (preg_match('/(<img[^>]+>)(.*)/is', $inner, $img_matches)) {
-                $img_tag = $img_matches[1];
-                $caption_text = trim(strip_tags($img_matches[2]));
-                return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image">' . $img_tag . '<figcaption>' . htmlspecialchars($caption_text, ENT_QUOTES, 'UTF-8') . '</figcaption></figure><!-- /wp:image -->';
+    foreach ($tokens as $token) {
+        if (preg_match('/^<!--\s+wp:/s', $token)) {
+            $in_block = true;
+            $output .= $token;
+        } elseif (preg_match('/^<!--\s+\/wp:/s', $token)) {
+            $in_block = false;
+            $output .= $token;
+        } else {
+            if (!$in_block) {
+                $token = preg_replace_callback(
+                    '/\[(\d+)\]/',
+                    function ($m) {
+                        $pid = (int)$m[1];
+                        return '<!-- wp:query {"queryId":4,"query":{"perPage":1,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":[' . $pid . ']}} -->
+<div class="wp-block-query">
+<!-- wp:post-template -->
+<!-- wp:post-featured-image {"isLink":true} /-->
+<!-- wp:post-title {"isLink":true,"level":3} /-->
+<!-- wp:post-excerpt /-->
+<!-- /wp:post-template -->
+</div>
+<!-- /wp:query -->';
+                    },
+                    $token
+                );
             }
+            $output .= $token;
+        }
+    }
 
-            return '<!-- wp:image --><figure class="wp-block-image">' . $inner . '</figure><!-- /wp:image -->';
+    return $output;
+}
+
+// ----------------------------------------------------------------------
+// Phase 3G: Media Embeds & Plugin Shortcodes Migration
+// ----------------------------------------------------------------------
+function step_3g_transform_media_and_plugins($content) {
+    // 1. [embed]url[/embed] -> core/embed
+    $content = preg_replace_callback(
+        '/\[embed[^\]]*\]\s*(https?:\/\/[^\s<]+)\s*\[\/embed\]/i',
+        function ($matches) {
+            $url = htmlspecialchars(trim($matches[1]), ENT_QUOTES, 'UTF-8');
+            return '<!-- wp:embed {"url":"' . $url . '","type":"rich","providerNameSlug":"embed"} --><figure class="wp-block-embed"><div class="wp-block-embed__wrapper">' . $url . '</div></figure><!-- /wp:embed -->';
         },
         $content
     );
+
+    // 2. [video src="url"] -> core/video
+    $content = preg_replace_callback(
+        '/\[video\s+[^\]]*?src=["\']([^"\']+)["\'][^\]]*\]/i',
+        function ($matches) {
+            $url = htmlspecialchars(trim($matches[1]), ENT_QUOTES, 'UTF-8');
+            return '<!-- wp:video --><figure class="wp-block-video"><video controls src="' . $url . '"></video></figure><!-- /wp:video -->';
+        },
+        $content
+    );
+
+    // 3. [map lat="LAT" lng="LNG" ...] -> core/html iframe
+    $content = preg_replace_callback(
+        '/\[map\s+[^\]]*?lat=["\']([^"\']+)["\']\s+lng=["\']([^"\']+)["\'][^\]]*\]/i',
+        function ($matches) {
+            $lat = $matches[1];
+            $lng = $matches[2];
+            return '<!-- wp:html --><iframe src="https://maps.google.com/maps?q=' . $lat . ',' . $lng . '&amp;output=embed" width="100%" height="400" frameborder="0"></iframe><!-- /wp:html -->';
+        },
+        $content
+    );
+
+    // 4. [gview file="URL"] -> core/file
+    $content = preg_replace_callback(
+        '/\[gview\s+[^\]]*?file=["\']([^"\']+)["\'][^\]]*\]/i',
+        function ($matches) {
+            $url = htmlspecialchars(trim($matches[1]), ENT_QUOTES, 'UTF-8');
+            return '<!-- wp:file {"href":"' . $url . '","displayPreview":true} --><div class="wp-block-file"><object class="wp-block-file__embed" data="' . $url . '" type="application/pdf" style="width:100%;height:600px"></object><a href="' . $url . '">Download Document</a></div><!-- /wp:file -->';
+        },
+        $content
+    );
+
+    // 5. [mc4wp_form] -> [eka_mailchimp_form]
+    $content = str_replace('[mc4wp_form]', '[eka_mailchimp_form]', $content);
+
+    // 6. [our_team_list] -> remove completely
+    $content = preg_replace('/\[our_team_list[^\]]*\]/i', '', $content);
 
     return $content;
 }
 
 // ----------------------------------------------------------------------
-// Phase 3E: Residual Shortcode Clean-Up
+// Phase 3E: Residual Shortcode Clean-Up & Block Comment Isolation
 // ----------------------------------------------------------------------
 function step_3e_transform_residual_shortcodes($content) {
     $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
     $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
-    $ignored_tags = ['wp', 'caption', 'vc_row', 'vc_column', 'vc_column_text', 'vc_single_image', 'vc_raw_html', 'our_team', 'rev_slider', 'rev_slider_vc', 'layerslider', 'testimonials', 'vc_posts_grid'];
+    $ignored_tags = ['wp', 'caption', 'vc_row', 'vc_column', 'vc_column_text', 'vc_single_image', 'vc_raw_html', 'our_team', 'rev_slider', 'rev_slider_vc', 'layerslider', 'testimonials', 'vc_posts_grid', 'eka_mailchimp_form', 'polylang_langswitcher'];
 
-    $content = preg_replace_callback(
-        '/\[([a-zA-Z0-9_]+)([^\]]*)\](?:(.*?)\[\/\1\])?/s',
-        function ($matches) use ($ignored_tags) {
-            $tag = strtolower($matches[1]);
-            if (in_array($tag, $ignored_tags, true)) {
-                return $matches[0];
+    // Split content by Gutenberg HTML comments to prevent JSON attributes inside <!-- wp:... --> comments from being transformed
+    $tokens = preg_split('/(<!--\s+\/?wp:[^>]+-->)/s', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $in_block = false;
+    $output = '';
+
+    foreach ($tokens as $token) {
+        if (preg_match('/^<!--\s+wp:/s', $token)) {
+            $in_block = true;
+            $output .= $token;
+        } elseif (preg_match('/^<!--\s+\/wp:/s', $token)) {
+            $in_block = false;
+            $output .= $token;
+        } else {
+            if ($in_block) {
+                $output .= $token;
+            } else {
+                $converted = preg_replace_callback(
+                    '/\[([a-zA-Z0-9_]+)([^\]]*)\](?:(.*?)\[\/\1\])?/s',
+                    function ($matches) use ($ignored_tags) {
+                        $tag = strtolower($matches[1]);
+                        if (in_array($tag, $ignored_tags, true)) {
+                            return $matches[0];
+                        }
+                        // Ignore common Greek/English words in brackets or plain text annotations (e.g. [Sigma], [Greek], [5.4 acres])
+                        if (preg_match('/^[A-Z][a-z]+$/', $matches[1]) || in_array($tag, ['endif', 'if', 'the', 'general', 'this', 'list', 'in', 'it', 'on', 'was', 'who', 'f', 'sigma', 'greek'], true)) {
+                            return $matches[0];
+                        }
+
+                        $raw_shortcode = $matches[0];
+                        return '<!-- wp:html -->' . $raw_shortcode . '<!-- /wp:html -->';
+                    },
+                    $token
+                );
+                $output .= $converted;
             }
-            if (in_array($tag, ['endif', 'if', 'the', 'general', 'this', 'list', 'in', 'it', 'on', 'was', 'who', 'f'], true)) {
-                return $matches[0];
-            }
+        }
+    }
 
-            $raw_shortcode = $matches[0];
-            return '<!-- wp:html -->' . $raw_shortcode . '<!-- /wp:html -->';
-        },
-        $content
-    );
-
-    return $content;
+    return $output;
 }
 
 // ----------------------------------------------------------------------
@@ -405,10 +469,11 @@ while ($row = $res->fetch_assoc()) {
     $id = (int)$row['ID'];
     $original_content = $row['post_content'];
 
-    // Sequence 3A -> 3B -> 3C -> 3D -> 3E -> 3F
+    // Sequence 3A -> 3B -> 3C -> 3G -> 3D -> 3E -> 3F
     $content = step_3a_transform_sliders($original_content, $id);
     $content = step_3b_transform_testimonials($content);
     $content = step_3c_transform_vc_posts_grid($content);
+    $content = step_3g_transform_media_and_plugins($content);
     $content = step_3d_transform_wpbakery_and_caption($content);
     $content = step_3e_transform_residual_shortcodes($content);
     $content = step_3f_process_classic_html($content);
