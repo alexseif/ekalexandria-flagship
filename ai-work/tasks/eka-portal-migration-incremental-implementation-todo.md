@@ -9,8 +9,8 @@
 - [x] **Phase 1: Theme & FSE Foundation Standardization**
   - [x] Task 1.1: Standardize `theme.json` with `customTemplates` array (`front-page-en`, `front-page-ar`, `index-en`, `index-ar`, `single-en`, `single-ar`, `archive-alx_tachydromos`, `single-alx_tachydromos`, `archive-board_member`, `page-parent-sidebar`) and `templateParts` area definitions (`header`, `header-en`, `header-ar`, `footer`, `footer-en`, `footer-ar`, `sidebar-news`)
 
-- [ ] **Phase 2: CPT & Newsletter Architecture Fixes**
-  - [ ] Task 2.1: Register custom PDF upload metabox (`_eka_pdf_attachment_id`) for `alx_tachydromos` in `inc/custom-features.php`, verify ImageMagick save hook (`save_post_alx_tachydromos`), and fix Gutenberg `core/file` AST block format in `templates/single-alx_tachydromos.html` (strip invalid `aria-label` attributes to ensure zero invalid block errors)
+- [x] **Phase 2: CPT & Newsletter Architecture Fixes**
+  - [x] Task 2.1: Register custom PDF upload metabox (`_eka_pdf_attachment_id`) for `alx_tachydromos` in `inc/custom-features.php`, verify ImageMagick save hook (`save_post_alx_tachydromos`), and fix Gutenberg `core/file` AST block format in `templates/single-alx_tachydromos.html` (strip invalid `aria-label` attributes to ensure zero invalid block errors)
   - [ ] Task 2.2: Refine 3-column team grid in `templates/archive-board_member.html` & `templates/board-members.html` for `board_member` CPT sorted by `menu_order` (decoupled from BeTheme `our_team` staff shortcodes) and submit for human revision checkpoint
 
 - [ ] **Phase 3: Content Engine & Pipeline Script Refactoring**
