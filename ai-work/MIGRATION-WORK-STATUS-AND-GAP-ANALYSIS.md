@@ -19,17 +19,18 @@ This document tracks the current execution status of the EKA Portal migration, d
 
 | Component / Task | Status | Action Required & Gap Analysis |
 | :--- | :--- | :--- |
-| **Manual Site Admin Actions** | `[PENDING MANUAL]` | Delete old news page, set new news page under parent, update main Greek menu link. |
-| **Front Page Templates** | `[WORK NEEDED]` | Assign page IDs (`13236`, `16894`, `16892`); add LayerSlider to Exception List (strip shortcode & container). |
-| **Post List / Index Pages** | `[WORK NEEDED]` | Assign page IDs (`18`, `16920`, `16923`); add LayerSlider to Exception List; render 25% right category sidebar menu. |
+| **Navigation & Polylang FSE Bridge** | `[IMPLEMENTED]` | FSE Navigation bridge (`inc/polylang-fse.php`), classic to FSE menu migration (`bin/migrate-classic-menus-to-fse.php`), and canonical `header.html` / `footer.html` dynamic routing complete. |
+| **Manual Site Admin Actions** | `[PENDING MANUAL]` | Optional post-migration verification: delete old news page placeholder, set new news page under parent, update main Greek menu link if needed. |
+| **Front Page Templates** | `[PARTIALLY IMPLEMENTED]` | Page IDs assigned (`13236`, `16894`, `16892`); LayerSlider Exception List active; minor layout edge cases and refinements pending. |
+| **Post List / Index Pages & Search Template** | `[PARTIALLY IMPLEMENTED]` | `index.html` (75%/25% sidebar) & `search.html` (single 1-column layout without sidebar) created; minor edge cases and layout refinements pending. |
 | **Single Post (`single.html`)** | `[PARTIALLY IMPLEMENTED]` | Template core implemented; missing Social Share Button component & Polylang mapping for `single-en` / `single-ar`. |
 | **Newsletter Listing (`alx_tachydromos`)** | `[WORK NEEDED]` | Grid view of newsletter PDF issues, paginated by year. |
 | **Newsletter Single (`single-alx_tachydromos`)** | `[WORK NEEDED]` | Fix Gutenberg `core/file` AST invalid content error (strip invalid `aria-label` attributes from block markup). |
 | **Newsletter Create / Edit (Admin)** | `[WORK NEEDED]` | Custom admin PDF upload metabox; PDF-to-PNG save hook; render viewer in FSE template, NOT `post_content`. |
 | **Board Page (`board_member`)** | `[NEEDS HUMAN REVISION]` | CPT & translation group scoping complete; page layout needs human review (decoupled from BeTheme `our_team` staff shortcodes). |
-| **Shortcode Remediation Engine** | `[WORK NEEDED]` | Implement LayerSlider Exception List, individual missed shortcode handlers, and block comment isolation to ignore JSON attributes like `"include":[...]`. |
-| **Migration Pipeline (`bin/`)** | `[WORK NEEDED]` | `01-reset-and-setup.sh` (Good); rename `03` $\rightarrow$ `02-migrate-content.sh`; rename `06` $\rightarrow$ `03-assign-templates.sh` (strip menu assignments). Ensure 100% autonomous execution without AI interference. |
-| **Legacy Script Cleanup** | `[NEEDS HUMAN REVISION]` | Execute script cleanup table (keep core 3-stage pipeline, deprecate redundant runners). |
+| **Shortcode Remediation Engine** | `[PARTIALLY IMPLEMENTED]` | LayerSlider exceptions, media/map embeds, subpage query loops, and Gutenberg comment block isolation implemented; minor edge cases pending. |
+| **Migration Pipeline (`bin/`)** | `[PARTIALLY IMPLEMENTED]` | 3-stage pipeline scripts (`01-reset-and-setup.sh`, `02-migrate-content.sh`, `03-assign-templates.sh`) consolidated and functional; edge cases pending per `migration-edge-cases-fse-refinement-SPEC.md`. |
+| **Legacy Script Cleanup** | `[IMPLEMENTED]` | Redundant legacy migration scripts removed; core 3-stage pipeline active. |
 
 ---
 

@@ -52,7 +52,7 @@
 ## 2. FSE PAGES & TEMPLATE SPECIFICATIONS
 
 ### 2.1 Front Page (`front-page.html`, `front-page-en.html`, `front-page-ar.html`)
-- **Header & Footer Routing:** Loads language-specific header (`parts/header.html` for Greek default, `parts/header-en.html`, `parts/header-ar.html`) and footer (`parts/footer.html` for Greek default, `parts/footer-en.html`, `parts/footer-ar.html`).
+- **Header & Footer Routing:** Loads single canonical template parts (`parts/header.html` and `parts/footer.html`), with dynamic language menu switching handled at runtime by `inc/polylang-fse.php`.
 - **Hero Slider Section:** Native FSE hero slider component built into templates.
 - **Services Grid Section:** Embedded `eka/homepage-services-grid` dynamic block displaying a 4-column card grid for primary establishment pages (`7837, 8088, 28, 14`).
 - **Newsletter Subscription:** Embedded `[eka_mailchimp_form]` shortcode.
@@ -80,6 +80,10 @@
 ### 2.5 Board Page (`board-members.html`, `archive-board_member.html`)
 - **Grid Layout:** 3-column team card grid sorted by `menu_order`.
 - **Card Elements:** Member photo thumbnail, full name/title, bio text, and language switcher.
+
+### 2.6 Search Results Page (`search.html`)
+- **Layout:** Single 1-column loading/results layout without a sidebar.
+- **Components:** Contains search query title (`core/query-title`), search input form (`core/search`), post query loop (`core/query` with `core/post-template`, `core/post-title`, `core/post-date`, `core/post-excerpt`), pagination controls (`core/query-pagination`), and no-results fallback message.
 
 ---
 
@@ -113,20 +117,11 @@ Pages where sliders are built natively into FSE templates must be skipped by sho
 
 ## 4. NAVIGATION MENUS & LOCALIZATION ARCHITECTURE
 
-### 4.1 WordPress Core Navigation Menu Locations
-Registered in `inc/custom-features.php` under `after_setup_theme`:
-- `main-menu`: Main Menu (Greek Default)
-- `main-menu___en`: Main Menu (English)
-- `main-menu___ar`: Main Menu (Arabic)
-- `secondary-menu`: Secondary Menu
-- `footer-menu`: Footer Menu
-- `social-menu-bottom`: Social Menu Bottom
-
-### 4.2 Legacy Navigation Menu Mapping
-- **Greek (el / default):** `Main Greek Menu` (ID: 13) $\rightarrow$ Assigned to `main-menu`
-- **English (en):** `Main English Menu` (ID: 3315) $\rightarrow$ Assigned to `main-menu___en`
-- **Arabic (ar):** `Main Arabic Menu` (ID: 3316) $\rightarrow$ Assigned to `main-menu___ar`
-- **Footer Navigation (el / default):** `Footer Greek Menu` (ID: 21) $\rightarrow$ Assigned to `footer-menu`
+### 4.1 Automated Navigation Migration & Dynamic Bridge (`inc/polylang-fse.php`)
+- **Scoping Configuration (`ai-work/scoping/menus.json`):** Defines classic menu IDs, slugs, locations, and translation titles without hardcoding FSE post IDs.
+- **Migration Engine (`bin/migrate-classic-menus-to-fse.php`):** Programmatically converts classic menus (`nav_menu`) to `wp_navigation` block posts (`el`, `en`, `ar`), links Polylang translations (`pll_save_post_translations`), generates top bar language switcher, and updates Greek FSE post IDs in canonical `parts/header.html` and `parts/footer.html`.
+- **Dynamic Block Auto-Translation:** `inc/polylang-fse.php` intercepts `core/navigation` blocks via `render_block_data` hook and swaps the `ref` attribute to the current language's `wp_navigation` post ID using `pll_get_post($ref, $lang)`.
+- **Admin Dashboard UI:** Exposes "FSE Navigation Menus" under `Appearance > FSE Nav Menus` (`edit.php?post_type=wp_navigation`) via `pll_get_post_types` filter hook for manual inspection in WP Admin.
 
 ---
 
@@ -136,4 +131,4 @@ The migration pipeline is structured into a 100% autonomous 3-script execution w
 
 1. **`bin/01-reset-and-setup.sh` (Script 1):** Mirror production DB, sync web root with flagship theme exclusion, search-replace, delete legacy plugins (`rm -rf` fallback), activate flagship theme, import CPTs (`bin/migrate-cpts.php`).
 2. **`bin/02-migrate-content.sh` (Script 2):** Content transformation engine (`bin/migration-content-engine.php`), applying homepage & news page slider exception lists, WPBakery remediation, subpages Query Loop conversion, Gutenberg comment isolation, and classic HTML AST block conversion (`bin/convert-classic-to-gutenberg.php`).
-3. **`bin/03-assign-templates.sh` (Script 3):** FSE page template ID assignments (`bin/assign-page-templates.php`). Note: Menu location assignment and sidebar injection are removed from automation to be managed manually in WP Admin.
+3. **`bin/03-assign-templates.sh` (Script 3):** Executes FSE page template ID assignments (`bin/assign-page-templates.php`) and automated classic-to-FSE navigation menu migration (`bin/migrate-classic-menus-to-fse.php`).
