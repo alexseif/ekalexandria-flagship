@@ -15,3 +15,8 @@ if (file_exists(__DIR__ . '/inc/blocks.php')) {
 if (file_exists(__DIR__ . '/inc/cpt-rules.php')) {
 	require_once __DIR__ . '/inc/cpt-rules.php';
 }
+
+if (file_exists(__DIR__ . '/inc/polylang-fse.php')) {
+	require_once __DIR__ . '/inc/polylang-fse.php';
+}
+
