@@ -1,0 +1,44 @@
+{
+  "menu_groups": {
+    "main_header": {
+      "area": "header",
+      "description": "Main Header Navigation Menu",
+      "translations": {
+        "el": {
+          "wp_navigation_id": 72752,
+          "classic_menu_id": 13,
+          "title": "Main Greek Menu"
+        },
+        "en": {
+          "wp_navigation_id": 72759,
+          "classic_menu_id": 3315,
+          "title": "Main English Menu"
+        },
+        "ar": {
+          "wp_navigation_id": 72755,
+          "classic_menu_id": 3316,
+          "title": "Main Arabic Menu"
+        }
+      }
+    },
+    "top_bar": {
+      "area": "top_bar",
+      "description": "Top Bar Navigation Menu with Polylang Language Switcher",
+      "includes_language_switcher": true,
+      "translations": {
+        "el": {
+          "wp_navigation_id": 72615,
+          "title": "Top Bar Menu (Greek)"
+        },
+        "en": {
+          "wp_navigation_id": 72616,
+          "title": "Top Bar Menu (English)"
+        },
+        "ar": {
+          "wp_navigation_id": 72617,
+          "title": "Top Bar Menu (Arabic)"
+        }
+      }
+    }
+  }
+}

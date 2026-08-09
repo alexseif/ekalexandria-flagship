@@ -93,11 +93,5 @@ if (function_exists('pll_get_post_language')) {
     }
 }
 
-// 5. Navigation Menu & Polylang Translation Assignment
-$assign_nav_script = __DIR__ . '/assign-nav-menus.php';
-if (file_exists($assign_nav_script)) {
-    require $assign_nav_script;
-}
-
-// 6. Final Cache Flush & Invalidation
+// 5. Final Cache Flush & Invalidation
 eka_flush_all_caches();

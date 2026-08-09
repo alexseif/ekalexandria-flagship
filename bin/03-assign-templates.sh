@@ -36,5 +36,20 @@ else
     exit 1
 fi
 
-echo "Stage 03 template assignment completed successfully at $(date)!"
+# 3. Nav Menu Migration & Assignment (Separate Log: 03-assign-nav-menus.log)
+NAV_LOG="$LOG_DIR/03-assign-nav-menus.log"
+: > "$NAV_LOG"
+echo "Migrating Classic Menus to FSE (bin/migrate-classic-menus-to-fse.php)..."
+if [ -f "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" ]; then
+    php7.4 "$(which wp)" eval-file "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" --path="$WP_DIR" >> "$NAV_LOG" 2>&1
+    echo "Logged navigation menu migration output to $NAV_LOG"
+fi
+
+echo "Assigning Nav Menu Locations & Polylang Translations (bin/assign-nav-menus.php)..."
+if [ -f "$THEME_DIR/bin/assign-nav-menus.php" ]; then
+    php7.4 "$(which wp)" eval-file "$THEME_DIR/bin/assign-nav-menus.php" --path="$WP_DIR" >> "$NAV_LOG" 2>&1
+    echo "Logged navigation assignment output to $NAV_LOG"
+fi
+
+echo "Stage 03 template & navigation assignment completed successfully at $(date)!"
 exit 0
