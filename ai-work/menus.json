@@ -2,20 +2,18 @@
   "menu_groups": {
     "main_header": {
       "area": "header",
+      "slug": "main-header-menu",
       "description": "Main Header Navigation Menu",
       "translations": {
         "el": {
-          "wp_navigation_id": 72752,
           "classic_menu_id": 13,
           "title": "Main Greek Menu"
         },
         "en": {
-          "wp_navigation_id": 72759,
           "classic_menu_id": 3315,
           "title": "Main English Menu"
         },
         "ar": {
-          "wp_navigation_id": 72755,
           "classic_menu_id": 3316,
           "title": "Main Arabic Menu"
         }
@@ -23,39 +21,38 @@
     },
     "top_bar": {
       "area": "top_bar",
+      "slug": "top-bar-menu",
       "description": "Top Bar Navigation Menu with Polylang Language Switcher",
       "includes_language_switcher": true,
       "single_shared_menu": true,
       "translations": {
         "el": {
-          "wp_navigation_id": 72771,
           "title": "Top Bar Language Switcher"
         },
         "en": {
-          "wp_navigation_id": 72771,
           "title": "Top Bar Language Switcher"
         },
         "ar": {
-          "wp_navigation_id": 72771,
           "title": "Top Bar Language Switcher"
         }
       }
     },
     "footer_menu": {
       "area": "footer",
+      "slug": "footer-menu",
       "description": "Footer Navigation Menu",
+      "includes_language_switcher": false,
       "translations": {
         "el": {
-          "wp_navigation_id": 72780,
           "classic_menu_id": 21,
           "title": "Footer Menu (Greek)"
         },
         "en": {
-          "wp_navigation_id": 72781,
+          "classic_menu_id": 21,
           "title": "Footer Menu (English)"
         },
         "ar": {
-          "wp_navigation_id": 72782,
+          "classic_menu_id": 21,
           "title": "Footer Menu (Arabic)"
         }
       }
