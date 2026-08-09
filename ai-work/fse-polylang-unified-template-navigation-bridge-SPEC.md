@@ -44,8 +44,11 @@ This module (`inc/polylang-fse.php`) will:
 - [x] Safe branch `experimental/fse-polylang-template-parts` created.
 - [x] Spec file `ai-work/fse-polylang-unified-template-navigation-bridge-SPEC.md` created.
 - [x] Theme loads `inc/polylang-fse.php` in `functions.php`.
-- [x] Declarative `inc/menus.json` maps menu groups, areas, languages, and custom language switchers.
-- [x] Classic to FSE menu migration script (`bin/migrate-classic-menus-to-fse.php`) converts classic `nav_menu` items to block-based `wp_navigation` posts with top bar Polylang language switcher.
+- [x] Declarative `ai-work/menus.json` maps classic menu IDs (`classic_menu_id`), target FSE navigation IDs, areas, and languages.
+- [x] Classic to FSE menu migration script (`bin/migrate-classic-menus-to-fse.php`) converts classic `nav_menu` items to block-based `wp_navigation` posts using native `wp:navigation-submenu` and `wp:navigation-link` blocks.
+- [x] Top bar uses a single shared `wp_navigation` post containing `wp:polylang/navigation-language-switcher`.
+- [x] Footer menu converts classic footer menu items exclusively (without language switcher).
+- [x] Migration scripts programmatically update navigation block references (`ref`) in template parts (`parts/header*.html`, `parts/footer*.html`) during deployment without manual editing.
 - [x] Navigation assignment script (`bin/assign-nav-menus.php`) assigns menu locations & Polylang translation links.
 - [x] Migration script execution orchestrated via `bin/03-assign-templates.sh` with dedicated log `ai-work/logs/03-assign-nav-menus.log`.
 - [x] Visiting English pages automatically loads `parts/header-en.html` and `parts/footer-en.html`.
@@ -63,6 +66,7 @@ This module (`inc/polylang-fse.php`) will:
 public/wp-content/themes/ekalexandria-flagship/
 ├── ai-work/
 │   ├── fse-polylang-unified-template-navigation-bridge-SPEC.md
+│   ├── menus.json                      # Declarative menu & area configuration
 │   └── logs/
 │       ├── 03-assign-templates.log
 │       └── 03-assign-nav-menus.log
@@ -70,13 +74,12 @@ public/wp-content/themes/ekalexandria-flagship/
 │   ├── 03-assign-templates.sh         # Stage 03 Orchestrator
 │   ├── assign-page-templates.php      # FSE Page Template Assignments
 │   ├── assign-nav-menus.php           # Nav Menu Locations & Polylang Linking
-│   └── migrate-classic-menus-to-fse.php # Classic to FSE Block Menu Converter
+│   └── migrate-classic-menus-to-fse.php # Classic to FSE Block Menu Converter & Template Ref Updater
 ├── functions.php                       # Load inc/polylang-fse.php
 ├── inc/
 │   ├── custom-features.php             # General custom features & shortcodes
-│   ├── menus.json                      # Declarative menu & area configuration
 │   └── polylang-fse.php                # Unified Polylang FSE bridge module
-├── parts/                              # Header/Footer FSE template parts
+├── parts/                              # Header/Footer FSE template parts (updated via script)
 └── theme.json                          # Verified clean without customTemplates
 ```
 

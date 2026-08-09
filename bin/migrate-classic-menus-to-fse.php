@@ -2,7 +2,8 @@
 /**
  * bin/migrate-classic-menus-to-fse.php
  * Converts Classic Nav Menus into Gutenberg FSE `wp_navigation` posts based on `ai-work/menus.json`.
- * Configures Polylang translations, menu areas, and appends the Polylang Language Switcher to Top Bar menus.
+ * Configures Polylang translations, menu areas, and programmatically synchronizes block navigation
+ * references across theme template parts (`parts/header*.html`, `parts/footer*.html`).
  *
  * @package EKA_Alexandria_Flagship
  */
@@ -94,6 +95,61 @@ function eka_build_nav_blocks_markup(array $items, int $parent_id = 0, string $l
     return $markup;
 }
 
+/**
+ * Automatically update navigation block ref attributes in template part files (parts/header*.html, parts/footer*.html).
+ */
+function eka_sync_template_part_navigation_refs(array $config)
+{
+    $parts_dir = dirname(__DIR__) . '/parts';
+    if (!is_dir($parts_dir)) {
+        return;
+    }
+
+    $top_bar_ref     = $config['menu_groups']['top_bar']['translations']['el']['wp_navigation_id'] ?? 72771;
+    $main_header_ref = $config['menu_groups']['main_header']['translations']['el']['wp_navigation_id'] ?? 72752;
+    $footer_ref      = $config['menu_groups']['footer_menu']['translations']['el']['wp_navigation_id'] ?? 72780;
+
+    // Header files update
+    foreach (['header.html', 'header-en.html', 'header-ar.html'] as $hfile) {
+        $path = $parts_dir . '/' . $hfile;
+        if (!file_exists($path)) {
+            continue;
+        }
+        $content = file_get_contents($path);
+        // Top bar block replacement
+        $content = preg_replace(
+            '/<!-- wp:navigation \{"ref":\d+,"className":"top-bar-nav".*?\/-->/',
+            '<!-- wp:navigation {"ref":' . $top_bar_ref . ',"className":"top-bar-nav","overlayMenu":"never","layout":{"type":"flex","justifyContent":"right"}} /-->',
+            $content
+        );
+        // Main header navigation replacement
+        $content = preg_replace(
+            '/<!-- wp:navigation \{"ref":\d+,"overlayMenu":"mobile".*?\/-->/',
+            '<!-- wp:navigation {"ref":' . $main_header_ref . ',"overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"right"}} /-->',
+            $content
+        );
+        file_put_contents($path, $content);
+        echo "Synchronized navigation refs in $hfile\n";
+    }
+
+    // Footer files update
+    foreach (['footer.html', 'footer-en.html', 'footer-ar.html'] as $ffile) {
+        $path = $parts_dir . '/' . $ffile;
+        if (!file_exists($path)) {
+            continue;
+        }
+        $content = file_get_contents($path);
+        // Footer navigation replacement (ensure menuSlug is replaced with ref, no language switcher)
+        $content = preg_replace(
+            '/<!-- wp:navigation \{(?:"menuSlug":"[^"]*"|"ref":\d+).*?\} \/-->/',
+            '<!-- wp:navigation {"ref":' . $footer_ref . ',"overlayMenu":"never","layout":{"type":"flex","justifyContent":"right"}} /-->',
+            $content
+        );
+        file_put_contents($path, $content);
+        echo "Synchronized navigation refs in $ffile\n";
+    }
+}
+
 foreach ($config['menu_groups'] as $group_key => $group_data) {
     $area                       = $group_data['area'] ?? '';
     $includes_language_switcher = !empty($group_data['includes_language_switcher']);
@@ -165,5 +221,8 @@ foreach ($config['menu_groups'] as $group_key => $group_data) {
         echo "Saved Polylang post translations for group '$group_key': " . json_encode($group_fse_posts) . "\n";
     }
 }
+
+// Programmatically update template part file block references
+eka_sync_template_part_navigation_refs($config);
 
 echo "Classic to FSE Menu migration completed successfully!\n";
