@@ -44,6 +44,10 @@ This module (`inc/polylang-fse.php`) will:
 - [x] Safe branch `experimental/fse-polylang-template-parts` created.
 - [x] Spec file `ai-work/fse-polylang-unified-template-navigation-bridge-SPEC.md` created.
 - [x] Theme loads `inc/polylang-fse.php` in `functions.php`.
+- [x] Declarative `inc/menus.json` maps menu groups, areas, languages, and custom language switchers.
+- [x] Classic to FSE menu migration script (`bin/migrate-classic-menus-to-fse.php`) converts classic `nav_menu` items to block-based `wp_navigation` posts with top bar Polylang language switcher.
+- [x] Navigation assignment script (`bin/assign-nav-menus.php`) assigns menu locations & Polylang translation links.
+- [x] Migration script execution orchestrated via `bin/03-assign-templates.sh` with dedicated log `ai-work/logs/03-assign-nav-menus.log`.
 - [x] Visiting English pages automatically loads `parts/header-en.html` and `parts/footer-en.html`.
 - [x] Visiting Arabic pages automatically loads `parts/header-ar.html` and `parts/footer-ar.html`.
 - [x] Visiting Greek pages automatically loads `parts/header.html` (or `header-el.html`) and `parts/footer.html` (or `footer-el.html`).
@@ -58,12 +62,22 @@ This module (`inc/polylang-fse.php`) will:
 ```text
 public/wp-content/themes/ekalexandria-flagship/
 ├── ai-work/
-│   └── fse-polylang-unified-template-navigation-bridge-SPEC.md
-├── functions.php                    # Load inc/polylang-fse.php
+│   ├── fse-polylang-unified-template-navigation-bridge-SPEC.md
+│   └── logs/
+│       ├── 03-assign-templates.log
+│       └── 03-assign-nav-menus.log
+├── bin/
+│   ├── 03-assign-templates.sh         # Stage 03 Orchestrator
+│   ├── assign-page-templates.php      # FSE Page Template Assignments
+│   ├── assign-nav-menus.php           # Nav Menu Locations & Polylang Linking
+│   └── migrate-classic-menus-to-fse.php # Classic to FSE Block Menu Converter
+├── functions.php                       # Load inc/polylang-fse.php
 ├── inc/
-│   ├── custom-features.php          # Remove legacy template routing filters
-│   └── polylang-fse.php             # NEW: Unified Polylang FSE bridge module
-└── theme.json                       # Verified clean without customTemplates
+│   ├── custom-features.php             # General custom features & shortcodes
+│   ├── menus.json                      # Declarative menu & area configuration
+│   └── polylang-fse.php                # Unified Polylang FSE bridge module
+├── parts/                              # Header/Footer FSE template parts
+└── theme.json                          # Verified clean without customTemplates
 ```
 
 ---
