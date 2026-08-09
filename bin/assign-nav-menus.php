@@ -71,7 +71,7 @@ set_theme_mod('nav_menu_locations', $locations);
 echo "Updated theme_mod nav_menu_locations: " . json_encode($locations) . "\n";
 
 // 3. FSE Block Navigation Posts (wp_navigation) Polylang Linking from ai-work/menus.json
-$json_path = dirname(__DIR__) . '/ai-work/menus.json';
+$json_path = dirname(__DIR__) . '/ai-work/scoping/menus.json';
 if (file_exists($json_path)) {
     $config = json_decode(file_get_contents($json_path), true);
     if ($config && isset($config['menu_groups'])) {

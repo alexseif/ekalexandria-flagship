@@ -22,28 +22,22 @@ This module (`inc/polylang-fse.php`) will:
 
 ### Clarification on Questions & Design Principles
 
-#### Question 1: Should we assume navigation IDs in `menus.json` before migrating classic menus to FSE?
-**Answer**: NO. Hardcoding `wp_navigation` post IDs in `menus.json` creates database ID collisions across environments (e.g. local vs staging vs production).  
-**Resolution**:
-- `ai-work/menus.json` strictly defines menu slugs, classic menu IDs (`classic_menu_id`), areas (`header`, `top_bar`, `footer`), and translation titles.
-- `bin/migrate-classic-menus-to-fse.php` queries existing `wp_navigation` posts by title/slug or creates them dynamically, then programmatically injects the generated post IDs into template part navigation `ref` attributes during automated migration execution.
+#### Question 1: Scoping Directory & Configuration Location
+- `ai-work/scoping/menus.json` is the sole source of truth for menu migration configurations.
+- `ai-work/scoping/menus.json` defines classic menu IDs (`classic_menu_id`), menu slugs, areas (`header`, `top_bar`, `footer`), and translation titles without hardcoding `wp_navigation` post IDs.
 
-#### Question 2: Should we create an area definition in the template for these navigations?
-**Options & Trade-offs**:
-- **Option A (Dynamic `ref` ID Routing via Polylang Bridge - RECOMMENDED)**:
-  - Template parts use a single canonical `ref` ID (or dynamically assigned ID). `inc/polylang-fse.php` intercepts `core/navigation` at render time and calls `pll_get_post($ref, $lang)` to swap `ref` to the translated navigation menu ID.
-  - *Pros*: Simple, clean, standard FSE block paradigm. Single source of truth.
-  - *Cons*: Requires `inc/polylang-fse.php` hook (already implemented).
-- **Option B (Area Definition / Menu Location via `theme_mod`)**:
-  - Assign navigation menus to theme locations (`main-menu`, `footer-menu`) and reference by area slug.
-  - *Pros*: Standard classic theme pattern.
-  - *Cons*: Gutenberg FSE `core/navigation` blocks in template parts require `ref` post IDs, not classic location slugs.
+#### Question 2: Top Bar & Footer Menu Translations
+- **Top Bar**: Uses a single shared `wp_navigation` post ("Top Bar Language Switcher") fit for all languages (`single_shared_menu: true`), containing `wp:polylang/navigation-language-switcher`.
+- **Footer Menu**: Converts classic footer menu items (`el`, `en`, `ar`) into `wp_navigation` posts and links them in Polylang via `pll_save_post_translations`, matching the main header menu setup.
 
-#### Question 3: Is it double work to translate menus in template files AND functions file?
-**Answer**: YES, hardcoding translated `ref` IDs inside `parts/header-en.html` AND having `inc/polylang-fse.php` perform runtime translation switching is redundant double work.  
-**Resolution**:
-- `parts/*.html` template parts will reference the canonical `ref` ID (or area slug).
-- Runtime translation switching is handled exclusively by `inc/polylang-fse.php` via `render_block_data` hook (`pll_get_post($ref, $lang)`).
+#### Question 3: Option A Loading Architecture & Redundancy Removal
+- **Loading Architecture (Option A)**:
+  - Navigation blocks inside template parts (`parts/header*.html`, `parts/footer*.html`) reference the canonical (Greek) `ref` ID.
+  - On render, `inc/polylang-fse.php` intercepts `core/navigation` via `render_block_data` and automatically swaps `ref` to the active language's `wp_navigation` post ID using `pll_get_post($ref, $current_lang)`.
+- **Ending Functional Result**:
+  - `parts/header-en.html`, `parts/header-ar.html`, `parts/footer-en.html`, and `parts/footer-ar.html` remain in place to render translated static text (e.g. localized copyright and site title branding).
+  - The navigation block inside ALL header/footer template parts uses the exact same canonical `ref` ID.
+  - Zero hardcoded translated menu IDs inside template part HTML files!
 
 ---
 
@@ -64,13 +58,13 @@ This module (`inc/polylang-fse.php`) will:
 
 ### Acceptance Criteria
 - [x] Safe branch `experimental/fse-polylang-template-parts` created.
-- [x] Spec file `ai-work/fse-polylang-unified-template-navigation-bridge-SPEC.md` updated with architectural decisions.
-- [x] Scoping file `ai-work/menus.json` contains classic menu IDs without hardcoded FSE post IDs.
+- [x] Spec file `ai-work/fse-polylang-unified-template-navigation-bridge-SPEC.md` updated with Option A architecture & scoping location.
+- [x] Scoping file `ai-work/scoping/menus.json` contains classic menu IDs without hardcoded FSE post IDs.
 - [x] Theme loads `inc/polylang-fse.php` in `functions.php`.
 - [x] Classic to FSE menu migration script (`bin/migrate-classic-menus-to-fse.php`) dynamically resolves/creates `wp_navigation` posts using native `wp:navigation-submenu` and `wp:navigation-link` blocks.
 - [x] Top bar uses a single shared `wp_navigation` post containing `wp:polylang/navigation-language-switcher`.
-- [x] Footer menu converts classic footer menu items exclusively (without language switcher).
-- [x] Migration script programmatically syncs navigation block references (`ref`) in template parts during deployment without manual editing.
+- [x] Footer menu converts classic footer menu items and links translations in Polylang (`pll_save_post_translations`).
+- [x] Migration script programmatically syncs canonical navigation block references (`ref`) in template parts during deployment without manual editing.
 - [x] Navigation assignment script (`bin/assign-nav-menus.php`) assigns menu locations & Polylang translation links.
 - [x] Migration script execution orchestrated via `bin/03-assign-templates.sh` with dedicated log `ai-work/logs/03-assign-nav-menus.log`.
 - [x] Visiting English pages automatically loads `parts/header-en.html` and `parts/footer-en.html`.
@@ -87,7 +81,8 @@ This module (`inc/polylang-fse.php`) will:
 public/wp-content/themes/ekalexandria-flagship/
 ├── ai-work/
 │   ├── fse-polylang-unified-template-navigation-bridge-SPEC.md
-│   ├── menus.json                      # Declarative scoping menu configuration
+│   ├── scoping/
+│   │   └── menus.json                 # Scoping menu configuration
 │   └── logs/
 │       ├── 03-assign-templates.log
 │       └── 03-assign-nav-menus.log

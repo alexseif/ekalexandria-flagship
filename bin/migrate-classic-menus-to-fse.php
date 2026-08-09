@@ -17,7 +17,7 @@ echo "========================================\n";
 echo "Migrating Classic Menus to FSE wp_navigation\n";
 echo "========================================\n";
 
-$json_path = dirname(__DIR__) . '/ai-work/menus.json';
+$json_path = dirname(__DIR__) . '/ai-work/scoping/menus.json';
 if (!file_exists($json_path)) {
     echo "ERROR: menus.json not found at $json_path\n";
     exit(1);
