@@ -2,7 +2,7 @@
 /**
  * bin/assign-nav-menus.php
  * Configures Polylang translation associations and theme menu location assignments
- * for both Classic Nav Menus (nav_menu) and FSE Block Navigation posts (wp_navigation).
+ * for both Classic Nav Menus (nav_menu) and FSE Block Navigation posts (wp_navigation) based on `ai-work/menus.json`.
  *
  * @package EKA_Alexandria_Flagship
  */
@@ -70,28 +70,39 @@ $locations['social-menu-bottom'] = 21;   // Footer / Social Menu
 set_theme_mod('nav_menu_locations', $locations);
 echo "Updated theme_mod nav_menu_locations: " . json_encode($locations) . "\n";
 
-// 3. FSE Block Navigation Posts (wp_navigation) Polylang Linking
-$fse_nav_posts = [
-    'el' => 72752, // Main Greek Menu
-    'en' => 72759, // Main English Menu
-    'ar' => 72755, // Main Arabic Menu
-];
+// 3. FSE Block Navigation Posts (wp_navigation) Polylang Linking from ai-work/menus.json
+$json_path = dirname(__DIR__) . '/ai-work/menus.json';
+if (file_exists($json_path)) {
+    $config = json_decode(file_get_contents($json_path), true);
+    if ($config && isset($config['menu_groups'])) {
+        foreach ($config['menu_groups'] as $group_key => $group_data) {
+            if (!empty($group_data['single_shared_menu'])) {
+                continue;
+            }
 
-$valid_fse_translations = [];
-foreach ($fse_nav_posts as $lang => $post_id) {
-    $post = get_post($post_id);
-    if ($post && $post->post_type === 'wp_navigation') {
-        if (function_exists('pll_set_post_language')) {
-            pll_set_post_language($post_id, $lang);
+            $translations = $group_data['translations'] ?? [];
+            $valid_fse_translations = [];
+
+            foreach ($translations as $lang => $trans_info) {
+                $post_id = $trans_info['wp_navigation_id'] ?? 0;
+                if ($post_id > 0) {
+                    $post = get_post($post_id);
+                    if ($post && $post->post_type === 'wp_navigation') {
+                        if (function_exists('pll_set_post_language')) {
+                            pll_set_post_language($post_id, $lang);
+                        }
+                        $valid_fse_translations[$lang] = $post_id;
+                        echo "Assigned language '$lang' to wp_navigation post ID $post_id ('{$post->post_title}')\n";
+                    }
+                }
+            }
+
+            if (!empty($valid_fse_translations) && function_exists('pll_save_post_translations')) {
+                pll_save_post_translations($valid_fse_translations);
+                echo "Saved Polylang post translations for group '$group_key': " . json_encode($valid_fse_translations) . "\n";
+            }
         }
-        $valid_fse_translations[$lang] = $post_id;
-        echo "Assigned language '$lang' to wp_navigation post ID $post_id ('{$post->post_title}')\n";
     }
-}
-
-if (!empty($valid_fse_translations) && function_exists('pll_save_post_translations')) {
-    pll_save_post_translations($valid_fse_translations);
-    echo "Saved Polylang post translations for FSE Nav Menus: " . json_encode($valid_fse_translations) . "\n";
 }
 
 echo "Navigation Menu assignment completed successfully.\n";

@@ -25,18 +25,38 @@
       "area": "top_bar",
       "description": "Top Bar Navigation Menu with Polylang Language Switcher",
       "includes_language_switcher": true,
+      "single_shared_menu": true,
       "translations": {
         "el": {
-          "wp_navigation_id": 72615,
-          "title": "Top Bar Menu (Greek)"
+          "wp_navigation_id": 72771,
+          "title": "Top Bar Language Switcher"
         },
         "en": {
-          "wp_navigation_id": 72616,
-          "title": "Top Bar Menu (English)"
+          "wp_navigation_id": 72771,
+          "title": "Top Bar Language Switcher"
         },
         "ar": {
-          "wp_navigation_id": 72617,
-          "title": "Top Bar Menu (Arabic)"
+          "wp_navigation_id": 72771,
+          "title": "Top Bar Language Switcher"
+        }
+      }
+    },
+    "footer_menu": {
+      "area": "footer",
+      "description": "Footer Navigation Menu",
+      "translations": {
+        "el": {
+          "wp_navigation_id": 72780,
+          "classic_menu_id": 21,
+          "title": "Footer Menu (Greek)"
+        },
+        "en": {
+          "wp_navigation_id": 72781,
+          "title": "Footer Menu (English)"
+        },
+        "ar": {
+          "wp_navigation_id": 72782,
+          "title": "Footer Menu (Arabic)"
         }
       }
     }
