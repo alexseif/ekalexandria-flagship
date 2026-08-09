@@ -36,19 +36,16 @@ else
     exit 1
 fi
 
-# 3. Nav Menu Migration & Assignment (Separate Log: 03-assign-nav-menus.log)
+# 3. Consolidated Nav Menu Migration & Assignment (Log: 03-assign-nav-menus.log)
 NAV_LOG="$LOG_DIR/03-assign-nav-menus.log"
 : > "$NAV_LOG"
-echo "Migrating Classic Menus to FSE (bin/migrate-classic-menus-to-fse.php)..."
+echo "Migrating & Assigning Classic Menus to FSE (bin/migrate-classic-menus-to-fse.php)..."
 if [ -f "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" ]; then
     php7.4 "$(which wp)" eval-file "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" --path="$WP_DIR" >> "$NAV_LOG" 2>&1
-    echo "Logged navigation menu migration output to $NAV_LOG"
-fi
-
-echo "Assigning Nav Menu Locations & Polylang Translations (bin/assign-nav-menus.php)..."
-if [ -f "$THEME_DIR/bin/assign-nav-menus.php" ]; then
-    php7.4 "$(which wp)" eval-file "$THEME_DIR/bin/assign-nav-menus.php" --path="$WP_DIR" >> "$NAV_LOG" 2>&1
-    echo "Logged navigation assignment output to $NAV_LOG"
+    echo "Logged navigation menu migration & assignment output to $NAV_LOG"
+else
+    echo "ERROR: $THEME_DIR/bin/migrate-classic-menus-to-fse.php not found!"
+    exit 1
 fi
 
 echo "Stage 03 template & navigation assignment completed successfully at $(date)!"

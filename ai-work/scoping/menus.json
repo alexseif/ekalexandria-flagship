@@ -25,23 +25,12 @@
       "description": "Top Bar Navigation Menu with Polylang Language Switcher",
       "includes_language_switcher": true,
       "single_shared_menu": true,
-      "translations": {
-        "el": {
-          "title": "Top Bar Language Switcher"
-        },
-        "en": {
-          "title": "Top Bar Language Switcher"
-        },
-        "ar": {
-          "title": "Top Bar Language Switcher"
-        }
-      }
+      "title": "Top Bar Language Switcher"
     },
     "footer_menu": {
       "area": "footer",
       "slug": "footer-menu",
       "description": "Footer Navigation Menu",
-      "includes_language_switcher": false,
       "translations": {
         "el": {
           "classic_menu_id": 21,
