@@ -109,8 +109,8 @@ function eka_sync_template_part_navigation_refs(array $config)
     $main_header_ref = $config['menu_groups']['main_header']['translations']['el']['wp_navigation_id'] ?? 72752;
     $footer_ref      = $config['menu_groups']['footer_menu']['translations']['el']['wp_navigation_id'] ?? 72780;
 
-    // Header files update
-    foreach (['header.html', 'header-en.html', 'header-ar.html'] as $hfile) {
+    // Header file update
+    foreach (['header.html'] as $hfile) {
         $path = $parts_dir . '/' . $hfile;
         if (!file_exists($path)) {
             continue;
@@ -132,8 +132,8 @@ function eka_sync_template_part_navigation_refs(array $config)
         echo "Synchronized navigation refs in $hfile\n";
     }
 
-    // Footer files update
-    foreach (['footer.html', 'footer-en.html', 'footer-ar.html'] as $ffile) {
+    // Footer file update
+    foreach (['footer.html'] as $ffile) {
         $path = $parts_dir . '/' . $ffile;
         if (!file_exists($path)) {
             continue;
