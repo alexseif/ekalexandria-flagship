@@ -63,9 +63,9 @@ function eka_build_nav_blocks_markup(array $items, int $parent_id = 0): string
                 'id'    => $id,
             ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-            $markup .= "<!-- wp:submenu {$attrs} -->\n";
+            $markup .= "<!-- wp:navigation-submenu {$attrs} -->\n";
             $markup .= eka_build_nav_blocks_markup($items, (int)$item->db_id);
-            $markup .= "<!-- /wp:submenu -->\n\n";
+            $markup .= "<!-- /wp:navigation-submenu -->\n\n";
         } else {
             $attrs = json_encode([
                 'label' => $label,
@@ -102,7 +102,7 @@ foreach ($config['menu_groups'] as $group_key => $group_data) {
         }
 
         if ($includes_language_switcher) {
-            $block_content .= "<!-- wp:shortcode -->[polylang_langswitcher]<!-- /wp:shortcode -->\n";
+            $block_content .= "<!-- wp:polylang/navigation-language-switcher /-->\n";
         }
 
         // Create or update wp_navigation post
