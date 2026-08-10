@@ -1,14 +1,18 @@
-<!-- wp:template-part {"slug":"header","area":"header"} /-->
+<!-- wp:template-part {"slug":"header","theme":"ekalexandria-flagship","area":"header"} /-->
 
 <!-- wp:group {"tagName":"main","className":"site-content eka-single-post","layout":{"type":"constrained"}} -->
-<main class="wp-block-group site-content eka-single-post">
-	<!-- wp:post-title {"level":1} /-->
-	<!-- wp:post-date /-->
-	<!-- wp:post-featured-image /-->
+<main class="wp-block-group site-content eka-single-post"><!-- wp:post-title {"level":1} /-->
+
+	<!-- wp:post-date {"metadata":{"bindings":{"datetime":{"source":"core/post-data","args":{"field":"date"}}}}} /-->
+
+	<!-- wp:post-featured-image {"align":"wide"} /-->
+
 	<!-- wp:post-content /-->
+
 	<!-- wp:post-author /-->
+
 	<!-- wp:post-terms {"term":"category"} /-->
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"ekalexandria-flagship","area":"footer"} /-->
