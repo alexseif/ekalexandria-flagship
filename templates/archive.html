@@ -1,24 +1,70 @@
-<!-- wp:template-part {"slug":"header","area":"header"} /-->
+<!-- wp:template-part {"slug":"header","theme":"ekalexandria-flagship","area":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"site-content eka-archive-layout","layout":{"type":"constrained"}} -->
-<main class="wp-block-group site-content eka-archive-layout">
-	<!-- wp:query-title {"type":"archive"} /-->
-	<!-- wp:term-description /-->
-	<!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
-	<div class="wp-block-query">
-		<!-- wp:post-template -->
-			<!-- wp:post-featured-image {"isLink":true} /-->
-			<!-- wp:post-title {"isLink":true} /-->
-			<!-- wp:post-excerpt /-->
-			<!-- wp:post-date /-->
+<!-- wp:group {"tagName":"main","className":"site-content eka-news-page","layout":{"type":"constrained"}} -->
+<main class="wp-block-group site-content eka-news-page">
+	<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-style-news-carousel eka-news-carousel","layout":{"type":"default"}} -->
+	<div class="wp-block-query is-style-news-carousel eka-news-carousel">
+		<!-- wp:post-template {"className":"eka-news-list"} -->
+		<!-- wp:group {"className":"eka-news-card"} -->
+		<div class="wp-block-group eka-news-card"><!-- wp:post-featured-image {"isLink":true,"sizeSlug":"full"} /-->
+
+			<!-- wp:post-title {"level":3,"isLink":true} /-->
+		</div>
+		<!-- /wp:group -->
 		<!-- /wp:post-template -->
-		<!-- wp:query-pagination -->
-			<!-- wp:query-pagination-previous /-->
-			<!-- wp:query-pagination-next /-->
-		<!-- /wp:query-pagination -->
 	</div>
 	<!-- /wp:query -->
+
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading">Νέα</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:columns {"className":"eka-news-layout"} -->
+	<div class="wp-block-columns eka-news-layout"><!-- wp:column {"width":"75%","className":"eka-news-main"} -->
+		<div class="wp-block-column eka-news-main" style="flex-basis:75%">
+			<!-- wp:query {"queryId":43,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"enhancedPagination":true,"metadata":{"categories":["posts"],"patternName":"core/query-medium-posts","name":"Image at left"},"layout":{"type":"constrained"}} -->
+			<div class="wp-block-query"><!-- wp:post-template -->
+				<!-- wp:columns {"verticalAlignment":null,"align":"wide"} -->
+				<div class="wp-block-columns alignwide">
+					<!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
+					<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%">
+						<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/4","sizeSlug":"full"} /-->
+					</div>
+					<!-- /wp:column -->
+
+					<!-- wp:column {"width":""} -->
+					<div class="wp-block-column">
+						<!-- wp:post-date {"datetime":"2026-08-08T14:27:42.750Z","textAlign":"right","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-default"}}}},"textColor":"text-default","fontSize":"small"} /-->
+
+						<!-- wp:post-title {"isLink":true} /-->
+
+						<!-- wp:post-excerpt {"moreText":"Read more"} /-->
+					</div>
+					<!-- /wp:column -->
+				</div>
+				<!-- /wp:columns -->
+				<!-- /wp:post-template -->
+
+				<!-- wp:query-pagination {"paginationArrow":"chevron","layout":{"type":"flex","justifyContent":"space-between"}} -->
+				<!-- wp:query-pagination-previous /-->
+
+				<!-- wp:query-pagination-numbers /-->
+
+				<!-- wp:query-pagination-next /-->
+				<!-- /wp:query-pagination -->
+			</div>
+			<!-- /wp:query -->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"25%","className":"eka-news-sidebar-col"} -->
+		<div class="wp-block-column eka-news-sidebar-col" style="flex-basis:25%">
+			<!-- wp:template-part {"slug":"sidebar-news","theme":"ekalexandria-flagship","area":"uncategorized"} /-->
+		</div>
+		<!-- /wp:column -->
+	</div>
+	<!-- /wp:columns -->
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"ekalexandria-flagship","area":"footer"} /-->

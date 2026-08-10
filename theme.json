@@ -31,6 +31,11 @@
       "name": "footer-ar",
       "title": "Footer (Arabic)",
       "area": "footer"
+    },
+    {
+      "name": "sidebar-news",
+      "title": "Sidebar News",
+      "area": "uncategorized"
     }
   ],
   "settings": {

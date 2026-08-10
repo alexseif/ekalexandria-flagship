@@ -2,7 +2,7 @@
 
 <!-- wp:group {"tagName":"main","className":"site-content eka-news-page","layout":{"type":"constrained"}} -->
 <main class="wp-block-group site-content eka-news-page">
-	<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-style-news-carousel eka-news-carousel"} -->
+	<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-style-news-carousel eka-news-carousel","layout":{"type":"default"}} -->
 	<div class="wp-block-query is-style-news-carousel eka-news-carousel">
 		<!-- wp:post-template {"className":"eka-news-list"} -->
 		<!-- wp:group {"className":"eka-news-card"} -->
@@ -24,10 +24,11 @@
 		<div class="wp-block-column eka-news-main" style="flex-basis:75%">
 			<!-- wp:query {"queryId":43,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"enhancedPagination":true,"metadata":{"categories":["posts"],"patternName":"core/query-medium-posts","name":"Image at left"},"layout":{"type":"constrained"}} -->
 			<div class="wp-block-query"><!-- wp:post-template -->
-				<!-- wp:columns {"align":"wide"} -->
-				<div class="wp-block-columns alignwide"><!-- wp:column {"width":"33.33%"} -->
-					<div class="wp-block-column" style="flex-basis:33.33%">
-						<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"9/16","sizeSlug":"full"} /-->
+				<!-- wp:columns {"verticalAlignment":null,"align":"wide"} -->
+				<div class="wp-block-columns alignwide">
+					<!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
+					<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%">
+						<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"3/4","sizeSlug":"full"} /-->
 					</div>
 					<!-- /wp:column -->
 
