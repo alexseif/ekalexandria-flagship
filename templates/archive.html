@@ -2,7 +2,7 @@
 
 <!-- wp:group {"tagName":"main","className":"site-content eka-news-page","layout":{"type":"constrained"}} -->
 <main class="wp-block-group site-content eka-news-page">
-	<!-- wp:query {"queryId":1,"query":{"perPage":5,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-style-news-carousel eka-news-carousel","layout":{"type":"default"}} -->
+	<!-- wp:query {"queryId":1,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"className":"is-style-news-carousel eka-news-carousel","layout":{"type":"default"}} -->
 	<div class="wp-block-query is-style-news-carousel eka-news-carousel">
 		<!-- wp:post-template {"className":"eka-news-list"} -->
 		<!-- wp:group {"className":"eka-news-card"} -->
@@ -15,14 +15,12 @@
 	</div>
 	<!-- /wp:query -->
 
-	<!-- wp:heading {"level":1} -->
-	<h1 class="wp-block-heading">Νέα</h1>
-	<!-- /wp:heading -->
+	<!-- wp:query-title {"type":"archive"} /-->
 
 	<!-- wp:columns {"className":"eka-news-layout"} -->
 	<div class="wp-block-columns eka-news-layout"><!-- wp:column {"width":"75%","className":"eka-news-main"} -->
 		<div class="wp-block-column eka-news-main" style="flex-basis:75%">
-			<!-- wp:query {"queryId":43,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"enhancedPagination":true,"metadata":{"categories":["posts"],"patternName":"core/query-medium-posts","name":"Image at left"},"layout":{"type":"constrained"}} -->
+			<!-- wp:query {"queryId":17,"query":{"perPage":4,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"metadata":{"categories":["posts"],"patternName":"core/query-medium-posts","name":"Image at left"}} -->
 			<div class="wp-block-query"><!-- wp:post-template -->
 				<!-- wp:columns {"verticalAlignment":null,"align":"wide"} -->
 				<div class="wp-block-columns alignwide">
@@ -32,13 +30,13 @@
 					</div>
 					<!-- /wp:column -->
 
-					<!-- wp:column {"width":""} -->
-					<div class="wp-block-column">
+					<!-- wp:column {"width":"66.66%"} -->
+					<div class="wp-block-column" style="flex-basis:66.66%">
 						<!-- wp:post-date {"datetime":"2026-08-08T14:27:42.750Z","textAlign":"right","style":{"elements":{"link":{"color":{"text":"var:preset|color|text-default"}}}},"textColor":"text-default","fontSize":"small"} /-->
 
 						<!-- wp:post-title {"isLink":true} /-->
 
-						<!-- wp:post-excerpt {"moreText":"Read more"} /-->
+						<!-- wp:post-excerpt /-->
 					</div>
 					<!-- /wp:column -->
 				</div>
