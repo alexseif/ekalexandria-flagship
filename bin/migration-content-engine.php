@@ -10,7 +10,8 @@ require_once __DIR__ . '/migration-helpers.php';
 $GLOBALS['eka_log_file'] = dirname(__DIR__) . '/ai-work/logs/content-engine.log';
 eka_init_log_file($GLOBALS['eka_log_file']);
 
-function eka_engine_log($msg, $level = 'INFO') {
+function eka_engine_log($msg, $level = 'INFO')
+{
     $log_file = isset($GLOBALS['eka_log_file']) ? $GLOBALS['eka_log_file'] : dirname(__DIR__) . '/ai-work/logs/content-engine.log';
     $timestamp = date('Y-m-d H:i:s');
     $formatted = "[{$timestamp}] [{$level}] {$msg}\n";
@@ -44,15 +45,16 @@ $mysqli->set_charset("utf8mb4");
 // Helper Functions for Transformations
 // ----------------------------------------------------------------------
 
-function parse_fraction_width($width_str) {
+function parse_fraction_width($width_str)
+{
     $width_str = trim($width_str);
     if (empty($width_str)) {
         return '100%';
     }
     if (strpos($width_str, '/') !== false) {
         $parts = explode('/', $width_str);
-        $num = (float)$parts[0];
-        $den = (float)$parts[1];
+        $num = (float) $parts[0];
+        $den = (float) $parts[1];
         if ($den > 0) {
             $pct = round(($num / $den) * 100, 2);
             return $pct . '%';
@@ -64,7 +66,8 @@ function parse_fraction_width($width_str) {
     return '100%';
 }
 
-function clean_html_inline_styles($html) {
+function clean_html_inline_styles($html)
+{
     return preg_replace_callback(
         '/\s+style=["\']([^"\']*)["\']/i',
         function ($matches) {
@@ -80,12 +83,65 @@ function clean_html_inline_styles($html) {
 }
 
 // ----------------------------------------------------------------------
+// Specialized Front Page Content Extractor (IDs: 13236, 16894, 16892)
+// ----------------------------------------------------------------------
+function eka_process_front_page_content($content, $post_id)
+{
+    // 1. Remove slider shortcodes ([layerslider ...], [rev_slider ...], [rev_slider_vc ...])
+    $content = preg_replace('/\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', '', $content);
+
+    // 2. Remove vc_posts_grid shortcodes
+    $content = preg_replace('/\[vc_posts_grid[^\]]*\]/i', '', $content);
+
+    // 3. Extract text from inside [vc_column_text]...[/vc_column_text] if present
+    if (preg_match('/\[vc_column_text[^\]]*\](.*?)\[\/vc_column_text\]/is', $content, $matches)) {
+        $content = $matches[1];
+    }
+
+    // 4. Strip all remaining shortcodes ([vc_row...], [/vc_row], [vc_column...], [/vc_column], etc.)
+    $content = preg_replace('/\[\/?(?:vc_|mfn_)[^\]]*\]/i', '', $content);
+
+    // 5. Clean/strip inline style attributes from HTML tags
+    $content = preg_replace('/\s*style=["\'][^"\']*["\']/i', '', $content);
+
+    // 6. Strip unwanted HTML tags except allowed content tags
+    $content = strip_tags($content, '<p><br><a><strong><em>');
+
+    // 7. Trim whitespace
+    $content = trim($content);
+
+    // 8. Ensure paragraph structure
+    if (!preg_match('/^\s*<p(\s+[^>]*)?>/i', $content)) {
+        if (function_exists('wpautop')) {
+            $content = wpautop($content);
+        } else {
+            $content = '<p>' . nl2br($content) . '</p>';
+        }
+    }
+
+    // Clean up empty paragraphs
+    $content = preg_replace('/<p>\s*<\/p>/i', '', $content);
+
+    // 9. Convert <p> tags into native Gutenberg block AST
+    $content = preg_replace_callback('/<p(\s+[^>]*)?>(.*?)<\/p>/is', function ($m) {
+        $inner = trim($m[2]);
+        if (empty($inner)) {
+            return '';
+        }
+        return "<!-- wp:paragraph -->\n<p>{$inner}</p>\n<!-- /wp:paragraph -->";
+    }, $content);
+
+    return trim($content);
+}
+
+// ----------------------------------------------------------------------
 // Phase 3A: Replace Sliders ([rev_slider], [layerslider])
 // ----------------------------------------------------------------------
-function step_3a_transform_sliders($content, $post_id) {
+function step_3a_transform_sliders($content, $post_id)
+{
     // Exception pages: Hero slider is handled natively by FSE templates. Strip shortcode & wrapper container completely.
     $exception_pages = [13236, 16894, 16892, 18, 16920, 16923];
-    if (in_array((int)$post_id, $exception_pages, true)) {
+    if (in_array((int) $post_id, $exception_pages, true)) {
         $content = preg_replace('/\[vc_row[^\]]*\]\s*(?:\[vc_column[^\]]*\])?\s*\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]\s*(?:\[\/vc_column\])?\s*\[\/vc_row\]/is', '', $content);
         $content = preg_replace('/\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', '', $content);
         return $content;
@@ -106,7 +162,7 @@ function step_3a_transform_sliders($content, $post_id) {
 </div>
 <!-- /wp:query -->';
 
-    if (in_array((int)$post_id, $dynamic_pages, true)) {
+    if (in_array((int) $post_id, $dynamic_pages, true)) {
         if (preg_match('/\[(rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', $content)) {
             $content = preg_replace('/\[(rev_slider|rev_slider_vc)[^\]]*\]/i', $query_loop_block, $content);
             $content = preg_replace('/\[layerslider[^\]]*\]/i', $query_loop_block, $content);
@@ -128,8 +184,8 @@ function step_3a_transform_sliders($content, $post_id) {
         }
     }
 
-    if (isset($static_galleries[(int)$post_id])) {
-        $media_ids = $static_galleries[(int)$post_id];
+    if (isset($static_galleries[(int) $post_id])) {
+        $media_ids = $static_galleries[(int) $post_id];
         $gallery_block = '<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped">';
         foreach ($media_ids as $media_id) {
@@ -177,7 +233,8 @@ function step_3a_transform_sliders($content, $post_id) {
 // ----------------------------------------------------------------------
 // Phase 3B: Replace Testimonials ([testimonials])
 // ----------------------------------------------------------------------
-function step_3b_transform_testimonials($content) {
+function step_3b_transform_testimonials($content)
+{
     if (strpos($content, '[testimonials') === false) {
         return $content;
     }
@@ -205,7 +262,8 @@ function step_3b_transform_testimonials($content) {
 // ----------------------------------------------------------------------
 // Phase 3C: Subpages Query Loop Shortcodes & vc_posts_grid
 // ----------------------------------------------------------------------
-function step_3c_transform_vc_posts_grid($content) {
+function step_3c_transform_vc_posts_grid($content)
+{
     if (strpos($content, '[vc_posts_grid') !== false) {
         if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
             $ids = array_map('intval', explode(',', $matches[1]));
@@ -252,7 +310,7 @@ function step_3c_transform_vc_posts_grid($content) {
                 $token = preg_replace_callback(
                     '/\[(\d+)\]/',
                     function ($m) {
-                        $pid = (int)$m[1];
+                        $pid = (int) $m[1];
                         return '<!-- wp:query {"queryId":4,"query":{"perPage":1,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":[' . $pid . ']}} -->
 <div class="wp-block-query">
 <!-- wp:post-template -->
@@ -276,7 +334,8 @@ function step_3c_transform_vc_posts_grid($content) {
 // ----------------------------------------------------------------------
 // Phase 3G: Media Embeds & Plugin Shortcodes Migration
 // ----------------------------------------------------------------------
-function step_3g_transform_media_and_plugins($content) {
+function step_3g_transform_media_and_plugins($content)
+{
     // 1. [embed]url[/embed] -> core/embed
     $content = preg_replace_callback(
         '/\[embed[^\]]*\]\s*(https?:\/\/[^\s<]+)\s*\[\/embed\]/i',
@@ -330,7 +389,8 @@ function step_3g_transform_media_and_plugins($content) {
 // ----------------------------------------------------------------------
 // Phase 3D: Structural WPBakery & Caption Shortcodes
 // ----------------------------------------------------------------------
-function step_3d_transform_wpbakery_and_caption($content) {
+function step_3d_transform_wpbakery_and_caption($content)
+{
     // 1. vc_row
     $content = preg_replace('/\[vc_row[^\]]*\]/i', '<!-- wp:columns --><div class="wp-block-columns">', $content);
     $content = preg_replace('/\[\/vc_row\]/i', '</div><!-- /wp:columns -->', $content);
@@ -351,7 +411,7 @@ function step_3d_transform_wpbakery_and_caption($content) {
     $content = preg_replace_callback(
         '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
         function ($matches) {
-            $img_id = isset($matches[1]) ? (int)$matches[1] : 0;
+            $img_id = isset($matches[1]) ? (int) $matches[1] : 0;
             return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
         },
         $content
@@ -362,7 +422,7 @@ function step_3d_transform_wpbakery_and_caption($content) {
         '/\[caption(?:\s+id=["\']([^"\']+)["\'])?(?:\s+align=["\']([^"\']+)["\'])?(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\](.*?)\[\/caption\]/is',
         function ($matches) {
             $id_attr = isset($matches[1]) ? $matches[1] : '';
-            $img_id = (int)preg_replace('/\D/', '', $id_attr);
+            $img_id = (int) preg_replace('/\D/', '', $id_attr);
             $inner = trim($matches[4]);
 
             if (preg_match('/(<img[^>]+>)(.*)/is', $inner, $img_matches)) {
@@ -382,7 +442,8 @@ function step_3d_transform_wpbakery_and_caption($content) {
 // ----------------------------------------------------------------------
 // Phase 3E: Residual Shortcode Clean-Up & Block Comment Isolation
 // ----------------------------------------------------------------------
-function step_3e_transform_residual_shortcodes($content) {
+function step_3e_transform_residual_shortcodes($content)
+{
     $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
     $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
@@ -432,10 +493,11 @@ function step_3e_transform_residual_shortcodes($content) {
 // ----------------------------------------------------------------------
 // Phase 3F: Classic HTML AST Block Conversion & Inline CSS Allowlist
 // ----------------------------------------------------------------------
-function convert_html_elements_to_blocks($html) {
+function convert_html_elements_to_blocks($html)
+{
     $rules = [
         '/<h([1-6])(\s+[^>]*)?>(.*?)<\/h\1>/is' => function ($m) {
-            $level = (int)$m[1];
+            $level = (int) $m[1];
             $tag_html = clean_html_inline_styles("<h{$level}" . ($m[2] ?? '') . ">{$m[3]}</h{$level}>");
             return "<!-- wp:heading {\"level\":{$level}} -->{$tag_html}<!-- /wp:heading -->";
         },
@@ -468,7 +530,8 @@ function convert_html_elements_to_blocks($html) {
     return $html;
 }
 
-function step_3f_process_classic_html($content) {
+function step_3f_process_classic_html($content)
+{
     if (empty(trim($content))) {
         return $content;
     }
@@ -518,17 +581,23 @@ $failed_ast_count = 0;
 $failed_post_ids = [];
 
 while ($row = $res->fetch_assoc()) {
-    $id = (int)$row['ID'];
+    $id = (int) $row['ID'];
     $original_content = $row['post_content'];
 
-    // Sequence 3A -> 3B -> 3C -> 3G -> 3D -> 3E -> 3F
-    $content = step_3a_transform_sliders($original_content, $id);
-    $content = step_3b_transform_testimonials($content);
-    $content = step_3c_transform_vc_posts_grid($content);
-    $content = step_3g_transform_media_and_plugins($content);
-    $content = step_3d_transform_wpbakery_and_caption($content);
-    $content = step_3e_transform_residual_shortcodes($content);
-    $content = step_3f_process_classic_html($content);
+    $front_page_ids = [13236, 16894, 16892];
+    if (in_array($id, $front_page_ids, true)) {
+        // Front page content extraction (remove all shortcodes, extract text, sanitize and convert to Gutenberg)
+        $content = eka_process_front_page_content($original_content, $id);
+    } else {
+        // Sequence 3A -> 3B -> 3C -> 3G -> 3D -> 3E -> 3F
+        $content = step_3a_transform_sliders($original_content, $id);
+        $content = step_3b_transform_testimonials($content);
+        $content = step_3c_transform_vc_posts_grid($content);
+        $content = step_3g_transform_media_and_plugins($content);
+        $content = step_3d_transform_wpbakery_and_caption($content);
+        $content = step_3e_transform_residual_shortcodes($content);
+        $content = step_3f_process_classic_html($content);
+    }
 
     if ($content === $original_content) {
         $skipped_count++;

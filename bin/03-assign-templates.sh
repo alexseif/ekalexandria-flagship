@@ -24,13 +24,13 @@ echo "=========================================="
 # 1. Transient Clean-Up & Cache Flush
 echo "Flushing transient cache and object cache..."
 cd "$WP_DIR" || exit 1
-php7.4 "$(which wp)" transient delete --all --path="$WP_DIR"
-php7.4 "$(which wp)" cache flush --path="$WP_DIR"
+php8.2 "$(which wp)" transient delete --all --path="$WP_DIR"
+php8.2 "$(which wp)" cache flush --path="$WP_DIR"
 
 # 2. Page Template Assignments
 echo "Assigning FSE Page Templates (bin/assign-page-templates.php)..."
 if [ -f "$THEME_DIR/bin/assign-page-templates.php" ]; then
-    php7.4 "$(which wp)" eval-file "$THEME_DIR/bin/assign-page-templates.php" --path="$WP_DIR"
+    php8.2 "$(which wp)" eval-file "$THEME_DIR/bin/assign-page-templates.php" --path="$WP_DIR"
 else
     echo "ERROR: $THEME_DIR/bin/assign-page-templates.php not found!"
     exit 1
@@ -41,7 +41,7 @@ NAV_LOG="$LOG_DIR/03-assign-nav-menus.log"
 : > "$NAV_LOG"
 echo "Migrating & Assigning Classic Menus to FSE (bin/migrate-classic-menus-to-fse.php)..."
 if [ -f "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" ]; then
-    php7.4 "$(which wp)" eval-file "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" --path="$WP_DIR" >> "$NAV_LOG" 2>&1
+    php8.2 "$(which wp)" eval-file "$THEME_DIR/bin/migrate-classic-menus-to-fse.php" --path="$WP_DIR" >> "$NAV_LOG" 2>&1
     echo "Logged navigation menu migration & assignment output to $NAV_LOG"
 else
     echo "ERROR: $THEME_DIR/bin/migrate-classic-menus-to-fse.php not found!"
