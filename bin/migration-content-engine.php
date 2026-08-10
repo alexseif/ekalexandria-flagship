@@ -426,12 +426,12 @@ function step_3d_transform_wpbakery_and_caption($content)
             $inner = trim($matches[4]);
 
             if (preg_match('/(<img[^>]+>)(.*)/is', $inner, $img_matches)) {
-                $img_tag = $img_matches[1];
+                $img_tag = clean_image_tag($img_matches[1]);
                 $caption_text = trim(strip_tags($img_matches[2]));
                 return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image">' . $img_tag . '<figcaption>' . htmlspecialchars($caption_text, ENT_QUOTES, 'UTF-8') . '</figcaption></figure><!-- /wp:image -->';
             }
 
-            return '<!-- wp:image --><figure class="wp-block-image">' . $inner . '</figure><!-- /wp:image -->';
+            return '<!-- wp:image --><figure class="wp-block-image">' . clean_image_tag($inner) . '</figure><!-- /wp:image -->';
         },
         $content
     );
@@ -465,24 +465,17 @@ function step_3e_transform_residual_shortcodes($content)
             if ($in_block) {
                 $output .= $token;
             } else {
-                $converted = preg_replace_callback(
-                    '/\[([a-zA-Z0-9_]+)([^\]]*)\](?:(.*?)\[\/\1\])?/s',
-                    function ($matches) use ($ignored_tags) {
-                        $tag = strtolower($matches[1]);
+                $output .= preg_replace_callback(
+                    '/\[([a-zA-Z0-9_-]+)([^\]]*)\]/s',
+                    function ($m) use ($ignored_tags) {
+                        $tag = strtolower($m[1]);
                         if (in_array($tag, $ignored_tags, true)) {
-                            return $matches[0];
+                            return $m[0];
                         }
-                        // Ignore common Greek/English words in brackets or plain text annotations (e.g. [Sigma], [Greek], [5.4 acres])
-                        if (preg_match('/^[A-Z][a-z]+$/', $matches[1]) || in_array($tag, ['endif', 'if', 'the', 'general', 'this', 'list', 'in', 'it', 'on', 'was', 'who', 'f', 'sigma', 'greek'], true)) {
-                            return $matches[0];
-                        }
-
-                        $raw_shortcode = $matches[0];
-                        return '<!-- wp:html -->' . $raw_shortcode . '<!-- /wp:html -->';
+                        return '<!-- wp:html -->' . $m[0] . '<!-- /wp:html -->';
                     },
                     $token
                 );
-                $output .= $converted;
             }
         }
     }
@@ -516,6 +509,16 @@ function convert_html_elements_to_blocks($html)
         '/<blockquote(\s+[^>]*)?>(.*?)<\/blockquote>/is' => function ($m) {
             $tag_html = clean_html_inline_styles("<blockquote class=\"wp-block-quote\"" . ($m[1] ?? '') . ">{$m[2]}</blockquote>");
             return "<!-- wp:quote -->{$tag_html}<!-- /wp:quote -->";
+        },
+        '/<img(\s+[^>]*)?\/?>/is' => function ($m) {
+            $raw_img = "<img" . ($m[1] ?? '') . " />";
+            $clean_img = clean_image_tag($raw_img);
+            $img_id = 0;
+            if (preg_match('/wp-image-(\d+)/i', $m[1] ?? '', $id_match)) {
+                $img_id = (int)$id_match[1];
+            }
+            $json_attr = $img_id > 0 ? " {\"id\":{$img_id}}" : "";
+            return "<!-- wp:image{$json_attr} --><figure class=\"wp-block-image\">{$clean_img}</figure><!-- /wp:image -->";
         },
         '/<p(\s+[^>]*)?>(.*?)<\/p>/is' => function ($m) {
             $tag_html = clean_html_inline_styles("<p" . ($m[1] ?? '') . ">{$m[2]}</p>");

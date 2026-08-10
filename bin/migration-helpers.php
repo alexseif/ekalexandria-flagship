@@ -88,6 +88,50 @@ if (!function_exists('sanitize_inline_styles_fse')) {
     }
 }
 
+if (!function_exists('clean_image_tag')) {
+    /**
+     * Cleans an <img> HTML tag string:
+     * - Removes legacy class names (wp-image-XXX, size-XXX)
+     * - Removes width and height attributes (width="150", height="150")
+     *
+     * @param string $img_html
+     * @return string Cleaned <img> HTML tag string.
+     */
+    function clean_image_tag($img_html) {
+        if (empty(trim($img_html))) {
+            return $img_html;
+        }
+
+        // Remove width="150" or width='150'
+        $img_html = preg_replace('/\s+width=["\']?\d+%?["\']?/i', '', $img_html);
+
+        // Remove height="150" or height='150'
+        $img_html = preg_replace('/\s+height=["\']?\d+%?["\']?/i', '', $img_html);
+
+        // Clean class attribute: remove wp-image-XXX and size-XXX classes
+        $img_html = preg_replace_callback('/\s+class=["\']([^"\']*)["\']/i', function ($m) {
+            $classes = array_filter(explode(' ', $m[1]), function ($cls) {
+                $cls = trim($cls);
+                if (empty($cls)) return false;
+                if (preg_match('/^wp-image-\d+$/i', $cls)) return false;
+                if (preg_match('/^size-[a-z0-9_-]+$/i', $cls)) return false;
+                return true;
+            });
+            if (empty($classes)) {
+                return '';
+            }
+            return ' class="' . implode(' ', $classes) . '"';
+        }, $img_html);
+
+        // Clean up formatting
+        $img_html = preg_replace('/\s+/', ' ', $img_html);
+        $img_html = str_replace(' >', '/>', $img_html);
+        $img_html = str_replace(' />', '/>', $img_html);
+
+        return $img_html;
+    }
+}
+
 if (!function_exists('eka_init_log_file')) {
     /**
      * Initializes and truncates log file on script startup.

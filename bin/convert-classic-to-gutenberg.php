@@ -113,7 +113,23 @@ function convert_html_elements_to_blocks($html) {
         $html
     );
 
-    // 6. Paragraphs: <p>
+    // 6. Images: <img>
+    $html = preg_replace_callback(
+        '/<img(\s+[^>]*)?\/?>/is',
+        function ($matches) {
+            $raw_img = "<img" . (isset($matches[1]) ? $matches[1] : '') . " />";
+            $clean_img = clean_image_tag($raw_img);
+            $img_id = 0;
+            if (preg_match('/wp-image-(\d+)/i', isset($matches[1]) ? $matches[1] : '', $id_match)) {
+                $img_id = (int)$id_match[1];
+            }
+            $json_attr = $img_id > 0 ? " {\"id\":{$img_id}}" : "";
+            return "<!-- wp:image{$json_attr} --><figure class=\"wp-block-image\">{$clean_img}</figure><!-- /wp:image -->";
+        },
+        $html
+    );
+
+    // 7. Paragraphs: <p>
     $html = preg_replace_callback(
         '/<p(\s+[^>]*)?>(.*?)<\/p>/is',
         function ($matches) {
