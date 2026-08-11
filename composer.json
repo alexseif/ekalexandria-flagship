@@ -1,0 +1,22 @@
+{
+  "name": "ekalexandria/ekalexandria-flagship",
+  "description": "EKA Alexandria Flagship FSE Theme Migration Engine & Utilities",
+  "type": "wordpress-theme",
+  "license": "GPL-2.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "EkaAlexandria\\Migration\\": "bin/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "EkaAlexandria\\Migration\\Tests\\": "bin/tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit --colors=always"
+  }
+}

@@ -3,6 +3,13 @@
  * Shared Helpers for Gutenberg Migration & FSE Style Sanitization
  */
 
+if (file_exists(dirname(__DIR__) . '/vendor/autoload.php')) {
+    require_once dirname(__DIR__) . '/vendor/autoload.php';
+}
+
+use EkaAlexandria\Migration\Utils\StyleSanitizer;
+use EkaAlexandria\Migration\Content\ContentTransformer;
+
 if (!function_exists('eka_get_db_config')) {
     /**
      * Dynamically extracts database credentials from WordPress environment constants,
@@ -55,149 +62,26 @@ if (!function_exists('eka_get_db_config')) {
 }
 
 if (!function_exists('sanitize_inline_styles_fse')) {
-    /**
-     * Filters inline CSS against a strict FSE Property Allowlist.
-     * Retains layout, grid, alignment, and sizing properties.
-     * Discards legacy font, color, margin, and padding properties.
-     *
-     * @param string $style_string
-     * @return string Filtered CSS style string.
-     */
     function sanitize_inline_styles_fse($style_string) {
-        if (empty(trim($style_string))) {
-            return '';
-        }
-
-        $allowlist = [
-            'flex-basis', 'flex-grow', 'flex-shrink', 'flex-direction',
-            'grid-template-columns', 'width', 'height', 'min-height',
-            'max-width', 'aspect-ratio', 'object-fit', 'vertical-align', 'text-align'
-        ];
-
-        $declarations = array_filter(array_map('trim', explode(';', $style_string)));
-        $retained = [];
-
-        foreach ($declarations as $decl) {
-            $parts = array_map('trim', explode(':', $decl, 2));
-            if (count($parts) === 2 && in_array(strtolower($parts[0]), $allowlist, true)) {
-                $retained[] = strtolower($parts[0]) . ": {$parts[1]}";
-            }
-        }
-
-        return empty($retained) ? '' : implode('; ', $retained) . ';';
+        return StyleSanitizer::sanitizeInlineStyles((string)$style_string);
     }
 }
 
 if (!function_exists('clean_image_tag')) {
-    /**
-     * Cleans an <img> HTML tag string:
-     * - Removes legacy class names (wp-image-XXX, size-XXX)
-     * - Removes width and height attributes (width="150", height="150")
-     *
-     * @param string $img_html
-     * @return string Cleaned <img> HTML tag string.
-     */
     function clean_image_tag($img_html) {
-        if (empty(trim($img_html))) {
-            return $img_html;
-        }
-
-        // Remove width="150" or width='150'
-        $img_html = preg_replace('/\s+width=["\']?\d+%?["\']?/i', '', $img_html);
-
-        // Remove height="150" or height='150'
-        $img_html = preg_replace('/\s+height=["\']?\d+%?["\']?/i', '', $img_html);
-
-        // Clean class attribute: remove wp-image-XXX and size-XXX classes
-        $img_html = preg_replace_callback('/\s+class=["\']([^"\']*)["\']/i', function ($m) {
-            $classes = array_filter(explode(' ', $m[1]), function ($cls) {
-                $cls = trim($cls);
-                if (empty($cls)) return false;
-                if (preg_match('/^wp-image-\d+$/i', $cls)) return false;
-                if (preg_match('/^size-[a-z0-9_-]+$/i', $cls)) return false;
-                return true;
-            });
-            if (empty($classes)) {
-                return '';
-            }
-            return ' class="' . implode(' ', $classes) . '"';
-        }, $img_html);
-
-        // Clean up formatting
-        $img_html = preg_replace('/\s+/', ' ', $img_html);
-        $img_html = str_replace(' >', '/>', $img_html);
-        $img_html = str_replace(' />', '/>', $img_html);
-
-        return $img_html;
+        return StyleSanitizer::cleanImageTag((string)$img_html);
     }
 }
 
 if (!function_exists('eka_init_log_file')) {
-    /**
-     * Initializes and truncates log file on script startup.
-     *
-     * @param string $log_path
-     * @return void
-     */
     function eka_init_log_file($log_path) {
-        $dir = dirname($log_path);
-        if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-        }
-        file_put_contents($log_path, '');
+        StyleSanitizer::initLogFile((string)$log_path);
     }
 }
 
 if (!function_exists('eka_validate_blocks_ast')) {
-    /**
-     * Validates block content structure using WordPress parse_blocks() if available,
-     * or a fallback AST balanced block check.
-     *
-     * @param string $content
-     * @return bool True if valid, false if invalid or malformed AST.
-     */
     function eka_validate_blocks_ast($content) {
-        if (empty(trim($content))) {
-            return true;
-        }
-
-        if (function_exists('parse_blocks')) {
-            $blocks = parse_blocks($content);
-            if (empty($blocks)) {
-                return false;
-            }
-            return true;
-        }
-
-        // Lightweight AST balanced block validation
-        $stack = [];
-        preg_match_all('/<!--\s+(?<type>\/)?wp:(?<name>[a-z0-9\/-]+)(?:\s+(?<attrs>\{.*?\}))?\s+(?<selfclosing>\/)?-->/s', $content, $matches, PREG_SET_ORDER);
-
-        foreach ($matches as $match) {
-            $is_close = !empty($match['type']);
-            $block_name = $match['name'];
-            $is_self_closing = isset($match['selfclosing']) && !empty($match['selfclosing']);
-
-            if ($is_self_closing) {
-                continue;
-            }
-
-            if (!$is_close) {
-                // Opening block tag
-                $stack[] = $block_name;
-            } else {
-                // Closing block tag
-                if (empty($stack)) {
-                    return false; // Unexpected close tag
-                }
-                $last = array_pop($stack);
-                if ($last !== $block_name) {
-                    return false; // Mismatched block closing tag
-                }
-            }
-        }
-
-        return empty($stack);
+        return StyleSanitizer::validateBlocksAst((string)$content);
     }
 }
 
@@ -352,94 +236,14 @@ if (!function_exists('eka_resolve_slider_images_by_alias')) {
 }
 
 if (!function_exists('eka_build_gutenberg_gallery_block')) {
-    /**
-     * Helper to construct Gutenberg wp:gallery block with nested wp:image blocks.
-     *
-     * @param array $images
-     * @param string $extra_class
-     * @param string $fallback_title
-     * @return string Block HTML comment markup
-     */
     function eka_build_gutenberg_gallery_block($images, $extra_class = 'rev-slider-replaced', $fallback_title = 'Slider') {
-        $valid_images = [];
-        foreach ($images as $img) {
-            if (!empty($img['id']) || !empty($img['url'])) {
-                $valid_images[] = $img;
-            }
-        }
-
-        if (empty($valid_images)) {
-            return '<!-- wp:gallery {"className":"' . $extra_class . '"} --><figure class="wp-block-gallery has-nested-images columns-default is-cropped ' . $extra_class . '"><!-- wp:paragraph --><p>' . htmlspecialchars($fallback_title, ENT_QUOTES, 'UTF-8') . '</p><!-- /wp:paragraph --></figure><!-- /wp:gallery -->';
-        }
-
-        $image_ids = [];
-        $inner_blocks_html = '';
-
-        foreach ($valid_images as $img) {
-            $id = (int)$img['id'];
-            $url = htmlspecialchars($img['url'], ENT_QUOTES, 'UTF-8');
-            if ($id > 0) {
-                $image_ids[] = $id;
-            }
-
-            $id_attr_json = $id > 0 ? '"id":' . $id . ',' : '';
-
-            $inner_blocks_html .= '<!-- wp:image {' . $id_attr_json . '"sizeSlug":"full","linkDestination":"none"} -->';
-            $inner_blocks_html .= '<figure class="wp-block-image"><img src="' . $url . '" alt=""/></figure>';
-            $inner_blocks_html .= '<!-- /wp:image -->';
-        }
-
-        $gallery_attrs = [
-            'columns' => 1,
-            'ids' => $image_ids,
-            'linkTo' => 'none',
-            'sizeSlug' => 'full',
-            'className' => $extra_class,
-        ];
-        $attrs_json = json_encode($gallery_attrs, JSON_UNESCAPED_SLASHES);
-
-        $html = '<!-- wp:gallery ' . $attrs_json . ' -->';
-        $html .= '<figure class="wp-block-gallery has-nested-images columns-1 is-cropped ' . $extra_class . '">';
-        $html .= $inner_blocks_html;
-        $html .= '</figure>';
-        $html .= '<!-- /wp:gallery -->';
-
-        return $html;
+        $transformer = new ContentTransformer();
+        return $transformer->buildGutenbergGalleryBlock((array)$images, (string)$extra_class, (string)$fallback_title);
     }
 }
 
 if (!function_exists('eka_sanitize_image_tags')) {
-    /**
-     * Sanitizes image tags and figure blocks by stripping legacy class names
-     * (e.g. wp-image-*, size-full, size-large, alignright, alignleft) and explicit width/height attributes.
-     *
-     * @param string $html
-     * @return string
-     */
     function eka_sanitize_image_tags($html) {
-        if (empty($html) || strpos($html, '<img') === false) {
-            return $html;
-        }
-
-        // Clean <img ... /> tags: strip width, height, class attributes completely
-        $html = preg_replace_callback('/<img\s+[^>]*>/i', function ($m) {
-            $img = $m[0];
-            $img = preg_replace('/\s+(width|height)=(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $img);
-            $img = preg_replace('/\s+class=(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $img);
-            return $img;
-        }, $html);
-
-        // Clean <figure class="...">: strip size-full, size-large, alignright, alignleft, etc.
-        $html = preg_replace_callback('/<figure\s+class=["\']([^"\']*)["\']>/i', function ($m) {
-            $classes = array_filter(explode(' ', $m[1]));
-            $disallowed = ['size-full', 'size-large', 'size-medium', 'alignright', 'alignleft', 'aligncenter'];
-            $clean_classes = array_values(array_diff($classes, $disallowed));
-            if (empty($clean_classes)) {
-                $clean_classes = ['wp-block-image'];
-            }
-            return '<figure class="' . implode(' ', $clean_classes) . '">';
-        }, $html);
-
-        return $html;
+        return StyleSanitizer::sanitizeImageTags((string)$html);
     }
 }

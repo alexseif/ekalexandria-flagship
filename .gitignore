@@ -8,3 +8,5 @@ node_modules/
 *.css.map
 __pycache__/
 *.pyc
+vendor/
+.phpunit.result.cache

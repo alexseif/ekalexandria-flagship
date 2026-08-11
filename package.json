@@ -6,6 +6,7 @@
   "scripts": {
     "build": "wp-scripts build assets/scss/style.scss assets/scss/rtl.scss --output-path=build",
     "dev": "wp-scripts start assets/scss/style.scss assets/scss/rtl.scss --output-path=build",
+    "test": "vendor/bin/phpunit",
     "test:parser": "node bin/validate-ast.js",
     "test:render": "php bin/test-runtime-render.php"
   },

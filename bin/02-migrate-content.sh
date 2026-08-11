@@ -27,7 +27,7 @@ if [ ! -f "$THEME_DIR/bin/migration-content-engine.php" ]; then
 fi
 
 echo "Executing 6-step content engine (bin/migration-content-engine.php)..."
-php8.2 "$(which wp)" eval-file "$THEME_DIR/bin/migration-content-engine.php" --path="$WP_DIR"
+php8.2 "$(which wp)" eval-file "$THEME_DIR/bin/migration-content-engine.php" --path="$WP_DIR" --skip-plugins
 
 echo "Stage 02 content migration completed successfully at $(date)!"
 exit 0

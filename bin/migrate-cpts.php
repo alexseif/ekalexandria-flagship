@@ -13,6 +13,8 @@ if (!defined('ABSPATH')) {
     }
 }
 
+require_once __DIR__ . '/migration-helpers.php';
+
 function eka_cpt_logger($log_filename) {
     $log_dir = get_template_directory() . '/ai-work/logs';
     if (!file_exists($log_dir)) {

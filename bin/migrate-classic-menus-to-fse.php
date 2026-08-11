@@ -13,6 +13,8 @@ if (!defined('ABSPATH') && !defined('WP_CLI')) {
     exit(1);
 }
 
+require_once __DIR__ . '/migration-helpers.php';
+
 echo "========================================\n";
 echo "Migrating & Assigning Classic Menus to FSE wp_navigation\n";
 echo "========================================\n";
@@ -85,70 +87,12 @@ $locations['social-menu-bottom'] = 21;   // Footer / Social Menu
 set_theme_mod('nav_menu_locations', $locations);
 echo "Updated theme_mod nav_menu_locations: " . json_encode($locations) . "\n";
 
-/**
- * 3. Build block markup recursively from hierarchical menu items, automatically resolving Polylang translations.
- */
+use EkaAlexandria\Migration\Navigation\MenuMigrator;
+
 function eka_build_nav_blocks_markup(array $items, int $parent_id = 0, string $lang = 'el'): string
 {
-    $markup = '';
-    foreach ($items as $item) {
-        if ((int)$item->menu_item_parent !== $parent_id) {
-            continue;
-        }
-
-        $label = esc_html($item->title);
-        $url   = esc_url($item->url);
-        $kind  = ($item->type === 'custom') ? 'custom' : 'post-type';
-        $type  = esc_attr($item->object);
-        $id    = (int)$item->object_id;
-
-        // Resolve translation for post-type objects if $lang is different
-        if ($kind === 'post-type' && $id > 0 && function_exists('pll_get_post')) {
-            $trans_id = pll_get_post($id, $lang);
-            if ($trans_id > 0 && $trans_id !== $id) {
-                $trans_post = get_post($trans_id);
-                if ($trans_post) {
-                    $id    = $trans_id;
-                    $label = esc_html($trans_post->post_title);
-                    $url   = esc_url(get_permalink($trans_id));
-                }
-            }
-        }
-
-        // Check if item has children
-        $has_children = false;
-        foreach ($items as $child) {
-            if ((int)$child->menu_item_parent === (int)$item->db_id) {
-                $has_children = true;
-                break;
-            }
-        }
-
-        if ($has_children) {
-            $attrs = json_encode([
-                'label' => $label,
-                'url'   => $url,
-                'kind'  => $kind,
-                'type'  => $type,
-                'id'    => $id,
-            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-
-            $markup .= "<!-- wp:navigation-submenu {$attrs} -->\n";
-            $markup .= eka_build_nav_blocks_markup($items, (int)$item->db_id, $lang);
-            $markup .= "<!-- /wp:navigation-submenu -->\n\n";
-        } else {
-            $attrs = json_encode([
-                'label' => $label,
-                'url'   => $url,
-                'kind'  => $kind,
-                'type'  => $type,
-                'id'    => $id,
-            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-
-            $markup .= "<!-- wp:navigation-link {$attrs} /-->\n\n";
-        }
-    }
-    return $markup;
+    $migrator = new MenuMigrator();
+    return $migrator->buildNavBlocksMarkup($items, $parent_id, $lang);
 }
 
 $generated_greek_fse_ids = [

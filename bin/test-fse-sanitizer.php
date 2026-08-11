@@ -5,6 +5,9 @@
 
 require_once __DIR__ . '/migration-helpers.php';
 
+use EkaAlexandria\Migration\Content\ContentTransformer;
+use EkaAlexandria\Migration\Utils\StyleSanitizer;
+
 $failures = 0;
 
 function assert_equals($expected, $actual, $test_name) {
@@ -16,6 +19,8 @@ function assert_equals($expected, $actual, $test_name) {
         $failures++;
     }
 }
+
+$transformer = new ContentTransformer();
 
 // 1. Test sanitize_inline_styles_fse()
 $test_cases = [
@@ -72,29 +77,26 @@ assert_equals(false, eka_validate_blocks_ast($invalid_block_markup), 'Unclosed/u
 
 // 4. Test 1/1 Column Unwrapping in Shortcode Migration Engine
 echo "\n--- Running Shortcode 1/1 Column Unwrapping Tests ---\n";
-define('EKA_TEST_MODE', true);
-require_once __DIR__ . '/04-shortcode-migrations.php';
-
 $input_single_col = '[vc_row][vc_column width="1/1"][vc_column_text]<p>Hello World</p>[/vc_column_text][/vc_column][/vc_row]';
-$out_single_col = step_4a_transform_wpbakery_and_caption($input_single_col);
+$out_single_col = $transformer->transformWpbakeryAndCaption($input_single_col);
 $expected_single_col = '<!-- wp:paragraph --><p>Hello World</p><!-- /wp:paragraph -->';
 assert_equals($expected_single_col, trim($out_single_col), 'Single 1/1 column row unwraps directly to Gutenberg paragraph');
 
 $input_subgrid = '[vc_row][vc_column width="1/1"][vc_posts_grid loop="size:10|post_type:page|by_id:12,14" grid_columns_count="2"][/vc_column][/vc_row]';
-$out_step4a = step_4a_transform_wpbakery_and_caption($input_subgrid);
-$out_step4c = step_4c_transform_vc_posts_grid($out_step4a, 0);
+$out_step4a = $transformer->transformWpbakeryAndCaption($input_subgrid);
+$out_step4c = $transformer->transformVcPostsGrid($out_step4a, 0);
 assert_equals(false, strpos($out_step4c, 'wp:columns'), 'Sub-grid in 1/1 column row has no outer wp:columns block');
 assert_equals(true, strpos($out_step4c, 'wp:query') !== false, 'Sub-grid produces wp:query block');
 
 $input_multi_col = '[vc_row][vc_column width="1/2"][vc_column_text]<p>Col 1</p>[/vc_column_text][/vc_column][vc_column width="1/2"][vc_column_text]<p>Col 2</p>[/vc_column_text][/vc_column][/vc_row]';
-$out_multi_col = step_4a_transform_wpbakery_and_caption($input_multi_col);
+$out_multi_col = $transformer->transformWpbakeryAndCaption($input_multi_col);
 assert_equals(true, strpos($out_multi_col, 'wp:columns') !== false, 'Multi-column row retains wp:columns block wrapper');
-assert_equals(true, strpos($out_multi_col, 'flex-basis: 50%') !== false, 'Multi-column row retains calculated flex basis');
+assert_equals(true, strpos($out_multi_col, 'flex-basis:50%') !== false, 'Multi-column row retains calculated flex basis');
 
 // 5. Test MFN Left Sidebar 30/70 Column Wrapping
 echo "\n--- Running MFN Left Sidebar 30/70 Layout Tests ---\n";
 $input_mfn_content = '<!-- wp:paragraph --><p>Main page content here</p><!-- /wp:paragraph -->';
-$out_mfn_wrapped = eka_transform_mfn_left_sidebar_layout($input_mfn_content, 99999, null, true); // pass force_enable = true for testing
+$out_mfn_wrapped = $transformer->transformMfnLeftSidebarLayout($input_mfn_content, 99999, null, true);
 assert_equals(true, strpos($out_mfn_wrapped, 'eka-has-sidebar-left') !== false, 'Wrapped layout contains eka-has-sidebar-left class');
 assert_equals(true, strpos($out_mfn_wrapped, '"width":"30%"') !== false, 'Wrapped layout has 30% left column');
 assert_equals(true, strpos($out_mfn_wrapped, '"width":"70%"') !== false, 'Wrapped layout has 70% right column containing main content');

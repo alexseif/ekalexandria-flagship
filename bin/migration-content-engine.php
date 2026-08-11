@@ -7,131 +7,51 @@
 
 require_once __DIR__ . '/migration-helpers.php';
 
+use EkaAlexandria\Migration\Content\ContentTransformer;
+use EkaAlexandria\Migration\Utils\Logger;
+
 $GLOBALS['eka_log_file'] = dirname(__DIR__) . '/ai-work/logs/content-engine.log';
-eka_init_log_file($GLOBALS['eka_log_file']);
 
 function eka_engine_log($msg, $level = 'INFO')
 {
-    $log_file = isset($GLOBALS['eka_log_file']) ? $GLOBALS['eka_log_file'] : dirname(__DIR__) . '/ai-work/logs/content-engine.log';
-    $timestamp = date('Y-m-d H:i:s');
-    $formatted = "[{$timestamp}] [{$level}] {$msg}\n";
-    file_put_contents($log_file, $formatted, FILE_APPEND);
-    if (class_exists('WP_CLI')) {
-        if ($level === 'ERROR') {
-            WP_CLI::warning("ERROR: " . $msg);
-        } elseif ($level === 'WARNING') {
-            WP_CLI::warning($msg);
-        } else {
-            WP_CLI::line($msg);
-        }
-    } else {
-        echo $formatted;
+    static $logger = null;
+    if ($logger === null) {
+        $log_file = isset($GLOBALS['eka_log_file']) ? $GLOBALS['eka_log_file'] : dirname(__DIR__) . '/ai-work/logs/content-engine.log';
+        $logger = new Logger($log_file, true);
     }
+    $logger->log($msg, $level);
 }
 
 eka_engine_log("==========================================");
 eka_engine_log("Starting Migration Content Engine: " . date('Y-m-d H:i:s'));
 eka_engine_log("==========================================");
 
-$db_config = eka_get_db_config();
-$mysqli = new mysqli($db_config['host'], $db_config['user'], $db_config['pass'], $db_config['name']);
-if ($mysqli->connect_error) {
-    eka_engine_log("Database connection failed: " . $mysqli->connect_error, "ERROR");
-    die("Connection failed: " . $mysqli->connect_error . "\n");
+if (!defined('EKA_TEST_MODE') || !EKA_TEST_MODE) {
+    $db_config = eka_get_db_config();
+    $mysqli = new mysqli($db_config['host'], $db_config['user'], $db_config['pass'], $db_config['name']);
+    if ($mysqli->connect_error) {
+        eka_engine_log("Database connection failed: " . $mysqli->connect_error, "ERROR");
+        die("Connection failed: " . $mysqli->connect_error . "\n");
+    }
+    $mysqli->set_charset("utf8mb4");
 }
-$mysqli->set_charset("utf8mb4");
-
-// ----------------------------------------------------------------------
-// Helper Functions for Transformations
-// ----------------------------------------------------------------------
 
 function parse_fraction_width($width_str)
 {
-    $width_str = trim($width_str);
-    if (empty($width_str)) {
-        return '100%';
-    }
-    if (strpos($width_str, '/') !== false) {
-        $parts = explode('/', $width_str);
-        $num = (float) $parts[0];
-        $den = (float) $parts[1];
-        if ($den > 0) {
-            $pct = round(($num / $den) * 100, 2);
-            return $pct . '%';
-        }
-    }
-    if (is_numeric(rtrim($width_str, '%'))) {
-        return rtrim($width_str, '%') . '%';
-    }
-    return '100%';
+    $transformer = new ContentTransformer();
+    return $transformer->parseFractionWidth((string)$width_str);
 }
 
 function clean_html_inline_styles($html)
 {
-    return preg_replace_callback(
-        '/\s+style=["\']([^"\']*)["\']/i',
-        function ($matches) {
-            $raw_style = $matches[1];
-            $clean_style = sanitize_inline_styles_fse($raw_style);
-            if (empty($clean_style)) {
-                return '';
-            }
-            return ' style="' . htmlspecialchars($clean_style, ENT_QUOTES, 'UTF-8') . '"';
-        },
-        $html
-    );
+    $transformer = new ContentTransformer();
+    return $transformer->cleanHtmlInlineStyles((string)$html);
 }
 
-// ----------------------------------------------------------------------
-// Specialized Front Page Content Extractor (IDs: 13236, 16894, 16892)
-// ----------------------------------------------------------------------
 function eka_process_front_page_content($content, $post_id)
 {
-    // 1. Remove slider shortcodes ([layerslider ...], [rev_slider ...], [rev_slider_vc ...])
-    $content = preg_replace('/\[(?:rev_slider|rev_slider_vc|layerslider)[^\]]*\]/i', '', $content);
-
-    // 2. Remove vc_posts_grid shortcodes
-    $content = preg_replace('/\[vc_posts_grid[^\]]*\]/i', '', $content);
-
-    // 3. Extract text from inside [vc_column_text]...[/vc_column_text] if present
-    if (preg_match('/\[vc_column_text[^\]]*\](.*?)\[\/vc_column_text\]/is', $content, $matches)) {
-        $content = $matches[1];
-    }
-
-    // 4. Strip all remaining shortcodes ([vc_row...], [/vc_row], [vc_column...], [/vc_column], etc.)
-    $content = preg_replace('/\[\/?(?:vc_|mfn_)[^\]]*\]/i', '', $content);
-
-    // 5. Clean/strip inline style attributes from HTML tags
-    $content = preg_replace('/\s*style=["\'][^"\']*["\']/i', '', $content);
-
-    // 6. Strip unwanted HTML tags except allowed content tags
-    $content = strip_tags($content, '<p><br><a><strong><em>');
-
-    // 7. Trim whitespace
-    $content = trim($content);
-
-    // 8. Ensure paragraph structure
-    if (!preg_match('/^\s*<p(\s+[^>]*)?>/i', $content)) {
-        if (function_exists('wpautop')) {
-            $content = wpautop($content);
-        } else {
-            $content = '<p>' . nl2br($content) . '</p>';
-        }
-    }
-
-    // Clean up empty paragraphs
-    $content = preg_replace('/<p>\s*<\/p>/i', '', $content);
-
-    // 9. Convert <p> tags into native Gutenberg block AST
-    $content = preg_replace_callback('/<p(\s+[^>]*)?>(.*?)<\/p>/is', function ($m) {
-        $inner = trim($m[2]);
-        if (empty($inner)) {
-            return '';
-        }
-        return "<!-- wp:paragraph -->\n<p>{$inner}</p>\n<!-- /wp:paragraph -->";
-    }, $content);
-
-    return trim($content);
+    $transformer = new ContentTransformer();
+    return $transformer->processFrontPageContent((string)$content, (int)$post_id);
 }
 
 // ----------------------------------------------------------------------
@@ -189,10 +109,13 @@ function step_3a_transform_sliders($content, $post_id)
         $gallery_block = '<!-- wp:gallery {"linkTo":"none"} -->
 <figure class="wp-block-gallery has-nested-images columns-default is-cropped">';
         foreach ($media_ids as $media_id) {
+            $img_url = wp_get_attachment_url($media_id) ?: '';
             $gallery_block .= sprintf(
-                '<!-- wp:image {"id":%d,"linkDestination":"none"} -->' . "\n" .
-                '<figure class="wp-block-image"><img src="" alt=""/></figure>' . "\n" .
+                '<!-- wp:image {"id":%d,"sizeSlug":"full","linkDestination":"none"} -->' . "\n" .
+                '<figure class="wp-block-image size-full"><img src="%s" alt="" class="wp-image-%d"/></figure>' . "\n" .
                 '<!-- /wp:image -->',
+                $media_id,
+                esc_url($img_url),
                 $media_id
             );
         }
@@ -262,36 +185,10 @@ function step_3b_transform_testimonials($content)
 // ----------------------------------------------------------------------
 // Phase 3C: Subpages Query Loop Shortcodes & vc_posts_grid
 // ----------------------------------------------------------------------
-function step_3c_transform_vc_posts_grid($content)
+function step_3c_transform_vc_posts_grid($content, $post_id = 0)
 {
-    if (strpos($content, '[vc_posts_grid') !== false) {
-        if (preg_match('/by_id:([0-9,]+)/', $content, $matches)) {
-            $ids = array_map('intval', explode(',', $matches[1]));
-            $include_json = json_encode($ids);
-
-            $subnav_query = '<!-- wp:query {"queryId":3,"query":{"perPage":50,"pages":0,"offset":0,"postType":"page","order":"asc","orderBy":"menu_order","author":"","search":"","exclude":[],"sticky":"","inherit":false,"include":' . $include_json . '}} -->
-<div class="wp-block-query">
-<!-- wp:post-template -->
-<!-- wp:post-featured-image {"isLink":true} /-->
-<!-- wp:post-title {"isLink":true,"level":3} /-->
-<!-- wp:post-excerpt /-->
-<!-- /wp:post-template -->
-</div>
-<!-- /wp:query -->';
-
-            $content = preg_replace('/\[vc_row\]\[vc_column[^\]]*\]\[vc_posts_grid[^\]]*\]\[\/vc_column\]\[\/vc_row\]/is', $subnav_query, $content);
-            $content = preg_replace('/\[vc_posts_grid[^\]]*\]/is', $subnav_query, $content);
-        } else {
-            // Fallback for non-by_id vc_posts_grid tags
-            $content = preg_replace_callback(
-                '/\[vc_posts_grid[^\]]*\]/i',
-                function ($matches) {
-                    return '<!-- wp:html -->' . $matches[0] . '<!-- /wp:html -->';
-                },
-                $content
-            );
-        }
-    }
+    $transformer = new ContentTransformer();
+    $content = $transformer->transformVcPostsGrid((string)$content, (int)$post_id);
 
     // Convert standalone numeric shortcodes outside Gutenberg block comments into subpage query loops
     $tokens = preg_split('/(<!--\s+\/?wp:[^>]+-->)/s', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -336,6 +233,9 @@ function step_3c_transform_vc_posts_grid($content)
 // ----------------------------------------------------------------------
 function step_3g_transform_media_and_plugins($content)
 {
+    $transformer = new ContentTransformer();
+    $content = $transformer->transformMediaAndPlugins((string)$content);
+
     // 1. [embed]url[/embed] -> core/embed
     $content = preg_replace_callback(
         '/\[embed[^\]]*\]\s*(https?:\/\/[^\s<]+)\s*\[\/embed\]/i',
@@ -389,54 +289,10 @@ function step_3g_transform_media_and_plugins($content)
 // ----------------------------------------------------------------------
 // Phase 3D: Structural WPBakery & Caption Shortcodes
 // ----------------------------------------------------------------------
-function step_3d_transform_wpbakery_and_caption($content)
+function step_3d_transform_wpbakery_and_caption($content, $mysqli = null)
 {
-    // 1. vc_row
-    $content = preg_replace('/\[vc_row[^\]]*\]/i', '<!-- wp:columns --><div class="wp-block-columns">', $content);
-    $content = preg_replace('/\[\/vc_row\]/i', '</div><!-- /wp:columns -->', $content);
-
-    // 2. vc_column
-    $content = preg_replace_callback(
-        '/\[vc_column(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\]/i',
-        function ($matches) {
-            $width = isset($matches[1]) ? parse_fraction_width($matches[1]) : '100%';
-            return '<!-- wp:column {"width":"' . $width . '"} --><div class="wp-block-column" style="flex-basis: ' . $width . ';">';
-        },
-        $content
-    );
-    $content = preg_replace('/\[\/vc_column\]/i', '</div><!-- /wp:column -->', $content);
-    $content = preg_replace('/\[\/?vc_column_text[^\]]*\]/i', '', $content);
-
-    // 3. vc_single_image
-    $content = preg_replace_callback(
-        '/\[vc_single_image(?:\s+[^\]]*?image=["\'](\d+)["\'])?[^\]]*\]/i',
-        function ($matches) {
-            $img_id = isset($matches[1]) ? (int) $matches[1] : 0;
-            return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image"><img src="" alt=""/></figure><!-- /wp:image -->';
-        },
-        $content
-    );
-
-    // 4. [caption]
-    $content = preg_replace_callback(
-        '/\[caption(?:\s+id=["\']([^"\']+)["\'])?(?:\s+align=["\']([^"\']+)["\'])?(?:\s+width=["\']([^"\']+)["\'])?[^\]]*\](.*?)\[\/caption\]/is',
-        function ($matches) {
-            $id_attr = isset($matches[1]) ? $matches[1] : '';
-            $img_id = (int) preg_replace('/\D/', '', $id_attr);
-            $inner = trim($matches[4]);
-
-            if (preg_match('/(<img[^>]+>)(.*)/is', $inner, $img_matches)) {
-                $img_tag = clean_image_tag($img_matches[1]);
-                $caption_text = trim(strip_tags($img_matches[2]));
-                return '<!-- wp:image {"id":' . $img_id . '} --><figure class="wp-block-image">' . $img_tag . '<figcaption>' . htmlspecialchars($caption_text, ENT_QUOTES, 'UTF-8') . '</figcaption></figure><!-- /wp:image -->';
-            }
-
-            return '<!-- wp:image --><figure class="wp-block-image">' . clean_image_tag($inner) . '</figure><!-- /wp:image -->';
-        },
-        $content
-    );
-
-    return $content;
+    $transformer = new ContentTransformer();
+    return $transformer->transformWpbakeryAndCaption((string)$content, $mysqli);
 }
 
 // ----------------------------------------------------------------------
@@ -612,8 +468,8 @@ while ($row = $res->fetch_assoc()) {
         // Optimized Sequence: 3A -> 3B -> 3C -> 3D -> 3G -> 3F -> 3E
         $content = step_3a_transform_sliders($original_content, $id);
         $content = step_3b_transform_testimonials($content);
-        $content = step_3c_transform_vc_posts_grid($content);
-        $content = step_3d_transform_wpbakery_and_caption($content);
+        $content = step_3c_transform_vc_posts_grid($content, $id);
+        $content = step_3d_transform_wpbakery_and_caption($content, $mysqli);
         $content = step_3g_transform_media_and_plugins($content);
         $content = step_3f_process_classic_html($content);
         $content = step_3e_transform_residual_shortcodes($content);
