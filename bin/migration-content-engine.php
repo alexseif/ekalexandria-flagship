@@ -447,7 +447,7 @@ function step_3e_transform_residual_shortcodes($content)
     $content = preg_replace('/\[\/?vc_[^\]]*\]/', '', $content);
     $content = preg_replace('/\[\/?mfn_[^\]]*\]/', '', $content);
 
-    $ignored_tags = ['wp', 'caption', 'vc_row', 'vc_column', 'vc_column_text', 'vc_single_image', 'vc_raw_html', 'our_team', 'rev_slider', 'rev_slider_vc', 'layerslider', 'testimonials', 'vc_posts_grid', 'eka_mailchimp_form', 'polylang_langswitcher'];
+    $ignored_tags = ['wp', 'caption', 'vc_row', 'vc_column', 'vc_column_text', 'vc_single_image', 'vc_raw_html', 'our_team', 'rev_slider', 'rev_slider_vc', 'layerslider', 'testimonials', 'vc_posts_grid', 'eka_mailchimp_form', 'polylang_langswitcher', 'metadata', 'sigma', 'greek'];
 
     // Split content by Gutenberg HTML comments to prevent JSON attributes inside <!-- wp:... --> comments from being transformed
     $tokens = preg_split('/(<!--\s+\/?wp:[^>]+-->)/s', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -465,17 +465,27 @@ function step_3e_transform_residual_shortcodes($content)
             if ($in_block) {
                 $output .= $token;
             } else {
-                $output .= preg_replace_callback(
-                    '/\[([a-zA-Z0-9_-]+)([^\]]*)\]/s',
-                    function ($m) use ($ignored_tags) {
-                        $tag = strtolower($m[1]);
-                        if (in_array($tag, $ignored_tags, true)) {
-                            return $m[0];
-                        }
-                        return '<!-- wp:html -->' . $m[0] . '<!-- /wp:html -->';
-                    },
-                    $token
-                );
+                // Split by HTML tags to avoid modifying attributes like href="...search_coll[metadata]=1..."
+                $parts = preg_split('/(<[^>]+>)/s', $token, -1, PREG_SPLIT_DELIM_CAPTURE);
+                foreach ($parts as $part) {
+                    if (preg_match('/^<[^>]+>$/s', $part)) {
+                        // Inside an HTML tag - keep 100% untouched
+                        $output .= $part;
+                    } else {
+                        // Text outside HTML tags
+                        $output .= preg_replace_callback(
+                            '/\[([a-zA-Z0-9_-]+)([^\]]*)\]/s',
+                            function ($m) use ($ignored_tags) {
+                                $tag = strtolower($m[1]);
+                                if (in_array($tag, $ignored_tags, true)) {
+                                    return $m[0];
+                                }
+                                return '<!-- wp:html -->' . $m[0] . '<!-- /wp:html -->';
+                            },
+                            $part
+                        );
+                    }
+                }
             }
         }
     }
@@ -521,8 +531,11 @@ function convert_html_elements_to_blocks($html)
             return "<!-- wp:image{$json_attr} --><figure class=\"wp-block-image\">{$clean_img}</figure><!-- /wp:image -->";
         },
         '/<p(\s+[^>]*)?>(.*?)<\/p>/is' => function ($m) {
-            $tag_html = clean_html_inline_styles("<p" . ($m[1] ?? '') . ">{$m[2]}</p>");
-            return "<!-- wp:paragraph -->{$tag_html}<!-- /wp:paragraph -->";
+            $inner = trim($m[2]);
+            if (empty($inner) || $inner === '&nbsp;') {
+                return '';
+            }
+            return "<!-- wp:paragraph -->\n<p>{$inner}</p>\n<!-- /wp:paragraph -->";
         },
     ];
 
@@ -554,6 +567,10 @@ function step_3f_process_classic_html($content)
             if ($in_block) {
                 $output .= $token;
             } else {
+                if (function_exists('wpautop')) {
+                    $token = wpautop($token);
+                }
+                $token = preg_replace('/<p>\s*&nbsp;\s*<\/p>/i', '', $token);
                 $converted = convert_html_elements_to_blocks($token);
                 $output .= $converted;
             }
@@ -592,14 +609,14 @@ while ($row = $res->fetch_assoc()) {
         // Front page content extraction (remove all shortcodes, extract text, sanitize and convert to Gutenberg)
         $content = eka_process_front_page_content($original_content, $id);
     } else {
-        // Sequence 3A -> 3B -> 3C -> 3G -> 3D -> 3E -> 3F
+        // Optimized Sequence: 3A -> 3B -> 3C -> 3D -> 3G -> 3F -> 3E
         $content = step_3a_transform_sliders($original_content, $id);
         $content = step_3b_transform_testimonials($content);
         $content = step_3c_transform_vc_posts_grid($content);
-        $content = step_3g_transform_media_and_plugins($content);
         $content = step_3d_transform_wpbakery_and_caption($content);
-        $content = step_3e_transform_residual_shortcodes($content);
+        $content = step_3g_transform_media_and_plugins($content);
         $content = step_3f_process_classic_html($content);
+        $content = step_3e_transform_residual_shortcodes($content);
     }
 
     if ($content === $original_content) {
