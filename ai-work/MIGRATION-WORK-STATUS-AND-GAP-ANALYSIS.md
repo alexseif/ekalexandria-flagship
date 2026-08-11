@@ -114,7 +114,7 @@ The following tasks must be performed manually in WP Admin:
 | **`[our_team_list]`** | 1 | `[our_team_list]Member Text...` | **Remove completely** from post content (decoupled from `board_member` CPT). |
 | **Subpages Query Loop** | Un-converted | Raw `[16933]`, `[14]` outside blocks | Transform un-converted raw text shortcodes into subpages Query Loop blocks (`core/query` targeting `postType: "page"`). |
 | **Block Comment JSON Attributes (False Positive)** | 35 | `"include":[7399,7397,...]` inside `<!-- wp:query -->` | **Skip scanner processing inside `<!-- wp:... -->` HTML block comments**. Valid Gutenberg block parameters must not be logged as missed shortcodes. |
-| **Bracketed Text False Positives** | 18 | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]` | **Exclude from shortcode regex transformer** to preserve inline text content without breaking HTML. |
+| **Bracketed Text & URL Parameter False Positives** | 19 | `[Sigma]`, `[Greek]`, `[during World War II]`, `[5.4 acres]`, `search_coll[metadata]=1` | **Exclude from shortcode regex transformer** to preserve inline text content and HTML link attribute URL parameters (such as `[metadata]` inside `href="..."`) without breaking HTML or creating false shortcodes. |
 
 ---
 

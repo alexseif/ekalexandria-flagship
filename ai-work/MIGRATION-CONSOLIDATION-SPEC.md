@@ -165,13 +165,15 @@ graph TD
 - `[vc_column width="1/3"]` → `<!-- wp:column {"width":"33.33%"} --><div class="wp-block-column" style="flex-basis: 33.33%;">`
 - `[caption id="attachment_123" align="aligncenter" width="300"]<img .../> Caption text[/caption]` → `<!-- wp:image {"id":123} --><figure class="wp-block-image"><img .../><figcaption>Caption text</figcaption></figure><!-- /wp:image -->`
 
-#### Step 3E: Residual Shortcode Clean-Up
+#### Step 3E: Residual Shortcode Clean-Up & Attribute Bracket Exclusion
 - Strips all unhandled `[/vc_*]` and `[/mfn_*]` tags.
-- Wraps any unrecognized 3rd-party shortcode in `<!-- wp:html -->[shortcode]<!-- /wp:html -->`.
+- Wraps unrecognized 3rd-party shortcodes in `<!-- wp:html -->[shortcode]<!-- /wp:html -->`.
+- **HTML Attribute Bracket Exclusion**: Strictly skips bracketed strings located inside HTML tag attribute values (such as `search_coll[metadata]=1` inside `href="..."`) to prevent link URL parameters from being wrapped or corrupted as false shortcodes.
 
-#### Step 3F: Classic HTML AST Block Conversion & CSS Sanitization
-- Parses post content for bare HTML elements.
-- Applies FSE property allowlist (`color`, `background-color`, `font-size`, `text-align`, `margin`, `padding`, `border`) to sanitize inline styles.
+#### Step 3F: Classic HTML AST Block Conversion, Line Break Normalization & CSS Sanitization
+- Front page IDs (`13236`, `16894`, `16892`) strip hero sliders and query grids, extracting body welcome text into Gutenberg paragraph blocks.
+- Classic editor plain text lines separated by line breaks (`\n`, `\n\n`) outside block comments are normalized via `wpautop()` into `<p>` elements prior to block conversion.
+- Paragraph tags `<p>` have inline `style="..."` attributes (such as `style="text-align: justify;"`) stripped, producing clean `<p>` markup wrapped inside `<!-- wp:paragraph -->` blocks.
 - Validates transformed content via `eka_validate_blocks_ast()`.
 
 #### Step 3G: Transient Clean-Up

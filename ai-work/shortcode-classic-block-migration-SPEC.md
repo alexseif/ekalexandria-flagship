@@ -74,8 +74,12 @@ Build a 100% deterministic, zero-AI, programmatic 2-stage PHP migration engine t
   5. Converts bare `<ul>...</ul>` / `<ol>...ol>` $\rightarrow$ `<!-- wp:list --><ul/ol>...<ul/ol><!-- /wp:list -->`
   6. Converts bare `<table>...</table>` $\rightarrow$ `<!-- wp:table --><figure class="wp-block-table"><table>...</table></figure><!-- /wp:table -->`
   7. Converts bare `<blockquote>...</blockquote>` $\rightarrow$ `<!-- wp:quote --><blockquote class="wp-block-quote">...</blockquote><!-- /wp:quote -->`
-  8. **FSE Style Filtering:** Filters `style="..."` attributes via `sanitize_inline_styles_fse()` on converted elements.
-  9. Performs inline `parse_blocks()` check before saving.
+  8. **Front Page Welcome Text Extraction:** Front page IDs (`13236` EL, `16894` EN, `16892` AR) strip all hero sliders, shortcodes, and query grid wrappers, extracting the welcome body text cleanly into Gutenberg paragraph blocks across all 3 languages.
+  9. **Classic Plain Text Line Break Normalization (`wpautop`):** Un-annotated classic editor plain text lines separated by line breaks (`\n`, `\n\n`) outside block comments are normalized via `wpautop()` into `<p>` elements prior to block conversion.
+  10. **Paragraph Inline Style Stripping:** Inline `style="..."` attributes on `<p>` tags (e.g. `style="text-align: justify;"`) are stripped to produce clean `<p>` markup inside `<!-- wp:paragraph -->` blocks.
+  11. **HTML Attribute Bracket False-Positive Exclusion:** Brackets `[...]` inside HTML tag attributes (such as `href="...search_coll[metadata]=1..."`) are strictly ignored during shortcode scanning and preserved as raw HTML attributes without shortcode transformation or `<!-- wp:html -->` wrapping.
+  12. **FSE Style Filtering:** Filters `style="..."` attributes via `sanitize_inline_styles_fse()` on converted layout elements.
+  13. Performs inline `parse_blocks()` check before saving.
 
 ---
 
