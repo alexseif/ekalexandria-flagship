@@ -88,26 +88,32 @@ fi
 echo "Resolving plugin vendor autoloader class hash mismatches..."
 MAILCHIMP_STATIC="$WP_DIR/wp-content/plugins/mailchimp/vendor/composer/autoload_static.php"
 MAILCHIMP_REAL="$WP_DIR/wp-content/plugins/mailchimp/vendor/composer/autoload_real.php"
+MAILCHIMP_AUTOLOAD="$WP_DIR/wp-content/plugins/mailchimp/vendor/autoload.php"
 if [ -f "$MAILCHIMP_STATIC" ] && [ -f "$MAILCHIMP_REAL" ]; then
     echo "Patching Mailchimp static and real autoloader class hashes..."
     sed -i 's/ComposerStaticInit5b8fa284bf852263974f1227edb89665/ComposerStaticInitb4631e7ae4a2f6a3795a92a813440087/g' "$MAILCHIMP_STATIC"
     sed -i 's/5b8fa284bf852263974f1227edb89665/b4631e7ae4a2f6a3795a92a813440087/g' "$MAILCHIMP_REAL"
+    if [ -f "$MAILCHIMP_AUTOLOAD" ]; then sed -i 's/5b8fa284bf852263974f1227edb89665/b4631e7ae4a2f6a3795a92a813440087/g' "$MAILCHIMP_AUTOLOAD"; fi
 fi
 
 RANKMATH_STATIC="$WP_DIR/wp-content/plugins/seo-by-rank-math/vendor/composer/autoload_static.php"
 RANKMATH_REAL="$WP_DIR/wp-content/plugins/seo-by-rank-math/vendor/composer/autoload_real.php"
+RANKMATH_AUTOLOAD="$WP_DIR/wp-content/plugins/seo-by-rank-math/vendor/autoload.php"
 if [ -f "$RANKMATH_STATIC" ] && [ -f "$RANKMATH_REAL" ]; then
     echo "Patching Rank Math static and real autoloader class hashes..."
     sed -i 's/ComposerStaticInitc44c881a49042a2b69184cda4e913269/ComposerStaticInitfb8c499ed3b75d2fff76f9fff9e92982/g' "$RANKMATH_STATIC"
     sed -i 's/c44c881a49042a2b69184cda4e913269/fb8c499ed3b75d2fff76f9fff9e92982/g' "$RANKMATH_REAL"
+    if [ -f "$RANKMATH_AUTOLOAD" ]; then sed -i 's/c44c881a49042a2b69184cda4e913269/fb8c499ed3b75d2fff76f9fff9e92982/g' "$RANKMATH_AUTOLOAD"; fi
 fi
 
 POLYLANG_STATIC="$WP_DIR/wp-content/plugins/polylang/vendor/composer/autoload_static.php"
 POLYLANG_REAL="$WP_DIR/wp-content/plugins/polylang/vendor/composer/autoload_real.php"
+POLYLANG_AUTOLOAD="$WP_DIR/wp-content/plugins/polylang/vendor/autoload.php"
 if [ -f "$POLYLANG_STATIC" ] && [ -f "$POLYLANG_REAL" ]; then
     echo "Patching Polylang static and real autoloader class hashes..."
     sed -i 's/ComposerStaticInited5bec60c42d525a1c1222212c9f9cff/ComposerStaticInit8f862f0d8b75b7170c1f5eb4256b99b4/g' "$POLYLANG_STATIC"
     sed -i 's/ed5bec60c42d525a1c1222212c9f9cff/8f862f0d8b75b7170c1f5eb4256b99b4/g' "$POLYLANG_REAL"
+    if [ -f "$POLYLANG_AUTOLOAD" ]; then sed -i 's/ed5bec60c42d525a1c1222212c9f9cff/8f862f0d8b75b7170c1f5eb4256b99b4/g' "$POLYLANG_AUTOLOAD"; fi
 fi
 
 # 9. Verify WP-CLI Connection
