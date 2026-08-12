@@ -181,10 +181,11 @@ add_action('init', function () {
             'menu_name' => 'Board Members',
         ],
         'public' => true,
-        'publicly_queryable' => false,
-        'has_archive' => false,
+        'publicly_queryable' => true,
+        'has_archive' => true,
         'show_in_rest' => true,
         'supports' => ['title', 'editor', 'thumbnail', 'page-attributes'],
+        'rewrite' => ['slug' => 'διοικητικό-συμβούλιο', 'with_front' => false],
         'menu_icon' => 'dashicons-groups',
     ]);
 
