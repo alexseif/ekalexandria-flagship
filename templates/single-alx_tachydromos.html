@@ -1,12 +1,17 @@
-<!-- wp:template-part {"slug":"header","area":"header"} /-->
+<!-- wp:template-part {"slug":"header","theme":"ekalexandria-flagship","area":"header"} /-->
 
 <!-- wp:group {"tagName":"main","className":"site-content eka-tachydromos-single","layout":{"type":"constrained"}} -->
-<main class="wp-block-group site-content eka-tachydromos-single">
-	<!-- wp:post-title {"level":1} /-->
-	<!-- wp:post-date /-->
-	<!-- wp:post-featured-image /-->
+<main class="wp-block-group site-content eka-tachydromos-single"><!-- wp:breadcrumbs /-->
+
+	<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+	<div class="wp-block-group"><!-- wp:post-title {"level":1} /-->
+
+		<!-- wp:post-date {"format":"F, Y","metadata":{"bindings":{"datetime":{"source":"core/post-data","args":{"field":"date"}}}}} /-->
+	</div>
+	<!-- /wp:group -->
+
 	<!-- wp:post-content /-->
 </main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer","theme":"ekalexandria-flagship","area":"footer"} /-->
