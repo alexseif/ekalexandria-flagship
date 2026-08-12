@@ -61,6 +61,7 @@ if [ -d "$PROD_DIR/public" ]; then
     echo "Synchronizing staging files from production baseline ($PROD_DIR/public)..."
     rsync -av --delete \
         --exclude='wp-config.php' \
+        --exclude='wp-content/uploads/***' \
         --exclude='wp-content/themes/ekalexandria-flagship/***' \
         "$PROD_DIR/public/" "$STAGING_DIR/public/"
 fi
