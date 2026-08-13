@@ -1,5 +1,10 @@
 #!/bin/bash
 # bin/01-reset-and-setup.sh
+# [DEPRECATED FOR PRODUCTION] 
+# This script contains destructive staging commands (db drop, rsync).
+echo "CRITICAL ERROR: 01-reset-and-setup.sh is disabled. Use bin/deploy-production.sh for production cutover."
+exit 1
+
 # Staging Environment Reset, Theme Activation & Plugin Cleanup Script
 # Preserves: wp-config.php, all flagship theme files (wp-content/themes/ekalexandria-flagship/***), etc.
 # Targets: /var/www/backstage.ekalexandria.org (DB: backstage_eka)

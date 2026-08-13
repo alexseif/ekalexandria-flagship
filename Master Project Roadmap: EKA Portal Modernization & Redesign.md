@@ -29,21 +29,21 @@ This document outlines the step-by-step master plan to modernize the digital inf
 ## Phase 3: Legacy Layout Extraction & Replication (Pivot)
 *Objective: As design approvals for modernization have been pending since June 28, we are proceeding with a strict 1:1 visual replication of the existing website's layout. This unblocks the critical technical upgrades while maintaining the familiar aesthetic.*
 
-*   [ ] **Task 3.1: Style Extraction & Variable Mapping**
+*   [x] **Task 3.1: Style Extraction & Variable Mapping**
     *   Extract typography, colors, and layout widths from the live ekalexandria.org site to establish the foundation for `theme.json` and block settings.
-*   [ ] **Task 3.2: Legacy Structural Replication**
+*   [x] **Task 3.2: Legacy Structural Replication**
     *   Map existing Homepage, Internal Pages, and News/Category layouts to native block patterns without altering the original visual aesthetic.
-*   [ ] **Task 3.3: Specialty Page Development**
+*   [x] **Task 3.3: Specialty Page Development**
     *   Implement structural layouts for the Tachydrómos Newsletter archive and Board of Directors pages within the legacy visual constraints.
-*   [ ] **Task 3.4: Third-Party Plugin Mitigation**
+*   [x] **Task 3.4: Third-Party Plugin Mitigation**
     *   Replace legacy embedded elements (like LayerSlider) with modern, lightweight equivalents (e.g., Carousel Block) that visually match the original design.
 
 ## Phase 4: Greenfield Theme Development (The Flagship Block Core)
 *Objective: Build a custom, high-purity, modern WordPress theme from absolute scratch using strict engineering standards.*
 
-*   [ ] **Task 4.1: Structural Theme Scaffolding**
+*   [x] **Task 4.1: Structural Theme Scaffolding**
     *   Initialize a completely blank, lightweight, block-native theme architecture (`theme.json`) completely independent of legacy visual builders.
-*   [ ] **Task 4.2: SCSS Style Architecture Setup**
+*   [x] **Task 4.2: SCSS Style Architecture Setup**
     *   Establish a clean, compiled style ecosystem (SCSS) to govern typography scales, spacing tokens, and color profiles globally without inline code bloat.
 *   [x] **Task 4.3: High-Performance Page Templates**
     *   Translate approved visual designs into optimized block layouts for the homepage, inner content, and operational views.
@@ -67,9 +67,9 @@ This document outlines the step-by-step master plan to modernize the digital inf
 
 *   [x] **Task 6.1: Legacy Data Transformation Scripting**
     *   Execute targeted script operations to map old post formats into clean, standardized block patterns (e.g., migrating legacy shortcode grids into native Gutenberg blocks and CPTs for Newsletters and Board Members).
-*   [ ] **Task 6.2: Database Cleanup & Schema Alignment**
+*   [x] **Task 6.2: Database Cleanup & Schema Alignment**
     *   Purge historical plugin remnants, clear junk metadata, and optimize database indexing across the 400+ MB file ledger to stabilize table performance.
-*   [ ] **Task 6.3: Multi-Language Validation Drill**
+*   [x] **Task 6.3: Multi-Language Validation Drill**
     *   Stress-test the language switching integrity for all historic posts across English, Greek, and Arabic configurations.
 
 ## Phase 7: Production Cutover & Final Launch
