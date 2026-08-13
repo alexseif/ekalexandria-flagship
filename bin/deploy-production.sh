@@ -21,6 +21,9 @@ LOG_DIR="$THEME_DIR/ai-work/logs"
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/deploy-production.log"
 
+# Reset log file for fresh run
+: > "$LOG_FILE"
+
 # Setup logging to stdout and file simultaneously
 exec > >(tee -a "$LOG_FILE") 2>&1
 
@@ -45,6 +48,8 @@ WP_CLI_82="php8.2 $WP_BINARY"
 on_error() {
     local exit_code=$1
     local line_no=$2
+    sleep 1
+    sync
     echo ""
     echo "======================================================================"
     echo "❌ DEPLOYMENT FAILED at line $line_no with exit code $exit_code!"
@@ -111,6 +116,41 @@ run_command "echo '<?php \$upgrading = time(); ?>' > \"$WEB_ROOT/.maintenance\""
 log_step "3" "Immediate File Permissions & Ownership Fix"
 run_command "chown -R devops:www-data \"$WEB_ROOT\" 2>/dev/null || chown -R \$(whoami):www-data \"$WEB_ROOT\" 2>/dev/null || true"
 run_command "chmod -R u+w \"$WEB_ROOT/wp-content\" 2>/dev/null || true"
+
+log_step "3b" "Patch Plugin Vendor Autoloader Class Hash Mismatches & Fatal Errors"
+if [ -d "$WEB_ROOT/wp-content/plugins" ]; then
+    for plugin_dir in "$WEB_ROOT/wp-content/plugins"/*; do
+        if [ -d "$plugin_dir/vendor/composer" ]; then
+            STATIC_FILE="$plugin_dir/vendor/composer/autoload_static.php"
+            REAL_FILE="$plugin_dir/vendor/composer/autoload_real.php"
+            MAIN_AUTOLOAD="$plugin_dir/vendor/autoload.php"
+            if [ -f "$STATIC_FILE" ] && [ -f "$REAL_FILE" ]; then
+                STATIC_HASH=$(grep -oE 'ComposerStaticInit[a-f0-9]+' "$STATIC_FILE" 2>/dev/null | head -n 1 | sed 's/ComposerStaticInit//')
+                REAL_HASH=$(grep -oE 'ComposerAutoloaderInit[a-f0-9]+' "$REAL_FILE" 2>/dev/null | head -n 1 | sed 's/ComposerAutoloaderInit//')
+                if [ -n "$STATIC_HASH" ] && [ -n "$REAL_HASH" ] && [ "$STATIC_HASH" != "$REAL_HASH" ]; then
+                    run_command "sed -i 's/$REAL_HASH/$STATIC_HASH/g' \"$REAL_FILE\""
+                    if [ -f "$MAIN_AUTOLOAD" ]; then
+                        run_command "sed -i 's/$REAL_HASH/$STATIC_HASH/g' \"$MAIN_AUTOLOAD\""
+                    fi
+                fi
+            fi
+        fi
+    done
+fi
+
+POLYLANG_STATIC="$WEB_ROOT/wp-content/plugins/polylang/vendor/composer/autoload_static.php"
+POLYLANG_REAL="$WEB_ROOT/wp-content/plugins/polylang/vendor/composer/autoload_real.php"
+POLYLANG_AUTOLOAD="$WEB_ROOT/wp-content/plugins/polylang/vendor/autoload.php"
+if [ -f "$POLYLANG_STATIC" ] && [ -f "$POLYLANG_REAL" ]; then
+    run_command "sed -i 's/ComposerStaticInited5bec60c42d525a1c1222212c9f9cff/ComposerStaticInit8f862f0d8b75b7170c1f5eb4256b99b4/g' \"$POLYLANG_STATIC\" 2>/dev/null || true"
+    run_command "sed -i 's/ed5bec60c42d525a1c1222212c9f9cff/8f862f0d8b75b7170c1f5eb4256b99b4/g' \"$POLYLANG_REAL\" 2>/dev/null || true"
+    if [ -f "$POLYLANG_AUTOLOAD" ]; then run_command "sed -i 's/ed5bec60c42d525a1c1222212c9f9cff/8f862f0d8b75b7170c1f5eb4256b99b4/g' \"$POLYLANG_AUTOLOAD\" 2>/dev/null || true"; fi
+fi
+
+VC_FILE="$WEB_ROOT/wp-content/plugins/js_composer/include/classes/editors/class-vc-frontend-editor.php"
+if [ -f "$VC_FILE" ]; then
+    run_command "sed -i 's/\$mode === \$key \? '\'' vc_active'\'' : \$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'' \? '\'\'': '\'' vc_st_hidden'\''/((\$mode === \$key) ? '\'' vc_active'\'' : ((\$key === '\''default'\'' \&\& \$mode \!== '\''desktop'\'') ? '\'\'': '\'' vc_st_hidden'\''))/g' \"$VC_FILE\" 2>/dev/null || true"
+fi
 
 log_step "4" "Theme Swap & Legacy Theme Removal"
 run_command "$WP_CLI_74 theme activate ekalexandria-flagship --path=\"$WEB_ROOT\""

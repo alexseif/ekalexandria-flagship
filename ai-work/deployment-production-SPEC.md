@@ -33,6 +33,7 @@ Because legacy plugins (WPBakery/js_composer, LayerSlider, etc.) trigger fatal e
 | **1** | **Safety Backups** | N/A | Generates `.sql` dump and `.tar.gz` archive in `/var/www/ekalexandria.org/`. |
 | **2** | **Maintenance Mode** | N/A | Drops `/var/www/ekalexandria.org/public/.maintenance` to serve a 503 page and block traffic. |
 | **3** | **Permissions Fix** | N/A | Runs `chown -R devops:www-data /var/www/ekalexandria.org/public` and sets write access. |
+| **3b**| **Autoloader & Plugin Patching** | N/A | Dynamically repairs plugin vendor autoloader class hash mismatches (Polylang, Mailchimp, RankMath) & WPBakery PHP 7.4/8.0+ errors. |
 | **4** | **Theme Swap & Logo** | `php7.4` | Activates `ekalexandria-flagship`, sets logo ID `63053`, and deletes legacy `betheme`. |
 | **5** | **CPT Migration** | `php7.4` | Runs `bin/migrate-cpts.php` to migrate Tachydromos PDFs and Board Members. |
 | **6** | **Legacy Plugin Deletion**| `php7.4` | Deactivates & uninstalls WPBakery, LayerSlider, W3TC, RankMath/SEO, etc., and `rm -rf`s folders. |
