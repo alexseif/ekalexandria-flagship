@@ -11,7 +11,6 @@ for arg in "$@"; do
     case $arg in
         --dry-run|--test)
             DRY_RUN=true
-            shift
             ;;
     esac
 done
@@ -39,8 +38,9 @@ echo "======================================================================"
 WEB_ROOT="$(cd "$THEME_DIR/../../.." 2>/dev/null && pwd || echo "/var/www/ekalexandria.org/public")"
 BACKUP_DIR="$(dirname "$WEB_ROOT" 2>/dev/null || echo "/var/www/ekalexandria.org")"
 
-WP_CLI_74="php7.4 $(which wp 2>/dev/null || echo "wp")"
-WP_CLI_82="php8.2 $(which wp 2>/dev/null || echo "wp")"
+WP_BINARY="$(command -v wp 2>/dev/null || echo "wp")"
+WP_CLI_74="php7.4 $WP_BINARY"
+WP_CLI_82="php8.2 $WP_BINARY"
 
 on_error() {
     local exit_code=$1
@@ -103,7 +103,7 @@ FILE_BACKUP_FILE="$BACKUP_DIR/eka_prod_files_backup_$TIMESTAMP.tar.gz"
 
 log_step "1" "Create Full Safety Backups (Database & Filesystem Archive)"
 run_command "$WP_CLI_74 db export \"$DB_BACKUP_FILE\" --path=\"$WEB_ROOT\""
-run_command "tar -czf \"$FILE_BACKUP_FILE\" --exclude='wp-content/uploads' -C \"$BACKUP_DIR\" \"$(basename "$WEB_ROOT")\""
+run_command "tar -czf \"$FILE_BACKUP_FILE\" --exclude='*wp-content/uploads*' -C \"$BACKUP_DIR\" \"$(basename "$WEB_ROOT")\""
 
 log_step "2" "Enable Site Maintenance Mode"
 run_command "echo '<?php \$upgrading = time(); ?>' > \"$WEB_ROOT/.maintenance\""
@@ -120,11 +120,9 @@ run_command "$WP_CLI_74 theme delete betheme --path=\"$WEB_ROOT\" 2>/dev/null ||
 run_command "rm -rf \"$WEB_ROOT/wp-content/themes/betheme\""
 
 log_step "5" "Execute Custom Post Type (CPT) Migration"
-run_command "php7.4 \"$THEME_DIR/bin/migrate-cpts.php\""
+run_command "$WP_CLI_74 eval-file \"$THEME_DIR/bin/migrate-cpts.php\" --path=\"$WEB_ROOT\""
 
 log_step "6" "Deactivate & Uninstall Legacy Plugins"
-run_command "$WP_CLI_74 plugin deactivate google-captcha --path=\"$WEB_ROOT\" 2>/dev/null || true"
-
 PLUGINS_TO_DELETE=("LayerSlider" "js_composer" "display-posts-shortcode" "force-regenerate-thumbnails" "ewww-image-optimizer" "wordpress-seo" "w3-total-cache" "google-captcha")
 for plugin in "${PLUGINS_TO_DELETE[@]}"; do
     run_command "$WP_CLI_74 plugin deactivate \"$plugin\" --path=\"$WEB_ROOT\" 2>/dev/null || true"
@@ -144,13 +142,13 @@ log_step "8" "Native OPcache Reset (PHP 8.2)"
 run_command "$WP_CLI_82 eval 'if(function_exists(\"opcache_reset\")) opcache_reset();' --path=\"$WEB_ROOT\""
 
 log_step "9" "Execute Content Engine Stage 02 Gutenberg Block Transformation"
-run_command "php8.2 \"$THEME_DIR/bin/migration-content-engine.php\" --skip-plugins"
+run_command "$WP_CLI_82 eval-file \"$THEME_DIR/bin/migration-content-engine.php\" --path=\"$WEB_ROOT\" --skip-plugins"
 
 log_step "10" "Execute Stage 03 Page Template Assignment"
-run_command "php8.2 \"$THEME_DIR/bin/assign-page-templates.php\""
+run_command "$WP_CLI_82 eval-file \"$THEME_DIR/bin/assign-page-templates.php\" --path=\"$WEB_ROOT\""
 
 log_step "11" "Execute Stage 03 Classic Menu to FSE Navigation Migration"
-run_command "php8.2 \"$THEME_DIR/bin/migrate-classic-menus-to-fse.php\""
+run_command "$WP_CLI_82 eval-file \"$THEME_DIR/bin/migrate-classic-menus-to-fse.php\" --path=\"$WEB_ROOT\""
 
 log_step "12" "Final Permalinks Flush, Object Cache Clear & Maintenance Lift"
 run_command "$WP_CLI_82 rewrite flush --path=\"$WEB_ROOT\""
