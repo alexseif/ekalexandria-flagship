@@ -103,7 +103,11 @@ function eka_render_homepage_services_grid($attributes)
 			echo '<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow post-' . get_the_ID() . ' page type-page status-publish has-post-thumbnail hentry">';
 			echo '<h2 class="wp-block-post-title"><a href="' . esc_url(get_permalink()) . '" target="_self">' . esc_html(get_the_title()) . '</a></h2>';
 			if (has_post_thumbnail()) {
-				echo '<figure style="aspect-ratio:16/9" class="wp-block-post-featured-image"><a href="' . esc_url(get_permalink()) . '" target="_self"><img width="237" height="300" src="' . get_the_post_thumbnail_url(get_the_ID(), 'medium') . '" class="attachment-medium size-medium wp-post-image" alt="Ίδρυση" style="width:100%;height:100%;object-fit:cover;" decoding="async" loading="lazy"></a></figure>';
+				$thumb_html = get_the_post_thumbnail(get_the_ID(), 'large', [
+					'style'   => 'width:100%;height:100%;object-fit:cover;',
+					'loading' => 'lazy',
+				]);
+				echo '<figure style="aspect-ratio:16/9;margin:0 0 0.75rem 0;overflow:hidden;border-radius:4px;" class="wp-block-post-featured-image"><a href="' . esc_url(get_permalink()) . '" target="_self">' . $thumb_html . '</a></figure>';
 			}
 			echo '<div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">' . wp_kses_post(get_the_excerpt()) . '</p></div>';
 			echo '</div>';

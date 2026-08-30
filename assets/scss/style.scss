@@ -18,11 +18,39 @@ body,
     font-family: var(--wp--preset--font-family--body, 'Roboto', sans-serif);
 }
 
+/* Responsive Mobile View Margins & Edge Spacing */
+@media (max-width: 960px) {
+    .wp-site-blocks,
+    .site-content,
+    .wp-block-group.is-layout-constrained,
+    .wp-block-group.has-global-padding,
+    .wp-block-post-content,
+    main.wp-block-group {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+}
 
-/* Header Logo Sizing */
-.eka-logo img {
-    height: 4.0625rem;
-    width: auto;
+/* Header Logo & Site Name */
+.eka-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    text-decoration: none;
+
+    img {
+        height: 4.0625rem;
+        width: auto;
+    }
+
+    .eka-site-name {
+        font-family: var(--wp--preset--font-family--headings, "Patua One", sans-serif);
+        font-size: 1.1875rem;
+        font-weight: 600;
+        color: var(--wp--preset--color--headings, #444444);
+        line-height: 1.25;
+        margin: 0;
+    }
 }
 
 /* Compact Search Icon & Interactive Toggle Input */
@@ -219,42 +247,95 @@ body,
 /* --- Selected Pages 4-Column Grid --- */
 
 .homepage-pages-grid {
-    margin-bottom: 1.5rem;
-
-
+    margin-bottom: 2rem;
+    align-items: stretch;
 
     .wp-block-column {
-        padding: 0.5rem 0;
+        padding: 0.75rem 0.5rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
 
         .wp-block-post-title {
-            font-size: 1rem;
+            font-size: 1.0625rem;
             text-align: center;
-            min-height: 52px;
+            min-height: 3.25rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            margin: 0 0 0.75rem 0;
 
             a {
-                color: var(--wp--preset--color--text-default);
+                color: var(--wp--preset--color--headings, #444444);
+                text-decoration: none;
 
                 &:hover {
+                    color: var(--wp--preset--color--primary, #293e7a);
                     text-decoration: underline;
                 }
             }
         }
 
-        img {
-            border-radius: 4px;
+        .wp-block-post-featured-image {
+            margin: 0 0 0.75rem 0;
+            border-radius: 0.25rem;
+            overflow: hidden;
+
+            img {
+                border-radius: 0.25rem;
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover img {
+                transform: scale(1.03);
+            }
         }
 
         .wp-block-post-excerpt {
-            display: block;
-            // font-size: 0.875rem;
-            color: #555;
-            margin-top: 0.5rem;
-            // max-height: 155px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            color: #626262;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-top: 0;
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+}
+
+/* --- Single Post Navigation --- */
+.eka-post-navigation {
+    margin: 2.5rem 0 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 0.0625rem solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+
+    .wp-block-post-navigation-link {
+        font-size: 0.9375rem;
+        font-weight: 500;
+
+        a {
+            color: var(--wp--preset--color--primary, #293e7a);
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }
