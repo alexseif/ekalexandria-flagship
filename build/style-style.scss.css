@@ -16,14 +16,27 @@ body,
 
 /* Responsive Mobile View Margins & Edge Spacing */
 @media (max-width: 960px) {
-  .wp-site-blocks,
   .site-content,
-  .wp-block-group.is-layout-constrained,
-  .wp-block-group.has-global-padding,
-  .wp-block-post-content,
-  main.wp-block-group {
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
+  main.wp-block-group,
+  main.site-content,
+  .wp-block-post-content {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    box-sizing: border-box;
+  }
+  header.wp-block-group,
+  footer.wp-block-group,
+  header .alignfull,
+  footer .alignfull {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  header .wp-block-group > .wp-block-group,
+  footer .wp-block-group > .wp-block-group {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 /* Header Logo & Site Name */
