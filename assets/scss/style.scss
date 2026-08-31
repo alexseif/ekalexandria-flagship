@@ -18,9 +18,15 @@ body,
     font-family: var(--wp--preset--font-family--body, 'Roboto', sans-serif);
 }
 
-/* --- Header & Footer Width Layout (Desktop Base) --- */
-header.wp-block-group,
-footer.wp-block-group {
+h1,
+h1.wp-block-heading,
+h1.wp-block-post-title,
+.wp-block-post-title:is(h1) {
+    line-height: initial;
+}
+
+/* --- Header Layout (Desktop Base) --- */
+header.wp-block-group {
     width: 100%;
 
     .alignfull {
@@ -40,6 +46,23 @@ footer.wp-block-group {
             padding-right: 1.25rem;
             box-sizing: border-box;
         }
+    }
+}
+
+/* --- Footer Layout (Desktop Base) --- */
+footer.wp-block-group,
+footer.alignfull {
+    width: 100%;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    > .wp-block-group {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        box-sizing: border-box;
     }
 }
 

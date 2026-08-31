@@ -179,7 +179,8 @@
       },
       "h1": {
         "typography": {
-          "fontFamily": "var(--wp--preset--font-family--headings)"
+          "fontFamily": "var(--wp--preset--font-family--headings)",
+          "lineHeight": "initial"
         },
         "color": {
           "text": "var(--wp--preset--color--headings)"
